@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Account</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Account</shortDescription>
+        <value>Account</value>
+    </labels>
+    <labels>
+        <fullName>Add_Attachment</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Add Attachment</shortDescription>
+        <value>Add Attachment</value>
+    </labels>
+    <labels>
+        <fullName>Add_Comment</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Add Comment</shortDescription>
+        <value>Add Comment</value>
+    </labels>
+    <labels>
+        <fullName>All_Support_Requests</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>All Support Requests</shortDescription>
+        <value>All Support Requests</value>
+    </labels>
+    <labels>
+        <fullName>Attachment</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attachment</shortDescription>
+        <value>Attachment</value>
+    </labels>
+    <labels>
+        <fullName>Bulk_Load_In_Progress</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Should be set to true when bulk load is in progress</shortDescription>
+        <value>False</value>
+    </labels>
+    <labels>
+        <fullName>CIMplicity_JS_IIS_locale</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CIMplicity JS IIS locale</shortDescription>
+        <value>https://davwap0451.tfs.toyota.com/api/v1_0/integration.js</value>
+    </labels>
+    <labels>
+        <fullName>Cancel</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>Closed_Support_Requests</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Closed Support Requests</shortDescription>
+        <value>Closed Support Requests</value>
+    </labels>
+    <labels>
+        <fullName>Comment</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Comment</shortDescription>
+        <value>Comment</value>
+    </labels>
+    <labels>
+        <fullName>Comment_Details</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Comment Details</shortDescription>
+        <value>Comment Details</value>
+    </labels>
+    <labels>
+        <fullName>Comment_Limit</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Comment Limit</shortDescription>
+        <value>4,000 character limit</value>
+    </labels>
+    <labels>
+        <fullName>Comments</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Comments</shortDescription>
+        <value>Comments</value>
+    </labels>
+    <labels>
+        <fullName>Created_By</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Created By</shortDescription>
+        <value>Created By</value>
+    </labels>
+    <labels>
+        <fullName>Description_Limit</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description Limit</shortDescription>
+        <value>2,000 character limit</value>
+    </labels>
+    <labels>
+        <fullName>Details</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Details</shortDescription>
+        <value>Details</value>
+    </labels>
+    <labels>
+        <fullName>Due_Date_Change_Request</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Due Date Change Request</shortDescription>
+        <value>Due Date Change Request</value>
+    </labels>
+    <labels>
+        <fullName>File_Attachments</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>File Attachments</shortDescription>
+        <value>File Attachments</value>
+    </labels>
+    <labels>
+        <fullName>File_Name</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>File Name</shortDescription>
+        <value>File Name</value>
+    </labels>
+    <labels>
+        <fullName>Inbox</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Inbox</shortDescription>
+        <value>Inbox</value>
+    </labels>
+    <labels>
+        <fullName>Invalid_Area_Codes</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Invalid Area Codes</shortDescription>
+        <value>011,144,177,199,200,204,211,226,242,244,246,250,264,268,277,284,289,299,300,306,311,340,343,344,345,377,399,400,403,411,416,418,438,441,450,456,473,477,499,500,514,519,544,555,577,581,587,599,600,604,611,613,644,647,649,664,670,671,677,684,699,700,705,709,710,711,744,758,767,778,780,784,787,799,807,809,811,819,822,829,833,844,867,868,869,876,880,881,882,899,900,902,905,911,939,944,977,</value>
+    </labels>
+    <labels>
+        <fullName>Last_Modified</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Last Modified</shortDescription>
+        <value>Last Modified</value>
+    </labels>
+    <labels>
+        <fullName>Last_Updated</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Last Updated</shortDescription>
+        <value>Last Updated</value>
+    </labels>
+    <labels>
+        <fullName>LineBreak</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LineBreak</shortDescription>
+        <value>-
+-</value>
+    </labels>
+    <labels>
+        <fullName>My_Support_Requests</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>My Support Requests</shortDescription>
+        <value>My Support Requests</value>
+    </labels>
+    <labels>
+        <fullName>New_Support_Request</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New Support Request</shortDescription>
+        <value>New Support Request</value>
+    </labels>
+    <labels>
+        <fullName>Newest</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Newest</shortDescription>
+        <value>Newest</value>
+    </labels>
+    <labels>
+        <fullName>Next_Due_Date</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Next Due Date</shortDescription>
+        <value>Next Due Date</value>
+    </labels>
+    <labels>
+        <fullName>No_Attachments</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No Attachments</shortDescription>
+        <value>No Attachments</value>
+    </labels>
+    <labels>
+        <fullName>No_Comments</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No Comments</shortDescription>
+        <value>No Comments</value>
+    </labels>
+    <labels>
+        <fullName>No_Support_Requests</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No Support Requests</shortDescription>
+        <value>No Support Requests</value>
+    </labels>
+    <labels>
+        <fullName>Open_Support_Requests</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Open Support Requests</shortDescription>
+        <value>Open Support Requests</value>
+    </labels>
+    <labels>
+        <fullName>Payment_Transaction_History_End_Point</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Payment Transaction History End Point</shortDescription>
+        <value>https://intsvcs-tst.services.toyotafinancial.com/TFS/Services/PaymentHistory</value>
+    </labels>
+    <labels>
+        <fullName>Profiles_to_allow_save_on_FAC</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Semicolon Delimited Profiles to allow save on FAC; Used in generating SRs.</shortDescription>
+        <value>API Only</value>
+    </labels>
+    <labels>
+        <fullName>Progress</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Progress</shortDescription>
+        <value>Progress</value>
+    </labels>
+    <labels>
+        <fullName>RL_Document_Generation_Endpoint</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>RL Document Generation Endpoint</shortDescription>
+        <value>https://intsvcs-tst.services.toyotafinancial.com/TFS/Services/RightsLetterForms</value>
+    </labels>
+    <labels>
+        <fullName>RL_Enable_Printing_and_Document_Generation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>RL Enable Printing and Document Generation</shortDescription>
+        <value>true</value>
+    </labels>
+    <labels>
+        <fullName>RL_Mail_Cutoff_Certified</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>RL Mail Cutoff - Certified (hour notice date advances for certified - 24-hour)</shortDescription>
+        <value>12</value>
+    </labels>
+    <labels>
+        <fullName>RL_Mail_Cutoff_Standard</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>RL Mail Cutoff - Standard (hour notice date advances - 24-hour clock)</shortDescription>
+        <value>14</value>
+    </labels>
+    <labels>
+        <fullName>Request_a_Due_Date_Change</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Request a Due Date Change</shortDescription>
+        <value>Request a Due Date Change</value>
+    </labels>
+    <labels>
+        <fullName>Signatory_States_Lease</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Signatory States - Lease</shortDescription>
+        <value>NY,WI</value>
+    </labels>
+    <labels>
+        <fullName>Signatory_States_Retail</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Signatory States - Retail</shortDescription>
+        <value>AR,HI,ME,MA,MT,NE,NV,NY,OH,PA,SD,TX,VT,WI,WY</value>
+    </labels>
+    <labels>
+        <fullName>Size</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Size</shortDescription>
+        <value>Size</value>
+    </labels>
+    <labels>
+        <fullName>Submit</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Submit</shortDescription>
+        <value>Submit</value>
+    </labels>
+    <labels>
+        <fullName>Support_Comment_Edit</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Support Comment Edit</shortDescription>
+        <value>Support Comment Edit</value>
+    </labels>
+    <labels>
+        <fullName>Support_Request</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Support Request</shortDescription>
+        <value>Support Request</value>
+    </labels>
+    <labels>
+        <fullName>Support_Request_Comments</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Support Request Comments</shortDescription>
+        <value>Support Request Comments</value>
+    </labels>
+    <labels>
+        <fullName>Support_Request_Details</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Support Request Details</shortDescription>
+        <value>Support Request Details</value>
+    </labels>
+    <labels>
+        <fullName>Support_Request_Edit</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Support Request Edit</shortDescription>
+        <value>Support Request Edit</value>
+    </labels>
+    <labels>
+        <fullName>Support_Request_Type</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Support Request Type</shortDescription>
+        <value>Support Request Type</value>
+    </labels>
+    <labels>
+        <fullName>Tax_Service_Endpoint</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Tax Service Endpoint</shortDescription>
+        <value>https://intsvcs-tst.services.toyotafinancial.com/TFS/Services/TaxService</value>
+    </labels>
+    <labels>
+        <fullName>Terms_and_Conditions</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Terms and Conditions</shortDescription>
+        <value>Terms and Conditions</value>
+    </labels>
+    <labels>
+        <fullName>United_Road_Endpoint</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>United Road Endpoint</shortDescription>
+        <value>https://intsvcs-tst.services.toyotafinancial.com/TFS/Services/TransportFees</value>
+    </labels>
+    <labels>
+        <fullName>back</fullName>
+        <categories>Communities</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>back</shortDescription>
+        <value>back</value>
+    </labels>
+</CustomLabels>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>blank page for default tab of customer community</description>
+    <label>Blank</label>
+    <mobileReady>false</mobileReady>
+    <motif>Custom23: Mail</motif>
+    <page>TFSC_BlankPage</page>
+</CustomTab>

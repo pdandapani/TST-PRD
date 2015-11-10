@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>BinderPage</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>BinderPages</value>
+    </caseValues>
+    <fields>
+        <label><!-- ArticleNumVersion --></label>
+        <name>ArticleNumVersion__c</name>
+    </fields>
+    <fields>
+        <label><!-- Article Number --></label>
+        <name>Article_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Binder --></label>
+        <name>Binder__c</name>
+        <relationshipLabel><!-- BinderPages --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Comment --></label>
+        <name>Comment__c</name>
+    </fields>
+    <fields>
+        <label><!-- FOPP --></label>
+        <name>FOPP__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Published Date --></label>
+        <name>First_Published_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Hierarchy --></label>
+        <name>Hierarchy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Knowledge Container Name --></label>
+        <name>Knowledge_Container_Name__c</name>
+        <relationshipLabel><!-- BinderPages --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Page Ref --></label>
+        <name>PageRef__c</name>
+    </fields>
+    <fields>
+        <label><!-- PageType --></label>
+        <name>PageType__c</name>
+        <picklistValues>
+            <masterLabel>Archived Article</masterLabel>
+            <translation><!-- Archived Article --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>KM Article</masterLabel>
+            <translation><!-- KM Article --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Salesforce File</masterLabel>
+            <translation><!-- Salesforce File --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Publish Status --></label>
+        <name>Publish_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Published on --></label>
+        <name>Published_on__c</name>
+    </fields>
+    <fields>
+        <label><!-- TitleSort --></label>
+        <name>TitleSort__c</name>
+    </fields>
+    <fields>
+        <label><!-- Title --></label>
+        <name>Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- Version # --></label>
+        <name>Version_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Articles Depot --></label>
+        <name>articleDepotId__c</name>
+        <relationshipLabel><!-- BinderPages --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- sequence --></label>
+        <name>sequence__c</name>
+    </fields>
+    <layouts>
+        <layout>BinderPage Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

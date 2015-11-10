@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Case Skills</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Case Skills</value>
+    </caseValues>
+    <fields>
+        <help><!-- The average number of cases a rights letter associate processes daily - helps determine ratio of cases to select for quality review (denominator) --></help>
+        <label><!-- RL Daily Case Bandwidth --></label>
+        <name>RL_Daily_Case_Bandwidth__c</name>
+    </fields>
+    <fields>
+        <help><!-- The average number of cases to select daily for quality review - helps determine ratio of cases to select (numerator) --></help>
+        <label><!-- RL Daily Cases for Quality Review --></label>
+        <name>RL_Daily_Cases_for_Quality_Review__c</name>
+    </fields>
+    <fields>
+        <help><!-- Fill the checkbox if the associate is qualified to process rights letters for leases --></help>
+        <label><!-- RL Lease --></label>
+        <name>RL_Lease__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check to require quality review for all rights letters generated. --></help>
+        <label><!-- RL New Hire --></label>
+        <name>RL_New_Hire__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter each state for which the associate is qualified to process rights letters on a separate line - for example:
+
+CA
+IL
+MD --></help>
+        <label><!-- RL State of Jurisdiction --></label>
+        <name>RL_State_of_Jurisdiction__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

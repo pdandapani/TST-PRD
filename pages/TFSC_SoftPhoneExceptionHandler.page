@@ -1,0 +1,176 @@
+<apex:page controller="TFSC_SoftPhoneExceptionController">
+    <!-- 
+        1) This page opens and informs the console manager that is has opened via dispatchHelloToConsoleManager()
+        2) Console manager sends the last AccountNumber from the soft phone back.
+        3) Page executes vfRemote to SOQL-search for account number
+            a) if FA record found, launch in new primary tab and close current primary tab
+            b) if no FA found, launch search using UnifiedSearch URL
+     -->
+     
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    <apex:includeScript value="{!$Resource.ctiEvents}"/>
+    
+    <script>
+        
+        function closeMe() {
+            sforce.console.getEnclosingPrimaryTabId( function(resultObj) {
+                    sforce.console.closeTab(resultObj.id);
+                }
+            );
+        }
+        
+        
+        
+        function tellConsoleThatLastCallWasRoutedAndNoAccountAdded(urlParamMap) {
+        	
+        	console.log('***ExceptionHandler no KVP_ACCTNUM; taking to search page.');
+        	
+        	var eventMessage = stringifyObjectForEventMessage(urlParamMap);
+        	
+        	sforce.console.fireEvent(CONSOLE_EVENTS_LAST_INTERACTION_IS_ROUTED_WITH_NO_ACCOUNT, eventMessage);
+        	
+        	//closeMe();
+        	
+        	var searchUrl = '/_ui/search/ui/UnifiedSearchResults?str=%22' + urlParamMap.KVP_ANI + '%22&initialViewMode=summary&searchAll=true&isWsvw=true&isdtp=vw' ;
+        	window.location = searchUrl;
+        }
+        
+        
+        
+        
+        function getUrlParamsAndExecuteSearch() {
+        	var currentUrl = window.location.href;
+        	// ?CIMDSK_InteractionID=VI-b49b51a9351d4e2bb3e15019d40403a4&KVP_ACCTNUM=010272HB999&GSW_CAMPAIGN_NAME=SF_DEV_1A&nonce=649a59add0fd5a2f77ba0666d4e6a7209dc48cbdf65b394f16e6e1253e217251&isWsVw=true&sfdcIFrameOrigin=https%3A%2F%2Ftfs--dev6.cs1.my.salesforce.com&KVP_PHONETYPE=null&GSW_CALLING_LIST=null&GSW_DIAL_MODE=Preview&KVP_CONTACT_INFO=4802240439&isdtp=vw
+        	//KVP_ROUTED, KVP_ANI, GSW_DIAL_MODE, KVP_PHONETYPE, GSW_CAMPAIGN_NAME, 
+        	//GSW_CALLING_LIST, KVP_CONTACT_INFO, KVP_ACCTNUM, CIMDSK_InteractionID
+        	console.log('***ExceptionHandler currentUrl = ' + currentUrl);
+        	var urlParamMap = getUrlVarsAsObject(currentUrl);
+        	
+        	if(urlParamMap.KVP_ACCTNUM && urlParamMap.KVP_ACCTNUM == 'null') {
+				urlParamMap.KVP_ACCTNUM = '';
+			}
+        	
+        	if(urlParamMap.KVP_ACCTNUM && urlParamMap.KVP_ACCTNUM.length > 0) {
+        		getFaidsFromAcctNum(urlParamMap.KVP_ACCTNUM);
+        	}else if(urlParamMap.KVP_ROUTED && urlParamMap.KVP_ROUTED == 'Y'){
+        		tellConsoleThatLastCallWasRoutedAndNoAccountAdded(urlParamMap);
+        	}else{
+        		closeMe();
+        	}
+        }
+        
+        
+        
+        function getFaidsFromAcctNum(acctNum) {
+        	console.log('***ExceptionHandler KVP_ACCTNUM populated. VF Remoting account search.');
+            if(acctNum && acctNum.length > 0) {
+                Visualforce.remoting.Manager.invokeAction('TFSC_SoftPhoneExceptionController.getFaidStringListFromAccountNumSearch', 
+                        acctNum, 
+                        function(result, event) {
+                            handleFaidSearchResult(result, event, acctNum);
+                        }
+                );
+            }else{
+                closeMe();
+            }
+        }
+        
+        function handleFaidSearchResult(result, event, acctNum) {
+        	console.log('***ExceptionHandler VF Remoting returned.');
+            if(event && event.status) {
+                if(result === null || result.length == 0 || result.length > 1) {
+                	console.log('***ExceptionHandler 0 || >1 results found.  Redirecting to search.');
+                    var searchUrl = '/_ui/search/ui/UnifiedSearchResults?str=%22' + acctNum + '%22&initialViewMode=summary&searchAll=true&isWsvw=true&isdtp=vw' ;
+                    window.location = searchUrl; 
+                }else if(result.length == 1) {
+                	console.log('***ExceptionHandler one result found.  Opening FA Tab.');
+                	var urlWithParams = '/' + result[0].Id ;
+                	urlWithParams += getUrlParamsString();
+                	console.log('***ExceptionHandler new tab url = ' + urlWithParams);
+                    openPrimaryTab(urlWithParams, result[0].Name, true);
+                    closeMe();
+                }
+            }else{
+                //alert(event.message);
+                closeMe();
+            }
+        }
+        
+        
+        function getUrlParamsString() {
+        	var strToReturn = '';
+        	var fullUrl = window.location.href ;
+        	var vars = {}, hash;
+        	//decodeURIComponent was failing
+        	fullUrl = fullUrl.replace(/%25/g, '%');
+			fullUrl = fullUrl.replace(/%3F/g, '&');
+			fullUrl = fullUrl.replace(/%26/g, '&');
+			fullUrl = fullUrl.replace(/%3D/g, '=');
+        	
+        	var bool = false;
+        	
+        	if(fullUrl.indexOf('?') > 0) {
+        		var hashes = fullUrl.slice(fullUrl.indexOf('?') + 1).split('&');
+        		var prop;
+        		if(hashes.length > 0) {
+        			strToReturn += '?';
+        			
+        			for(var i = 0; i < hashes.length; i++) {
+						hash = hashes[i].split('=');
+						prop = hash[0];
+						if(prop && prop != 'isdtp' && prop != 'isWsVw' && prop != 'sfdcIFrameOrigin' && prop != 'nonce') {
+							if(bool) {
+								strToReturn += '&';
+							}
+							strToReturn +=  prop + '=' + hash[1];
+							bool = true;
+						}
+					}
+				}
+        	}
+        	
+        	return strToReturn;
+        }
+        
+        function getUrlVarsAsObject(url)  {
+			var vars = {}, hash;
+			//decodeURIComponent was failing
+			url = url.replace(/%25/g, '%');
+			url = url.replace(/%3F/g, '?');
+			url = url.replace(/%26/g, '&');
+			url = url.replace(/%3D/g, '=');
+			
+			if(url.indexOf('?') > 0) {
+				var hashes = url.slice(url.indexOf('?') + 1).split('&');
+				var prop;
+				for(var i = 0; i < hashes.length; i++)
+				{
+					
+					hash = hashes[i].split('=');
+					prop = hash[0];
+					if(prop && prop != 'isdtp' && prop != 'isWsVw' && prop != 'sfdcIFrameOrigin' && prop != 'nonce') {
+						vars[prop] = hash[1];
+					}
+				}
+			}
+			return vars;
+		}
+        
+        
+        function openPrimaryTab(url, tabLabel, setFocus) {
+            sforce.console.openPrimaryTab(null, url, setFocus, tabLabel, null);
+        }
+        
+        
+        
+        
+        window.onload = function() {
+            getUrlParamsAndExecuteSearch();
+        }
+        
+    </script>
+    
+    
+    
+    
+</apex:page>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Document Request Line Item</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Document Request Line Items</value>
+    </caseValues>
+    <fields>
+        <label><!-- CoCustomer Address 1 --></label>
+        <name>CoCustomer_AddyAddress1__c</name>
+    </fields>
+    <fields>
+        <label><!-- CoCustomer Address 2 --></label>
+        <name>CoCustomer_AddyAddress2__c</name>
+    </fields>
+    <fields>
+        <label><!-- CoCustomer Address City --></label>
+        <name>CoCustomer_AddyCity__c</name>
+    </fields>
+    <fields>
+        <label><!-- CoCustomer Address State --></label>
+        <name>CoCustomer_AddyState__c</name>
+    </fields>
+    <fields>
+        <label><!-- CoCustomer Address Zip Code --></label>
+        <name>CoCustomer_AddyZip__c</name>
+    </fields>
+    <fields>
+        <label><!-- CoCustomer First Name --></label>
+        <name>CoCustomer_FirstName__c</name>
+    </fields>
+    <fields>
+        <label><!-- CoCustomer Last Name --></label>
+        <name>CoCustomer_LastName__c</name>
+    </fields>
+    <fields>
+        <label><!-- CoCustomer Middle Name --></label>
+        <name>CoCustomer_MiddleName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Document Request --></label>
+        <name>Document_Request__c</name>
+        <relationshipLabel><!-- Document Request Line Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Empty Field --></label>
+        <name>Empty_Field__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Charge --></label>
+        <name>OtherCharge_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Charge Description --></label>
+        <name>OtherCharge_Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Co-Customers</masterLabel>
+            <translation><!-- Co-Customers --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other Charges</masterLabel>
+            <translation><!-- Other Charges --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Document Request Line Item Layout</layout>
+        <sections>
+            <label><!-- Co-Customer --></label>
+            <section>Co-Customer</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Other Charges --></label>
+            <section>Other Charges</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Km Chatter Log</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Km Chatter Logs</value>
+    </caseValues>
+    <fields>
+        <label><!-- ChatterText --></label>
+        <name>ChatterText__c</name>
+    </fields>
+    <fields>
+        <label><!-- Has #Feedback --></label>
+        <name>Has_Feedback_Tag__c</name>
+    </fields>
+    <fields>
+        <label><!-- Km Team Note --></label>
+        <name>Km_Team_Note__c</name>
+    </fields>
+    <fields>
+        <label><!-- Km team reviewed --></label>
+        <name>Km_team_reviewed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Knowledge Article --></label>
+        <name>Knowledge_Article__c</name>
+    </fields>
+    <fields>
+        <label><!-- Article Number --></label>
+        <name>articleNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- Title --></label>
+        <name>articleTitle__c</name>
+    </fields>
+    <fields>
+        <label><!-- Article Type --></label>
+        <name>articleType__c</name>
+    </fields>
+    <fields>
+        <label><!-- kavId --></label>
+        <name>kavId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Version Number --></label>
+        <name>versionNumber__c</name>
+    </fields>
+    <layouts>
+        <layout>Km Chatter Log Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Km Team Comment --></label>
+            <section>Km Team Comment</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

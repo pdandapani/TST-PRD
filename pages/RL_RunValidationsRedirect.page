@@ -1,0 +1,70 @@
+<apex:page standardController="Repossession__c" extensions="RL_RunValidationsRedirectController">
+	
+	<apex:includeScript value="{!$Resource.jquery}"/>
+    <apex:includeScript value="/support/console/31.0/integration.js"/>
+	
+	<script>
+		var $j = jQuery.noConflict();
+    	
+	    	
+    	$j(document).ready(function() {
+			//DOING THIS HERE INSTEAD OF A PAGE ACTION FOR UX 
+	    	//THE USER CAN SEE A SPINNER AND UNDERSTAND THAT SOMETHING IS HAPPENING.
+			executeValidations();
+        });
+		
+		
+		function goBack() {
+		    var url = '/{!Repossession__c.Id}';
+		    if(sforce.console.isInConsole()) {
+		        url += '?isdtp=vw';
+		    }
+		    
+		    window.location.href = url;
+		}
+		
+		function showMessageOrGoBack() {
+		    var errorVal = $j("#errDisplayText").val();
+		    $j("#spinnerDiv").hide();
+		    
+		    if(errorVal == null || errorVal == '' || errorVal == 'null') {
+		        setTimeout(function(){ goBack(); }, 1200);
+		    }else{
+		        $j("#goBackMessage").show();
+		    }
+		    
+		}
+		
+	</script>
+	
+	
+	
+	
+	
+	 <apex:form style="width:100%;height:100%;">
+	 	<apex:actionFunction name="executeValidations" action="{!executeValidations}" 
+                                 reRender="mainPanel"
+                                 oncomplete="showMessageOrGoBack();" />
+	 	
+	 	
+	 	<apex:outputPanel id="mainPanel" style="width:100%;height:100%;">
+	 		
+	 		<input id="errDisplayText" type="text" style="display:none;" value="{!errDisplayText}" />
+	 		
+	 		<apex:pageMessages id="messagePanel" />
+	 		
+	 		
+	 		<div id="goBackMessage" style="display:none;">
+                <a href="#" onclick="goBack();">Go Back</a>
+            </div>
+	 		
+	 		
+	 		<div id="spinnerDiv" style="position:absolute;width:350px;height:200px;left:40%;top:40%;">
+		        <apex:image value="/img/loading32.gif" style="padding-left:90px;padding-bottom:8px;" /><br />
+		        <span style="font-weight:bold;font-size:16px;">Executing Form Validations</span>
+		    </div>
+		    
+		</apex:outputPanel>
+	 
+	 </apex:form>
+</apex:page>

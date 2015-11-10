@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Activity Code</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Activity Code</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account Archive Category --></label>
+        <name>Account_Archive_Category__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Account Security Category --></label>
+        <name>Account_Security_Category__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account Statistics Category --></label>
+        <name>Account_Statistics_Category__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>10</masterLabel>
+            <translation><!-- 10 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>6</masterLabel>
+            <translation><!-- 6 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>7</masterLabel>
+            <translation><!-- 7 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>8</masterLabel>
+            <translation><!-- 8 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>9</masterLabel>
+            <translation><!-- 9 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Activity Code Type --></label>
+        <name>Activity_Code_Type__c</name>
+        <picklistValues>
+            <masterLabel>CMPE</masterLabel>
+            <translation><!-- CMPE --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>TBPE</masterLabel>
+            <translation><!-- TBPE --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>WUQ</masterLabel>
+            <translation><!-- WUQ --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Auto Review Date Adv --></label>
+        <name>Auto_Review_Date_Adv__c</name>
+    </fields>
+    <fields>
+        <label><!-- Auto Review Date Base --></label>
+        <name>Auto_Review_Date_Base__c</name>
+        <picklistValues>
+            <masterLabel>P</masterLabel>
+            <translation><!-- P --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T</masterLabel>
+            <translation><!-- T --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- CTI Activity --></label>
+        <name>CTI_Activity__c</name>
+    </fields>
+    <fields>
+        <label><!-- CTI Reason --></label>
+        <name>CTI_Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- CTI Result --></label>
+        <name>CTI_Result__c</name>
+    </fields>
+    <fields>
+        <label><!-- Collection Activity Code --></label>
+        <name>Collection_Activity_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Collection List Number --></label>
+        <name>Collection_List_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Default Letter Number --></label>
+        <name>Default_Letter_Number__c</name>
+        <picklistValues>
+            <masterLabel>0</masterLabel>
+            <translation><!-- 0 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Default Time Loop --></label>
+        <name>Default_Time_Loop__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Flag Active --></label>
+        <name>Flag_Active__c</name>
+    </fields>
+    <fields>
+        <label><!-- Flag Contact --></label>
+        <name>Flag_Contact__c</name>
+        <picklistValues>
+            <masterLabel>N</masterLabel>
+            <translation><!-- N --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Y</masterLabel>
+            <translation><!-- Y --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Flag Letter Required --></label>
+        <name>Flag_Letter_Required__c</name>
+        <picklistValues>
+            <masterLabel>D</masterLabel>
+            <translation><!-- D --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N</masterLabel>
+            <translation><!-- N --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>O</masterLabel>
+            <translation><!-- O --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>R</masterLabel>
+            <translation><!-- R --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Flag Notes  Required --></label>
+        <name>Flag_Notes_Required__c</name>
+    </fields>
+    <fields>
+        <label><!-- Flag Promise Required --></label>
+        <name>Flag_Promise_Required__c</name>
+    </fields>
+    <fields>
+        <label><!-- Flag Quick --></label>
+        <name>Flag_Quick__c</name>
+    </fields>
+    <fields>
+        <label><!-- Flag RPC --></label>
+        <name>Flag_RPC__c</name>
+    </fields>
+    <fields>
+        <label><!-- Flag Refer To Supervisor --></label>
+        <name>Flag_Refer_To_Supervisor__c</name>
+        <picklistValues>
+            <masterLabel>B</masterLabel>
+            <translation><!-- B --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>C</masterLabel>
+            <translation><!-- C --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>L</masterLabel>
+            <translation><!-- L --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N</masterLabel>
+            <translation><!-- N --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>R</masterLabel>
+            <translation><!-- R --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>S</masterLabel>
+            <translation><!-- S --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Flag Skip --></label>
+        <name>Flag_Skip__c</name>
+    </fields>
+    <fields>
+        <label><!-- Flag Time Loop Allowed --></label>
+        <name>Flag_Time_Loop_Allowed__c</name>
+        <picklistValues>
+            <masterLabel>N</masterLabel>
+            <translation><!-- N --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Y</masterLabel>
+            <translation><!-- Y --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Last Maintenance Date --></label>
+        <name>Last_Maintenance_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Maintenance Bank --></label>
+        <name>Maintenance_Bank__c</name>
+    </fields>
+    <fields>
+        <label><!-- Maintenance Collection UserID --></label>
+        <name>Maintenance_Collection_UserID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Method --></label>
+        <name>Payment_Method__c</name>
+        <picklistValues>
+            <masterLabel>CheckFree Pay</masterLabel>
+            <translation><!-- CheckFree Pay --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EPAY</masterLabel>
+            <translation><!-- EPAY --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IVR</masterLabel>
+            <translation><!-- IVR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mail</masterLabel>
+            <translation><!-- Mail --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Misapplied</masterLabel>
+            <translation><!-- Misapplied --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mobile Click to Pay</masterLabel>
+            <translation><!-- Mobile Click to Pay --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>None</masterLabel>
+            <translation><!-- None --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Online Banking</masterLabel>
+            <translation><!-- Online Banking --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Overnighted</masterLabel>
+            <translation><!-- Overnighted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>WUQC</masterLabel>
+            <translation><!-- WUQC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>WUSP</masterLabel>
+            <translation><!-- WUSP --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Phone Type --></label>
+        <name>Phone_Type__c</name>
+        <picklistValues>
+            <masterLabel>Home</masterLabel>
+            <translation><!-- Home --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mobile</masterLabel>
+            <translation><!-- Mobile --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Work</masterLabel>
+            <translation><!-- Work --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Promise Max Days --></label>
+        <name>Promise_Max_Days__c</name>
+    </fields>
+    <fields>
+        <label><!-- Promise Max Grace Days --></label>
+        <name>Promise_Max_Grace_Days__c</name>
+    </fields>
+    <fields>
+        <label><!-- Promise Minimum Amount --></label>
+        <name>Promise_Minimum_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Promise Minimum Percent --></label>
+        <name>Promise_Minimum_Percent__c</name>
+    </fields>
+    <fields>
+        <label><!-- Review Date Maxium Adv --></label>
+        <name>Review_Date_Maxium_Adv__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sort Order - Quick --></label>
+        <name>Sort_Order_Quick__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sort Order - RPC --></label>
+        <name>Sort_Order_RPC__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sort Order - Skip --></label>
+        <name>Sort_Order_Skip__c</name>
+    </fields>
+    <fields>
+        <label><!-- Talked To --></label>
+        <name>Talked_To__c</name>
+        <picklistValues>
+            <masterLabel>3P</masterLabel>
+            <translation><!-- 3P --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3P Auth</masterLabel>
+            <translation><!-- 3P Auth --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3P not auth</masterLabel>
+            <translation><!-- 3P not auth --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ATTY</masterLabel>
+            <translation><!-- ATTY --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CS</masterLabel>
+            <translation><!-- CS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CS &amp; CX</masterLabel>
+            <translation><!-- CS &amp; CX --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CX</masterLabel>
+            <translation><!-- CX --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DLR</masterLabel>
+            <translation><!-- DLR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NSS - SD WAS AUTH</masterLabel>
+            <translation><!-- NSS - SD WAS AUTH --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>REF</masterLabel>
+            <translation><!-- REF --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>TAGT</masterLabel>
+            <translation><!-- TAGT --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Activity Code Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Important for Host --></label>
+            <section>Important for Host</section>
+        </sections>
+        <sections>
+            <label><!-- More SFDC Config --></label>
+            <section>More SFDC Config</section>
+        </sections>
+        <sections>
+            <label><!-- Not Important --></label>
+            <section>Not Important</section>
+        </sections>
+        <sections>
+            <label><!-- Sort Order --></label>
+            <section>Sort Order</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

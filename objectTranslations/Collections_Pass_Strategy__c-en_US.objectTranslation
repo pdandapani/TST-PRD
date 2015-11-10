@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Collections Pass Strategy</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Collections Pass Strategy</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account Type --></label>
+        <name>Account_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Article Number --></label>
+        <name>Article_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- NotesReviewedTo --></label>
+        <name>NotesReviewedTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- RES# --></label>
+        <name>RES__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sort --></label>
+        <name>Sort__c</name>
+    </fields>
+    <fields>
+        <label><!-- Standard Note --></label>
+        <name>Standard_Note__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

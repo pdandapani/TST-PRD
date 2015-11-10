@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SamlSsoConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <identityLocation>SubjectNameId</identityLocation>
+    <identityMapping>FederationId</identityMapping>
+    <issuer>sf-sfprd-lfs-idp</issuer>
+    <loginUrl>https://my.lexusfinancial.com/affwebservices/public/saml2sso</loginUrl>
+    <name>LFSC_SSO</name>
+    <oauthTokenEndpoint>https://tfs--Dev7.cs23.my.salesforce.com/services/oauth2/token?so=00D180000001P5o</oauthTokenEndpoint>
+    <redirectBinding>true</redirectBinding>
+    <salesforceLoginUrl>https://tfs--Dev7.cs23.my.salesforce.com?so=00D180000001P5o</salesforceLoginUrl>
+    <samlEntityId>https://tmcc.force.com/lfs</samlEntityId>
+    <samlVersion>SAML2_0</samlVersion>
+    <userProvisioning>true</userProvisioning>
+    <validationCert>MIID4DCCAsigAwIBAgIJALh+ZnnyREkRMA0GCSqGSIb3DQEBBQUAMIGfMSwwKgYDVQQDEyNQcm9kIFNpdGVNaW5kZXIgU2lnbmluZyBDZXJ0aWZpY2F0ZTEQMA4GA1UECxMHVEZTL0JUUzEoMCYGA1UEChMfVG95b3RhIE1vdG9yIENyZWRpdCBDb3Jwb3JhdGlvbjERMA8GA1UEBxMIVG9ycmFuY2UxEzARBgNVBAgTCkNhbGlmb3JuaWExCzAJBgNVBAYTAlVTMB4XDTE0MDIxMDIwMTU1OVoXDTE5MDIwOTIwMTU1OVowgZ8xLDAqBgNVBAMTI1Byb2QgU2l0ZU1pbmRlciBTaWduaW5nIENlcnRpZmljYXRlMRAwDgYDVQQLEwdURlMvQlRTMSgwJgYDVQQKEx9Ub3lvdGEgTW90b3IgQ3JlZGl0IENvcnBvcmF0aW9uMREwDwYDVQQHEwhUb3JyYW5jZTETMBEGA1UECBMKQ2FsaWZvcm5pYTELMAkGA1UEBhMCVVMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDFOsv+uVntq8Tbk/uCDJ3V58Ez3DZUSQ4rjK6tShg3vQFiT+K4wPjaitq9GtNKDLg+zdo9sah56DY4vRot1j844Fut8UmoPauKhLMLksU4IeSHTXKMWlj9FHngrhzWQnO9pXydPv6pHUVq/vugtin5V1LeN6z5Lj7ldRuj1v8HlBPOEkfms93eEJpQ0Vib9oQQ5Asd9ht0kW+svcXoEWxxtaDlOI1nLzJYXE49WVcPioTnO0QtjXQ/Ro900F1fm7ky8KFn8bGOZMeaIpoyAt6483b/Qz6YbDV7wsFzvbGRa+K4E/JiWPmCmRfaMqrmHLTDvfspOFUmqePlaUmMzPvxAgMBAAGjHTAbMAwGA1UdEwQFMAMBAf8wCwYDVR0PBAQDAgTwMA0GCSqGSIb3DQEBBQUAA4IBAQAIaKv2L2/wXCKsFtrI6PSvAer+sY8f2CCY9VJc1gOvmZvzBsxLMTFBVwgsbuRJvZvUD1jFknXaQ+lgqb6dlbjeinHxDcOd591Tm2xJwef201zrer5WOeRQujFmCt86Yfuk2f45ljACIJf5MHAIawJjkOhQYhFiHOQ/mrc98e0vLnkyz66aX2JAH5C6LNsoZTqT3/sxtwDAdP+9TUNtUh9Jvnf40ig0VazDmIhb+EJpAc78ap1l22zS5gb6ECu7fzSW7prk/X9Mvw+boxum8jSDRgzDrdu4K8RtacMGa8Zt6cXkGsAbdAFnuBQuR2c4WUSwTavroMbGVUfsTpSxUEDn</validationCert>
+</SamlSsoConfig>

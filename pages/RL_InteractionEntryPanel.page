@@ -1,0 +1,385 @@
+<apex:page standardController="Case" extensions="RL_InteractionEntryPanelController">
+    
+    <apex:includeScript value="{!$Resource.jquery}"/>
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    
+    <script>
+        var $j = jQuery.noConflict();
+        var primaryTabId = '';
+        
+        $j(document).ready(function() {
+             if(sforce.console.isInConsole()) {
+                 setPrimaryTabIdAndOpenSubtabs();
+             }
+             
+         });
+         
+         
+         // _____________________________ HIDDEN SUB TAB OPENING FUNCTIONALITY __________________________
+         function setPrimaryTabIdAndOpenSubtabs() {
+            sforce.console.getFocusedPrimaryTabId(
+                function(result) {
+                    if(result.success) {
+                        primaryTabId = result.id;
+                        stepOneSeeIfRepoTabAlreadyOpened();
+                    }
+                }
+            );
+        }
+        
+        
+        /*
+        *  I seem to recall that opening subtab with 'focus' = true would not set focus if tab already opened.
+        *  Not the case any more.
+        *  So this code is here to:
+        *  1) check if repo tab already opened.
+        *  2) if it's not, open it.
+        *      a) the result handler will then open the FA tab.  I'M DOING THIS IN THE CALLBACK BECAUSE EXECUTING AT THE SAME TIME WILL SOMETIMES PUT FA TAB FIRST.
+        *  3) open the FA tab. (if it's already opened, fail silently).
+        */
+        function stepOneSeeIfRepoTabAlreadyOpened() {
+            sforce.console.getTabLink(sforce.console.TabLink.PARENT_AND_CHILDREN, primaryTabId, checkUrlsAndOpenNextTabIfReqd);
+        }
+        function checkUrlsAndOpenNextTabIfReqd(result) {
+            var repoTabOpened = false;
+            if(result && result.tabLink) {
+                var decodedUrls = decodeURIComponent(result.tabLink);
+                var repoId = '{!contextRepo.Id}';
+                if(decodedUrls.indexOf('/' + repoId) > 0) {
+                    repoTabOpened = true;
+                }
+            }
+            
+            if(repoTabOpened == false) {
+                openAndSetFocusToRelatedRepoSubTabANDopenFaSubTab();
+            }else{
+                openRelatedFASubTab();
+            }
+        }
+        
+        
+        function openRelatedFASubTab() {
+            var faid = '{!contextFinancialAccount.Id}';
+            var faName = '{!contextFinancialAccount.Name}';
+            var setFocus = false;
+            
+            if(faid && faid != 'null') {
+                openSubTab('/' + faid, faName, setFocus);
+            }
+        }
+        
+        function openAndSetFocusToRelatedRepoSubTabANDopenFaSubTab() {
+            var repoId = '{!contextRepo.Id}';
+            var repoName = '{!contextRepo.Name}';
+            var setFocus = true ;
+            var recordType = '{!Case.RecordType.Name}';
+            if(recordType == 'RL Notice of Sale-Salvage' || recordType == 'RL Notice of Sale') {
+                setFocus = false;
+            }
+            
+            if(repoId && repoId != 'null') {
+                var callback = function(result) {
+                    openRelatedFASubTab(); //DOING THIS IN THE CALLBACK BECAUSE EXECUTING AT THE SAME TIME SOMETIMES PUTS FA TAB FIRST.
+                };
+                
+                openSubTab('/' + repoId, repoName, setFocus, callback);
+            }
+        }
+        
+        function openSubTab(url, tabLabel, setFocus, callback) {
+            if(primaryTabId === null || primaryTabId === undefined) {
+                return;
+            }
+            
+            sforce.console.openSubtab(primaryTabId, url, setFocus, tabLabel, null, callback, url);
+        }
+        
+        function setFocusToSubTab(optionalName) {
+            sforce.console.focusSubtabByNameAndPrimaryTabId(optionalName, primaryTabId);
+        }
+        
+        // _____________________________ END HIDDEN SUB TAB OPENING FUNCTIONALITY __________________________
+        
+        
+        
+        
+        var lastInteractionIdForThisTab;
+        var lastDialedPhoneNumberForThisTab;
+        var campaignName;
+        
+        /**
+        *   
+        *   @campaignTabManagerObject
+        *      @relatedSoftPhoneData -- should always be populated with softPhone getAllAttachedData KVPs.
+        *      @relatedParentSoftPhoneData -- not used yet, and not sure direction here.
+        *      @interactionId -- always populated
+        *      @faId -- always populated
+        *   
+        */
+        var campaignTabManagerObject;
+        sforce.console.addEventListener( "pushTabObjectFromManagerEvent", onScreenPopHandler );
+        function onScreenPopHandler(result) {
+            var obj = deStringifyObjectFromEventMessageString(result.message);
+            var faidFromController = '{!contextFinancialAccount.Id}';
+            
+            if(obj && obj.faId && obj.faId.length >= 15 && obj.faId.slice(0,15) == faidFromController.slice(0,15)) {
+                campaignTabManagerObject = obj;
+                lastInteractionIdForThisTab = campaignTabManagerObject.interactionId ;
+                if(campaignTabManagerObject.relatedSoftPhoneData && campaignTabManagerObject.relatedSoftPhoneData.KVP_CONTACT_INFO && campaignTabManagerObject.relatedSoftPhoneData.KVP_CONTACT_INFO.length > 0) {
+                    lastDialedPhoneNumberForThisTab = campaignTabManagerObject.relatedSoftPhoneData.KVP_CONTACT_INFO;
+                    campaignName = campaignTabManagerObject.relatedSoftPhoneData.GSW_CAMPAIGN_NAME;
+                    
+                    //to fix a defect where 1) next-record; 2) click-to-dial; 3) mark-done; 4) next-record = same account; 5) cti-activity selected and last dialed phone num isn't currect.
+                    lastInteractionObj = {};
+                    lastInteractionObj.faId = obj.faId.slice(0,15);
+                    lastInteractionObj.interactionId = lastInteractionIdForThisTab;
+                    lastInteractionObj.phoneDialed = lastDialedPhoneNumberForThisTab;
+                    lastInteractionObj.campaignId = campaignName;
+                }
+            }
+        }
+        
+        /**
+        *   @lastInteractionObj
+        *     @faId - will be populated
+        *     @interactionId  - will be populated
+        *     @phoneDialed - will be populated
+        *     @campaignId -- campaignid may be null
+        */
+        var lastInteractionObj;
+        sforce.console.addEventListener( "pushTabObjectFromManagerEvent", syncLastInteractionObject );
+        function syncLastInteractionObject(result) {
+            var obj = deStringifyObjectFromEventMessageString(result.message);
+            var faidFromController = '{!contextFinancialAccount.Id}';
+            
+            if(obj && obj.faId && obj.faId.length >= 15 && obj.faId.slice(0,15) == faidFromController.slice(0,15)) {
+                lastInteractionObj = obj;
+                lastInteractionIdForThisTab = lastInteractionObj.interactionId ;
+                //console.log('STEVIE_syncLastInteractionObject_lastInteractionIdForThisTab_2 = ' + lastInteractionIdForThisTab + '; phoneDialed = ' + lastInteractionObj.phoneDialed);
+                var phoneDialed = lastInteractionObj.phoneDialed;
+                if(phoneDialed && phoneDialed.length > 0) {
+                    lastDialedPhoneNumberForThisTab = lastInteractionObj.phoneDialed ;
+                }
+            }
+        }
+        
+        
+        
+        function clientSideNote1Method(noteJqueryObj, selectedCode) {
+            
+            parsedInput1JqueryObj = noteJqueryObj;
+            
+            $j('.selectedActivityCodeFromJs').val(selectedCode);
+            
+            getGeneratedNoteText();
+        }
+        
+        
+        //Repo: <date>, Vendor: <vendor name>, LSD: <date>, Warr: <Y/N>, Dlr Gur: <Y/N + (if Y, PARTIAL/FULL)>
+        function getGeneratedNoteText() {
+            getLatestFormData();
+        }
+        
+        var noteGeneratedAfterCheckboxSet = false;
+        var parsedInput1JqueryObj;
+        function generateNoteTextAfterRefresh() {
+            var selectedCode = $j('.selectedActivityCodeFromJs').val();
+            var selectedCodeCtiEnabled = $j('#selectedCodeCtiEnabled').val();
+            var oldText = parsedInput1JqueryObj.val();
+            var newText = '';
+            
+            if(selectedCode == 'REPO') {
+                if(controllerVarModifyRepo == true) {
+                   noteGeneratedAfterCheckboxSet = true;
+                   newText = getModifiedRepoNoteToTextInput();
+                }else{
+                   newText = getRepoNoteToTextInput();
+                }
+            }else if(selectedCodeCtiEnabled == 'Yes') {
+                if(lastDialedPhoneNumberForThisTab != null) {
+                    newText = lastDialedPhoneNumberForThisTab;
+                }
+            }
+            
+            if(newText.length > 0 && newText.slice(-1) != ' ' && oldText.length > 0) {
+                newText += ' ';
+            }
+            newText += oldText;
+            parsedInput1JqueryObj.val(newText);
+        }
+        
+        function getRepoNoteToTextInput() {
+            var dealerGur = $j('#dealerGurTextInput').val() ;
+            dealerGur = (dealerGur === null || dealerGur == '' || dealerGur == 'No' || dealerGur == 'null') ? 'N' : 'Y';
+            
+            var warranty = $j('#warrTextInput').val() ;
+            warranty = (warranty === null || warranty == '' || warranty == 'No' || warranty == 'null') ? 'N' : 'Y';
+            
+            var textToReturn = 'Repo: ' ;
+            textToReturn += $j('.repoDateTextInput').html() + ', ';
+            textToReturn += 'Vendor: ' + $j('#vendorNameTextInput').val() + ', ';
+            textToReturn += 'LSD: ' + $j('.legalSaleDateTextInput').html() + ', ';
+            textToReturn += 'Warr: ' + warranty  +', ';
+            textToReturn += 'Dlr Gur: ' + dealerGur;
+            
+            return textToReturn;
+        }
+        
+        
+        
+        function saveNote1ParentMethod() {
+            
+        }
+        
+        //after 
+        function afterSaveNote1ParentMethod() {
+            if(!componentHasErrorMessages) {
+                clearRepoModifiedCheckboxIftrue();
+            }
+        }
+        
+        function clearRepoModifiedCheckboxIftrue() {
+            if(noteGeneratedAfterCheckboxSet == true) {
+                noteGeneratedAfterCheckboxSet = false;
+                $j('.modifyRepoNoteCheckbox').val(false);
+                updateModifyRepoNote();
+            }else{
+                var faid = $j('#faidTextInput').val();
+                fireConsolidateNotesUpdateEvent(faid);
+            }
+        }
+        
+        function onUpdateModifyNoteComplete() {
+            var faid = $j('#faidTextInput').val();
+            fireConsolidateNotesUpdateEvent(faid);
+        }
+        
+        
+        function fireConsolidateNotesUpdateEvent(faId){
+                if(sforce.console.isInConsole()){
+                    sforce.console.fireEvent("ConsolidatedNotesUpdateEvent", faId, function(result){
+                            if (result.success) { 
+                                   console.log('The ConsolidatedNotesUpdateEvent event is successfully fired.');
+                            } else { 
+                                   console.log('The ConsolidatedNotesUpdateEvent event could not be fired.');
+                            } 
+                        }
+                    );
+                } 
+        }
+        
+        
+        
+        function tempTaxCallout() {
+            
+            var vinNumber = $j("#vinTextInput").val();
+            //if(vinNumber == '' || vinNumber == 'null') {
+            //    alert('vin number empty');
+            //    return;
+            //}
+            
+            //vinNumber = '5TBRN34134S437581';
+            //vinNumber = 'JT3HN86R629072882';
+            //vinNumber = '4T1BE46K18U730588';
+            
+            vinNumber = '4T3ZA3BB9DU079996'; //dup
+            
+            Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.RL_InteractionEntryPanelController.tempURCallout}',
+                function(result, event) {
+                    if (event.status) {
+                        if(result !== null && result.StatusParams != null && result.StatusParams.Status && result.StatusParams.Status == 'FAIL' ) {
+                            alert( JSON.stringify(result.StatusParams) );
+                        }
+                        else if(result !== null) {
+                            alert( JSON.stringify(result) );
+                        }
+                    }else{
+                    
+                    }
+                }
+            );
+        }
+        
+         
+    </script>
+    
+    
+    <div id="mainContentDiv" class="mainContentClassSelector" style="height:100%; vertical-align:bottom;">
+        
+        <apex:form id="activityForm" >
+        
+            <apex:actionFunction name="getLatestFormData" action="{!getLatestFormData}" 
+                                 reRender="jsVariables"
+                                 oncomplete="generateNoteTextAfterRefresh();" />
+                                 
+            <apex:actionFunction name="updateModifyRepoNote" action="{!updateModifyRepoNote}" 
+                                 reRender="jsVariables"
+                                 oncomplete="onUpdateModifyNoteComplete();" />
+        
+            
+            <apex:outputPanel id="jsVariables">
+                
+                <script>
+                    var controllerVarModifyRepo = {!contextRepo.Modify_REPO_Note__c};
+                    
+                    function getModifiedRepoNoteToTextInput() {
+			            // Modified by  Shashank Singhal for S-311650 on 5/29/2015
+			            /*var txtToReturn = 'Revised Letter Sent. New LSD: ';
+			            var legalSaleDateTxt = '{!legalSaleDate}' ;
+			            
+			            txtToReturn += legalSaleDateTxt ;
+			            return txtToReturn;*/ 
+			            
+			            var dealerGur = $j('#dealerGurTextInput').val() ;
+			            dealerGur = (dealerGur === null || dealerGur == '' || dealerGur == 'No' || dealerGur == 'null') ? 'N' : 'Y';
+			            
+			            var warranty = $j('#warrTextInput').val() ;
+			            warranty = (warranty === null || warranty == '' || warranty == 'No' || warranty == 'null') ? 'N' : 'Y';
+			            
+			            var textToReturn = 'REVISED:\nRepo: ' ;
+			            textToReturn += $j('.repoDateTextInput').html() + ', ';
+			            textToReturn += 'Vendor: ' + $j('#vendorNameTextInput').val() + ', ';
+			            textToReturn += 'LSD: ' + '{!legalSaleDate}' + ', ';
+			            textToReturn += 'Warr: ' + warranty  +', ';
+			            textToReturn += 'Dlr Gur: ' + dealerGur;
+			            
+			            return textToReturn;
+			            //End of S-311650
+			        }
+                </script>
+                
+                <apex:outputText styleClass="repoDateTextInput" style="display:none;" value="{0,date,short}">
+                    <apex:param value="{!contextRepo.Local_Repo_Date__c}" /> 
+                </apex:outputText>
+                <input type="text" id="vendorNameTextInput" value="{!contextRepo.IRepo_VendorName__c}" style="display:none;" />
+                <apex:outputText styleClass="legalSaleDateTextInput" style="display:none;" value="{0,date,short}">
+                    <apex:param value="{!contextRepo.Recorded_Legal_Sale_Date__c}" /> 
+                </apex:outputText>
+                
+                <input type="text" id="vinTextInput" value="{!contextFinancialAccount.Collateral__r.Vehicle_Identification_Number__c}" style="display:none;" />
+                <input type="text" id="dealerGurTextInput" value="{!contextRepo.Dealer_Guaranty__c}" style="display:none;" />
+                <input type="text" id="warrTextInput" value="{!contextRepo.Service_Contracts__c}" style="display:none;" />
+                <input type="text" id="faidTextInput" value="{!contextFinancialAccount.Id}" style="display:none;" />
+                <apex:inputCheckbox styleClass="modifyRepoNoteCheckbox" value="{!contextRepo.Modify_REPO_Note__c}" style="display:none;" />
+                <apex:inputText styleClass="selectedActivityCodeFromJs" value="{!selectedActivityCodeFromJs}" style="display:none;" />
+                <input type="text" id="selectedCodeCtiEnabled" value="{!selectedCodeCtiEnabled}" style="display:none;" />
+            </apex:outputPanel>
+            
+            
+<!--             <button type="button" class="styleSaveActivity" onclick="tempTaxCallout();">Temp Vertex Callout</button> <br /> -->
+            
+            <c:ActivityEntryPanelComponent fac="{!contextFinancialAccount}"
+                                           firstNoteLabel="Note"
+                                           firstNoteWhatId="{!Case.Id}"
+                                           firstNoteActivityCodesWhereClause="Flag_Quick__c = true and Name in ('REPO')" />
+            
+            <!-- <span id="saveMsgSpan" style="color:red; vertical-align:top; font-weight:bold;" /> -->
+            
+            <apex:outputText id="dummyToPreventPageReload" style="display:none;" />
+        </apex:form>
+    </div>
+    
+    
+    
+</apex:page>

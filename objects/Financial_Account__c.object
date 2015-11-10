@@ -1,0 +1,3323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Loan and lease products purchased by customers to finance vehicle acquisition. The financial
+account represents the financial obligation carried by the borrower and co-­‐borrower. This is
+TFS’s core business product and servicing the financial account is the primary focus of
+operations.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>ACH_Account_Number__c</fullName>
+        <description>ACH account number</description>
+        <externalId>false</externalId>
+        <label>ACH Account Number</label>
+        <length>17</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACH_Account_Type__c</fullName>
+        <description>ACH account type</description>
+        <externalId>false</externalId>
+        <label>ACH_Account_Type</label>
+        <length>2</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACH_Current_Effective_Date__c</fullName>
+        <description>Current effective date for ACH accounts</description>
+        <externalId>false</externalId>
+        <label>ACH Current Effective Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>ACH_Original_Effective_Date__c</fullName>
+        <description>Original effective date for ACH accounts</description>
+        <externalId>false</externalId>
+        <label>ACH_Original_Effective_Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>ACH_Payment_Date_Next__c</fullName>
+        <description>Next ACH due date</description>
+        <externalId>false</externalId>
+        <label>ACH Payment Date Next</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>ACH_Routing_Number__c</fullName>
+        <description>ACH routing number</description>
+        <externalId>false</externalId>
+        <label>ACH Routing Number</label>
+        <length>9</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Segmentation_Code__c</fullName>
+        <description>SRC: Salesforce
+INT: N
+Trans: Y
+BU: Field Service, Charge Off Accounts Servicing, IVR 
+FD: This code will be utilized by the IVR to categorize accounts for routing purposes. At this time, this code is used to identify charged off accounts.</description>
+        <externalId>false</externalId>
+        <formula>if (NOT ISBLANK( Charge_Of_Finance_Account_Number__c ),&apos;CHG&apos;,&apos;&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Account Segmentation Code</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Amor_Methodology__c</fullName>
+        <externalId>false</externalId>
+        <label>Amor Methodology</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Amor Methodology</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Archive_Flag__c</fullName>
+        <externalId>false</externalId>
+        <label>Archive Flag</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Associate_Account__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Collection_List_Number_1__c = &quot;1008&quot;, True, False)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Associate Account</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>BSG_Flag__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>SRC: BSIS
+INT: Informatica BSG Update, IVR Lookup
+Trans: N
+BU:   IVR Lookup, Customer Service
+FD:   BSG Stands for Business Service Group, meaning the borrower has fleet of accounts and there is a different set of agents who handle these kind of accounts. So used in the IVR call flow.
+
+Change applied via. RFC# CHG0044095</description>
+        <externalId>false</externalId>
+        <label>BSG Flag</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Balloon_Account__c</fullName>
+        <description>SRC: HOST/Financial Refresh
+INT: Informatica Financial Refresh
+Trans: N
+BU: All
+FD: Indicate if the Account is a Balloon account or not.</description>
+        <externalId>false</externalId>
+        <formula>NOT(ISBLANK(TRIM(Balloon_Code__c)))</formula>
+        <label>Balloon Account</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Balloon_Code__c</fullName>
+        <description>Type of Loan</description>
+        <externalId>false</externalId>
+        <label>Balloon_Code</label>
+        <length>6</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bankruptcy_Description__c</fullName>
+        <description>To be provided by TFS</description>
+        <externalId>false</externalId>
+        <label>Bankruptcy Description</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bankruptcy_Flag_Formula__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Bankruptcy_Flag__c &lt;&gt; &quot;&quot;, Bankruptcy_Flag__c &amp; &quot; - &quot;, &quot;&quot;) &amp; Bankruptcy_Description__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Bankruptcy Flag</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bankruptcy_Flag__c</fullName>
+        <description>bankruptcy flag</description>
+        <externalId>false</externalId>
+        <label>Bankruptcy Flag</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Branch__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Branch</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Financial Accounts (Branch)</relationshipLabel>
+        <relationshipName>Financial_Accounts1</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Business_Account__c</fullName>
+        <description>New field added to support IVR interface requirement. This formula field created to return Business Account based on Privacy_State__c value being &apos;BU&apos; or &apos;BVN&apos;.</description>
+        <externalId>false</externalId>
+        <formula>OR(Privacy_State_Code__c=&apos;BU&apos;,Privacy_State_Code__c=&apos;BNV&apos;)</formula>
+        <inlineHelpText>New field added to support IVR interface requirement. This formula field created to return Business Account based on Privacy_State__c value being &apos;BU&apos; or &apos;BVN&apos;.</inlineHelpText>
+        <label>Business Account</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CO_Host_Account_Number__c</fullName>
+        <description>***Populated by a workflow rule*** 
+
+Contains the CO Host formatted account number.</description>
+        <externalId>false</externalId>
+        <label>CO Host Account Number</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ChargeOff_Agency_Code__c</fullName>
+        <description>SRC: RMS
+INT: Y
+Trans: N
+BU: Field Service,Charge Off Accounts Servicing, IVR 
+FD: The agency code associated with the RMS agency that is servicing the account.</description>
+        <externalId>false</externalId>
+        <label>ChargeOff Agency Code</label>
+        <length>4</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_Of_Finance_Account_Number__c</fullName>
+        <description>Charge-Off Account Number</description>
+        <externalId>false</externalId>
+        <label>Charge Of Finance Account Number</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charge_PerDiem_Total__c</fullName>
+        <description>Total charge amount</description>
+        <externalId>false</externalId>
+        <label>Per Diem</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Chargeoff__c</fullName>
+        <externalId>false</externalId>
+        <label>Chargeoff</label>
+        <length>3</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Charges_Late__c</fullName>
+        <description>Late charges</description>
+        <externalId>false</externalId>
+        <label>Late Charge Due</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Charges_Miscellaneous__c</fullName>
+        <description>Miscellaneous Charges</description>
+        <externalId>false</externalId>
+        <label>Miscellaneous Charges</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Charges_Unpaid_Other__c</fullName>
+        <description>SRC: Host - IR (Information Repository)
+INT: Data Feed from IR
+Trans: &lt;Y/N&gt;
+BU: RL
+FD: Fees assessed to the customer that are classified differently from other miscellaneous fees - note that they are included in Miscellaneous Charges</description>
+        <externalId>false</externalId>
+        <label>Unpaid Other Charges</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Close_Code__c</fullName>
+        <description>Account Status</description>
+        <externalId>false</externalId>
+        <label>Close Code</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Code_Edit_Message__c</fullName>
+        <description>Edit message code</description>
+        <externalId>false</externalId>
+        <label>Code Edit Message</label>
+        <length>5</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Coll_Num_Months_Past_Due__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Payments Past Due</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Collateral__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Collateral</label>
+        <referenceTo>Collateral__c</referenceTo>
+        <relationshipLabel>Financial Accounts</relationshipLabel>
+        <relationshipName>Financial_Accounts</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Collection_List_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Collection List Description</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Collection_List_Number_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Collection List Number 1</label>
+        <length>4</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Collection_List_Number_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Collection List Number 2</label>
+        <length>4</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Collection_List_Number_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Collection List Number 3</label>
+        <length>4</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Collection_List_Number_Formula__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Collection_List_Number_1__c &lt;&gt; &quot;&quot;, Collection_List_Number_1__c &amp; &quot; - &quot;, &quot;&quot;) &amp; Collection_List_Status_1__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Collection List Number</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Collection_List_Status_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Collection List Status 1</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Collection_List_Status_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Collection List Status 2</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Collection_List_Status_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Collection List Status 3</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Collection_Notifications__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+	AND( 
+	Collection_List_Number_1__c = &quot;1863&quot;, 
+	OR( 
+	Collection_List_Status_1__c = &quot;A&quot;, 
+	Collection_List_Status_1__c = &quot;P&quot; 
+	)), 
+	IMAGE(&quot;/servlet/servlet.ImageServer?id=01518000000JnUs&amp;oid=00D180000001P5o&quot;, &quot;Late Stage Skip&quot;) &amp; &quot; &quot;, 
+	&quot;&quot; 
+) 
+&amp; 
+IF( 
+	OR( 
+	AND( 
+	Collection_List_Number_1__c != &quot;1706&quot;, 
+	Collection_List_Number_1__c != null, 
+	Collection_List_Status_1__c != &quot;C&quot;, 
+	NOT(ISPICKVAL(Finance_Account_Status__c, &quot;Close&quot;)), 
+	VALUE(History_Counter_Days_Past_Due__c) &gt; 0, 
+	OR( 
+	RecordType.Name = &quot;Retail&quot; &amp;&amp; History_Counter_Payments_Made__c = 0, 
+	RecordType.Name = &quot;Lease&quot; &amp;&amp; History_Counter_Payments_Made__c &lt;= 1 
+	) 
+	), 
+	AND( 
+	OR( 
+	Collection_List_Number_1__c = &quot;1704&quot;, 
+	Collection_List_Number_1__c = &quot;1705&quot; 
+	), 
+	Collection_List_Status_1__c != &quot;C&quot; 
+	) 
+	), 
+	IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002D6rE&amp;oid=00D180000001Rpv&quot;, &quot;First Payment Default&quot;) &amp; &quot; &quot;, 
+	&quot;&quot; 
+) 
+&amp; 
+IF( 
+	Collection_List_Number_1__c = &quot;1860&quot;||Collection_List_Number_1__c = &quot;1861&quot;||Collection_List_Number_1__c = &quot;1862&quot;||Primary_Garage_State__c=&quot;MA&quot;, 
+	IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002D7f9&amp;oid=00D180000001Rpv&quot;, &quot;MA Use Unique ID&quot;) &amp; &quot; &quot;, 
+	&quot;&quot; 
+) 
+&amp; 
+IF( 
+	OR( 
+	Collection_List_Number_1__c = null, 
+	Collection_List_Status_1__c = &quot;C&quot; 
+	), 
+	IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002DB8x&amp;oid=00D180000001Rpv&quot;, &quot;Current Acct Document Stars&quot;) &amp; &quot; &quot;, 
+	&quot;&quot; 
+) 
+&amp; 
+IF( 
+	OR( 
+	AND( 
+	Risk_Strategy_Code_3__c &lt;&gt; &apos;NOR&apos;, 
+	OR( 
+	AND( 
+	MOD( TODAY() - DATE(1900, 1, 1), 7) = 0, 
+	VALUE(History_Counter_Days_Past_Due__c) &gt;= 73 
+	), 
+	VALUE(History_Counter_Days_Past_Due__c) &gt;= 75 
+	), 
+	Collection_List_Number_1__c &lt;&gt; null, 
+	Collection_List_Status_1__c &lt;&gt; &apos;C&apos; 
+	), 
+	AND( 
+	Risk_Strategy_Code_3__c = &apos;NOR&apos;, 
+	OR( 
+	AND( 
+	MOD( TODAY() - DATE(1900, 1, 1), 7) = 0, 
+	VALUE(History_Counter_Days_Past_Due__c) &gt;= 81 
+	), 
+	VALUE(History_Counter_Days_Past_Due__c) &gt;= 83 
+	), 
+	Collection_List_Number_1__c &lt;&gt; null, 
+	Collection_List_Status_1__c &lt;&gt; &apos;C&apos; 
+	) 
+	), 
+	IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002EDDj&amp;oid=00D180000001Rpv&quot;, &quot;Eligible for Repossession&quot;) &amp; &quot; &quot;, 
+	&quot;&quot; 
+) 
+&amp; 
+IF( 
+Primary_Garage_State__c = &quot;NH&quot;, 
+IMAGE(&quot;/servlet/servlet.ImageServer?id=015180000000zsy&amp;oid=00D180000001Rpv&quot;, &quot;New Hampshire Collections Notification&quot;) &amp; &quot; &quot;, 
+&quot;&quot; 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Collection Notifications</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Collection_Primary_Note_Edit_Date__c</fullName>
+        <description>Via workflow, capture the last time an edit was made to Collection Primary Note by an end user so integration can perform targeted outgoing updates</description>
+        <externalId>false</externalId>
+        <label>Collection Primary Note Edit Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Collection_Primary_Note__c</fullName>
+        <description>Permanent notes</description>
+        <externalId>false</externalId>
+        <label>Collection Primary Note</label>
+        <length>60</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Collection_Recourse_Code__c</fullName>
+        <description>Copy of the recourse code from the case</description>
+        <externalId>false</externalId>
+        <label>Collection Recourse Code</label>
+        <length>2</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Communication_Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Communication Comments</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Consumer_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Consumer Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Associate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Non-Associate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Contract_Date__c</fullName>
+        <description>&quot;Lease: The date the lease contract was signed</description>
+        <externalId>false</externalId>
+        <label>Contract Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Contract_Receivable__c</fullName>
+        <description>SRC: Host - IR (Information Repository)
+INT: Data Feed from IR
+Trans: &lt;Y/N&gt;
+BU: RL
+FD: Lease outstanding balance - lease equivalent to loan balance for retail loans in the Rights Letters process</description>
+        <externalId>false</externalId>
+        <label>Contract Receivable</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Counter_Payments_Remaining__c</fullName>
+        <description>Payments remain</description>
+        <externalId>false</externalId>
+        <label>Counter Payments Remaining</label>
+        <length>3</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cure_Amount__c</fullName>
+        <description>Parses the cure amount from the most recent cure note.</description>
+        <externalId>false</externalId>
+        <formula>IF(
+ AND(
+  CONTAINS(LOWER(Most_Recent_Cure_Note__c),&quot;cure notice sent&quot;),
+  CONTAINS(Most_Recent_Cure_Note__c,&quot;$&quot;)
+ ),
+ MID(
+  Most_Recent_Cure_Note__c,
+  FIND(&quot;$&quot;,Most_Recent_Cure_Note__c),
+  FIND(&quot;.&quot;,Most_Recent_Cure_Note__c, FIND(&quot;$&quot;,Most_Recent_Cure_Note__c)) - FIND(&quot;$&quot;,Most_Recent_Cure_Note__c) + 3
+ ),
+ &quot;&quot;
+)</formula>
+        <label>Cure Amount</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cure_Expiration_Date__c</fullName>
+        <description>Parses out the expiration date from the most recent cure note</description>
+        <externalId>false</externalId>
+        <formula>IF(
+ AND(
+  CONTAINS(LOWER(Most_Recent_Cure_Note__c),&quot;cure notice sent&quot;),
+  CONTAINS(LOWER(Most_Recent_Cure_Note__c),&quot;expires&quot;)
+ ),
+ LEFT(MID(Most_Recent_Cure_Note__c,FIND(&quot;expires&quot;,LOWER(Most_Recent_Cure_Note__c))+LEN(&quot;expires&quot;)+1,6),2) &amp; &quot;/&quot; &amp; 
+ MID(MID(Most_Recent_Cure_Note__c,FIND(&quot;expires&quot;,LOWER(Most_Recent_Cure_Note__c))+LEN(&quot;expires&quot;)+1,6),3,2) &amp; &quot;/&quot; &amp; 
+ RIGHT(MID(Most_Recent_Cure_Note__c,FIND(&quot;expires&quot;,LOWER(Most_Recent_Cure_Note__c))+LEN(&quot;expires&quot;)+1,6),2),
+ &quot;&quot;
+)</formula>
+        <label>Cure Expiration Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer_Number__c</fullName>
+        <description>&quot;Lease: Lease number</description>
+        <externalId>false</externalId>
+        <label>Customer Number</label>
+        <length>7</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(TEXT(Finance_Account_Type__c),
+&quot;Consumer Customer&quot;, &quot;Consumer&quot;,
+&quot;Business Customer&quot;, &quot;Business&quot;,
+TEXT(Finance_Account_Type__c)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Customer Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Dealer_Code__c</fullName>
+        <externalId>false</externalId>
+        <formula>Dealership__r.Dealer_Code__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Dealer Code</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Dealer_Guaranty_Description__c</fullName>
+        <description>A formula used to translate the recourse code into the Dealer Guaranty Description.</description>
+        <externalId>false</externalId>
+        <formula>IF( 
+RecordType.Name = &apos;Retail&apos;, 
+CASE( 
+Collection_Recourse_Code__c, 
+&apos;R&apos;, &apos;R - Full Recourse&apos;, 
+&apos;X&apos;, &apos;X - Partial Recourse&apos;, 
+&apos;P&apos;, &apos;P - Repurchase&apos;, 
+&apos;L&apos;, &apos;L - Limited Recourse&apos;, 
+&apos;N&apos;, &apos;N - No Recourse&apos;, 
+&apos;&apos; 
+), 
+CASE( 
+Collection_Recourse_Code__c, 
+&apos;P&apos;, &apos;P - Partial DG for Residual Value&apos;, 
+&apos;C&apos;, &apos;C - Partial Guaranty for Cap (advance)&apos;, 
+&apos;B&apos;, &apos;B - Partial Guaranty for Residual &amp; Cap&apos;, 
+&apos;T&apos;, &apos;T - Limited Term Repurchase&apos;, 
+&apos;F&apos;, &apos;F - Full Dealer Guaranties&apos;, 
+&apos;R&apos;, &apos;R - Repurchase Guaranty&apos;, 
+&apos;&apos; 
+) 
+)</formula>
+        <label>Dealer Guaranty Description</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Dealer_Rebate_Display__c</fullName>
+        <description>SRC: Salesforce
+INT: 
+Trans: Y
+BU: RL
+FD: Formula field to display and use the Dealer Rebate value only when the loan is a pre-computed retail loan.</description>
+        <externalId>false</externalId>
+        <formula>IF(RecordType.Name = &apos;Retail&apos; &amp;&amp; (MID(Financial_Account_Number__c, 4, 1) = &apos;6&apos; || MID(Financial_Account_Number__c, 4, 1) = &apos;7&apos;),
+0,
+Dealer_Rebate__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Dealer Rebate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Dealer_Rebate__c</fullName>
+        <description>SRC: Host - IR (Information Repository)
+INT: Data Feed from IR
+Trans: &lt;Y/N&gt;
+BU: RL
+FD: A performance bonus for the dealer in a precomputed (rule of 78s) loan that is collected from the dealer on a pro rated basis in an early payoff or termination</description>
+        <externalId>false</externalId>
+        <label>Dealer Rebate Master File</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Dealership__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Master-Detail Relationship to dealership (Account)</description>
+        <externalId>false</externalId>
+        <label>Dealership</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Financial Accounts</relationshipLabel>
+        <relationshipName>Financial_Accounts</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Department__c</fullName>
+        <description>New formula field added to return department value based on dealer code value from dealership. 
+
+If dealership.dealerCode starts with 6 a value LEXUS is returned otherwise a value TOYOTA is returned.</description>
+        <externalId>false</externalId>
+        <formula>IF(BEGINS( Dealership__r.Dealer_Code__c , &apos;6&apos;),&apos;LEXUS&apos;,&apos;TOYOTA&apos;)</formula>
+        <inlineHelpText>New formula field added to return department value based on dealer code value from dealership. 
+
+If dealership.dealerCode starts with 6 a value LEXUS is returned otherwise a value TOYOTA is returned.</inlineHelpText>
+        <label>Department</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Edit_Message_Description__c</fullName>
+        <description>To be provided by TFS</description>
+        <externalId>false</externalId>
+        <label>Edit Message Description</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Effective_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Effective Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Exchange_Account_Number__c</fullName>
+        <description>***Populated by a workflow rule*** 
+
+Contains the Exchange formatted account number.</description>
+        <externalId>false</externalId>
+        <label>Exchange Account Number</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Expired_Term__c</fullName>
+        <description>Expired term</description>
+        <externalId>false</externalId>
+        <label>Expired Term</label>
+        <length>3</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Extensions_Deferrals__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(Risk_Strategy_Code_1__c,
+&quot;AAA&quot;,&quot;APPR - Approved if Conditions met&quot;,
+&quot;CCC&quot;,&quot;COND - Approved if Conditions met&quot;,
+&quot;DDD&quot;,&quot;DENY - Denied.  Requires Manager Approval&quot;,
+&quot;&quot;, &quot;COND - Approved if Conditions met&quot;,
+Risk_Strategy_Code_1__c
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Extensions &amp; Deferrals</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Fee_Deferment_Assessed__c</fullName>
+        <description>assessed deferred fee - value zero</description>
+        <externalId>false</externalId>
+        <label>Fee Deferment Assessed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Fee_Deferment_Last_Date__c</fullName>
+        <description>Last defer date</description>
+        <externalId>false</externalId>
+        <label>Fee Deferment Last Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Fee_Deferment_Paid__c</fullName>
+        <description>paid deferred fee - value zero</description>
+        <externalId>false</externalId>
+        <label>Fee Deferment Paid</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Fee_Deferment_Waived__c</fullName>
+        <description>waived deferred fee - value zero</description>
+        <externalId>false</externalId>
+        <label>Fee Deferment Waived</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Fee_Deferment_Zero_Value__c</fullName>
+        <description>deferred fee - value zero</description>
+        <externalId>false</externalId>
+        <label>Fee Deferment Zero Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Finance_Account_Archive_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Finance Account Archive Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Picklist_Data_Goes_Here</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Finance_Account_Product_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Finance Account Product Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Picklist_Data_Goes_Here</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lease</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Retail</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Finance_Account_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Finance Account Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Picklist_Data_Goes_Here</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Open</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Close</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Finance_Account_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Finance Account Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Business Customer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Consumer Customer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Financial_Account_Number_Digits__c</fullName>
+        <description>This formula field is used to query records based on all digit account number that is keyed in from phone keypad. 
+
+E.g: abc123 will become 222123
+
+This formula field will be indexed and should not be used without a proper index due to performance concerns.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISNUMBER( Financial_Account_Number__c ), Financial_Account_Number__c,
+
+SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(
+
+LOWER(Financial_Account_Number__c),
+
+&quot;a&quot;,&quot;2&quot;),&quot;b&quot;,&quot;2&quot;),&quot;c&quot;,&quot;2&quot;),&quot;d&quot;,&quot;3&quot;),&quot;e&quot;,&quot;3&quot;),&quot;f&quot;,&quot;3&quot;),&quot;g&quot;,&quot;4&quot;),&quot;h&quot;,&quot;4&quot;),&quot;i&quot;,&quot;4&quot;),&quot;j&quot;,&quot;5&quot;),&quot;k&quot;,&quot;5&quot;),&quot;l&quot;,&quot;5&quot;),&quot;m&quot;,&quot;6&quot;),&quot;n&quot;,&quot;6&quot;),&quot;o&quot;,&quot;6&quot;),&quot;p&quot;,&quot;7&quot;),&quot;q&quot;,&quot;7&quot;),&quot;r&quot;,&quot;7&quot;),&quot;s&quot;,&quot;7&quot;),&quot;t&quot;,&quot;8&quot;),&quot;u&quot;,&quot;8&quot;),&quot;v&quot;,&quot;8&quot;),&quot;w&quot;,&quot;9&quot;),&quot;x&quot;,&quot;9&quot;),&quot;y&quot;,&quot;9&quot;),&quot;z&quot;,&quot;9&quot;) )</formula>
+        <inlineHelpText>E.g: abc123 will become 222123
+
+This formula field will be indexed and should not be used without a proper index due to performance concern</inlineHelpText>
+        <label>Financial Account Number Digits</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Financial_Account_Number__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>external financeaccount number</description>
+        <externalId>true</externalId>
+        <label>Financial Account Number</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Flag_ACH__c</fullName>
+        <description>ACH indicator</description>
+        <externalId>false</externalId>
+        <label>Flag ACH</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Flag_Account_Statement_Request__c</fullName>
+        <description>Account statement request flag</description>
+        <externalId>false</externalId>
+        <label>Flag Account Statement Request</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Flag_Auto_Clearing_House__c</fullName>
+        <description>ACH indicator</description>
+        <externalId>false</externalId>
+        <label>Flag Auto Clearing House</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Flag_Bill_Statement_Request__c</fullName>
+        <description>Bill statement request flag</description>
+        <externalId>false</externalId>
+        <label>Flag Bill Statement Request</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Flag_Do_Not_Call__c</fullName>
+        <description>Federal Do Not Call Flag</description>
+        <externalId>false</externalId>
+        <label>Flag Do Not Call</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Flag_Encore_Eligible__c</fullName>
+        <description>&quot;Lease: If number of payments made is more than 8 then this flag is true otherwise false.</description>
+        <externalId>false</externalId>
+        <label>Flag Encore Eligible</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Flag_Insurance__c</fullName>
+        <description>Insurance indicator</description>
+        <externalId>false</externalId>
+        <label>Flag Insurance</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Flag_Military_Status__c</fullName>
+        <description>Military Flag</description>
+        <externalId>false</externalId>
+        <label>Flag Military Status</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Flag_OFSC__c</fullName>
+        <description>OFSC indicator</description>
+        <externalId>false</externalId>
+        <label>Flag OFSC</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Flag_Office_Of_Foreign_Asset_Control__c</fullName>
+        <externalId>false</externalId>
+        <label>Flag Office Of Foreign Asset Control</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NULL</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PND</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Flag_SCRA_Status__c</fullName>
+        <description>SCRA Flag</description>
+        <externalId>false</externalId>
+        <label>Flag SCRA Status</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Flag_Special_Handling__c</fullName>
+        <description>Special Handling Flag</description>
+        <externalId>false</externalId>
+        <label>Flag Special Handling</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Flag_Thirty_Plus_Days_Delinquant__c</fullName>
+        <description>30 days delinquency flag</description>
+        <externalId>false</externalId>
+        <label>Flag Thirty Plus Days Delinquant</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Flag_Vehicle_Low_Mileage__c</fullName>
+        <description>low mileage indicator</description>
+        <externalId>false</externalId>
+        <label>Flag Vehicle Low Mileage</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Flag_Vehicle_Reposession__c</fullName>
+        <description>Repossession indicator</description>
+        <externalId>false</externalId>
+        <label>Flag Vehicle Reposession</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Flag_Voice_Quote__c</fullName>
+        <description>Voice quote indicator which is always set</description>
+        <externalId>false</externalId>
+        <label>Flag Voice Quote</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Good_Through_Date__c</fullName>
+        <description>Good through date</description>
+        <externalId>false</externalId>
+        <label>Good Through Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>History_Counter_Days_Past_Due__c</fullName>
+        <description>&quot;DPD</description>
+        <externalId>false</externalId>
+        <label>Days Past Due</label>
+        <length>4</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>History_Counter_Extensions_Deferrals__c</fullName>
+        <externalId>false</externalId>
+        <label>Extensions/Deferrals</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>History_Counter_Fifteen_Days_Past_Due__c</fullName>
+        <externalId>false</externalId>
+        <label>History Counter Fifteen Days Past Due</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>History_Counter_Lease_Expired_Months__c</fullName>
+        <externalId>false</externalId>
+        <label>History Counter Lease Expired Months</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>History_Counter_Ninety_Days_Past_Due__c</fullName>
+        <externalId>false</externalId>
+        <label>History Counter Ninety Days Past Due</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>History_Counter_Non_Sufficient_Funds__c</fullName>
+        <externalId>false</externalId>
+        <label>Reversed Payments</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>History_Counter_Num_Months_Run_Hold__c</fullName>
+        <externalId>false</externalId>
+        <label>History Counter Num Months Run Hold</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>History_Counter_Payments_Made__c</fullName>
+        <externalId>false</externalId>
+        <label>Payments Made</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>History_Counter_SixtyDaysPastDue__c</fullName>
+        <externalId>false</externalId>
+        <label>History Counter SixtyDaysPastDue</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>History_Counter_Thirty_Days_PastDue__c</fullName>
+        <externalId>false</externalId>
+        <label>History Counter Thirty Days PastDue</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HomePhone_BillTo__c</fullName>
+        <description>Home Phone Number</description>
+        <externalId>false</externalId>
+        <label>HomePhone BillTo</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>INT_PAY__c</fullName>
+        <description>SRC: Host - IR (Information Repository)
+INT: Data Feed from IR
+Trans: &lt;Y/N&gt;
+BU: RL
+FD: Interest that has accrued since the last assessed payment and would be added to loan balance for payoff purposes</description>
+        <externalId>false</externalId>
+        <label>Interest Due</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>8</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Insurance_Description__c</fullName>
+        <description>To be provided by TFS</description>
+        <externalId>false</externalId>
+        <label>Insurance Description</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Quote_Date_Payoff__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Quote Date Payoff</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Last_UI_Edit_Date__c</fullName>
+        <description>Via workflow, capture the last time an edit was made to the FA record by an end user so integration can perform targeted outgoing updates</description>
+        <externalId>false</externalId>
+        <label>Last UI Edit Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Late_Charge_Assessed__c</fullName>
+        <description>Assessed late charge</description>
+        <externalId>false</externalId>
+        <label>Late Charge Assessed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Late_Charge_Paid__c</fullName>
+        <description>Late Charges Paid</description>
+        <externalId>false</externalId>
+        <label>Late Charge Paid</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Late_Charge_Waived__c</fullName>
+        <description>Late Charges Waived</description>
+        <externalId>false</externalId>
+        <label>Late Charge Waived</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Lease_Base_Rent__c</fullName>
+        <description>Base rent</description>
+        <externalId>false</externalId>
+        <label>Lease Base Rent</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Lease_Contract_Time_Amount__c</fullName>
+        <description>Amount in time of contract</description>
+        <externalId>false</externalId>
+        <label>Lease Contract Time Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Lease_Date__c</fullName>
+        <description>Lease effective date</description>
+        <externalId>false</externalId>
+        <label>Lease Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Lease_Income_Late_ChargeAmt_Lease_ToDate__c</fullName>
+        <externalId>false</externalId>
+        <label>Lease Income Late ChargeAmt Lease ToDate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Lease_Late_Charge_Waived_Amount_To_Date__c</fullName>
+        <description>&quot;Lease_ late charge waived Lease_ to date</description>
+        <externalId>false</externalId>
+        <label>Lease Late Charge Waived Amount To Date</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Lease_Payment_Total_Rent__c</fullName>
+        <description>Lease_ payment total rent</description>
+        <externalId>false</externalId>
+        <label>Lease Payment Total Rent</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Lease_Payoff_Amount_Gross__c</fullName>
+        <description>Payoff amount</description>
+        <externalId>false</externalId>
+        <label>Lease Payoff Amount Gross</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Lease_Payoff_Amount_Quote__c</fullName>
+        <description>Payoff amount</description>
+        <externalId>false</externalId>
+        <label>Lease Payoff Amount Quote</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Lease_Payoff_Amount__c</fullName>
+        <description>Payoff amount</description>
+        <externalId>false</externalId>
+        <label>Lease Payoff Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Lease_Residual_Amount__c</fullName>
+        <description>Lease_ residual end-of-term amount</description>
+        <externalId>false</externalId>
+        <label>Lease Residual Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Lease_Residual_End_of_Term_Amount__c</fullName>
+        <description>Lease_ residual end-of-term amount</description>
+        <externalId>false</externalId>
+        <label>Lease Residual End of Term Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Lease_State__c</fullName>
+        <description>State of the customer address (tax related)</description>
+        <externalId>false</externalId>
+        <label>Lease State</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lease_TermType__c</fullName>
+        <description>Lease termination Type</description>
+        <externalId>false</externalId>
+        <label>Lease TermType</label>
+        <length>2</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lease_Termination_Date__c</fullName>
+        <description>Lease termination date</description>
+        <externalId>false</externalId>
+        <label>Lease Termination Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Lease_Type__c</fullName>
+        <description>Lease type</description>
+        <externalId>false</externalId>
+        <label>Lease Type</label>
+        <length>2</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Loan_Amount_Original__c</fullName>
+        <description>Original amount</description>
+        <externalId>false</externalId>
+        <label>Original Loan Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Loan_Current_Amount__c</fullName>
+        <description>Current amount</description>
+        <externalId>false</externalId>
+        <label>Loan Balance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Loan_Date_Interest_To_Contract__c</fullName>
+        <description>Interest contract to date</description>
+        <externalId>false</externalId>
+        <label>Loan Date Interest To Contract</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Loan_Due_Date_Change__c</fullName>
+        <description>Due date change</description>
+        <externalId>false</externalId>
+        <label>Loan Due Date Change</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Loan_Interest_Paid__c</fullName>
+        <description>Interest paid</description>
+        <externalId>false</externalId>
+        <label>Loan Interest Paid</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Loan_Interest_Rebate__c</fullName>
+        <description>Interest rebate</description>
+        <externalId>false</externalId>
+        <label>Loan Interest Rebate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Loan_Maturity_Date__c</fullName>
+        <description>Maturity date Loan maturity date</description>
+        <externalId>false</externalId>
+        <label>Loan Maturity Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Loan_Original_Term__c</fullName>
+        <description>Original term</description>
+        <externalId>false</externalId>
+        <label>Original Term</label>
+        <length>3</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Loan_Over_Payment_Amount__c</fullName>
+        <description>Over payment</description>
+        <externalId>false</externalId>
+        <label>Loan Over Payment Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Loan_Rate_Annualized_Percentage__c</fullName>
+        <externalId>false</externalId>
+        <formula>Loan_Rate__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Loan Rate APR</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Loan_Rate__c</fullName>
+        <externalId>false</externalId>
+        <label>Loan Rate</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Loan_Total_Interest_Paid__c</fullName>
+        <description>Total interest paid</description>
+        <externalId>false</externalId>
+        <label>Loan Total Interest Paid</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Loan_TypeCode__c</fullName>
+        <description>&quot;Loan type code (simple</description>
+        <externalId>false</externalId>
+        <label>Loan TypeCode</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Loan_Type__c</fullName>
+        <description>Loan type</description>
+        <externalId>false</externalId>
+        <label>Loan Type</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Maturity_Date__c</fullName>
+        <description>Maturity date</description>
+        <externalId>false</externalId>
+        <label>Maturity Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Maturity_Dates_Difference_in_Months__c</fullName>
+        <description>Calculates the difference in complete months between the maturity date and revised maturity date</description>
+        <externalId>false</externalId>
+        <formula>IF(DAY(Revised_Maturity_Date__c)&gt;=DAY(Maturity_Date__c),0,-1)+(YEAR(Revised_Maturity_Date__c)-YEAR(Maturity_Date__c))*12+MONTH(Revised_Maturity_Date__c)-MONTH(Maturity_Date__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Maturity Dates Difference in Months</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Message_Code1__c</fullName>
+        <description>Message code</description>
+        <externalId>false</externalId>
+        <label>Message Code1</label>
+        <length>5</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Message_Code2__c</fullName>
+        <description>Message code</description>
+        <externalId>false</externalId>
+        <label>Message Code2</label>
+        <length>5</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Message_Code3__c</fullName>
+        <description>Message code</description>
+        <externalId>false</externalId>
+        <label>Message Code3</label>
+        <length>5</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Message_Code4__c</fullName>
+        <description>Message code</description>
+        <externalId>false</externalId>
+        <label>Message Code4</label>
+        <length>5</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Most_Recent_Cure_Note__c</fullName>
+        <description>Populated by a process &amp; flow.
+
+Contains the most recent cure note text.</description>
+        <externalId>false</externalId>
+        <label>Most Recent Cure Note</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_FAC__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of FAC</label>
+        <summaryForeignKey>Financial_Account_Customer__c.Financial_Account__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Numeric_Days_Past_Due__c</fullName>
+        <description>SRC: Salesforce
+INT: 
+Trans: Y
+BU: RL
+FD: Formula field to convert the text field for days past due as provided by integration to a numeric value for use in workflows and available for other simple calculations and comparisons.</description>
+        <externalId>false</externalId>
+        <formula>VALUE(History_Counter_Days_Past_Due__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Numeric Days Past Due</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Partial_Payment_Option__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Coll_Num_Months_Past_Due__c &gt; 1, Payment_Amount_Past_Due__c - (Payment_Amount_Scheduled__c * (Coll_Num_Months_Past_Due__c - 1)), 0)</formula>
+        <label>Partial Payment Option</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Past_Due_Charges__c</fullName>
+        <externalId>false</externalId>
+        <formula>Payment_Amount_Past_Due__c + Charges_Late__c + Charges_Miscellaneous__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Past Due + Charges</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>PayOff_Bank_Rebate_Amount__c</fullName>
+        <description>Pay off bank rebate</description>
+        <externalId>false</externalId>
+        <label>PayOff Bank Rebate Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>PayOff_Dealership_Rebate_Amount__c</fullName>
+        <description>Pay off dealer rebate</description>
+        <externalId>false</externalId>
+        <label>PayOff Dealership Rebate Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_ACH__c</fullName>
+        <description>ACH payment amount</description>
+        <externalId>false</externalId>
+        <label>Payment Amount ACH</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Balloon__c</fullName>
+        <description>Payment Amount</description>
+        <externalId>false</externalId>
+        <label>Payment Amount Balloon</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Last1__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment Amount Last1</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Last2__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment Amount Last2</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Last3__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment Amount Last3</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Last__c</fullName>
+        <description>last payment amount</description>
+        <externalId>false</externalId>
+        <label>Last Payment Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Next__c</fullName>
+        <description>Next due payment amount</description>
+        <externalId>false</externalId>
+        <label>Payment Amount Next</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Past_Due__c</fullName>
+        <description>Past due amount</description>
+        <externalId>false</externalId>
+        <label>Past Due Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Scheduled__c</fullName>
+        <description>Payment Amount</description>
+        <externalId>false</externalId>
+        <label>Scheduled Payment Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Date_First__c</fullName>
+        <description>First payment date</description>
+        <externalId>false</externalId>
+        <label>Payment Date First</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Date_Last1__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment Date Last1</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Date_Last2__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment Date Last2</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Date_Last3__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment Date Last3</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Date_Last_Extension__c</fullName>
+        <description>Last Extension Date</description>
+        <externalId>false</externalId>
+        <label>Last Extension Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Date_Last__c</fullName>
+        <description>last payment date</description>
+        <externalId>false</externalId>
+        <label>Last Payment Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Date_Next__c</fullName>
+        <description>next due payment date</description>
+        <externalId>false</externalId>
+        <label>Payment Date Next</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Date_Past_Due__c</fullName>
+        <description>Past due date</description>
+        <externalId>false</externalId>
+        <label>Past Due Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Depreciation_Amount__c</fullName>
+        <description>Lease payment depreciation amount</description>
+        <externalId>false</externalId>
+        <label>Payment Depreciation Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Extension_Fee_Assessed__c</fullName>
+        <description>Payment Extension Fees</description>
+        <externalId>false</externalId>
+        <label>Payment Extension Fee Assessed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Extension_Fee_Deferred__c</fullName>
+        <description>Payment Extension Fees</description>
+        <externalId>false</externalId>
+        <label>Payment Extension Fee Deferred</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Extension_Fee_Paid__c</fullName>
+        <description>Payment Extension Fees</description>
+        <externalId>false</externalId>
+        <label>Payment Extension Fee Paid</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Extension_Fee_Waived__c</fullName>
+        <description>Payment Extension Fees</description>
+        <externalId>false</externalId>
+        <label>Payment Extension Fee Waived</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Extension_Fee__c</fullName>
+        <description>Payment Extension Fees</description>
+        <externalId>false</externalId>
+        <label>Payment Extension Fee</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Income_Amount__c</fullName>
+        <description>Lease payment income amount</description>
+        <externalId>false</externalId>
+        <label>Payment Income Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Insurance_Amount__c</fullName>
+        <description>Lease payment insurance amount</description>
+        <externalId>false</externalId>
+        <label>Payment Insurance Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Last_Extension_Date__c</fullName>
+        <description>Extension date</description>
+        <externalId>false</externalId>
+        <label>Payment Last Extension Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Lease_Maintenance_Amount__c</fullName>
+        <description>Lease payment maintenance amount</description>
+        <externalId>false</externalId>
+        <label>Payment Lease Maintenance Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Partial_Amount__c</fullName>
+        <description>Payment amount</description>
+        <externalId>false</externalId>
+        <label>Payment Partial Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Past_Due_Counter_15__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment Past Due Counter 15</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Payment_Past_Due_Counter_30__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment Past Due Counter 30</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Payment_Past_Due_Counter_60__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment Past Due Counter 60</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Payment_Past_Due_Counter_90__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment Past Due Counter 90</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Payment_Term_Remaining__c</fullName>
+        <description>Remaining payment term</description>
+        <externalId>false</externalId>
+        <label>Payment Term Remaining</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Payoff_Amount_Gross__c</fullName>
+        <description>payoff amount (Lease - gross)</description>
+        <externalId>false</externalId>
+        <label>Payoff Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payoff_Amount_Net__c</fullName>
+        <description>Payoff Amount (Retail - net)</description>
+        <externalId>false</externalId>
+        <label>Payoff Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payoff_Amount__c</fullName>
+        <description>payoff amount</description>
+        <externalId>false</externalId>
+        <label>Payoff Amount (no data)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payoff_Good_Thru_Date__c</fullName>
+        <description>Good through date</description>
+        <externalId>false</externalId>
+        <label>Payoff Good Thru Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Primary_Garage_State__c</fullName>
+        <description>Populated by workflow rule. 
+
+Indicates the mailing garage state for the primary borrower.</description>
+        <externalId>false</externalId>
+        <label>Primary Garage State</label>
+        <length>3</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PrivacyElection_Affiliate_Sharing_Source__c</fullName>
+        <description>Affiliate Sharing Source Flag</description>
+        <externalId>false</externalId>
+        <label>PrivacyElection Affiliate Sharing Source</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Privacy_Elec_Affiliate_Marketing_Source__c</fullName>
+        <description>Affiliate Marketing  Source Flag</description>
+        <externalId>false</externalId>
+        <label>Privacy Elec Affiliate Marketing Source</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Privacy_Elect_Third_Party_Sharing_Source__c</fullName>
+        <description>Third Party Sharing Source Flag</description>
+        <externalId>false</externalId>
+        <label>Privacy Elect Third Party Sharing Source</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Privacy_Election_Affiliate_Marketing__c</fullName>
+        <description>Affiliate Marketing Flag</description>
+        <externalId>false</externalId>
+        <label>Affiliate Marketing</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Privacy_Election_Affiliate_Sharing__c</fullName>
+        <description>Affiliate Sharing Flag</description>
+        <externalId>false</externalId>
+        <label>Affiliate Sharing</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Privacy_Election_Dealership_Source__c</fullName>
+        <description>Dealer Privacy Source Flag</description>
+        <externalId>false</externalId>
+        <label>Privacy Election Dealership Source</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Privacy_Election_Dealership__c</fullName>
+        <description>Dealer Privacy Flag</description>
+        <externalId>false</externalId>
+        <label>Toyota/Lexus Dealer</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Privacy_Election_FCRA_Sharing_Source__c</fullName>
+        <description>FCRA Sharing Source Flag</description>
+        <externalId>false</externalId>
+        <label>Privacy Election FCRA Sharing Source</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Privacy_Election_FCRA_Sharing__c</fullName>
+        <description>FCRA Sharing Flag</description>
+        <externalId>false</externalId>
+        <label>Credit App/Rpt</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Privacy_Election_Telemarketing_Source__c</fullName>
+        <description>Telemarketing Source Flag</description>
+        <externalId>false</externalId>
+        <label>Privacy Election Telemarketing Source</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Privacy_Election_Telemarketing__c</fullName>
+        <description>Telemarketing Flag</description>
+        <externalId>false</externalId>
+        <label>TFS Telemarketing</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Privacy_Election_Third_Party_Sharing__c</fullName>
+        <description>Third Party Sharing Flag</description>
+        <externalId>false</externalId>
+        <label>3rd Party</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Privacy_State_Code__c</fullName>
+        <description>Privacy State Code</description>
+        <externalId>false</externalId>
+        <label>Privacy State Code</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Purchase_Option_Amount__c</fullName>
+        <description>Purchase option</description>
+        <externalId>false</externalId>
+        <label>Purchase Option Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Record_Type_Match__c</fullName>
+        <description>Compares the RecordType Name to the Finance Account Product Type. Returns TRUE when a match, otherwise FALSE.</description>
+        <externalId>false</externalId>
+        <formula>IF( RecordType.Name = TEXT( Finance_Account_Product_Type__c), TRUE, FALSE)</formula>
+        <inlineHelpText>Compares the RecordType Name to the Finance Account Product Type. Returns TRUE when a match, otherwise FALSE.</inlineHelpText>
+        <label>Record Type Match</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Recovery_Code_Formula__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Recovery_Code__c &lt;&gt; &quot;&quot;, Recovery_Code__c &amp; &quot; - &quot;, &quot;&quot;) &amp; Recovery_Description__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Recovery Code</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Recovery_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Recovery Code</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Recovery_Description__c</fullName>
+        <description>To be provided by TFS</description>
+        <externalId>false</externalId>
+        <label>Recovery Description</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Refund__c</fullName>
+        <description>SRC: Host - IR (Information Repository)
+INT: Data Feed from IR
+Trans: &lt;Y/N&gt;
+BU: RL
+FD: Unearned rent charges to be refunded to the customer on a lease payoff</description>
+        <externalId>false</externalId>
+        <label>Refund</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Region_Number__c</fullName>
+        <description>Region number</description>
+        <externalId>false</externalId>
+        <label>Region Number</label>
+        <length>2</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reinstatements__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(Risk_Strategy_Code_2__c,
+&quot;AAA&quot;, &quot;RST:APPR&quot;,
+&quot;CMN&quot;, &quot;CMNO - Conditionally Mandatory State - High Risk&quot;,
+&quot;CMY&quot;, &quot;CMYS - Conditionally Mandatory State - Low Risk&quot;,
+&quot;DSN&quot;, &quot;DSNO - Discretionary State High Risk - TL Approval Rqrd&quot;,
+&quot;DSY&quot;, &quot;DSYS - Discretionary State Low Risk&quot;,
+&quot;MDN&quot;, &quot;MDNO - Mandatory High Risk&quot;,
+&quot;MDY&quot;, &quot;MDYS - Mandatory Low Risk&quot;,
+Risk_Strategy_Code_2__c
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reinstatements</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Repo_Full_Term_Date__c</fullName>
+        <description>SRC: Salesforce
+INT: 
+Trans: Y
+BU: RL
+FD: Used as an input to determine if maturity date is within 30 days, which is equivalent to a full term for a lease in a repo</description>
+        <externalId>false</externalId>
+        <formula>TODAY() + 30</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Repo Full Term Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Repossession__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(Risk_Strategy_Code_3__c,
+&quot;CND&quot;, &quot;COND - Assign based on account status&quot;,
+&quot;NOR&quot;, &quot;NOR - Do not assign&quot;,
+&quot;RPO&quot;, &quot;RCVR - Assign for repossession&quot;,
+&quot;XXX&quot;, &quot;&quot;,
+&quot;&quot;, &quot;COND - Assign based on account status&quot;,
+Risk_Strategy_Code_3__c
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Repossession</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reversal_Code__c</fullName>
+        <description>Reversal code</description>
+        <externalId>false</externalId>
+        <label>Reversal Code</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Revised_Maturity_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Revised Maturity Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Rewrites__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(Risk_Strategy_Code_4__c,
+&quot;AAA&quot;, &quot;APPR -  Approved if Conditions met&quot;,
+&quot;DDD&quot;, &quot;DENY - Decline&quot;,
+Risk_Strategy_Code_4__c
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Rewrites</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Risk_Strategy_Code_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Risk Strategy Code 1</label>
+        <length>4</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Risk_Strategy_Code_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Risk Strategy Code 2</label>
+        <length>4</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Risk_Strategy_Code_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Risk Strategy Code 3</label>
+        <length>4</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Risk_Strategy_Code_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Risk Strategy Code 4</label>
+        <length>4</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Risk_Strategy_Code_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Risk Strategy Code 5</label>
+        <length>4</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Risk_Strategy_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Risk Strategy Code</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Risk_Strategy_Description_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Risk Strategy Description 1</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Risk_Strategy_Description_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Risk Strategy Description 2</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Risk_Strategy_Description_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Risk Strategy Description 3</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Risk_Strategy_Description_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Risk Strategy Description 4</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Risk_Strategy_Description_5__c</fullName>
+        <externalId>false</externalId>
+        <label>Risk Strategy Description 5</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sale_Code__c</fullName>
+        <description>Sale Code</description>
+        <externalId>false</externalId>
+        <label>Sale Code</label>
+        <length>2</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Security_Deposit_Amount__c</fullName>
+        <description>The amount of security deposit being held by the lessor as security on the lease</description>
+        <externalId>false</externalId>
+        <label>Security Deposit Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Signature_Required__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(
+ OR(
+  AND(
+   RecordType.DeveloperName = &apos;Retail&apos;,
+   NOT(ISBLANK(Dealership__r.BillingState)),
+   NOT(ISBLANK(Primary_Garage_State__c)),
+   CONTAINS($Label.Signatory_States_Retail, Dealership__r.BillingState),
+   CONTAINS($Label.Signatory_States_Retail, Primary_Garage_State__c)
+  ),
+  AND(
+   RecordType.DeveloperName = &apos;Lease&apos;,
+   NOT(ISBLANK(Dealership__r.BillingState)),
+   NOT(ISBLANK(Primary_Garage_State__c)),
+   CONTAINS($Label.Signatory_States_Lease, Dealership__r.BillingState),
+   CONTAINS($Label.Signatory_States_Lease, Primary_Garage_State__c)
+  )
+ ), 
+ &quot;Yes - Both&quot;,
+ IF(
+  OR(
+  AND(
+   RecordType.DeveloperName = &apos;Retail&apos;,
+   NOT(ISBLANK(Dealership__r.BillingState)),   
+   CONTAINS($Label.Signatory_States_Retail, Dealership__r.BillingState)
+  ),
+  AND(
+   RecordType.DeveloperName = &apos;Lease&apos;,
+   NOT(ISBLANK(Dealership__r.BillingState)),
+   CONTAINS($Label.Signatory_States_Lease, Dealership__r.BillingState)
+  )
+ ), 
+  &quot;Yes - Dealer&quot;,
+  IF(
+   OR(
+    AND(
+     RecordType.DeveloperName = &apos;Retail&apos;,
+     NOT(ISBLANK(Primary_Garage_State__c)),
+     CONTAINS($Label.Signatory_States_Retail, Primary_Garage_State__c)
+    ),
+    AND(
+     RecordType.DeveloperName = &apos;Lease&apos;,
+     NOT(ISBLANK(Primary_Garage_State__c)),
+     CONTAINS($Label.Signatory_States_Lease, Primary_Garage_State__c)
+    )
+   ), 
+   &quot;Yes - Address&quot;,
+   &quot;No&quot;
+  )
+ )
+)</formula>
+        <label>Signature Required</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Special_Handling__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(Flag_Special_Handling__c,
+&quot;M&quot;, &quot;M - CS Military&quot;,
+&quot;N&quot;, &quot;N - CX Military&quot;,
+&quot;O&quot;, &quot;O - CS &amp; CX Military&quot;,
+&quot;S&quot;, &quot;S - CS SCRA Qualified&quot;,
+&quot;T&quot;, &quot;T - CX SCRA Qualified&quot;,
+&quot;U&quot;, &quot;U - CS &amp; CX SCRA Qualified&quot;,
+&quot;0&quot;, &quot;0 - CS No longer MILI SCRA&quot;,
+&quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Special Handling</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tax_Local__c</fullName>
+        <description>Local tax amount</description>
+        <externalId>false</externalId>
+        <label>Tax Local</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Tax_Payment__c</fullName>
+        <description>Lease payment tax</description>
+        <externalId>false</externalId>
+        <label>Tax Payment</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Tax_Sales_Payable__c</fullName>
+        <description>Lease payable use tax</description>
+        <externalId>false</externalId>
+        <label>Tax Sales Payable</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Term_Months_Expired__c</fullName>
+        <description>Expired terms</description>
+        <externalId>false</externalId>
+        <label>Term Months Expired</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Term_Months_Original__c</fullName>
+        <description>Original term</description>
+        <externalId>false</externalId>
+        <label>Term Months Original</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Term_Months_Remaining__c</fullName>
+        <description>Remaining term</description>
+        <externalId>false</externalId>
+        <label>Term Months Remaining</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Amount_Due__c</fullName>
+        <externalId>false</externalId>
+        <formula>Payment_Amount_Past_Due__c + Charges_Late__c + Charges_Miscellaneous__c +
+
+IF(
+  AND(
+    RecordType.Name = &quot;Retail&quot;,
+    Payment_Date_Past_Due__c &lt; TODAY(),
+    TODAY() &lt; Maturity_Date__c,
+    VALUE(History_Counter_Days_Past_Due__c) &gt;= 1
+  ),
+
+  Payment_Amount_Scheduled__c,
+
+  IF(RecordType.Name = &quot;Lease&quot; &amp;&amp; Payment_Date_Past_Due__c &lt; TODAY(), Payment_Amount_Scheduled__c, 0)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Amount Due</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Plus_Next__c</fullName>
+        <description>Expired terms</description>
+        <externalId>false</externalId>
+        <label>Total Plus Next</label>
+        <length>3</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type_Code_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Type Code Description</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Type Code</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Unpaid_Late_Charge__c</fullName>
+        <description>Unpaid late charge</description>
+        <externalId>false</externalId>
+        <label>Unpaid Late Charge</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Unpaid_Miscellaneous_Charge__c</fullName>
+        <description>Unpaid miscellaneous charge</description>
+        <externalId>false</externalId>
+        <label>Unpaid Miscellaneous Charge</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>User_Remarks__c</fullName>
+        <description>User remarks</description>
+        <externalId>false</externalId>
+        <label>User Remarks</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Vehicle_Charge_Per_Mile__c</fullName>
+        <description>Charge per mileage</description>
+        <externalId>false</externalId>
+        <label>Vehicle Charge Per Mile</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Vehicle_Flag_Low_Mileage__c</fullName>
+        <description>Low mileage flag</description>
+        <externalId>false</externalId>
+        <label>Vehicle Flag Low Mileage</label>
+        <length>1</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Vehicle_Insurance_Company__c</fullName>
+        <description>Insurance company</description>
+        <externalId>false</externalId>
+        <label>Vehicle Insurance Company</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Vehicle_Insurance_Policy__c</fullName>
+        <description>Insurance policy</description>
+        <externalId>false</externalId>
+        <label>Vehicle Insurance Policy</label>
+        <length>14</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Vehicle_Mileage_Allowance__c</fullName>
+        <description>Allowed mileage</description>
+        <externalId>false</externalId>
+        <label>Vehicle Mileage Allowance</label>
+        <length>7</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Vehicle_Mileage_Start__c</fullName>
+        <description>Start mileage</description>
+        <externalId>false</externalId>
+        <label>Vehicle Mileage Start</label>
+        <length>9</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Vehicle_Sale_Type__c</fullName>
+        <description>Vehicle Sale Type</description>
+        <externalId>false</externalId>
+        <label>Vehicle Sale Type</label>
+        <length>2</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WUSP_Account_Number__c</fullName>
+        <description>***Populated by a workflow rule***
+
+Contains the WUSP formatted account number.</description>
+        <externalId>false</externalId>
+        <label>WUSP Account Number</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>cbCollectionsFA__c</fullName>
+        <description>Sets the value to true if the account has past due + charges &gt; 0, days past due in the range of 13 to 90, and in collections list status A, C or P. Otherwise the value is false&gt;</description>
+        <externalId>false</externalId>
+        <formula>IF(AND( Past_Due_Charges__c &gt;0,
+AND(VALUE(History_Counter_Days_Past_Due__c) &gt;=13,
+VALUE(History_Counter_Days_Past_Due__c) &lt;= 90)
+,OR(Collection_List_Status_1__c =&quot;A&quot;
+,Collection_List_Status_1__c =&quot;C&quot;
+,Collection_List_Status_1__c =&quot;P&quot;)
+)
+,TRUE,FALSE)</formula>
+        <inlineHelpText>Sets the value to true if the account has past due + charges &gt; 0, days past due in the range of 13 to 90, and in collections list status A, C or P. Otherwise the value is false&gt;</inlineHelpText>
+        <label>cbCollectionsFA</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>iVault_Account_Number__c</fullName>
+        <description>***Populated by a workflow rule*** 
+
+Contains the iVault formatted account number.</description>
+        <externalId>false</externalId>
+        <label>iVault Account Number</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <label>Financial Account</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>RECORDTYPE</columns>
+        <columns>Collateral__c</columns>
+        <columns>Loan_Original_Term__c</columns>
+        <columns>Contract_Date__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Recently_Loaded</fullName>
+        <columns>NAME</columns>
+        <columns>RECORDTYPE</columns>
+        <columns>Collateral__c</columns>
+        <columns>Loan_Original_Term__c</columns>
+        <columns>Contract_Date__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Mine</filterScope>
+        <label>Recently Loaded</label>
+    </listViews>
+    <nameField>
+        <label>Financial Account Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Financial Accounts</pluralLabel>
+    <recordTypes>
+        <fullName>Lease</fullName>
+        <active>true</active>
+        <description>Lease type of account</description>
+        <label>Lease</label>
+        <picklistValues>
+            <picklist>Consumer_Type__c</picklist>
+            <values>
+                <fullName>Associate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-Associate</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Finance_Account_Product_Type__c</picklist>
+            <values>
+                <fullName>Picklist_Data_Goes_Here</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Finance_Account_Status__c</picklist>
+            <values>
+                <fullName>Picklist_Data_Goes_Here</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Finance_Account_Type__c</picklist>
+            <values>
+                <fullName>Business Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Consumer Customer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Retail</fullName>
+        <active>true</active>
+        <description>Loan type of account</description>
+        <label>Retail</label>
+        <picklistValues>
+            <picklist>Consumer_Type__c</picklist>
+            <values>
+                <fullName>Associate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Non-Associate</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Finance_Account_Product_Type__c</picklist>
+            <values>
+                <fullName>Picklist_Data_Goes_Here</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Finance_Account_Status__c</picklist>
+            <values>
+                <fullName>Picklist_Data_Goes_Here</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Finance_Account_Type__c</picklist>
+            <values>
+                <fullName>Business Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Consumer Customer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>Prevent_Financial_Account_Name_Change</fullName>
+        <active>true</active>
+        <description>Financial account name cannot be locked down via page layout or FLS, so validation rule is needed to prevent end users from changing the field value. Only integration or a system administrator may change the name.</description>
+        <errorConditionFormula>AND(
+  ISCHANGED(Name),
+  NOT($Profile.Name=&quot;System Administrator&quot;||$Profile.Name=&quot;API Only&quot;||$Profile.Name=&quot;System Administrator Clone&quot;)
+)</errorConditionFormula>
+        <errorMessage>The record name (Financial Account Name) cannot be changed. Cancel your changes and re-edit without modifying the value of the Financial Account Name field.</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Log_Complaint_Button</fullName>
+        <availability>online</availability>
+        <description>Opens a flow in a subtab to log a customer complaint case.</description>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Log Complaint</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/support/console/32.0/integration.js&quot;)} 
+
+
+var redirectUrl = &apos;/apex/TFSC_LogCustomerComplaintCase?Id={!Financial_Account__c.Id}&apos;; 
+if (sforce.console.isInConsole()) { 
+     sforce.console.getEnclosingTabId(function(enclosingResult){ 
+          sforce.console.getEnclosingPrimaryTabId(function(primaryResult){ 
+               sforce.console.openSubtab(primaryResult.id, redirectUrl, true, &apos;Log a Complaint&apos;, null); 
+          }); 
+     }); 
+} 
+else { 
+     window.location.href = redirectUrl; 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>OFSC_Online</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>OFSC Online</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (typeof(srcUp) == &apos;function&apos;) { 
+srcUp(&apos;https://sot.tfs.toyota.com/StarsOnlineWeb/SearchOnlineAccount.do?accountNo={!Financial_Account__c.Financial_Account_Number__c}&apos;); 
+} else { 
+window.open(&apos;https://sot.tfs.toyota.com/StarsOnlineWeb/SearchOnlineAccount.do?accountNo={!Financial_Account__c.Financial_Account_Number__c}&apos;, &apos;_blank&apos;, &apos;height=450, left=30, menubar=no, status=no, titlebar=no, toolbar=no, top=375, width=1390&apos;); 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Repo_Recovery</fullName>
+        <availability>online</availability>
+        <description>Initiates the repo/recovery workflow.</description>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Repo / Recovery</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/support/console/32.0/integration.js&quot;)} 
+
+
+var redirectUrl = &apos;/apex/TFSC_RepoRecovery?Id={!Financial_Account__c.Id}&apos;; 
+if (sforce.console.isInConsole()) { 
+     sforce.console.getEnclosingTabId(function(enclosingResult){ 
+          sforce.console.getEnclosingPrimaryTabId(function(primaryResult){ 
+               sforce.console.openSubtab(primaryResult.id, redirectUrl, true, &apos;Recovery / Repossession&apos;, null); 
+          }); 
+     }); 
+} 
+else { 
+     window.location.href = redirectUrl; 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Transaction_History</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Transaction History</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if (typeof(srcUp) == &apos;function&apos;) {
+  srcUp(&apos;/apex/TFSC_PaymentHistory?recordId={!Financial_Account__c.Id}&apos;);
+} else {
+  window.open(&apos;/apex/TFSC_PaymentHistory?recordId={!Financial_Account__c.Id}&apos;, &apos;_blank&apos;, &apos;height=450, left=30, menubar=no, status=no, titlebar=no, toolbar=no, top=375, width=1390&apos;);
+}</url>
+    </webLinks>
+</CustomObject>

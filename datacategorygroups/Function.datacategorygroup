@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataCategoryGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Administration</label>
+                <name>Administration</name>
+            </dataCategory>
+            <dataCategory>
+                <dataCategory>
+                    <label>ICU Lease End Services</label>
+                    <name>ICU_Lease_End_Services</name>
+                </dataCategory>
+                <dataCategory>
+                    <label>Redemption/Reinstatement</label>
+                    <name>Redemption_Reinstatement</name>
+                </dataCategory>
+                <dataCategory>
+                    <label>Matured Lease Services</label>
+                    <name>Matured_Lease_Services</name>
+                </dataCategory>
+                <dataCategory>
+                    <label>Specialty</label>
+                    <name>Specialty</name>
+                </dataCategory>
+                <label>Collections</label>
+                <name>Collections</name>
+            </dataCategory>
+            <dataCategory>
+                <dataCategory>
+                    <label>Business Solutions</label>
+                    <name>Business_Solutions</name>
+                </dataCategory>
+                <dataCategory>
+                    <label>Dealer Connection</label>
+                    <name>Dealer_Connection</name>
+                </dataCategory>
+                <label>Customer Service</label>
+                <name>Customer_Service</name>
+            </dataCategory>
+            <dataCategory>
+                <dataCategory>
+                    <label>Resource Management</label>
+                    <name>Resource_Management</name>
+                </dataCategory>
+                <label>ICU</label>
+                <name>ICU</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Loyalty</label>
+                <name>Loyalty</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Total Loss</label>
+                <name>Total_Loss</name>
+            </dataCategory>
+            <label>CSC</label>
+            <name>CSC</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>Central Recovery</label>
+                <name>Central_Recovery</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Tax</label>
+                <name>Tax</name>
+            </dataCategory>
+            <dataCategory>
+                <label>Corporate Customer Service</label>
+                <name>Corporate_Customer_Service</name>
+            </dataCategory>
+            <label>Field Services</label>
+            <name>Field_Services</name>
+        </dataCategory>
+        <dataCategory>
+            <dataCategory>
+                <label>CDX</label>
+                <name>CDX</name>
+            </dataCategory>
+            <dataCategory>
+                <label>DM</label>
+                <name>DM</name>
+            </dataCategory>
+            <label>SOPS</label>
+            <name>SOPS</name>
+        </dataCategory>
+        <dataCategory>
+            <label>Vendor</label>
+            <name>Vendor</name>
+        </dataCategory>
+        <label>All</label>
+        <name>All</name>
+    </dataCategory>
+    <label>Function</label>
+    <objectUsage>
+        <object>KnowledgeArticleVersion</object>
+    </objectUsage>
+</DataCategoryGroup>

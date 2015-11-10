@@ -1,0 +1,25 @@
+<apex:page standardController="Financial_Account__c" extensions="TFSC_CureNoteInfoController" showHeader="false" sidebar="false">
+    <apex:form >
+        <apex:pageBlock mode="maindetail" >
+            
+            <apex:pageBlockSection columns="2" >
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Cure Amount" style="padding-right:8px;"/>
+                    <apex:outputText >{!cureAmount}</apex:outputText>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Cure Expiration Date" style="padding-right:2px;" />
+                    <apex:outputText >{!cureExpDate}</apex:outputText>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Most Recent Cure Note" style="padding-right:8px;" />
+                    <apex:outputText >{!cureNote}</apex:outputText>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

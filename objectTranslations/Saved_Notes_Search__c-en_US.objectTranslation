@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Saved Notes Search</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Saved Notes Searches</value>
+    </caseValues>
+    <fields>
+        <help><!-- Check the box to make the record visible to everyone. Search will not be visible in consolidated notes until it is associated with profiles by the Profile Visibility field. --></help>
+        <label><!-- Globally Available --></label>
+        <name>Globally_Available__c</name>
+    </fields>
+    <fields>
+        <help><!-- Assign profiles to which the search is visible --></help>
+        <label><!-- Profile Visibility --></label>
+        <name>Profile_Visibility__c</name>
+        <picklistValues>
+            <masterLabel>Collections</masterLabel>
+            <translation><!-- Collections --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Collections Base</masterLabel>
+            <translation><!-- Collections Base --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>System Administrator</masterLabel>
+            <translation><!-- System Administrator --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Search Criteria --></label>
+        <name>Search_Criteria__c</name>
+    </fields>
+    <layouts>
+        <layout>Saved Notes Search Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Search Criteria --></label>
+            <section>Search Criteria</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Stores details of vehicles associated with financial accounts.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Body_Style__c</fullName>
+        <externalId>false</externalId>
+        <label>Body Style</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>License__c</fullName>
+        <externalId>false</externalId>
+        <label>License</label>
+        <length>8</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Make__c</fullName>
+        <externalId>false</externalId>
+        <label>Make</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Model_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Model Description</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Model_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Model Name</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Model_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Model Number</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Model_Short_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Model Short Description</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Model_Year__c</fullName>
+        <externalId>false</externalId>
+        <label>Model Year</label>
+        <length>4</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Toyota_Collateral_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Toyota Collateral Code</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VDS__c</fullName>
+        <externalId>false</externalId>
+        <label>VDS</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VIN_Length__c</fullName>
+        <description>Number of characters in the vehicle identification number</description>
+        <externalId>false</externalId>
+        <formula>LEN( Vehicle_Identification_Number__c )</formula>
+        <inlineHelpText>Number of characters in the vehicle identification number</inlineHelpText>
+        <label>VIN Length</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VIN_QR_Code__c</fullName>
+        <description>Not for production. Implemented for POC only.</description>
+        <externalId>false</externalId>
+        <formula>IMAGE(&quot;https://api.qrserver.com/v1/create-qr-code/?data=&quot; + Vehicle_Identification_Number__c, &quot;QR VIN Code&quot;, 220, 220)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>VIN QR Code</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Vehicle_Identification_Number_Last_8_Ch__c</fullName>
+        <externalId>false</externalId>
+        <formula>TRIM(RIGHT(Vehicle_Identification_Number__c, 8))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Vehicle Identification Number Last 8 Ch</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Vehicle_Identification_Number_Last_8_Dg__c</fullName>
+        <description>New formula field added to query collateral based on all digit VIN number as keyed in through a phone keypad.
+
+e.g: abc123 will be 222123
+
+This formula field will be indexed and querying without appropriate index will result in performance issues with large data volume.</description>
+        <externalId>false</externalId>
+        <formula>SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(
+
+LOWER(TRIM(RIGHT(Vehicle_Identification_Number__c,8)))
+
+,&quot;a&quot;,&quot;2&quot;),&quot;b&quot;,&quot;2&quot;),&quot;c&quot;,&quot;2&quot;),&quot;d&quot;,&quot;3&quot;),&quot;e&quot;,&quot;3&quot;),&quot;f&quot;,&quot;3&quot;),&quot;g&quot;,&quot;4&quot;),&quot;h&quot;,&quot;4&quot;),&quot;i&quot;,&quot;4&quot;),&quot;j&quot;,&quot;5&quot;),&quot;k&quot;,&quot;5&quot;),&quot;l&quot;,&quot;5&quot;),&quot;m&quot;,&quot;6&quot;),&quot;n&quot;,&quot;6&quot;),&quot;o&quot;,&quot;6&quot;),&quot;p&quot;,&quot;7&quot;),&quot;q&quot;,&quot;7&quot;),&quot;r&quot;,&quot;7&quot;),&quot;s&quot;,&quot;7&quot;),&quot;t&quot;,&quot;8&quot;),&quot;u&quot;,&quot;8&quot;),&quot;v&quot;,&quot;8&quot;),&quot;w&quot;,&quot;9&quot;),&quot;x&quot;,&quot;9&quot;),&quot;y&quot;,&quot;9&quot;),&quot;z&quot;,&quot;9&quot;)</formula>
+        <inlineHelpText>New formula field added to query collateral based on all digit VIN number as keyed in through a phone keypad.
+
+e.g: abc123 will be 222123</inlineHelpText>
+        <label>Vehicle Identification Number Last 8 Dg</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Vehicle_Identification_Number__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Vehicle Identification Number</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <label>Collateral</label>
+    <nameField>
+        <label>Collateral Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Collateral</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Read</sharingModel>
+</CustomObject>

@@ -1,0 +1,142 @@
+<apex:page standardController="Case" extensions="RL_TakeOwnershipPassThruController">
+    <apex:includeScript value="/support/console/31.0/integration.js"/>
+    <apex:includeScript value="{!$Resource.jquery}"/>
+    
+    <style>
+        .datePicker{ visibility:hidden;}
+    </style>
+    
+    
+    <script>
+    
+        function inConsoleAndCaseFeeds() {
+            try{
+                if( (sforce.console.isInConsole() && window.name.indexOf("caseFeedAction") >= 0) || //Managed
+                    (parent.name.indexOf("caseFeedAction") >= 0) ) //Unmanaged
+                    return true;
+            } catch(e) {}
+            return false;
+        }
+        
+        $j2 = jQuery.noConflict();
+        $j2(document).ready(function() {
+            var sccAndCf = inConsoleAndCaseFeeds();
+            var isInConsole = sforce.console.isInConsole();
+            $j2('.message').hide();
+            redir(isInConsole);
+            
+            var tmp = '{!previousPage}';
+            
+            
+            
+            //if(sccAndCf) {
+            //    sforce.console.getEnclosingTabId(function(result){
+            //        if(result.success)
+            //            sforce.console.closeTab(result.id);
+            //    });
+            //}
+        });
+        
+        /*
+        *
+        *  This function will be executed on:
+        *    1) click of "Go Back"
+        *    2) inConsole = true on actionFunction complete.
+        *  Thus, the following scenarios need to be accounted for:
+        *    1) Error on save (CLICK GO BACK)
+        *x      a) from standard ui single record selected (all sub cases should be fine)
+        *x      b) from standard ui multi records selected (all sub cases should be fine) 
+        *x      c) console single record selected from case record
+        *x      d) console single record selected multi-checkbox [checkboxes]
+        *x      e) console single record selected take-ownership list-view link
+        *x      f) console multi record selected from take-ownership list-view [checkboxes]
+        *    2) On success with 1 case record in context. (AUTOMATICALLY GO BACK ON COMPLETE)
+        *x      a) from standard ui on case record
+        *      b) from standard ui on list-view link
+        *x      c) from standard ui on list-view checkbox w/ single checkbox
+        *x      d) console single record from list-view w/ take-ownership link
+        *x      e) console single record from take ownership [checkboxes]
+        *x      f) console case page layout take ownership button
+        */
+        function goToUrl(url) {
+            $j2("#goBackMessage").hide();
+            
+            if(sforce.console.isInConsole()) {
+                
+                if(url.indexOf('/console') > 0) {
+                    //close tab; the search view in the console brought us here.
+                    sforce.console.getEnclosingPrimaryTabId( function(resultObj) {
+                            sforce.console.closeTab(resultObj.id);
+                        }
+                    );
+                }else{
+                    //open new tab for case and close this tab; only one record was selected.
+                    sforce.console.openPrimaryTab(null, url, true);
+                    sforce.console.getEnclosingPrimaryTabId( function(resultObj) {
+                            sforce.console.closeTab(resultObj.id);
+                        }
+                    );
+                   //window.location.href = url;
+                }
+            }else{
+                window.location.href = url;
+            }
+            
+        }
+        
+    </script>
+    
+    
+    
+    
+    <apex:form >
+        <apex:actionFunction action="{!redir}" name="redir" reRender="mainPanel" 
+                             oncomplete="showGoBackMsgOnErrorOrRedirect();">
+            <apex:param name="isInConsole" value="false" assignTo="{!isInConsole}"/>
+        </apex:actionFunction>
+        
+        
+        <apex:outputPanel id="mainPanel">
+            <apex:pageMessages id="pageMessages" escape="false" />
+        
+        
+            <apex:variable id="codeBockForRerender" value="0" var="noUse">
+                <script>
+                    function showGoBackMsgOnErrorOrRedirect() {
+                        //would have done this on actionFunction rerender, but am coding for future-state and ease of editability going forward.
+                        $j2("#goBackMessage").show();
+                        
+                        if(sforce.console.isInConsole() && {!goToNextPageViaJS}) {
+                            goToUrl('{!nextPage}');
+                        }else if( ! {!errorsOccuredOnUpdate} ) {
+                            goToUrl('{!previousPage}');
+                        }else{
+                            //hide spinner
+                            $j2("#spinnerDiv").hide();
+                        }
+                    }
+                </script>
+            </apex:variable>
+            
+            <div id="goBackMessage" style="display:none;">
+                <a href="#" onclick="goToUrl('{!previousPage}');">Go Back</a>
+            </div>
+                    
+            
+            <apex:outputPanel id="startMsg" styleClass="message" rendered="{! !redirExecuted}">
+                 You should be redirected back to your case page shortly. If you are not, 
+                 please&nbsp;<apex:commandLink action="{!redir}" value="click here"/>. 
+             </apex:outputPanel>
+        </apex:outputPanel>
+        
+         
+        
+    </apex:form>
+    
+    <div id="spinnerDiv" style="position:absolute;width:250px;height:200px;left:50%;top:50%;">
+        <apex:image value="/img/loading32.gif" style="padding-left:52px;padding-bottom:8px;" /><br />
+        <span style="font-weight:bold;font-size:16px;">Taking Ownership</span>
+    </div>
+    
+    
+</apex:page>

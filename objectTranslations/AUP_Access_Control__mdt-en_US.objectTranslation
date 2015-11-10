@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>AUP Access Control</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>AUP Access Control</value>
+    </caseValues>
+    <fields>
+        <help><!-- Profile Name --></help>
+        <label><!-- Profile Name --></label>
+        <name>Profile_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Role Dev Name --></help>
+        <label><!-- Role Dev Name --></label>
+        <name>Role_Dev_Name__c</name>
+    </fields>
+    <layouts>
+        <layout>TFS AUP Access Control Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

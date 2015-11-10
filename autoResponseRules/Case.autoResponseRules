@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AutoResponseRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <autoResponseRule>
+        <fullName>Case Auto Responses</fullName>
+        <active>true</active>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Due Date Change Request</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Status</field>
+                <operation>equals</operation>
+                <value>New</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Origin</field>
+                <operation>equals</operation>
+                <value>TFS Community</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <replyToEmail>noreply_toyotafinancial@toyota.com</replyToEmail>
+            <senderEmail>noreply_toyotafinancial@toyota.com</senderEmail>
+            <senderName>Toyota Financial Services (noreply)</senderName>
+            <template>Customer_Service_Automated/TFS_New_Support_Request_General</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Support Request</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.eCSR_Initiated__c</field>
+                <operation>notEqual</operation>
+                <value>&quot;Yes, Toyota&quot;,&quot;Yes, Lexus&quot;,Not Necessary</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Status</field>
+                <operation>equals</operation>
+                <value>New</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Origin</field>
+                <operation>equals</operation>
+                <value>TFS Community</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <replyToEmail>noreply_toyotafinancial@toyota.com</replyToEmail>
+            <senderEmail>noreply_toyotafinancial@toyota.com</senderEmail>
+            <senderName>Toyota Financial Services (noreply)</senderName>
+            <template>Customer_Service_Automated/TFS_New_Support_Request_General</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Due Date Change Request</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Status</field>
+                <operation>equals</operation>
+                <value>New</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Origin</field>
+                <operation>equals</operation>
+                <value>LFS Community</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <replyToEmail>noreply_lexusfinancial@toyota.com</replyToEmail>
+            <senderEmail>noreply_lexusfinancial@toyota.com</senderEmail>
+            <senderName>Lexus Financial Services (noreply)</senderName>
+            <template>Customer_Service_Automated/LFS_New_Support_Request_General_Authenticated</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Support Request</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.eCSR_Initiated__c</field>
+                <operation>notEqual</operation>
+                <value>&quot;Yes, Toyota&quot;,&quot;Yes, Lexus&quot;,Not Necessary</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Status</field>
+                <operation>equals</operation>
+                <value>New</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Origin</field>
+                <operation>equals</operation>
+                <value>LFS Community</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <replyToEmail>noreply_lexusfinancial@toyota.com</replyToEmail>
+            <senderEmail>noreply_lexusfinancial@toyota.com</senderEmail>
+            <senderName>Lexus Financial Services (noreply)</senderName>
+            <template>Customer_Service_Automated/LFS_New_Support_Request_General_Authenticated</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.Web_to_Case_Type__c</field>
+                <operation>equals</operation>
+                <value>Toyota</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Service_Request_Subject__c</field>
+                <operation>notEqual</operation>
+                <value>Apply for Credit,Careers,Company Information,Investor Relations,Payment Estimator,Terms of Use</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <replyToEmail>noreply_toyotafinancial@toyota.com</replyToEmail>
+            <senderEmail>noreply_toyotafinancial@toyota.com</senderEmail>
+            <senderName>Toyota Financial Services (noreply)</senderName>
+            <template>Customer_Service_Automated/TFS_Contact_Us_General_Unauthenticated</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.Web_to_Case_Type__c</field>
+                <operation>equals</operation>
+                <value>Toyota</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Service_Request_Subject__c</field>
+                <operation>equals</operation>
+                <value>Apply for Credit</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <replyToEmail>noreply_toyotafinancial@toyota.com</replyToEmail>
+            <senderEmail>noreply_toyotafinancial@toyota.com</senderEmail>
+            <senderName>Toyota Financial Services (noreply)</senderName>
+            <template>Customer_Service_Automated/TFS_Contact_Us_Apply_for_Credit_Unauthenticated</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.Web_to_Case_Type__c</field>
+                <operation>equals</operation>
+                <value>Toyota</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Service_Request_Subject__c</field>
+                <operation>equals</operation>
+                <value>Payment Estimator</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <replyToEmail>noreply_toyotafinancial@toyota.com</replyToEmail>
+            <senderEmail>noreply_toyotafinancial@toyota.com</senderEmail>
+            <senderName>Toyota Financial Services (noreply)</senderName>
+            <template>Customer_Service_Automated/TFS_Contact_Us_Payment_Estimator_Unauthenticated</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.Web_to_Case_Type__c</field>
+                <operation>equals</operation>
+                <value>Toyota</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Service_Request_Subject__c</field>
+                <operation>equals</operation>
+                <value>Company Information</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <replyToEmail>noreply_toyotafinancial@toyota.com</replyToEmail>
+            <senderEmail>noreply_toyotafinancial@toyota.com</senderEmail>
+            <senderName>Toyota Financial Services (noreply)</senderName>
+            <template>Customer_Service_Automated/TFS_Contact_Us_Company_Info_Unauthenticated</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.Web_to_Case_Type__c</field>
+                <operation>equals</operation>
+                <value>Toyota</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Service_Request_Subject__c</field>
+                <operation>equals</operation>
+                <value>Careers</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <replyToEmail>noreply_toyotafinancial@toyota.com</replyToEmail>
+            <senderEmail>noreply_toyotafinancial@toyota.com</senderEmail>
+            <senderName>Toyota Financial Services (noreply)</senderName>
+            <template>Customer_Service_Automated/TFS_Contact_Us_Careers_Unauthenticated</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.Web_to_Case_Type__c</field>
+                <operation>equals</operation>
+                <value>Toyota</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Service_Request_Subject__c</field>
+                <operation>equals</operation>
+                <value>Investor Relations</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <replyToEmail>noreply_toyotafinancial@toyota.com</replyToEmail>
+            <senderEmail>noreply_toyotafinancial@toyota.com</senderEmail>
+            <senderName>Toyota Financial Services (noreply)</senderName>
+            <template>Customer_Service_Automated/TFS_Contact_Us_Investor_Relations_Unauthenticated</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.Web_to_Case_Type__c</field>
+                <operation>equals</operation>
+                <value>Toyota</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Service_Request_Subject__c</field>
+                <operation>equals</operation>
+                <value>Terms of Use</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <replyToEmail>noreply_toyotafinancial@toyota.com</replyToEmail>
+            <senderEmail>noreply_toyotafinancial@toyota.com</senderEmail>
+            <senderName>Toyota Financial Services (noreply)</senderName>
+            <template>Customer_Service_Automated/TFS_Contact_Us_Terms_of_Use_Unauthenticated</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.Web_to_Case_Type__c</field>
+                <operation>equals</operation>
+                <value>Lexus</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Service_Request_Subject__c</field>
+                <operation>notEqual</operation>
+                <value>Apply for Credit,Careers,Company Information,Investor Relations,Payment Estimator,Terms of Use</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <replyToEmail>noreply_lexusfinancial@toyota.com</replyToEmail>
+            <senderEmail>noreply_lexusfinancial@toyota.com</senderEmail>
+            <senderName>Lexus Financial Services (noreply)</senderName>
+            <template>Customer_Service_Automated/LFS_Contact_Us_General_Unauthenticated</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.Web_to_Case_Type__c</field>
+                <operation>equals</operation>
+                <value>Lexus</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Service_Request_Subject__c</field>
+                <operation>equals</operation>
+                <value>Apply for Credit</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <replyToEmail>noreply_lexusfinancial@toyota.com</replyToEmail>
+            <senderEmail>noreply_lexusfinancial@toyota.com</senderEmail>
+            <senderName>Lexus Financial Services (noreply)</senderName>
+            <template>Customer_Service_Automated/LFS_Apply_for_Credit_Us_General_Unauthenticated</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.Web_to_Case_Type__c</field>
+                <operation>equals</operation>
+                <value>Lexus</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Service_Request_Subject__c</field>
+                <operation>equals</operation>
+                <value>Payment Estimator</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <replyToEmail>noreply_lexusfinancial@toyota.com</replyToEmail>
+            <senderEmail>noreply_lexusfinancial@toyota.com</senderEmail>
+            <senderName>Lexus Financial Services (noreply)</senderName>
+            <template>Customer_Service_Automated/LFS_Contact_Us_Payment_Estimator_Unauthenticated</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.Web_to_Case_Type__c</field>
+                <operation>equals</operation>
+                <value>Lexus</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Service_Request_Subject__c</field>
+                <operation>equals</operation>
+                <value>Company Information</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <replyToEmail>noreply_lexusfinancial@toyota.com</replyToEmail>
+            <senderEmail>noreply_lexusfinancial@toyota.com</senderEmail>
+            <senderName>Lexus Financial Services (noreply)</senderName>
+            <template>Customer_Service_Automated/LFS_Contact_Us_Company_Info_Unauthenticated</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.Web_to_Case_Type__c</field>
+                <operation>equals</operation>
+                <value>Lexus</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Service_Request_Subject__c</field>
+                <operation>equals</operation>
+                <value>Careers</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <replyToEmail>noreply_lexusfinancial@toyota.com</replyToEmail>
+            <senderEmail>noreply_lexusfinancial@toyota.com</senderEmail>
+            <senderName>Lexus Financial Services (noreply)</senderName>
+            <template>Customer_Service_Automated/LFS_Careers_Auto_response_Unauthenticated</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.Web_to_Case_Type__c</field>
+                <operation>equals</operation>
+                <value>Lexus</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Service_Request_Subject__c</field>
+                <operation>equals</operation>
+                <value>Investor Relations</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <replyToEmail>noreply_lexusfinancial@toyota.com</replyToEmail>
+            <senderEmail>noreply_lexusfinancial@toyota.com</senderEmail>
+            <senderName>Lexus Financial Services (noreply)</senderName>
+            <template>Customer_Service_Automated/LFS_Contact_Us_Investor_Relations_Unauthenticated</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.Web_to_Case_Type__c</field>
+                <operation>equals</operation>
+                <value>Lexus</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Service_Request_Subject__c</field>
+                <operation>equals</operation>
+                <value>Terms of Use</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <replyToEmail>noreply_lexusfinancial@toyota.com</replyToEmail>
+            <senderEmail>noreply_lexusfinancial@toyota.com</senderEmail>
+            <senderName>Lexus Financial Services (noreply)</senderName>
+            <template>Customer_Service_Automated/LFS_Contact_Us_Terms_of_Use_Unauthenticated</template>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Change Control</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Status</field>
+                <operation>equals</operation>
+                <value>New</value>
+            </criteriaItems>
+            <notifyCcRecipients>false</notifyCcRecipients>
+            <senderEmail>noreply_toyotafinancial@toyota.com</senderEmail>
+            <senderName>Toyota Financial Services (no-reply)</senderName>
+            <template>unfiled$public/ChangeControlNewCaseSubmission</template>
+        </ruleEntry>
+    </autoResponseRule>
+</AutoResponseRules>

@@ -1,0 +1,1611 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Financial Account Customer</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Financial Account Customers</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account --></label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- Financial Account Customers --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Care Of --></label>
+        <name>Address_Special_BillTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Care Of --></label>
+        <name>Address_Special_Garage__c</name>
+    </fields>
+    <fields>
+        <label><!-- (IVR) BSG Flag --></label>
+        <name>BSG_Flag__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing Zip Code Extn --></label>
+        <name>Billing_Zip_Code_Extn__c</name>
+    </fields>
+    <fields>
+        <label><!-- Borrower Position --></label>
+        <name>Borrower_Position__c</name>
+    </fields>
+    <fields>
+        <label><!-- Borrower Status --></label>
+        <name>Borrower_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- ClickToPay Electronic Biz Agreement Date --></label>
+        <name>ClickToPay_Electronic_Biz_Agreement_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- ClickToPay Electronic Biz Agreement --></label>
+        <name>ClickToPay_Electronic_Biz_Agreement__c</name>
+    </fields>
+    <fields>
+        <label><!-- Click To Pay Terms And Conditions Date --></label>
+        <name>Click_To_Pay_Terms_And_Conditions_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Click To Pay Terms And Conditions --></label>
+        <name>Click_To_Pay_Terms_And_Conditions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Click To Pay Version --></label>
+        <name>Click_To_Pay_Version__c</name>
+    </fields>
+    <fields>
+        <label><!-- Communication Comments --></label>
+        <name>Communication_Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Borrower Number --></label>
+        <name>Customer_Borrower_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Full Name --></label>
+        <name>Customer_Full_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Role Type --></label>
+        <name>Customer_Role_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer --></label>
+        <name>Customer__c</name>
+    </fields>
+    <fields>
+        <label><!-- Election Abbreviated Consent Date --></label>
+        <name>Election_Abbreviated_Consent_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Abbreviated Consent --></label>
+        <name>Election_Abbreviated_Consent__c</name>
+        <picklistValues>
+            <masterLabel>N</masterLabel>
+            <translation><!-- N --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Y</masterLabel>
+            <translation><!-- Y --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Direct Mail Marketing --></label>
+        <name>Election_Direct_Mail_Marketing__c</name>
+    </fields>
+    <fields>
+        <label><!-- Electronic Business Agreement --></label>
+        <name>Election_Electronic_Business_Agreement__c</name>
+        <picklistValues>
+            <masterLabel>N</masterLabel>
+            <translation><!-- N --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Y</masterLabel>
+            <translation><!-- Y --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Email Marketing --></label>
+        <name>Election_Email_Marketing__c</name>
+        <picklistValues>
+            <masterLabel>N</masterLabel>
+            <translation><!-- N --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Home Phone Marketing --></label>
+        <name>Election_Home_Phone_Marketing__c</name>
+        <picklistValues>
+            <masterLabel>N</masterLabel>
+            <translation><!-- N --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Language Preference --></label>
+        <name>Election_Language_Preference__c</name>
+        <picklistValues>
+            <masterLabel>Doc Trans May Be Required</masterLabel>
+            <translation><!-- Doc Trans May Be Required --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>English</masterLabel>
+            <translation><!-- English --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Spanish</masterLabel>
+            <translation><!-- Spanish --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Mobile Phone Marketing --></label>
+        <name>Election_Mobile_Phone_Marketing__c</name>
+        <picklistValues>
+            <masterLabel>N</masterLabel>
+            <translation><!-- N --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Other Phone Marketing --></label>
+        <name>Election_Other_Phone_Marketing__c</name>
+        <picklistValues>
+            <masterLabel>N</masterLabel>
+            <translation><!-- N --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Election Overall Consent Date --></label>
+        <name>Election_Overall_Consent_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Overall Consent --></label>
+        <name>Election_Overall_Consent__c</name>
+        <picklistValues>
+            <masterLabel>N</masterLabel>
+            <translation><!-- N --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Payment Not Received Email --></label>
+        <name>Election_Payment_NotReceivedEmail__c</name>
+        <picklistValues>
+            <masterLabel>N</masterLabel>
+            <translation><!-- N --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Y</masterLabel>
+            <translation><!-- Y --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Payment Not Received Text --></label>
+        <name>Election_Payment_NotReceivedText__c</name>
+        <picklistValues>
+            <masterLabel>N</masterLabel>
+            <translation><!-- N --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Y</masterLabel>
+            <translation><!-- Y --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Payment Received Email --></label>
+        <name>Election_Payment_Received_Email__c</name>
+        <picklistValues>
+            <masterLabel>N</masterLabel>
+            <translation><!-- N --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Y</masterLabel>
+            <translation><!-- Y --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Payment Received Text --></label>
+        <name>Election_Payment_Received_Text__c</name>
+        <picklistValues>
+            <masterLabel>N</masterLabel>
+            <translation><!-- N --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Y</masterLabel>
+            <translation><!-- Y --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Payment Reminder Day --></label>
+        <name>Election_Payment_Reminder_Day__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>10</masterLabel>
+            <translation><!-- 10 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>11</masterLabel>
+            <translation><!-- 11 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>12</masterLabel>
+            <translation><!-- 12 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>13</masterLabel>
+            <translation><!-- 13 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>14</masterLabel>
+            <translation><!-- 14 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>15</masterLabel>
+            <translation><!-- 15 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>16</masterLabel>
+            <translation><!-- 16 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>17</masterLabel>
+            <translation><!-- 17 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>18</masterLabel>
+            <translation><!-- 18 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>19</masterLabel>
+            <translation><!-- 19 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>20</masterLabel>
+            <translation><!-- 20 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>21</masterLabel>
+            <translation><!-- 21 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>22</masterLabel>
+            <translation><!-- 22 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>23</masterLabel>
+            <translation><!-- 23 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>24</masterLabel>
+            <translation><!-- 24 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>25</masterLabel>
+            <translation><!-- 25 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>26</masterLabel>
+            <translation><!-- 26 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>27</masterLabel>
+            <translation><!-- 27 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>28</masterLabel>
+            <translation><!-- 28 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5</masterLabel>
+            <translation><!-- 5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>6</masterLabel>
+            <translation><!-- 6 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>7</masterLabel>
+            <translation><!-- 7 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>8</masterLabel>
+            <translation><!-- 8 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>9</masterLabel>
+            <translation><!-- 9 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Payment Reminder Email --></label>
+        <name>Election_Payment_Reminder_Email__c</name>
+        <picklistValues>
+            <masterLabel>N</masterLabel>
+            <translation><!-- N --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Y</masterLabel>
+            <translation><!-- Y --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Payment Reminder Text --></label>
+        <name>Election_Payment_Reminder_Text__c</name>
+        <picklistValues>
+            <masterLabel>N</masterLabel>
+            <translation><!-- N --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Y</masterLabel>
+            <translation><!-- Y --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Text Marketing --></label>
+        <name>Election_Text_Marketing__c</name>
+        <picklistValues>
+            <masterLabel>N</masterLabel>
+            <translation><!-- N --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Electronic Business Agreement Date --></label>
+        <name>Electronic_Business_Agreement_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- FA Role Status --></label>
+        <name>FA_Role_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Financial Account Customer --></label>
+        <name>Financial_Account_Customer__c</name>
+    </fields>
+    <fields>
+        <label><!-- (IVR) Financial Account Number --></label>
+        <name>Financial_Account_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Financial Account --></label>
+        <name>Financial_Account__c</name>
+        <relationshipLabel><!-- Financial Account Customers --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- First Name or Business Name --></label>
+        <name>First_Name_or_Business_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Flag Address Lock BillTo --></label>
+        <name>Flag_Address_Lock_BillTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Flag Address Lock Garage --></label>
+        <name>Flag_Address_Lock_Garage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Flag Bankruptcy --></label>
+        <name>Flag_Bankruptcy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Home Phone DNC --></label>
+        <name>Flag_Home_Phone_DNC_BillTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Home Phone DNC --></label>
+        <name>Flag_Home_Phone_DNC_Garage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Home Phone Invalid --></label>
+        <name>Flag_Home_Phone_Invalid_BillTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Home Phone Invalid --></label>
+        <name>Flag_Home_Phone_Invalid_Garage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Home Phone Is Mobile --></label>
+        <name>Flag_Home_Phone_IsMobile_BillTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Home Phone Is Mobile --></label>
+        <name>Flag_Home_Phone_IsMobile_Garage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Flag Home Phone NonLanLine BillTo --></label>
+        <name>Flag_Home_Phone_NonLanLine_BillTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Flag Military Status --></label>
+        <name>Flag_Military_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mobile Phone DNC --></label>
+        <name>Flag_Mobile_Phone_DNC__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mobile Phone Invalid --></label>
+        <name>Flag_Mobile_Phone_Invalid__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mobile Phone is Mobile --></label>
+        <name>Flag_Mobile_Phone_IsMobile__c</name>
+    </fields>
+    <fields>
+        <label><!-- Flag Office Of Foreign Asset Control --></label>
+        <name>Flag_Office_Of_Foreign_Asset_Control__c</name>
+    </fields>
+    <fields>
+        <label><!-- Flag SCRA Status --></label>
+        <name>Flag_SCRA_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Work Phone DNC --></label>
+        <name>Flag_Work_Phone_DNC_BillTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Work Phone DNC --></label>
+        <name>Flag_Work_Phone_DNC_Garage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Work Phone Invalid --></label>
+        <name>Flag_Work_Phone_Invalid_BillTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Work Phone Invalid --></label>
+        <name>Flag_Work_Phone_Invalid_Garage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Work Phone Is Mobile --></label>
+        <name>Flag_Work_Phone_IsMobile_Garage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Work Phone Is Mobile --></label>
+        <name>Flag_Work_Phone_Is_Mobile_BillTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Flag Work Phone NonLanLine BillTo --></label>
+        <name>Flag_Work_Phone_NonLanLine_BillTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Garage Zip Code Extn --></label>
+        <name>Garage_Zip_Code_Extn__c</name>
+    </fields>
+    <fields>
+        <label><!-- Home Phone --></label>
+        <name>HomePhone_BillTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Home Phone --></label>
+        <name>Home_Phone_Garage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Home Phone No-Call Reason --></label>
+        <name>Home_Phone_No_Call_Reason_BillTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Home Phone No-Call Reason Code BillTo --></label>
+        <name>Home_Phone_No_Call_Reason_Code_BillTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Home Phone No-Call Reason Code Garage --></label>
+        <name>Home_Phone_No_Call_Reason_Code_Garage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Home Phone No-Call Reason --></label>
+        <name>Home_Phone_No_Call_Reason_Garage__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check to acknowledge an invalid phone number has been entered. --></help>
+        <label><!-- Home Phone Format Confirmed --></label>
+        <name>Invalid_Home_Phone_Acknowledged_BillTo__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check to acknowledge an invalid phone number has been entered. --></help>
+        <label><!-- Home Phone Format Confirmed --></label>
+        <name>Invalid_Home_Phone_Acknowledged_Garage__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check to acknowledge an invalid phone number has been entered. --></help>
+        <label><!-- Mobile Phone Format Confirmed --></label>
+        <name>Invalid_Mobile_Phone_Acknowledged__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check to acknowledge an invalid phone number has been entered. --></help>
+        <label><!-- Work Phone Format Confirmed --></label>
+        <name>Invalid_Work_Phone_Acknowledged_BillTo__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check to acknowledge an invalid phone number has been entered. --></help>
+        <label><!-- Work Phone Format Confirmed --></label>
+        <name>Invalid_Work_Phone_Acknowledged_Garage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bill To Name --></label>
+        <name>Mailing_BillTo_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- City --></label>
+        <name>Mailing_City_BillTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- City --></label>
+        <name>Mailing_City_Garage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mailing City State Zip --></label>
+        <name>Mailing_City_State_Zip__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mailing City --></label>
+        <name>Mailing_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Country Code --></label>
+        <name>Mailing_CountryCode_BillTo__c</name>
+        <picklistValues>
+            <masterLabel>Mailing CountryCode BillTo</masterLabel>
+            <translation><!-- Mailing CountryCode BillTo --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Country Code --></label>
+        <name>Mailing_Country_Code_Garage__c</name>
+        <picklistValues>
+            <masterLabel>Mailing Country Code Garage</masterLabel>
+            <translation><!-- Mailing Country Code Garage --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Mailing PostalCode BillTo Ext --></label>
+        <name>Mailing_PostalCode_BillTo_Ext__c</name>
+    </fields>
+    <fields>
+        <label><!-- Zip Code --></label>
+        <name>Mailing_PostalCode_BillTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mailing Postal Code Garage Ext --></label>
+        <name>Mailing_Postal_Code_Garage_Ext__c</name>
+    </fields>
+    <fields>
+        <label><!-- Zip Code --></label>
+        <name>Mailing_Postal_Code_Garage__c</name>
+    </fields>
+    <fields>
+        <label><!-- State --></label>
+        <name>Mailing_State_BillTo__c</name>
+        <picklistValues>
+            <masterLabel>AA</masterLabel>
+            <translation><!-- AA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>AE</masterLabel>
+            <translation><!-- AE --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>AK</masterLabel>
+            <translation><!-- AK --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>AL</masterLabel>
+            <translation><!-- AL --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>AP</masterLabel>
+            <translation><!-- AP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>AR</masterLabel>
+            <translation><!-- AR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>AZ</masterLabel>
+            <translation><!-- AZ --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CA</masterLabel>
+            <translation><!-- CA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CO</masterLabel>
+            <translation><!-- CO --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CT</masterLabel>
+            <translation><!-- CT --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DC</masterLabel>
+            <translation><!-- DC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DE</masterLabel>
+            <translation><!-- DE --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FL</masterLabel>
+            <translation><!-- FL --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>GA</masterLabel>
+            <translation><!-- GA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>HI</masterLabel>
+            <translation><!-- HI --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IA</masterLabel>
+            <translation><!-- IA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ID</masterLabel>
+            <translation><!-- ID --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IL</masterLabel>
+            <translation><!-- IL --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IN</masterLabel>
+            <translation><!-- IN --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>KS</masterLabel>
+            <translation><!-- KS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>KY</masterLabel>
+            <translation><!-- KY --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>LA</masterLabel>
+            <translation><!-- LA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MA</masterLabel>
+            <translation><!-- MA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MD</masterLabel>
+            <translation><!-- MD --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ME</masterLabel>
+            <translation><!-- ME --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MI</masterLabel>
+            <translation><!-- MI --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MN</masterLabel>
+            <translation><!-- MN --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MO</masterLabel>
+            <translation><!-- MO --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MS</masterLabel>
+            <translation><!-- MS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MT</masterLabel>
+            <translation><!-- MT --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NC</masterLabel>
+            <translation><!-- NC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ND</masterLabel>
+            <translation><!-- ND --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NE</masterLabel>
+            <translation><!-- NE --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NH</masterLabel>
+            <translation><!-- NH --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NJ</masterLabel>
+            <translation><!-- NJ --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NM</masterLabel>
+            <translation><!-- NM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NV</masterLabel>
+            <translation><!-- NV --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NY</masterLabel>
+            <translation><!-- NY --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OH</masterLabel>
+            <translation><!-- OH --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OK</masterLabel>
+            <translation><!-- OK --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OR</masterLabel>
+            <translation><!-- OR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PA</masterLabel>
+            <translation><!-- PA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PR</masterLabel>
+            <translation><!-- PR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>RI</masterLabel>
+            <translation><!-- RI --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SC</masterLabel>
+            <translation><!-- SC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SD</masterLabel>
+            <translation><!-- SD --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>TN</masterLabel>
+            <translation><!-- TN --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>TX</masterLabel>
+            <translation><!-- TX --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>UT</masterLabel>
+            <translation><!-- UT --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VA</masterLabel>
+            <translation><!-- VA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VT</masterLabel>
+            <translation><!-- VT --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>WA</masterLabel>
+            <translation><!-- WA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>WI</masterLabel>
+            <translation><!-- WI --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>WV</masterLabel>
+            <translation><!-- WV --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>WY</masterLabel>
+            <translation><!-- WY --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- State --></label>
+        <name>Mailing_State_Garage__c</name>
+        <picklistValues>
+            <masterLabel>AA</masterLabel>
+            <translation><!-- AA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>AE</masterLabel>
+            <translation><!-- AE --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>AK</masterLabel>
+            <translation><!-- AK --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>AL</masterLabel>
+            <translation><!-- AL --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>AP</masterLabel>
+            <translation><!-- AP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>AR</masterLabel>
+            <translation><!-- AR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>AZ</masterLabel>
+            <translation><!-- AZ --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CA</masterLabel>
+            <translation><!-- CA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CO</masterLabel>
+            <translation><!-- CO --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CT</masterLabel>
+            <translation><!-- CT --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DC</masterLabel>
+            <translation><!-- DC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DE</masterLabel>
+            <translation><!-- DE --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FL</masterLabel>
+            <translation><!-- FL --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>GA</masterLabel>
+            <translation><!-- GA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>HI</masterLabel>
+            <translation><!-- HI --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IA</masterLabel>
+            <translation><!-- IA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ID</masterLabel>
+            <translation><!-- ID --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IL</masterLabel>
+            <translation><!-- IL --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IN</masterLabel>
+            <translation><!-- IN --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>KS</masterLabel>
+            <translation><!-- KS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>KY</masterLabel>
+            <translation><!-- KY --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>LA</masterLabel>
+            <translation><!-- LA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MA</masterLabel>
+            <translation><!-- MA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MD</masterLabel>
+            <translation><!-- MD --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ME</masterLabel>
+            <translation><!-- ME --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MI</masterLabel>
+            <translation><!-- MI --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MN</masterLabel>
+            <translation><!-- MN --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MO</masterLabel>
+            <translation><!-- MO --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MS</masterLabel>
+            <translation><!-- MS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MT</masterLabel>
+            <translation><!-- MT --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NC</masterLabel>
+            <translation><!-- NC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ND</masterLabel>
+            <translation><!-- ND --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NE</masterLabel>
+            <translation><!-- NE --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NH</masterLabel>
+            <translation><!-- NH --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NJ</masterLabel>
+            <translation><!-- NJ --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NM</masterLabel>
+            <translation><!-- NM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NV</masterLabel>
+            <translation><!-- NV --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NY</masterLabel>
+            <translation><!-- NY --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OH</masterLabel>
+            <translation><!-- OH --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OK</masterLabel>
+            <translation><!-- OK --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OR</masterLabel>
+            <translation><!-- OR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PA</masterLabel>
+            <translation><!-- PA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PR</masterLabel>
+            <translation><!-- PR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>RI</masterLabel>
+            <translation><!-- RI --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SC</masterLabel>
+            <translation><!-- SC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SD</masterLabel>
+            <translation><!-- SD --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>TN</masterLabel>
+            <translation><!-- TN --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>TX</masterLabel>
+            <translation><!-- TX --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>UT</masterLabel>
+            <translation><!-- UT --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VA</masterLabel>
+            <translation><!-- VA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VT</masterLabel>
+            <translation><!-- VT --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>WA</masterLabel>
+            <translation><!-- WA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>WI</masterLabel>
+            <translation><!-- WI --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>WV</masterLabel>
+            <translation><!-- WV --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>WY</masterLabel>
+            <translation><!-- WY --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Mailing State --></label>
+        <name>Mailing_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mailing Street1 --></label>
+        <name>Mailing_Street1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mailing Street2 --></label>
+        <name>Mailing_Street2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Street --></label>
+        <name>Mailing_Street_BillTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Street --></label>
+        <name>Mailing_Street_Garage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mailing Zip --></label>
+        <name>Mailing_Zip__c</name>
+    </fields>
+    <fields>
+        <label><!-- (IVR) Make --></label>
+        <name>Make__c</name>
+    </fields>
+    <fields>
+        <label><!-- Marketing Email --></label>
+        <name>Marketing_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mobile Phone No-Call Reason Code --></label>
+        <name>Mobile_Phone_No_Call_Reason_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mobile Phone No-Call Reason --></label>
+        <name>Mobile_Phone_No_Call_Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mobile Phone --></label>
+        <name>Mobile_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- (IVR) Model Name --></label>
+        <name>Model_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- (IVR) Model Year --></label>
+        <name>Model_Year__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of FAC --></label>
+        <name>Number_of_FAC__c</name>
+    </fields>
+    <fields>
+        <label><!-- Online Flag --></label>
+        <name>Online_Flag__c</name>
+    </fields>
+    <fields>
+        <label><!-- (IVR) Payment Amount Last1 --></label>
+        <name>Payment_Amount_Last1__c</name>
+    </fields>
+    <fields>
+        <label><!-- (IVR) Payment Amount Last2 --></label>
+        <name>Payment_Amount_Last2__c</name>
+    </fields>
+    <fields>
+        <label><!-- (IVR) Payment Amount Last3 --></label>
+        <name>Payment_Amount_Last3__c</name>
+    </fields>
+    <fields>
+        <label><!-- (IVR) Payment Date Last1 --></label>
+        <name>Payment_Date_Last1__c</name>
+    </fields>
+    <fields>
+        <label><!-- (IVR) Payment Date Last2 --></label>
+        <name>Payment_Date_Last2__c</name>
+    </fields>
+    <fields>
+        <label><!-- (IVR) Payment Date Last3 --></label>
+        <name>Payment_Date_Last3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Affiliate Marketing Source --></label>
+        <name>Privacy_Elec_Affiliate_Marketing_Source__c</name>
+    </fields>
+    <fields>
+        <label><!-- Privacy Elect 3rd Party Sharing Source --></label>
+        <name>Privacy_Elect_3rd_Party_Sharing_Source__c</name>
+    </fields>
+    <fields>
+        <label><!-- Privacy Elect Affiliate Sharing Source --></label>
+        <name>Privacy_Elect_Affiliate_Sharing_Source__c</name>
+    </fields>
+    <fields>
+        <label><!-- Affiliate Marketing --></label>
+        <name>Privacy_Election_Affiliate_Marketing__c</name>
+        <picklistValues>
+            <masterLabel>OUT</masterLabel>
+            <translation><!-- OUT --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Affiliate Sharing --></label>
+        <name>Privacy_Election_Affiliate_Sharing__c</name>
+    </fields>
+    <fields>
+        <label><!-- Privacy Election DealershipSource --></label>
+        <name>Privacy_Election_DealershipSource__c</name>
+    </fields>
+    <fields>
+        <label><!-- Toyota/Lexus Dealer --></label>
+        <name>Privacy_Election_Dealership__c</name>
+        <picklistValues>
+            <masterLabel>OUT</masterLabel>
+            <translation><!-- OUT --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Privacy Election FCRA Sharing Source --></label>
+        <name>Privacy_Election_FCRA_Sharing_Source__c</name>
+    </fields>
+    <fields>
+        <label><!-- Credit App/Rpt --></label>
+        <name>Privacy_Election_FCRA_Sharing__c</name>
+        <picklistValues>
+            <masterLabel>OUT</masterLabel>
+            <translation><!-- OUT --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Privacy Election Telemarketing Source --></label>
+        <name>Privacy_Election_Telemarketing_Source__c</name>
+    </fields>
+    <fields>
+        <label><!-- TFS Telemarketing --></label>
+        <name>Privacy_Election_Telemarketing__c</name>
+        <picklistValues>
+            <masterLabel>OUT</masterLabel>
+            <translation><!-- OUT --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 3rd Party --></label>
+        <name>Privacy_Election_Third_Party_Sharing__c</name>
+        <picklistValues>
+            <masterLabel>OUT</masterLabel>
+            <translation><!-- OUT --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Used in the Rights Letters process. When the Financial Account is in an active or discharged bankruptcy status, this indicates the individual borrower&apos;s BK status, where it may be the same or different from the account&apos;s. --></help>
+        <label><!-- Bankruptcy Status --></label>
+        <name>RL_Bankruptcy_Status__c</name>
+        <picklistValues>
+            <masterLabel>Filing Party</masterLabel>
+            <translation><!-- Filing Party --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Non Filing Party</masterLabel>
+            <translation><!-- Non Filing Party --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Customer Type --></label>
+        <name>RL_Customer_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- RL_IsCustomerNotLiableForDeficiencyBuyer --></label>
+        <name>RL_IsCustomerNotLiableForDeficiencyBuyer__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reentrant Trigger Executed --></label>
+        <name>Reentrant_Trigger_Executed__c</name>
+    </fields>
+    <fields>
+        <label><!-- ResultsHome Phone Delivery Garage --></label>
+        <name>ResultsHome_Phone_Delivery_Garage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Results Home Phone Delivery BillTo --></label>
+        <name>Results_Home_Phone_Delivery_BillTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Results Work Phone Delivery BillTo --></label>
+        <name>Results_Work_Phone_Delivery_BillTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Results Work Phone Delivery Garage --></label>
+        <name>Results_Work_Phone_Delivery_Garage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Servicing Email --></label>
+        <name>Servicing_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Shell Case ContactId --></label>
+        <name>Shell_Case_ContactId__c</name>
+        <relationshipLabel><!-- Financial Account Customers (Shell Case ContactId) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- (IVR) Social Security Number --></label>
+        <name>Social_Security_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- (IVR) Tax Identification Number --></label>
+        <name>Tax_Identification_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Universal Customer Id --></label>
+        <name>Universal_Customer_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Update Source --></label>
+        <name>Update_Source__c</name>
+    </fields>
+    <fields>
+        <label><!-- (IVR) Vehicle Identification Num Last8Ch --></label>
+        <name>Vehicle_Identification_Number_Last_8_Ch__c</name>
+    </fields>
+    <fields>
+        <label><!-- (IVR) Vehicle Identification Number --></label>
+        <name>Vehicle_Identification_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Visible to Customer --></label>
+        <name>Visible_to_Customer__c</name>
+    </fields>
+    <fields>
+        <label><!-- Weblogin Contact --></label>
+        <name>Weblogin_Contact__c</name>
+        <relationshipLabel><!-- Financial Account Customers --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Work Phone --></label>
+        <name>Work_Phone_Bill_To__c</name>
+    </fields>
+    <fields>
+        <label><!-- Work Phone --></label>
+        <name>Work_Phone_Garage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Work Phone NoCall Reason Code Garage --></label>
+        <name>Work_Phone_NoCall_Reason_Code_Garage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Work Phone No-Call Reason --></label>
+        <name>Work_Phone_No_Call_Reason_BillTo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Work Phone No Call Reason Code Bill To --></label>
+        <name>Work_Phone_No_Call_Reason_Code_Bill_To__c</name>
+    </fields>
+    <fields>
+        <label><!-- Work Phone No-Call Reason --></label>
+        <name>Work_Phone_No_Call_Reason_Garage__c</name>
+    </fields>
+    <layouts>
+        <layout>Financial Account Customer Layout</layout>
+        <sections>
+            <label><!-- Account Servicing Preferences --></label>
+            <section>Account Servicing Preferences</section>
+        </sections>
+        <sections>
+            <label><!-- Billing Address &amp; Phones (Lease Only) --></label>
+            <section>Billing Address &amp; Phones (Lease Only)</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Customer Consents &amp; Language --></label>
+            <section>Customer Consents &amp; Language</section>
+        </sections>
+        <sections>
+            <label><!-- Garage Address &amp; Phones --></label>
+            <section>Garage Address &amp; Phones</section>
+        </sections>
+        <sections>
+            <label><!-- Marketing Preferences --></label>
+            <section>Marketing Preferences</section>
+        </sections>
+        <sections>
+            <label><!-- Privacy Elections --></label>
+            <section>Privacy Elections</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Lease</layout>
+        <sections>
+            <label><!-- Account Servicing Preferences --></label>
+            <section>Account Servicing Preferences</section>
+        </sections>
+        <sections>
+            <label><!-- Billing Address &amp; Phones (Lease Only) --></label>
+            <section>Billing Address &amp; Phones (Lease Only)</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Customer Consents &amp; Language --></label>
+            <section>Customer Consents &amp; Language</section>
+        </sections>
+        <sections>
+            <label><!-- Garage Address &amp; Phones --></label>
+            <section>Garage Address &amp; Phones</section>
+        </sections>
+        <sections>
+            <label><!-- Marketing Preferences --></label>
+            <section>Marketing Preferences</section>
+        </sections>
+        <sections>
+            <label><!-- Privacy Elections --></label>
+            <section>Privacy Elections</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Retail</layout>
+        <sections>
+            <label><!-- Account Servicing Preferences --></label>
+            <section>Account Servicing Preferences</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Customer Consents &amp; Language --></label>
+            <section>Customer Consents &amp; Language</section>
+        </sections>
+        <sections>
+            <label><!-- Garage Address &amp; Phones --></label>
+            <section>Garage Address &amp; Phones</section>
+        </sections>
+        <sections>
+            <label><!-- Marketing Preferences --></label>
+            <section>Marketing Preferences</section>
+        </sections>
+        <sections>
+            <label><!-- Privacy Elections --></label>
+            <section>Privacy Elections</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Lease --></label>
+        <name>Lease</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Retail --></label>
+        <name>Retail</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- The phone number you&apos;ve entered contains an invalid area code. Please confirm with customer.  If confirmed with customer, check the Home Phone Format Confirmed checkbox and save to continue. --></errorMessage>
+        <name>Area_Code_Must_Be_Valid_Home_BillTo</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The phone number you&apos;ve entered contains an invalid area code. Please confirm with customer.  If confirmed with customer, check the Home Phone Format Confirmed checkbox and save to continue. --></errorMessage>
+        <name>Area_Code_Must_Be_Valid_Home_Garage</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The phone number you&apos;ve entered contains an invalid area code. Please confirm with customer.  If confirmed with customer, check the Mobile Phone Format Confirmed checkbox and save to continue. --></errorMessage>
+        <name>Area_Code_Must_Be_Valid_Mobile</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The phone number you&apos;ve entered contains an invalid area code. Please confirm with customer.  If confirmed with customer, check the Work Phone Format Confirmed checkbox and save to continue. --></errorMessage>
+        <name>Area_Code_Must_Be_Valid_Work_BillTo</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The phone number you&apos;ve entered contains an invalid area code. Please confirm with customer.  If confirmed with customer, check the Work Phone Format Confirmed checkbox and save to continue. --></errorMessage>
+        <name>Area_Code_Must_Be_Valid_Work_Garage</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Care of/special instructions cannot exceed 25 characters in length for leases or 36 characters for loans --></errorMessage>
+        <name>Bill_To_Addr_Spec_Inst_Format</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- DNC and Invalid flags cannot be set at the same time - deselect one of them --></errorMessage>
+        <name>Bill_To_Home_Phone_DNC_Invalid</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Phone numbers entered must be in valid 10 digit phone formats only --></errorMessage>
+        <name>Bill_To_Home_Phone_Format</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Street addresses cannot exceed 25 characters in length for leases or 36 characters for loans --></errorMessage>
+        <name>Bill_To_Street_Format</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- DNC and Invalid flags cannot be set at the same time - deselect one of them --></errorMessage>
+        <name>Bill_To_Work_Phone_DNC_Invalid</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Phone numbers entered must be in valid 10 digit phone formats only --></errorMessage>
+        <name>Bill_To_Work_Phone_Format</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Zip codes entered must be 5 digits only --></errorMessage>
+        <name>Bill_To_Zip_Format</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Billing address entries are only valid for lease accounts. Please undo any changes in the billing area or cancel editing. --></errorMessage>
+        <name>Billing_Address_Lease_Only</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select a value for Electronic Business Agreement --></errorMessage>
+        <name>Blank_Not_Allowed_For_Elec_Bus_Agr</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select a value for Email Marketing --></errorMessage>
+        <name>Blank_Not_Allowed_For_Email_Mktg</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select a value for Home Phone Marketing --></errorMessage>
+        <name>Blank_Not_Allowed_For_Home_Phn_Mktg</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select a value for Language Preference --></errorMessage>
+        <name>Blank_Not_Allowed_For_Language_Pref</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select a value for Mobile Phone Marketing --></errorMessage>
+        <name>Blank_Not_Allowed_For_Mobile_Phn_Mktg</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select a value for Other Phone Marketing --></errorMessage>
+        <name>Blank_Not_Allowed_For_Other_Phn_Mktg</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select a value for Overall Consent --></errorMessage>
+        <name>Blank_Not_Allowed_For_Overall_Consent</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select a value for Payment Not Received Email --></errorMessage>
+        <name>Blank_Not_Allowed_For_Pmt_Not_Rec_Email</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select a value for Payment Not Received Text --></errorMessage>
+        <name>Blank_Not_Allowed_For_Pmt_Not_Rec_Text</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select a value for Payment Received Email --></errorMessage>
+        <name>Blank_Not_Allowed_For_Pmt_Rec_Email</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select a value for Payment Received Text --></errorMessage>
+        <name>Blank_Not_Allowed_For_Pmt_Rec_Text</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select a value for Payment Reminder Email --></errorMessage>
+        <name>Blank_Not_Allowed_For_Pmt_Rem_Email</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select a value for Payment Reminder Text --></errorMessage>
+        <name>Blank_Not_Allowed_For_Pmt_Rem_Text</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select a value for Text Marketing --></errorMessage>
+        <name>Blank_Not_Allowed_For_Text_Mktg</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Account servicing and marketing preference value changes are not allowed when Overall Consent and Abbreviated Consent are blank --></errorMessage>
+        <name>Consents_Blank_Prevents_Comm_Prefs_Chang</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Account servicing and marketing preference values of &quot;Y&quot; are not allowed when Overall Consent or Abbreviated Consent is &quot;N&quot; --></errorMessage>
+        <name>Consents_No_Prevents_Comm_Prefs_Yes</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Care of/special instructions cannot exceed 36 characters for loans and is read-only for leases - undo change or cancel editing if lease --></errorMessage>
+        <name>Garage_Addr_Spec_Inst_Format</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- DNC and Invalid flags cannot be set at the same time - deselect one of them --></errorMessage>
+        <name>Garage_Home_Phone_DNC_Invalid</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Phone numbers entered must be in valid 10 digit phone formats only --></errorMessage>
+        <name>Garage_Home_Phone_Format</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Street addresses cannot exceed 25 characters in length for leases or 36 characters for loans --></errorMessage>
+        <name>Garage_Street_Format</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- DNC and Invalid flags cannot be set at the same time - deselect one of them --></errorMessage>
+        <name>Garage_Work_Phone_DNC_Invalid</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Phone numbers entered must be in valid 10 digit phone formats only --></errorMessage>
+        <name>Garage_Work_Phone_Format</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Zip codes entered must be 5 digits only --></errorMessage>
+        <name>Garage_Zip_Format</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- DNC and Invalid flags cannot be set at the same time - deselect one of them --></errorMessage>
+        <name>Mobile_Phone_DNC_Invalid</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Phone numbers entered must be in valid 10 digit phone formats only --></errorMessage>
+        <name>Mobile_Phone_Format</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The Payment Reminder Day cannot be selected if neither of the Payment Reminder Text or Email fields are set to &quot;Y&quot; --></errorMessage>
+        <name>Payment_Day_Entered_Without_Reminder</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The format of the phone number you&apos;ve entered is invalid. Please confirm with customer.  If confirmed with customer, check the Home Phone Format Confirmed checkbox and save to continue. --></errorMessage>
+        <name>Phone_Format_Must_Be_Valid_Home_BillTo</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The format of the phone number you&apos;ve entered is invalid. Please confirm with customer.  If confirmed with customer, check the Home Phone Format Confirmed checkbox and save to continue. --></errorMessage>
+        <name>Phone_Format_Must_Be_Valid_Home_Garage</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The format of the phone number you&apos;ve entered is invalid. Please confirm with customer.  If confirmed with customer, check the Mobile Phone Format Confirmed checkbox and save to continue. --></errorMessage>
+        <name>Phone_Format_Must_Be_Valid_Mobile</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The format of the phone number you&apos;ve entered is invalid. Please confirm with customer.  If confirmed with customer, check the Work Phone Format Confirmed checkbox and save to continue. --></errorMessage>
+        <name>Phone_Format_Must_Be_Valid_Work_BillTo</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The format of the phone number you&apos;ve entered is invalid. Please confirm with customer.  If confirmed with customer, check the Work Phone Format Confirmed checkbox and save to continue. --></errorMessage>
+        <name>Phone_Format_Must_Be_Valid_Work_Garage</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The associated customer (Account) cannot be changed. Cancel your changes and re-edit without modifying the value of the Account field. --></errorMessage>
+        <name>Prevent_Account_Change</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You may not enter blanks in Street, City, State, or Zip Code. --></errorMessage>
+        <name>Prevent_Blank_Addresses</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The record name (Financial Account Customer Name) cannot be changed. Cancel your changes and re-edit without modifying the value of the Financial Account Customer Name field. --></errorMessage>
+        <name>Prevent_FAC_Name_Change</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Inactive financial account customer records cannot be edited. Cancel editing. --></errorMessage>
+        <name>Prevent_Inactive_Changes</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You may not modify or add the billing address when one doesn&apos;t already exist. Please undo any changes in the billing area or cancel editing. --></errorMessage>
+        <name>Prevent_New_Billing_Address</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Privacy election changes are not allowed for business accounts - undo the invalid changes or cancel editing --></errorMessage>
+        <name>Privacy_Limited_Business</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Only the TFS Telemarketing privacy election may be changed for business accounts contracted in this state - undo the invalid changes or cancel editing --></errorMessage>
+        <name>Privacy_Limited_Business_NV</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Only the following privacy elections may be changed for a loan or lease contracted in this state: 3rd Party, Credit App/Rpt, Affiliate Marketing, Toyota/Lexus Dealer, and TFS Telemarketing - undo the invalid changes or cancel editing --></errorMessage>
+        <name>Privacy_Limited_CA</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Only the following privacy elections may be changed for a loan or lease contracted in this state: 3rd Party, Credit App/Rpt, Affiliate Marketing, and TFS Telemarketing - undo the invalid changes or cancel editing --></errorMessage>
+        <name>Privacy_Limited_Other</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Only the following privacy elections may be changed for a loan or lease contracted in this state: 3rd Party, Affiliate Marketing, and TFS Telemarketing - undo the invalid changes or cancel editing --></errorMessage>
+        <name>Privacy_Limited_VT</name>
+    </validationRules>
+</CustomObjectTranslation>

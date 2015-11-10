@@ -1,0 +1,38 @@
+<apex:page standardController="Case" extensions="TFSC_SupportAttachmentLegacyController" showHeader="false">
+    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+            <apex:includeScript value="{!URLFOR($Resource.EasyXDM, 'jquery.min.js')}"/>
+            <!--apex:sectionHeader title="Attachments" subtitle="{!Case.CaseNumber}"/-->
+            <apex:form id="uploadForm" enctype="multipart/form-data" >
+                <apex:inputHidden id="attachmentFilename" value="{!NewFeedItem.ContentFileName}" /> 
+                <apex:pageBlock title="{!$Label.Add_Attachment}" mode="edit">
+                    <apex:pageMessages />
+                    <apex:pageBlockButtons location="bottom">
+                        <apex:commandButton id="submit" action="{!InsertAttachment}" value="{!$Label.Submit}"/>
+                        <apex:commandButton action="{!URLFOR($Page.TFSC_SupportRequest, null, [id=Case.Id])}" value=" {!$Label.Cancel} " immediate="true"/>
+                    </apex:pageBlockButtons>
+                    <apex:pageBlockSection columns="1">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel for="fileinput" value="{!$Label.Attachment}"/>
+                            <apex:outputPanel styleClass="requiredInput" layout="block">
+                                <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                                <apex:inputFile onchange="fileInputChanged();" id="fileinput" styleClass="fileInput" value="{!NewFeedItem.ContentData}" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                <script type="text/javascript">
+                    function fileInputChanged() {
+                        var fullPath = jQuery('input[type="file"]').val();
+                        var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+                        var filename = fullPath.substring(startIndex);
+                        if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                            filename = filename.substring(1);
+                        }
+                        document.getElementById('{!$Component.uploadForm.attachmentFilename}').value = filename;
+                    }
+                </script>
+            </apex:form>
+        </apex:define>
+    </apex:composition>
+</apex:page>

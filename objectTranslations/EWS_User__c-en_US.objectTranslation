@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>EWS User</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>EWS Users</value>
+    </caseValues>
+    <fields>
+        <label><!-- AcctMgmtEmail --></label>
+        <name>AcctMgmtEmail__c</name>
+    </fields>
+    <fields>
+        <label><!-- Num of FAC --></label>
+        <name>Num_of_FAC_del__c</name>
+    </fields>
+    <fields>
+        <label><!-- SGUID --></label>
+        <name>SGUID__c</name>
+    </fields>
+    <fields>
+        <label><!-- User Id --></label>
+        <name>User_Id__c</name>
+    </fields>
+    <layouts>
+        <layout>EWS User Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

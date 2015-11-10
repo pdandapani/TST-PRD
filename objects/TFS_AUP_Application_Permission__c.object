@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>TFS AUP Application Permission</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Admin__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Applicable to user type Admin</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Applicable to user type Admin</inlineHelpText>
+        <label>Admin</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Agent__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Applicable to user type agent</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Applicable to user type agent</inlineHelpText>
+        <label>Agent</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Application_Name__c</fullName>
+        <description>Application Name</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Application Name</inlineHelpText>
+        <label>Application Name</label>
+        <length>100</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Manager__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Applicable to user type Manager</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Applicable to user type Manager</inlineHelpText>
+        <label>Manager</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Other__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Applicable to user type Other</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Applicable to user type Other</inlineHelpText>
+        <label>Other</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Permission_Set_Id__c</fullName>
+        <description>Permission Set Id</description>
+        <externalId>true</externalId>
+        <inlineHelpText>Permission Set Id</inlineHelpText>
+        <label>Permission Set Id</label>
+        <length>18</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Permission_Set_Name__c</fullName>
+        <description>Permission Set Name</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Permission Set Name</inlineHelpText>
+        <label>Permission Set Name</label>
+        <length>255</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Team_Lead__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Applicable to user type Team Lead</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Applicable to user type Team Lead</inlineHelpText>
+        <label>Team Lead</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>TFS AUP Application Permission</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Collection_Console</fullName>
+        <columns>NAME</columns>
+        <columns>Application_Name__c</columns>
+        <columns>Admin__c</columns>
+        <columns>Agent__c</columns>
+        <columns>Manager__c</columns>
+        <columns>Other__c</columns>
+        <columns>Permission_Set_Id__c</columns>
+        <columns>Permission_Set_Name__c</columns>
+        <columns>Team_Lead__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Application_Name__c</field>
+            <operation>equals</operation>
+            <value>TFS_AUP_Collections_Console__c</value>
+        </filters>
+        <label>Collection Console</label>
+    </listViews>
+    <listViews>
+        <fullName>Knowledge</fullName>
+        <columns>Application_Name__c</columns>
+        <columns>NAME</columns>
+        <columns>Admin__c</columns>
+        <columns>Agent__c</columns>
+        <columns>Manager__c</columns>
+        <columns>Other__c</columns>
+        <columns>Permission_Set_Id__c</columns>
+        <columns>Permission_Set_Name__c</columns>
+        <columns>Team_Lead__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Application_Name__c</field>
+            <operation>equals</operation>
+            <value>TFS_AUP_Knowledge_Management__c</value>
+        </filters>
+        <label>Knowledge</label>
+    </listViews>
+    <nameField>
+        <displayFormat>AUP-{00000}</displayFormat>
+        <label>TFS AUP Application Permissions Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>TFS AUP Application Permissions</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Admin__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Agent__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Application_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Manager__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Other__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Permission_Set_Id__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Permission_Set_Name__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Team_Lead__c</customTabListAdditionalFields>
+        <searchResultsAdditionalFields>Admin__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Agent__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Application_Name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Manager__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Other__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Permission_Set_Id__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Permission_Set_Name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Team_Lead__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

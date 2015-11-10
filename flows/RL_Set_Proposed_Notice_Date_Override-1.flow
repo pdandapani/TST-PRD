@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignments>
+        <name>Set_Proposed_Notice_Date_Override</name>
+        <label>Set Proposed Notice Date Override</label>
+        <locationX>103</locationX>
+        <locationY>53</locationY>
+        <assignmentItems>
+            <assignToReference>sRepossession.Proposed_Notice_Date_Override__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Save_Override</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Unset_Proposed_Notice_Date_Override</name>
+        <label>Unset Proposed Notice Date Override</label>
+        <locationX>106</locationX>
+        <locationY>410</locationY>
+        <assignmentItems>
+            <assignToReference>sRepossession.Proposed_Notice_Date_Override__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Save_Unsetting_of_Override</targetReference>
+        </connector>
+    </assignments>
+    <label>RL Set Proposed Notice Date Override</label>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Save_Override</name>
+        <label>Save Override</label>
+        <locationX>104</locationX>
+        <locationY>170</locationY>
+        <connector>
+            <targetReference>Wait_8_Hours_to_Unset_Override</targetReference>
+        </connector>
+        <inputReference>sRepossession</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Save_Unsetting_of_Override</name>
+        <label>Save Unsetting of Override</label>
+        <locationX>106</locationX>
+        <locationY>521</locationY>
+        <inputReference>sRepossession</inputReference>
+    </recordUpdates>
+    <startElementReference>Set_Proposed_Notice_Date_Override</startElementReference>
+    <variables>
+        <name>sRepossession</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Repossession__c</objectType>
+    </variables>
+    <waits>
+        <name>Wait_8_Hours_to_Unset_Override</name>
+        <label>Wait 8 Hours to Unset Override</label>
+        <locationX>106</locationX>
+        <locationY>290</locationY>
+        <defaultConnectorLabel>End</defaultConnectorLabel>
+        <waitEvents>
+            <name>Wait_8_Hours</name>
+            <conditionLogic>and</conditionLogic>
+            <connector>
+                <targetReference>Unset_Proposed_Notice_Date_Override</targetReference>
+            </connector>
+            <eventType>AlarmEvent</eventType>
+            <inputParameters>
+                <name>AlarmTime</name>
+                <value>
+                    <elementReference>$Flow.CurrentDateTime</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>TimeOffset</name>
+                <value>
+                    <numberValue>8.0</numberValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>TimeOffsetUnit</name>
+                <value>
+                    <stringValue>Hours</stringValue>
+                </value>
+            </inputParameters>
+            <label>Wait 8 Hours</label>
+        </waitEvents>
+    </waits>
+</Flow>

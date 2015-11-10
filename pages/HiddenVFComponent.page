@@ -1,0 +1,34 @@
+<apex:page standardController="Financial_Account_Customer__c" >
+    <apex:includeScript value="{!$Resource.jquery}"/>
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    <script>   
+        var $j = jQuery.noConflict();
+        
+        function fireBorrowerEvent() {
+            if(sforce.console.isInConsole()){
+                sforce.console.fireEvent('BorrowerPageEvent', '{!Financial_Account_Customer__c.Id}', function(result){
+                        if (result.success) { 
+                               console.log('The Borrower event is fired!');
+                        } else { 
+                               console.log('The Borrower event could not be fired!');
+                        } 
+                    }
+                );
+            } 
+         }
+         
+        function fireEventForMaintainingFACReloadCount() {
+            if(sforce.console.isInConsole()){
+                sforce.console.fireEvent('BorrowerPageEventWithFAID', '{!Financial_Account_Customer__c.Id}--{!Financial_Account_Customer__c.Financial_Account__c}');
+            }
+        }
+        
+       
+        (function($j){
+            $j(document).ready(function() {
+                    fireBorrowerEvent();
+                    fireEventForMaintainingFACReloadCount();
+            });
+        })(jQuery);
+    </script>
+</apex:page>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Form</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Forms</value>
+    </caseValues>
+    <fields>
+        <help><!-- If checked then a separate form is generated for each active FAC with that FAC&apos;s information --></help>
+        <label><!-- Copy per FAC --></label>
+        <name>Copy_per_FAC__c</name>
+    </fields>
+    <fields>
+        <label><!-- Document Request Record Type --></label>
+        <name>Document_Request_Record_Type__c</name>
+        <picklistValues>
+            <masterLabel>Notice of Sale</masterLabel>
+            <translation><!-- Notice of Sale --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rights Letters</masterLabel>
+            <translation><!-- Rights Letters --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Document Type --></label>
+        <name>Document_Type__c</name>
+        <picklistValues>
+            <masterLabel>BKCVCUR</masterLabel>
+            <translation><!-- BKCVCUR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>BKCVREP</masterLabel>
+            <translation><!-- BKCVREP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>REPODOC</masterLabel>
+            <translation><!-- REPODOC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>REPONTC</masterLabel>
+            <translation><!-- REPONTC --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- MigrationID --></label>
+        <name>MigrationID__c</name>
+    </fields>
+    <layouts>
+        <layout>Form Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

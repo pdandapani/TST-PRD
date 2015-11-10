@@ -1,0 +1,16 @@
+<apex:component >
+    <!-- THIS COMPONENT MUST BE USED IN A JQUERY PAGE WHERE [var $j = jQuery.noConflict();] has been executed -->
+    
+    <apex:attribute name="number" description="phone number" type="String" required="true"/>
+    <apex:attribute name="entityId" description="entityId" type="String" required="true"/>
+    
+    
+    <script>
+    
+    </script>
+    
+    <span>
+    <support:clickToDial number="{!number}"  entityId="{!entityId}" />
+    </span>
+
+</apex:component>

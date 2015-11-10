@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Reusable Content</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Reusable Content</value>
+    </caseValues>
+    <fields>
+        <label><!-- Content Type --></label>
+        <name>Content_Type__c</name>
+        <picklistValues>
+            <masterLabel>Image</masterLabel>
+            <translation><!-- Image --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Link</masterLabel>
+            <translation><!-- Link --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Text</masterLabel>
+            <translation><!-- Text --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Publish --></label>
+        <name>Publish__c</name>
+    </fields>
+    <fields>
+        <label><!-- Summary --></label>
+        <name>Summary__c</name>
+    </fields>
+    <fields>
+        <label><!-- Title --></label>
+        <name>Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- # of Online/Draft References --></label>
+        <name>numOnlineDraft__c</name>
+    </fields>
+    <layouts>
+        <layout>Reusable Content Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Details --></label>
+            <section>Details</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- ReIndex_articles_associated_with_this_Content_Tag --></label>
+        <name>ReIndex_articles_associated_with_this_Content_Tag</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Start_batch_indexing_job_for_all_content_tags --></label>
+        <name>Start_batch_indexing_job_for_all_content_tags</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Update_articles_associated_with_this_reusable_content_tag --></label>
+        <name>Update_articles_associated_with_this_reusable_content_tag</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Update_reusable_content_for_all_Articles --></label>
+        <name>Update_reusable_content_for_all_Articles</name>
+    </webLinks>
+</CustomObjectTranslation>

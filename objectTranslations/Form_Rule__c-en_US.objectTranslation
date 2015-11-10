@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Form Rule</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Form Rules</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account Type --></label>
+        <name>Account_Type__c</name>
+        <picklistValues>
+            <masterLabel>Lease</masterLabel>
+            <translation><!-- Lease --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Retail</masterLabel>
+            <translation><!-- Retail --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Case Record Type --></label>
+        <name>Case_Record_Type__c</name>
+        <picklistValues>
+            <masterLabel>RL Notice of Sale</masterLabel>
+            <translation><!-- RL Notice of Sale --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>RL Notice of Sale-Salvage</masterLabel>
+            <translation><!-- RL Notice of Sale-Salvage --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Certified --></label>
+        <name>Certified__c</name>
+    </fields>
+    <fields>
+        <label><!-- Days Till Sale --></label>
+        <name>Days_Till_Sale__c</name>
+    </fields>
+    <fields>
+        <label><!-- Form --></label>
+        <name>Form__c</name>
+    </fields>
+    <fields>
+        <label><!-- In-State Repo --></label>
+        <name>In_State_Repo__c</name>
+    </fields>
+    <fields>
+        <label><!-- MigrationID --></label>
+        <name>MigrationID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Non-Working Day Rule --></label>
+        <name>Non_Working_Day_Rule__c</name>
+        <picklistValues>
+            <masterLabel>Following</masterLabel>
+            <translation><!-- Following --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Preceding</masterLabel>
+            <translation><!-- Preceding --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Notice Calendar --></label>
+        <name>Notice_Calendar__c</name>
+        <picklistValues>
+            <masterLabel>Business</masterLabel>
+            <translation><!-- Business --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Calendar</masterLabel>
+            <translation><!-- Calendar --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Hours</masterLabel>
+            <translation><!-- Hours --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Used to indicate whether a follow-up notice of sale is required after the initial rights letter generation. MD is the only state to initially require it. --></help>
+        <label><!-- Post-RL Notice of Sale --></label>
+        <name>Post_RL_Notice_of_Sale__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reinstatement Rights --></label>
+        <name>Reinstatement_Rights__c</name>
+        <picklistValues>
+            <masterLabel>Conditional</masterLabel>
+            <translation><!-- Conditional --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Repossession Record Type --></label>
+        <name>Repossession_Record_Type__c</name>
+        <picklistValues>
+            <masterLabel>RL Lease-Conditional Reinstatement</masterLabel>
+            <translation><!-- RL Lease-Conditional Reinstatement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>RL Lease-Generic</masterLabel>
+            <translation><!-- RL Lease-Generic --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>RL Retail-CA In-State</masterLabel>
+            <translation><!-- RL Retail-CA In-State --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>RL Retail-CA Out-of-State</masterLabel>
+            <translation><!-- RL Retail-CA Out-of-State --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>RL Retail-Conditional Reinstatement</masterLabel>
+            <translation><!-- RL Retail-Conditional Reinstatement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>RL Retail-Generic</masterLabel>
+            <translation><!-- RL Retail-Generic --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Sale Calendar --></label>
+        <name>Sale_Calendar__c</name>
+        <picklistValues>
+            <masterLabel>Business</masterLabel>
+            <translation><!-- Business --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Calendar</masterLabel>
+            <translation><!-- Calendar --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Salvage --></label>
+        <name>Salvage__c</name>
+    </fields>
+    <fields>
+        <label><!-- State of Jurisdiction --></label>
+        <name>State_of_Jurisdiction__c</name>
+    </fields>
+    <fields>
+        <label><!-- Time Till Notice --></label>
+        <name>Time_Till_Notice__c</name>
+    </fields>
+    <fields>
+        <label><!-- Voluntary Surrender --></label>
+        <name>Voluntary_Surrender__c</name>
+    </fields>
+    <fields>
+        <label><!-- iRepo SLA --></label>
+        <name>iRepo_SLA__c</name>
+    </fields>
+    <layouts>
+        <layout>RL Notice of Sale Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Rights Letters Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Mailing/Timing Requirements --></label>
+            <section>Mailing/Timing Requirements</section>
+        </sections>
+        <sections>
+            <label><!-- State Requirements --></label>
+            <section>State Requirements</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- RL Notice of Sale --></label>
+        <name>RL_Notice_of_Sale</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Rights Letters --></label>
+        <name>Rights_Letters</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,16 @@
+<apex:page title="Customer Contact" standardController="Case" recordSetVar="c" extensions="TFSC_PreformCaseController" showHeader="false" action="{!preformCase}">
+	<apex:form >
+		<apex:pageBlock title="Create a New Contact" rendered="{!!HasExistingContact}">
+			<apex:pageMessages />
+			<apex:pageMessage severity="info" summary="No Weblogin Contact exists for this customer. Please create one."/>
+			<apex:pageBlockSection >
+				<apex:inputField value="{!NewShellCaseContact.FirstName}"/>
+				<apex:inputField value="{!NewShellCaseContact.LastName}"/>
+				<apex:inputField value="{!NewShellCaseContact.Email}"/>
+			</apex:pageBlockSection>
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandButton action="{!preformCaseWithNewContact}" value="Create Contact" />
+			</apex:pageBlockButtons>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

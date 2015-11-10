@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>In the initial processing of rights letters, drives correct form selection, links to form definition objects, and encodes compliance values.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Account_Type__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Primary selection criteria identifying retail or lease product.</description>
+        <externalId>false</externalId>
+        <label>Account Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Retail</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lease</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Case_Record_Type__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Primary selection criteria to align Form Rule with the case.</description>
+        <externalId>false</externalId>
+        <label>Case Record Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>RL Notice of Sale</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RL Notice of Sale-Salvage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Certified__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: T/F whether certified mailing requirements apply.</description>
+        <externalId>false</externalId>
+        <label>Certified</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Days_Till_Sale__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Identifies the minimum number of days required between notice date and legal sale date.</description>
+        <externalId>false</externalId>
+        <label>Days Till Sale</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Form__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Purely informational and identifies forms that are associated - use Form-Rule Junction to specify forms to print with rights letter generation request.</description>
+        <externalId>false</externalId>
+        <label>Form</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>In_State_Repo__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Secondary selection criteria to support California’s distinction between in-state and out-of-state repossession handling.</description>
+        <externalId>false</externalId>
+        <label>In-State Repo</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>MigrationID__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Arbitrary unique number assigned to the record to facilitate migration of metadata between environments.</description>
+        <externalId>true</externalId>
+        <label>MigrationID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Non_Working_Day_Rule__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Rule for processing when calculated required notice date falls on a non-working day (applies to Calendar and Hours basis).</description>
+        <externalId>false</externalId>
+        <label>Non-Working Day Rule</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Preceding</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Following</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Notice_Calendar__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Basis for time measurement in calculating required notice date (Calendar, Business, Hours).</description>
+        <externalId>false</externalId>
+        <label>Notice Calendar</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Business</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Calendar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hours</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Post_RL_Notice_of_Sale__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: T/F whether a post-rights letter notice of sale case is required to be generated upon completion of rights letter.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used to indicate whether a follow-up notice of sale is required after the initial rights letter generation. MD is the only state to initially require it.</inlineHelpText>
+        <label>Post-RL Notice of Sale</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Reinstatement_Rights__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Yes/No/Conditional picklist to indicate reinstatement rules for state.</description>
+        <externalId>false</externalId>
+        <label>Reinstatement Rights</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Conditional</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Repossession_Record_Type__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Assigning the correct record type for a repossession record associated with a rights letter case.</description>
+        <externalId>false</externalId>
+        <label>Repossession Record Type</label>
+        <picklist>
+            <controllingField>Account_Type__c</controllingField>
+            <picklistValues>
+                <fullName>RL Retail-Generic</fullName>
+                <controllingFieldValues>Retail</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RL Retail-Conditional Reinstatement</fullName>
+                <controllingFieldValues>Retail</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RL Retail-CA In-State</fullName>
+                <controllingFieldValues>Retail</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RL Retail-CA Out-of-State</fullName>
+                <controllingFieldValues>Retail</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RL Lease-Generic</fullName>
+                <controllingFieldValues>Lease</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RL Lease-Conditional Reinstatement</fullName>
+                <controllingFieldValues>Lease</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Sale_Calendar__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Basis for time measurement in calculating legal sale date (Calendar, Business).</description>
+        <externalId>false</externalId>
+        <label>Sale Calendar</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Calendar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Salvage__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Primary selection criteria to support different notice of sale form for salvage.</description>
+        <externalId>false</externalId>
+        <label>Salvage</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>State_of_Jurisdiction__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Primary selection criteria to align Form Rule with the case.</description>
+        <externalId>false</externalId>
+        <label>State of Jurisdiction</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Time_Till_Notice__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Identifies the maximum amount of time that may pass between date of repossession and notice date.</description>
+        <externalId>false</externalId>
+        <label>Time Till Notice</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Voluntary_Surrender__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Secondary selection criteria to support different forms for leases.</description>
+        <externalId>false</externalId>
+        <label>Voluntary Surrender</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>iRepo_SLA__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Time allowed from repossession date for iRepo to populate template data.</description>
+        <externalId>false</externalId>
+        <label>iRepo SLA</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Form Rule</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Account_Type__c</columns>
+        <columns>State_of_Jurisdiction__c</columns>
+        <columns>In_State_Repo__c</columns>
+        <columns>Salvage__c</columns>
+        <columns>Case_Record_Type__c</columns>
+        <columns>Repossession_Record_Type__c</columns>
+        <columns>Voluntary_Surrender__c</columns>
+        <columns>iRepo_SLA__c</columns>
+        <columns>Time_Till_Notice__c</columns>
+        <columns>Notice_Calendar__c</columns>
+        <columns>Non_Working_Day_Rule__c</columns>
+        <columns>Days_Till_Sale__c</columns>
+        <columns>Sale_Calendar__c</columns>
+        <columns>Reinstatement_Rights__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>All1</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Form Rule Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Form Rules</pluralLabel>
+    <recordTypes>
+        <fullName>RL_Notice_of_Sale</fullName>
+        <active>true</active>
+        <description>Forms and rules specific to the notice of sale sub-process for specific rights letters (MD-only initially)</description>
+        <label>RL Notice of Sale</label>
+        <picklistValues>
+            <picklist>Account_Type__c</picklist>
+            <values>
+                <fullName>Lease</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Retail</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Case_Record_Type__c</picklist>
+            <values>
+                <fullName>RL Notice of Sale</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RL Notice of Sale-Salvage</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Non_Working_Day_Rule__c</picklist>
+            <values>
+                <fullName>Following</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Preceding</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Notice_Calendar__c</picklist>
+            <values>
+                <fullName>Business</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Calendar</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hours</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reinstatement_Rights__c</picklist>
+            <values>
+                <fullName>Conditional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Repossession_Record_Type__c</picklist>
+            <values>
+                <fullName>RL Lease-Conditional Reinstatement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RL Lease-Generic</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RL Retail-CA In-State</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RL Retail-CA Out-of-State</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RL Retail-Conditional Reinstatement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RL Retail-Generic</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Sale_Calendar__c</picklist>
+            <values>
+                <fullName>Business</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Calendar</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Rights_Letters</fullName>
+        <active>true</active>
+        <description>Forms and rules specific to the rights letters process</description>
+        <label>Rights Letters</label>
+        <picklistValues>
+            <picklist>Account_Type__c</picklist>
+            <values>
+                <fullName>Lease</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Retail</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Case_Record_Type__c</picklist>
+            <values>
+                <fullName>RL Notice of Sale</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RL Notice of Sale-Salvage</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Non_Working_Day_Rule__c</picklist>
+            <values>
+                <fullName>Following</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Preceding</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Notice_Calendar__c</picklist>
+            <values>
+                <fullName>Business</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Calendar</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hours</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reinstatement_Rights__c</picklist>
+            <values>
+                <fullName>Conditional</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Repossession_Record_Type__c</picklist>
+            <values>
+                <fullName>RL Lease-Conditional Reinstatement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RL Lease-Generic</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RL Retail-CA In-State</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RL Retail-CA Out-of-State</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RL Retail-Conditional Reinstatement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RL Retail-Generic</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Sale_Calendar__c</picklist>
+            <values>
+                <fullName>Business</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Calendar</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

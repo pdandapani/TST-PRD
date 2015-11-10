@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <description>Mapping the garage zip code ranges to Timezone</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DST_Abbreviation__c</fullName>
+        <description>SRC: Salesforce
+INT: 
+Trans: N
+BU: RL
+FD: The abbreviation of the time zone when daylight savings time applies, such as PDT, MDT, CDT, and EDT.</description>
+        <externalId>false</externalId>
+        <label>DST Abbreviation</label>
+        <length>5</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>From__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Format hh:mm:ss</inlineHelpText>
+        <label>From</label>
+        <length>8</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GMT_From_With_Daylight_Saving__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Format hh:mm:ss</inlineHelpText>
+        <label>GMT From With Daylight Saving</label>
+        <length>8</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GMT_From_Without_Daylight_Saving__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Format hh:mm:ss</inlineHelpText>
+        <label>GMT From Without Daylight Saving</label>
+        <length>8</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GMT_Till_With_Daylight_Saving__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Format hh:mm:ss</inlineHelpText>
+        <label>GMT Till With Daylight Saving</label>
+        <length>8</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GMT_Till_Without_Daylight_Saving__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Format hh:mm:ss</inlineHelpText>
+        <label>GMT Till Without Daylight Saving</label>
+        <length>8</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Higher_Range_of_Zip_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Higher Range of Zip Code</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lower_Range_of_Zip_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Lower Range of Zip Code</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Observe_Daylight_Saving__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Observe Daylight Saving</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Standard_Abbreviation__c</fullName>
+        <description>SRC: Salesforce
+INT: 
+Trans: N
+BU: RL
+FD: The abbreviation of the time zone while in standard time, such as PST, MST, CST, and EST.</description>
+        <externalId>false</externalId>
+        <label>Standard Abbreviation</label>
+        <length>5</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Standard_GMT_Offset__c</fullName>
+        <description>SRC: Salesforce
+INT: 
+Trans: N
+BU: RL
+FD: Hours offset from GMT so the correct local date and time of the repo may be established from the provided recovery date/time in GMT format from iRepo.</description>
+        <externalId>false</externalId>
+        <label>Standard GMT Offset</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>State__c</fullName>
+        <externalId>false</externalId>
+        <label>State</label>
+        <length>2</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Till__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Format hh:mm:ss</inlineHelpText>
+        <label>Till</label>
+        <length>8</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Timezone_Indicator__c</fullName>
+        <externalId>false</externalId>
+        <label>Timezone Indicator</label>
+        <length>5</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Timezone__c</fullName>
+        <description>SRC: Salesforce
+INT: 
+Trans: N
+BU: RL
+FD: The closest representation in terms of GMT offset of the time zone that Salesforce maintains as a user-selectable time zone on their detail record, i.e. America/Los_Angeles, America/Denver, America/Chicago, and America/New_York.</description>
+        <externalId>false</externalId>
+        <label>Timezone</label>
+        <length>40</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>TimeZone Indicator</label>
+</CustomObject>

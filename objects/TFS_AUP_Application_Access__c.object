@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <description>TFS Automated User Provisioning Application Access</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>TFS_AUP_Collections_Console__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Collections Console</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Collections Console</inlineHelpText>
+        <label>Collections Console</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>TFS_AUP_Customer_Service_Console__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Customer Service Console</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Customer Service Console</inlineHelpText>
+        <label>Customer Service Console</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>TFS_AUP_Knowledge_Management__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Knowledge Management</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Knowledge Management</inlineHelpText>
+        <label>Knowledge Management</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>TFS_AUP_RMS__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>RMS</description>
+        <externalId>false</externalId>
+        <inlineHelpText>RMS</inlineHelpText>
+        <label>RMS</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>TFS_AUP_Rights_Letters__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Rights Letters</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Rights Letters</inlineHelpText>
+        <label>Rights Letters</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>TFS_AUP_Universal_Console__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Universal Console</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Universal Console</inlineHelpText>
+        <label>Universal Console</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>TFS AUP Application Access</label>
+</CustomObject>

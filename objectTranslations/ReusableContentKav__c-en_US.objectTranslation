@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Reusable Content Article</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Reusable Content Articles</value>
+    </caseValues>
+    <fields>
+        <label><!-- ArticleNumber --></label>
+        <name>ArticleNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- ArticleType --></label>
+        <name>ArticleType__c</name>
+    </fields>
+    <fields>
+        <label><!-- ArticleVersionTypeName --></label>
+        <name>ArticleVersionTypeName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Draft Article --></label>
+        <name>DraftArticleURL__c</name>
+    </fields>
+    <fields>
+        <label><!-- DraftKavId --></label>
+        <name>DraftKavId__c</name>
+    </fields>
+    <fields>
+        <label><!-- KavIdDateTime --></label>
+        <name>KavIdDateTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- KavId --></label>
+        <name>KavId__c</name>
+    </fields>
+    <fields>
+        <label><!-- KnowledgeArticleId --></label>
+        <name>KnowledgeArticleId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Language --></label>
+        <name>Language__c</name>
+    </fields>
+    <fields>
+        <label><!-- Publish Status --></label>
+        <name>Publish_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reusable Content --></label>
+        <name>ReusableContentId__c</name>
+        <relationshipLabel><!-- Reusable Content Articles --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Search Keyword --></label>
+        <name>SearchKeyword__c</name>
+    </fields>
+    <fields>
+        <label><!-- Title --></label>
+        <name>Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- VersionNumber --></label>
+        <name>VersionNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- Knowledge Article --></label>
+        <name>kavUrl__c</name>
+    </fields>
+    <layouts>
+        <layout>Reusable Content Article Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

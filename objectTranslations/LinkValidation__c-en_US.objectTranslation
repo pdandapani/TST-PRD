@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>ValidateLink</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>ValidateLinks</value>
+    </caseValues>
+    <fields>
+        <label><!-- Article Mgmt URL --></label>
+        <name>Article_Mgmt_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Article Number --></label>
+        <name>Article_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Article Type API --></label>
+        <name>Article_Type_API__c</name>
+    </fields>
+    <fields>
+        <label><!-- Article Type --></label>
+        <name>Article_Type_Label__c</name>
+    </fields>
+    <fields>
+        <label><!-- Article --></label>
+        <name>Article__c</name>
+    </fields>
+    <fields>
+        <label><!-- Connection Refused --></label>
+        <name>Connection_Refused__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Checked --></label>
+        <name>Last_Checked__c</name>
+    </fields>
+    <fields>
+        <label><!-- Link Type --></label>
+        <name>Link_Type__c</name>
+        <picklistValues>
+            <masterLabel>Article</masterLabel>
+            <translation><!-- Article --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Internet</masterLabel>
+            <translation><!-- Internet --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Intranet Doc</masterLabel>
+            <translation><!-- Intranet Doc --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SF Document</masterLabel>
+            <translation><!-- SF Document --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Link --></label>
+        <name>Link__c</name>
+    </fields>
+    <fields>
+        <label><!-- Original Article URL --></label>
+        <name>Original_Article_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Title --></label>
+        <name>Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- Version Number --></label>
+        <name>Version_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- is Broken --></label>
+        <name>is_Broken__c</name>
+    </fields>
+    <layouts>
+        <layout>ValidateLink Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Link --></label>
+            <section>Link</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Start_Article_Link_Validation_Batch_Job --></label>
+        <name>Start_Article_Link_Validation_Batch_Job</name>
+    </webLinks>
+</CustomObjectTranslation>

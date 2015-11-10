@@ -1,0 +1,28 @@
+<apex:page standardController="Case" extensions="TFSC_SupportCommentController" showHeader="false">
+	<apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+        	<apex:sectionHeader title="{!$Label.Comments}" subtitle="{!Case.CaseNumber}"/>
+        	<apex:form id="commentForm">
+        		<apex:actionFunction name="submitForm" action="{!createComment}"/>
+			    <apex:pageBlock title="{!$Label.Support_Comment_Edit}" mode="edit">
+			    	<apex:pageBlockButtons location="bottom">
+			    		<apex:commandButton onclick="this.disabled = true; if (!SFDC.ValidateForm('{!$Component.commentForm}', submitForm)){this.disabled = false;}return false;" value=" {!$Label.Submit} "/>
+			    		<apex:commandButton action="{!URLFOR($Page.TFSC_SupportRequest, null, [id=Case.Id])}" value=" {!$Label.Cancel} " immediate="true"/>
+			    	</apex:pageBlockButtons>
+			    	<apex:pageBlockSection title="{!$Label.Support_Request_Details}" columns="1">
+			    		<apex:outputField value="{!Case.Service_Request_Subject__c}"/>
+			    	</apex:pageBlockSection>
+			    	<apex:pageBlockSection title="{!$Label.Comment_Details}" columns="1">
+			    		<apex:pageBlockSectionItem >
+			   				<apex:outputLabel value="{!$ObjectType.CaseComment.Fields.CommentBody.Label}"/>
+			   				<apex:outputPanel >
+			   					<apex:inputField value="{!newComment.CommentBody}" required="true" styleClass="largetext"/>
+			   					<em>{!$Label.Comment_Limit}</em>
+			   				</apex:outputPanel>
+			   			</apex:pageBlockSectionItem>
+			    	</apex:pageBlockSection>
+			    </apex:pageBlock>
+			</apex:form>
+        </apex:define>
+    </apex:composition>
+</apex:page>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <accessMappings>
+        <accessLevel>Read</accessLevel>
+        <object>Case</object>
+        <objectField>Financial_Account_Customer__c.Weblogin_Contact__c</objectField>
+        <userField>Contact</userField>
+    </accessMappings>
+    <name>Share To Case Contact</name>
+    <profiles>TMCC Customer Community Login User</profiles>
+</SharingSet>

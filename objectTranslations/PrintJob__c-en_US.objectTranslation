@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>PrintJob</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>PrintJobs</value>
+    </caseValues>
+    <fields>
+        <label><!-- Binder --></label>
+        <name>Binder__c</name>
+        <relationshipLabel><!-- PrintJobs --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- End Time --></label>
+        <name>EndTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Output Link --></label>
+        <name>OutputLink__c</name>
+    </fields>
+    <fields>
+        <label><!-- StartTime --></label>
+        <name>StartTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Title --></label>
+        <name>Title__c</name>
+    </fields>
+    <layouts>
+        <layout>PrintJob Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

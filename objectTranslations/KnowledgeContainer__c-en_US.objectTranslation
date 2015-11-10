@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Knowledge Container</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Knowledge Containers</value>
+    </caseValues>
+    <fields>
+        <label><!-- Parent Container Lookup --></label>
+        <name>Parent_Container_Lookup__c</name>
+        <relationshipLabel><!-- Knowledge Containers --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- container --></label>
+        <name>container__c</name>
+    </fields>
+    <fields>
+        <label><!-- containername --></label>
+        <name>containername__c</name>
+    </fields>
+    <fields>
+        <label><!-- hasChild --></label>
+        <name>hasChild__c</name>
+    </fields>
+    <fields>
+        <label><!-- hiearchyid --></label>
+        <name>hiearchyid__c</name>
+    </fields>
+    <fields>
+        <label><!-- levelof --></label>
+        <name>levelof__c</name>
+    </fields>
+    <fields>
+        <label><!-- order --></label>
+        <name>order__c</name>
+    </fields>
+    <fields>
+        <label><!-- parent --></label>
+        <name>parent__c</name>
+    </fields>
+    <layouts>
+        <layout>KnowledgeContainer Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

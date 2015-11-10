@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Collateral</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Collateral</value>
+    </caseValues>
+    <fields>
+        <label><!-- Body Style --></label>
+        <name>Body_Style__c</name>
+    </fields>
+    <fields>
+        <label><!-- License --></label>
+        <name>License__c</name>
+    </fields>
+    <fields>
+        <label><!-- Make --></label>
+        <name>Make__c</name>
+    </fields>
+    <fields>
+        <label><!-- Model Description --></label>
+        <name>Model_Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Model Name --></label>
+        <name>Model_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Model Number --></label>
+        <name>Model_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Model Short Description --></label>
+        <name>Model_Short_Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Model Year --></label>
+        <name>Model_Year__c</name>
+    </fields>
+    <fields>
+        <label><!-- Toyota Collateral Code --></label>
+        <name>Toyota_Collateral_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- VDS --></label>
+        <name>VDS__c</name>
+    </fields>
+    <fields>
+        <help><!-- Number of characters in the vehicle identification number --></help>
+        <label><!-- VIN Length --></label>
+        <name>VIN_Length__c</name>
+    </fields>
+    <fields>
+        <label><!-- VIN QR Code --></label>
+        <name>VIN_QR_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Identification Number Last 8 Ch --></label>
+        <name>Vehicle_Identification_Number_Last_8_Ch__c</name>
+    </fields>
+    <fields>
+        <help><!-- New formula field added to query collateral based on all digit VIN number as keyed in through a phone keypad.
+
+e.g: abc123 will be 222123 --></help>
+        <label><!-- Vehicle Identification Number Last 8 Dg --></label>
+        <name>Vehicle_Identification_Number_Last_8_Dg__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Identification Number --></label>
+        <name>Vehicle_Identification_Number__c</name>
+    </fields>
+    <layouts>
+        <layout>Collateral Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

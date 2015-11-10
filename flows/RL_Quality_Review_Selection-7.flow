@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignments>
+        <name>Quality_Review_Not_Required</name>
+        <label>Quality Review Not Required</label>
+        <locationX>462</locationX>
+        <locationY>995</locationY>
+        <assignmentItems>
+            <assignToReference>vQualityReviewRequired</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Quality_Review_Required</name>
+        <label>Quality Review Required</label>
+        <locationX>59</locationX>
+        <locationY>996</locationY>
+        <assignmentItems>
+            <assignToReference>sRLParentCase.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Quality Review</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>vQualityReviewRequired</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Save_Case_Status</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Case_Record_Type</name>
+        <label>Case Record Type</label>
+        <locationX>59</locationX>
+        <locationY>147</locationY>
+        <defaultConnector>
+            <targetReference>Is_User_Role_Exempt_from_Review</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Notice of Sale</defaultConnectorLabel>
+        <rules>
+            <name>Rights_Letter</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vCaseRT</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Rights Letter</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Impending_Compliance_Deadline</targetReference>
+            </connector>
+            <label>Rights Letter</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Impending_Compliance_Deadline</name>
+        <label>Impending Compliance Deadline</label>
+        <locationX>228</locationX>
+        <locationY>252</locationY>
+        <defaultConnector>
+            <targetReference>Lookup_Certified_Mail_Requirement</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Deadline Cleared</defaultConnectorLabel>
+        <rules>
+            <name>Deadline_Impending</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>sRLParentCase.RL_System_Required_Notice_Date_Time__c</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <elementReference>fComplianceDeadline</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Quality_Review_Not_Required</targetReference>
+            </connector>
+            <label>Deadline Impending</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Certified_Mail_Required</name>
+        <label>Is Certified Mail Required</label>
+        <locationX>228</locationX>
+        <locationY>505</locationY>
+        <defaultConnector>
+            <targetReference>Is_New_Hire</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Standard Mail</defaultConnectorLabel>
+        <rules>
+            <name>Certified_Mail</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vCertified</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Quality_Review_Not_Required</targetReference>
+            </connector>
+            <label>Certified Mail</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_New_Hire</name>
+        <label>Is New Hire</label>
+        <locationX>228</locationX>
+        <locationY>640</locationY>
+        <defaultConnector>
+            <targetReference>Is_Randomly_Selected</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Experienced</defaultConnectorLabel>
+        <rules>
+            <name>New_Hire</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vNewHire</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Is_User_Role_Exempt_from_Review</targetReference>
+            </connector>
+            <label>New Hire</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Randomly_Selected</name>
+        <label>Is Randomly Selected</label>
+        <locationX>228</locationX>
+        <locationY>762</locationY>
+        <defaultConnector>
+            <targetReference>Is_User_Role_Exempt_from_Review</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Randomly Selected</defaultConnectorLabel>
+        <rules>
+            <name>Not_Selected</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>fRandomSelection</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Quality_Review_Not_Required</targetReference>
+            </connector>
+            <label>Not Selected</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_User_Role_Exempt_from_Review</name>
+        <label>Is User Role Exempt from Review</label>
+        <locationX>59</locationX>
+        <locationY>874</locationY>
+        <defaultConnector>
+            <targetReference>Quality_Review_Required</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Exempt</defaultConnectorLabel>
+        <rules>
+            <name>Exempt</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>vUserRole</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Associates</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Quality_Review_Not_Required</targetReference>
+            </connector>
+            <label>Exempt</label>
+        </rules>
+    </decisions>
+    <description>Determines if quality review is required for the rights letter case and returns a boolean in vQualityReviewRequired. If required, it will update case status to Quality Review, triggering creation of quality review child case.</description>
+    <formulas>
+        <name>fComplianceDeadline</name>
+        <dataType>DateTime</dataType>
+        <expression>{!$Flow.CurrentDateTime} + 2</expression>
+    </formulas>
+    <formulas>
+        <name>fRandomSelection</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(MID(TEXT(NOW()), 19, 1) = &quot;0&quot;,
+1,
+VALUE(MID(TEXT(NOW()), 19, 1)) / 10)
+
+&lt;=
+
+({!vDailySelection} / {!vBandwidth})</expression>
+    </formulas>
+    <label>RL Quality Review Selection</label>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Case_Record_Type_Name</name>
+        <label>Get Case Record Type Name</label>
+        <locationX>59</locationX>
+        <locationY>37</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Case_Record_Type</targetReference>
+        </connector>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>sRLParentCase.RecordTypeId</elementReference>
+            </value>
+        </filters>
+        <object>RecordType</object>
+        <outputAssignments>
+            <assignToReference>vCaseRT</assignToReference>
+            <field>Name</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <name>Lookup_Certified_Mail_Requirement</name>
+        <label>Lookup Certified Mail Requirement</label>
+        <locationX>228</locationX>
+        <locationY>388</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Is_Certified_Mail_Required</targetReference>
+        </connector>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>sRLParentCase.Form_Rule__c</elementReference>
+            </value>
+        </filters>
+        <object>Form_Rule__c</object>
+        <outputAssignments>
+            <assignToReference>vCertified</assignToReference>
+            <field>Certified__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordUpdates>
+        <name>Save_Case_Status</name>
+        <label>Save Case Status</label>
+        <locationX>59</locationX>
+        <locationY>1109</locationY>
+        <inputReference>sRLParentCase</inputReference>
+    </recordUpdates>
+    <startElementReference>Get_Case_Record_Type_Name</startElementReference>
+    <variables>
+        <name>sRLParentCase</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Case</objectType>
+    </variables>
+    <variables>
+        <name>vBandwidth</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+    <variables>
+        <name>vCaseRT</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vCertified</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vDailySelection</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+    <variables>
+        <name>vNewHire</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vQualityReviewRequired</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>vUserRole</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

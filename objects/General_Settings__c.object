@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <description>Any general custom attribute that may extend the definition of a profile and/or user to provide distinct processing options - may be leveraged in workflow, formulas, and code; e.g. exempt data admin-level profiles or users from validation rules or workflows</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Data_Admin_Exemption__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>SRC: Salesforce
+INT: 
+Trans: N
+BU: RL
+FD: Exempt this profile or user from some validation rules and workflows</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Exempt this profile or user from some validation rules and workflows</inlineHelpText>
+        <label>Data Admin Exemption</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Repo_Default_Salvage_Auction__c</fullName>
+        <description>SRC: Salesforce
+INT: 
+Trans: N
+BU: RL
+FD: Identifies the default auction agency selected for a title services request in the rights letters process when a repo has been dispositioned as salvaged</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the unique ID of the default auction agency to process salvage repos - must match the Account.Account_Number__c field of an auction agency</inlineHelpText>
+        <label>Repo Default Salvage Auction</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>General Settings</label>
+</CustomObject>

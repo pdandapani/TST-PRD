@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Articles Depot</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Article Depot</value>
+    </caseValues>
+    <fields>
+        <label><!-- Add to Standard Note --></label>
+        <name>Add_to_Standard_Note__c</name>
+    </fields>
+    <fields>
+        <label><!-- Answer --></label>
+        <name>Answer__c</name>
+    </fields>
+    <fields>
+        <label><!-- ArchivedDate --></label>
+        <name>ArchivedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- ArticleCreatedBy --></label>
+        <name>ArticleCreatedBy__c</name>
+    </fields>
+    <fields>
+        <label><!-- ArticleCreatedDate --></label>
+        <name>ArticleCreatedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- ArticleHtml --></label>
+        <name>ArticleHtml__c</name>
+    </fields>
+    <fields>
+        <label><!-- ArticleLastModifiedBy --></label>
+        <name>ArticleLastModifiedBy__c</name>
+    </fields>
+    <fields>
+        <label><!-- ArticleLastModifiedDate --></label>
+        <name>ArticleLastModifiedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- ArticleNumVersion --></label>
+        <name>ArticleNumVersion__c</name>
+    </fields>
+    <fields>
+        <label><!-- ArticlePdfContentVersionId --></label>
+        <name>ArticlePdfContentVersionId__c</name>
+    </fields>
+    <fields>
+        <label><!-- ArticleTypeAPI --></label>
+        <name>ArticleTypeAPI__c</name>
+    </fields>
+    <fields>
+        <label><!-- Article Type --></label>
+        <name>ArticleType__c</name>
+    </fields>
+    <fields>
+        <label><!-- Article Created By --></label>
+        <name>Article_Created_By__c</name>
+        <relationshipLabel><!-- Article Depot (Article Created By) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Article Last Modified By --></label>
+        <name>Article_Last_Modified_By__c</name>
+        <relationshipLabel><!-- Article Depot (Article Last Modified By) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Article Management Link --></label>
+        <name>Article_Management_Link__c</name>
+    </fields>
+    <fields>
+        <label><!-- Article Number --></label>
+        <name>Article_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Article PDF Link --></label>
+        <name>Article_PDF_Link__c</name>
+    </fields>
+    <fields>
+        <label><!-- Benefits --></label>
+        <name>Benefits__c</name>
+    </fields>
+    <fields>
+        <label><!-- Caller Type Keywords --></label>
+        <name>Caller_Type_Keywords__c</name>
+    </fields>
+    <fields>
+        <label><!-- Caller Type --></label>
+        <name>Caller_Type__c</name>
+        <picklistValues>
+            <masterLabel>Caller Type</masterLabel>
+            <translation><!-- Caller Type --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Cause &amp; Solution --></label>
+        <name>Cause_Solution__c</name>
+    </fields>
+    <fields>
+        <label><!-- Country --></label>
+        <name>Country__c</name>
+        <picklistValues>
+            <masterLabel>Country</masterLabel>
+            <translation><!-- Country --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Customer FAQs --></label>
+        <name>Customer_FAQs__c</name>
+    </fields>
+    <fields>
+        <label><!-- DM Form # --></label>
+        <name>DM_Forms__c</name>
+    </fields>
+    <fields>
+        <label><!-- Department Role --></label>
+        <name>Department_Role__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Desk Guide Pack --></label>
+        <name>Desk_Guide_Pack__c</name>
+        <relationshipLabel><!-- Article Depot --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Details --></label>
+        <name>Details__c</name>
+    </fields>
+    <fields>
+        <label><!-- Escalation Notes --></label>
+        <name>Escalation_Notes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expiration Date --></label>
+        <name>Expiration_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- FOPP Text --></label>
+        <name>FOPP_Text__c</name>
+    </fields>
+    <fields>
+        <label><!-- FOPP --></label>
+        <name>FOPP__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Published Date --></label>
+        <name>FirstPublishedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Geography Keywords --></label>
+        <name>Geography_Keywords__c</name>
+    </fields>
+    <fields>
+        <label><!-- Internal Notes --></label>
+        <name>Internal_Notes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Job Function --></label>
+        <name>Job_Function__c</name>
+    </fields>
+    <fields>
+        <label><!-- Key Information --></label>
+        <name>Key_Information__c</name>
+    </fields>
+    <fields>
+        <label><!-- Knowledge Container --></label>
+        <name>KnowledgeContainerName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Knowledge Article --></label>
+        <name>Knowledge_Article_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Knowledge Container --></label>
+        <name>Knowledge_Container_Name__c</name>
+        <relationshipLabel><!-- Article Depot (Knowledge Container) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Knowledge Container --></label>
+        <name>Knowledge_Container__c</name>
+        <relationshipLabel><!-- Article Depot --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- LastPublishedDate --></label>
+        <name>LastPublishedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- OrginalArticleId --></label>
+        <name>OrginalArticleId__c</name>
+    </fields>
+    <fields>
+        <label><!-- OrginalArticleVersionId --></label>
+        <name>OrginalArticleVersionId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Process Steps --></label>
+        <name>Process_Steps__c</name>
+    </fields>
+    <fields>
+        <label><!-- Publish Status --></label>
+        <name>PublishStatus__c</name>
+    </fields>
+    <fields>
+        <label><!-- Published Date --></label>
+        <name>PublishedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- See Also --></label>
+        <name>See_Also__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sort --></label>
+        <name>Sort__c</name>
+    </fields>
+    <fields>
+        <label><!-- Summary --></label>
+        <name>Summary__c</name>
+    </fields>
+    <fields>
+        <label><!-- Title --></label>
+        <name>Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- URL --></label>
+        <name>UrlName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Version Number --></label>
+        <name>VersionNumber__c</name>
+    </fields>
+    <fields>
+        <help><!-- States and provinces used to restrict the information to specific areas of the selected Country --></help>
+        <label><!-- States and Provinces --></label>
+        <name>states_provinces__c</name>
+        <picklistValues>
+            <masterLabel>States and Provinces</masterLabel>
+            <translation><!-- States and Provinces --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Articles Depot Layout</layout>
+        <sections>
+            <label><!-- Article Details --></label>
+            <section>Article Details</section>
+        </sections>
+        <sections>
+            <label><!-- Article HTML --></label>
+            <section>Article HTML</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Date &amp; Time --></label>
+            <section>Date &amp; Time</section>
+        </sections>
+        <sections>
+            <label><!-- Properties --></label>
+            <section>Properties</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Copy_Knowledge_Articles_to_Article_Depot --></label>
+        <name>Copy_Knowledge_Articles_to_Article_Depot</name>
+    </webLinks>
+</CustomObjectTranslation>

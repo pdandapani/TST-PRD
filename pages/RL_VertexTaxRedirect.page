@@ -1,0 +1,127 @@
+<apex:page standardController="Repossession__c" extensions="RL_VertexTaxRedirectController">
+	
+	<apex:includeScript value="{!$Resource.jquery}"/>
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+	
+	<style>
+        .formLabel{
+            color:#4a4a56; 
+            width:160px;
+            text-align:right;
+            vertical-align:top;
+            font-weight:bold;
+            font-size: 91%;
+            padding-top:5px;
+            padding-bottom:3px;
+            
+        }
+        
+        .valueCell{
+            padding-left:10px;
+            padding-bottom:5px;
+            vertial-align:top;
+            width:350px;
+        }
+    </style>
+	
+	<script>
+		
+		var $j = jQuery.noConflict();
+    	
+	    	
+    	$j(document).ready(function() {
+			executeCallout();
+        });
+        
+        
+		
+		function onCalloutComplete() {
+		    $j('#overlaySpinnerDiv').hide();
+		    $j('#goBackMessage').show();
+		    
+		    if(errStringTxt == '' || errStringTxt == 'null') {
+		    	goBack();
+		    }else{
+		        //$j('.mainPanelSelector').show();
+		    }
+		}
+		
+		function goBack() {
+		    url = '/{!Repossession__c.Id}';
+		    
+		    if(sforce.console.isInConsole()) {
+		        url += '?isdtp=vw';
+		    }
+		    
+		    window.location.href = url;
+		}
+		
+		function executeCallout() {
+		    $j('#overlaySpinnerDiv').show();
+		    executeTaxCallout();
+		}
+		
+	</script>
+	
+	
+	<div id="overlaySpinnerDiv" style="position:absolute;top:0;left:0;right:0;bottom:0;display:none;background-color:rgba(0,0,0, 0.1);">
+	    <div style="position:absolute;width:350px;height:200px;left:40%;top:40%;">
+	        <apex:image value="/img/loading32.gif" style="padding-left:60px;padding-bottom:8px;" /><br />
+	        <span style="font-weight:bold;font-size:16px;">Getting Vertex Data</span>
+	    </div>
+	</div>
+	
+	
+	<apex:Form style="width:100%;" >
+        
+        <apex:actionFunction name="executeTaxCallout" action="{!executeTaxCallout}" 
+                             reRender="pageBlock,pageMessagesPanel"
+                             onComplete="onCalloutComplete();"  />
+        
+        <apex:pageMessages id="pageMessagesPanel" />
+        
+        <div id="goBackMessage" style="display:none;">
+            <a href="#" onclick="goBack();">Go Back</a>
+        </div>
+        
+		<apex:outputPanel id="pageBlock" styleClass="mainPanelSelector" style="width:100%;display:none;">
+                
+                <script>
+                    var errStringTxt = '{!errDisplayText}';
+                </script>
+                
+                <table>
+                    <tr>
+                        <td class="formLabel">
+                            Zip Code
+                        </td>
+                        <td class="valueCell">
+                            <apex:inputText value="{!zipCode}"/>
+						</td>
+					</tr>
+					<tr>
+                        <td class="formLabel">
+                            State
+                        </td>
+                        <td class="valueCell">
+                            <apex:inputText value="{!stateAbbrev}"/>
+						</td>
+					</tr>
+					<tr>
+                        <td class="formLabel">
+                            Loan Balance
+                        </td>
+                        <td class="valueCell">
+                            <apex:inputText value="{!salesPrice}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td><button type="button" onclick="executeCallout();">Get Vertex Sales Tax Value</button></td>
+					</tr>
+				</table>
+		</apex:outputPanel>
+		
+	</apex:Form>
+	
+</apex:page>

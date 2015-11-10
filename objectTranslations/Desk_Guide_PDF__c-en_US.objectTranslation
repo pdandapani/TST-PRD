@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Desk Guide PDF</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Desk Guide PDFs</value>
+    </caseValues>
+    <fields>
+        <label><!-- Archived Date --></label>
+        <name>ArchivedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Desk Guide Pack --></label>
+        <name>DeskGuidePack__c</name>
+        <relationshipLabel><!-- Desk Guide PDFs --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Published Date --></label>
+        <name>PublishedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- TitleSort --></label>
+        <name>TitleSort__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

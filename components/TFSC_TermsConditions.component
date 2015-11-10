@@ -1,0 +1,124 @@
+<apex:component >
+	<apex:includeScript value="{!URLFOR($Resource.EasyXDM, 'jquery.min.js')}"/>
+	<apex:attribute name="newcase" type="Case" required="true" description="The Case."/>
+	<apex:attribute name="accttype" type="String" required="false" description="The Type of the Account, if present. (Retail or Lease)"/>
+	<apex:attribute name="viewmode" type="String" required="false" default="edit" description="view or edit"/>
+	<apex:variable var="shortName" value="{!$Site.Name}"/>
+	<apex:variable var="longName" value="{!IF(shortName='TFS','Toyota','Lexus')}"/>
+	<apex:pageBlockSection title="{!$Label.Terms_and_Conditions}" columns="1" collapsible="{!viewMode='read'}">
+		<apex:pageBlockSectionItem >
+			<apex:outputPanel >
+				<apex:outputPanel id="retail" style="display:none;">
+					<p>By completing and submitting this form, you are requesting a change to your current scheduled payment due date on your Retail Installment Contract. <strong>All due date change requests are subject to evaluation and approval by {!longName} Financial Services ({!shortName}).</strong> A due date change will not be processed until approved, a Due Date Change Agreement has been properly signed and accepted by {!shortName}, and you have paid all amounts due in connection with the change.</p>
+					<p>An account must be current to process a due date change. If the due date change is approved, your final payment will reflect the new due date. For simple interest contracts, the amount of the final payment will be higher than the final payment disclosed on the Retail Contract due to the finance charges accrued because of the revised due date.</p>
+					<p>The 31st of the month is not an eligible due date. The maximum number of days your due date can be changed is a cumulative total of 29 days.</p>
+					<p>A due date change does not change the original terms of any optional coverage (mechanical breakdown protection, service agreement, credit life and/or credit disability insurance, vehicle maintenance program, or GAP coverage) that may be included in your contract.  If applicable, please review the policy for details.</p>
+					<p>For Pay Online customers, any pre-existing scheduled Pay Online payments will need to be updated online to match the new due date.</p>
+					<p>A customer service representative will contact you via the Support Center regarding whether you qualify for the requested due date change.</p>
+				</apex:outputPanel>
+				<apex:outputPanel id="lease" style="display:none;">
+					<p>By completing and submitting this form, you are requesting a change to your current scheduled payment due date on your Lease Agreement. <strong>All due date change requests are subject to evaluation and approval by {!longName} Financial Services ({!shortName}).</strong> A due date change will not be processed until approved, a Due Date Change Agreement has been properly signed and accepted by {!shortName}, and you have paid all amounts due in connection with the change. </p>
+					<p>An account must be current to process a due date change and {!shortName} requires 19 days processing time for the change to be effective for the next payment date.</p>
+					<p>The 29th, 30th and the 31st of the month are not eligible due dates. The maximum number of days your due date can be changed is a cumulative total of 29 days.</p>
+					<p>The scheduled maturity date and term of the lease will not change. The maximum amount of mileage allowed to drive the vehicle as indicated on a Lease Agreement will not change if a due date change is approved.</p>
+					<p>A due date change does not change the original terms of any optional coverage (mechanical breakdown protection, service agreement, credit life and/or credit disability insurance, vehicle maintenance program, or GAP coverage) that may be included in your contract.  If applicable, please review the policy for details.</p>
+					<p>For Pay Online customers, any pre-existing scheduled Pay Online payments will need to be updated online to match the new due date.</p>
+					<p>A customer service representative will contact you via the Support Center regarding whether you qualify for the requested due date change.</p>
+				</apex:outputPanel>
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+		<apex:pageBlockSectionItem rendered="{!viewmode='edit'}">
+			<apex:outputPanel styleClass="requiredInput" layout="block">
+				<apex:outputPanel styleClass="requiredBlock" layout="block"/>
+				<apex:inputCheckbox id="termsedit" value="{!newcase.I_Agree_to_Terms_and_Conditions__c}" required="true"/>
+				<apex:outputLabel for="termsedit" style="font-weight:bold" value="{!$ObjectType.Case.Fields.I_Agree_to_Terms_and_Conditions__c.Label}"/>
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+		<apex:pageBlockSectionItem rendered="{!viewmode='read'}">
+			<apex:outputPanel >
+				<apex:inputCheckbox id="termsread" value="{!newcase.I_Agree_to_Terms_and_Conditions__c}" disabled="true"/>
+				<apex:outputLabel for="termsread" style="font-weight:bold" value="{!$ObjectType.Case.Fields.I_Agree_to_Terms_and_Conditions__c.Label}"/>
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+	</apex:pageBlockSection>
+	<script type="text/javascript">
+
+		function twistSection(obj) {
+			SFDC.TwistSection(obj);
+		}
+
+		(function($) {
+			$(function() {
+
+				$.extend(true, window, {
+				    SFDC: {
+				        UpdateTermsContent: updateTermsContent,
+				        TwistSection: twisty
+				    }
+				});
+
+				var $lease = $('span[id$=":lease"]'),
+					$retail = $('span[id$=":retail"]'),
+					$termscheck = $(':checkbox[id$=":termsedit"]'),
+					lastType = '',
+					twisty;
+				
+				updateTermsContent('{!accttype}');
+
+				function updateTermsContent(type) {
+
+					if (type != lastType) {
+						$termscheck.prop('checked', false);
+					}
+					lastType = type;
+
+					//default hide both
+					$lease.hide();
+					$retail.hide();
+
+					if (type === 'Retail') {
+						$retail.show();
+					}
+					else if (type === 'Lease') {
+						$lease.show();
+					}
+				}
+
+				var sections = {};
+
+				function twisty(obj) {
+					var $obj = $(obj),
+						$objId = $obj.attr('id'),
+						$section;
+
+					//cache the parent.parent.find call
+					if (sections.hasOwnProperty($objId)) {
+						$section = sections[$objId];
+					}
+					else {
+						$section = $obj.parent().parent().find('div.pbSubsection');
+						sections[$objId] = $section;
+					}
+
+					if ($obj.hasClass('showListButton')) {
+						$obj.attr('alt', 'Hide Section - ' + $obj.attr('name'));
+						$obj.removeClass('showListButton').addClass('hideListButton');
+						//show the corresponding section
+						$section.show();
+					}
+					else if ($obj.hasClass('hideListButton')) {
+						$obj.attr('alt', 'Show Section - ' + $obj.attr('name'));
+						$obj.removeClass('hideListButton').addClass('showListButton');
+						//hide the corresponding section
+						$section.hide();
+					}
+				}
+
+				if ('{!viewMode}' == 'read') {
+					twisty($('.hideListButton'));
+				}
+				
+			});
+		})(jQuery.noConflict());
+	</script>
+</apex:component>

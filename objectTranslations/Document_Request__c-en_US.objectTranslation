@@ -1,0 +1,900 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Document Request</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Document Requests</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account Number --></label>
+        <name>AccountNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account FinanceCharge --></label>
+        <name>Account_FinanceCharge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account Lang --></label>
+        <name>Account_Lang__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account Type --></label>
+        <name>Account_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agent Location Address 1 --></label>
+        <name>AgentLocation_Address1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agent Location Address 2 --></label>
+        <name>AgentLocation_Address2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agent Location City --></label>
+        <name>AgentLocation_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agent Name --></label>
+        <name>AgentLocation_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agent Phone Number --></label>
+        <name>AgentLocation_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agent Location State --></label>
+        <name>AgentLocation_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agent Location ZipCode --></label>
+        <name>AgentLocation_ZipCode__c</name>
+    </fields>
+    <fields>
+        <label><!-- Auction Address 1 --></label>
+        <name>AuctionLocation_Address1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Auction Address 2 --></label>
+        <name>AuctionLocation_Address2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Auction City --></label>
+        <name>AuctionLocation_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Auction Name --></label>
+        <name>AuctionLocation_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Auction Phone --></label>
+        <name>AuctionLocation_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Auction State --></label>
+        <name>AuctionLocation_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Auction ZipCode --></label>
+        <name>AuctionLocation_ZipCode__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case Number --></label>
+        <name>CaseNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case --></label>
+        <name>Case__c</name>
+        <relationshipLabel><!-- Document Requests --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- CoCustomer AddyAddress1 --></label>
+        <name>CoCustomer_AddyAddress1__c</name>
+    </fields>
+    <fields>
+        <label><!-- CoCustomer AddyAddress2 --></label>
+        <name>CoCustomer_AddyAddress2__c</name>
+    </fields>
+    <fields>
+        <label><!-- CoCustomer AddyCity --></label>
+        <name>CoCustomer_AddyCity__c</name>
+    </fields>
+    <fields>
+        <label><!-- CoCustomer AddyState --></label>
+        <name>CoCustomer_AddyState__c</name>
+    </fields>
+    <fields>
+        <label><!-- CoCustomer AddyZip --></label>
+        <name>CoCustomer_AddyZip__c</name>
+    </fields>
+    <fields>
+        <label><!-- Code --></label>
+        <name>Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comments --></label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contract Date --></label>
+        <name>ContractDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreatedDate --></label>
+        <name>CreatedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer First Name --></label>
+        <name>CustomerFirstName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Last Name --></label>
+        <name>CustomerLastName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Address 1 --></label>
+        <name>Customer_AddyAddress1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Address 2 --></label>
+        <name>Customer_AddyAddress2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer City --></label>
+        <name>Customer_AddyCity__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer State --></label>
+        <name>Customer_AddyState__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Zip --></label>
+        <name>Customer_AddyZipCode__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer First Name --></label>
+        <name>Customer_FirstName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Last Name --></label>
+        <name>Customer_LastName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Middle Name --></label>
+        <name>Customer_MiddleName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer Salutation --></label>
+        <name>Customer_Salutation__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date of Contract --></label>
+        <name>DateOfContract__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dealer Address 1 --></label>
+        <name>Dealer_Address1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dealer Address 2 --></label>
+        <name>Dealer_Address2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dealer City --></label>
+        <name>Dealer_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dealer FirstName --></label>
+        <name>Dealer_FirstName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dealer LastName --></label>
+        <name>Dealer_LastName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dealer Name --></label>
+        <name>Dealer_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dealer Number --></label>
+        <name>Dealer_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dealer Phone --></label>
+        <name>Dealer_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dealer State --></label>
+        <name>Dealer_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dealer ZipCode --></label>
+        <name>Dealer_ZipCode__c</name>
+    </fields>
+    <fields>
+        <label><!-- Department Extn --></label>
+        <name>Department_Extn__c</name>
+    </fields>
+    <fields>
+        <label><!-- Department Hours --></label>
+        <name>Department_Hours__c</name>
+    </fields>
+    <fields>
+        <label><!-- Department Name --></label>
+        <name>Department_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Department Phone --></label>
+        <name>Department_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dispatch Device Name --></label>
+        <name>Dispatch_DeviceName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dispatch Document Output --></label>
+        <name>Dispatch_DocumentOutput__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dispatch Name --></label>
+        <name>Dispatch_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dispatches DeviceNameTransformed --></label>
+        <name>Dispatches_DeviceNameTransformed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Document Type --></label>
+        <name>DocumentType__c</name>
+    </fields>
+    <fields>
+        <label><!-- Effective State Code --></label>
+        <name>EffectiveStateCode__c</name>
+    </fields>
+    <fields>
+        <label><!-- Empty Field --></label>
+        <name>Empty_Field__c</name>
+    </fields>
+    <fields>
+        <label><!-- Entity LegalLongNameCaps --></label>
+        <name>Entity_LegalLongNameCaps__c</name>
+    </fields>
+    <fields>
+        <label><!-- Entity LegalLongName --></label>
+        <name>Entity_LegalLongName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Entity LegalShortName --></label>
+        <name>Entity_LegalShortName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Entity Logo --></label>
+        <name>Entity_Logo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Entity LongNameCaps --></label>
+        <name>Entity_LongNameCaps__c</name>
+    </fields>
+    <fields>
+        <label><!-- Entity Long Name --></label>
+        <name>Entity_LongName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Entity Phone --></label>
+        <name>Entity_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Entity ReturnAddressAddy1 --></label>
+        <name>Entity_ReturnAddressAddy1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Entity ReturnAddressAddy2 --></label>
+        <name>Entity_ReturnAddressAddy2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Entity ReturnAddressName --></label>
+        <name>Entity_ReturnAddressName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Entity ReturnAddressPhone --></label>
+        <name>Entity_ReturnAddressPhone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Entity Short Name --></label>
+        <name>Entity_ShortName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Entity Shortname Transformed --></label>
+        <name>Entity_Shortname_Transformed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Form ID --></label>
+        <name>FormId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Form Path --></label>
+        <name>FormPath__c</name>
+    </fields>
+    <fields>
+        <label><!-- Form Type --></label>
+        <name>FormType__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Form ID Lookup Required --></label>
+        <name>IsFormIdLookupRequired__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Water Mark Required --></label>
+        <name>IsWaterMarkRequired__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mailing Date --></label>
+        <name>MailingDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Message --></label>
+        <name>Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Repossession Charges Address 1 --></label>
+        <name>OtherRepoCharges_Address1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Repossession Charges Address 2 --></label>
+        <name>OtherRepoCharges_Address2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Repossession Charges --></label>
+        <name>OtherRepoCharges_Charge__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Repossession Charges City --></label>
+        <name>OtherRepoCharges_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Repossession Charges Description --></label>
+        <name>OtherRepoCharges_Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Repossession Charges Name --></label>
+        <name>OtherRepoCharges_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Repossession Charges Phone --></label>
+        <name>OtherRepoCharges_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Repossession Charges State --></label>
+        <name>OtherRepoCharges_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Repossession Charges ZipCode --></label>
+        <name>OtherRepoCharges_ZipCode__c</name>
+    </fields>
+    <fields>
+        <label><!-- PageCount --></label>
+        <name>PageCount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Personal Property Fee Address 1 --></label>
+        <name>PersonalPropertyFee_Address1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Personal Property Fee Address 2 --></label>
+        <name>PersonalPropertyFee_Address2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Personal Property Fee City --></label>
+        <name>PersonalPropertyFee_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- PersonalPropertyFeePayableTo Name --></label>
+        <name>PersonalPropertyFee_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- PersonalPropertyFeePayableTo Phone --></label>
+        <name>PersonalPropertyFee_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Personal Property Fee State --></label>
+        <name>PersonalPropertyFee_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Personal Property Fee ZipCode --></label>
+        <name>PersonalPropertyFee_ZipCode__c</name>
+    </fields>
+    <fields>
+        <label><!-- Print Date --></label>
+        <name>PrintDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Online Auction URL --></label>
+        <name>RL_Auction_Agency_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cost of Sale --></label>
+        <name>RL_CostOfSales__c</name>
+    </fields>
+    <fields>
+        <label><!-- Delinquency and Collection Charges --></label>
+        <name>RL_DelinquencyAndCollectionCharges__c</name>
+    </fields>
+    <fields>
+        <label><!-- Earliest Date of Sale --></label>
+        <name>RL_EarliestDateOfSale__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Online Offering From Date --></label>
+        <name>RL_FirstOnlineOfferingFromDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Online Offering To Date --></label>
+        <name>RL_FirstOnlineOfferingToDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Physical Offering Date --></label>
+        <name>RL_FirstPhysicalOfferingDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Physical Offering Time --></label>
+        <name>RL_FirstPhysicalOfferingTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Sale Offering Date --></label>
+        <name>RL_FirstSaleOfferingDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Sale Offering Time --></label>
+        <name>RL_FirstSaleOfferingTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fourth Sale Offering Date --></label>
+        <name>RL_FourthSaleOfferingDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fourth Sale Offering Time --></label>
+        <name>RL_FourthSaleOfferingTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Impound Fee --></label>
+        <name>RL_ImpoundFee__c</name>
+    </fields>
+    <fields>
+        <label><!-- Installment Past Due --></label>
+        <name>RL_InstallmentPastDue__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Contract Reinstated Before --></label>
+        <name>RL_IsContractReinstatedBefore__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Customer Not Liable For Deficiency Bu --></label>
+        <name>RL_IsCustomerNotLiableForDeficiencyBuyer__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Failure To Make Payment --></label>
+        <name>RL_IsFailureToMakePayment__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Notice Modified By Cover Letter Buyer --></label>
+        <name>RL_IsNoticeModifiedByCoverLetterBuyer__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Other Reason For No Reinstatement --></label>
+        <name>RL_IsOtherReasonForNoReinstatement__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Reinstatement Allowed --></label>
+        <name>RL_IsReinstatementAllowed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Monthly Installment Due Date --></label>
+        <name>RL_MonthlyInstallmentDueDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Monthly Payment Amount --></label>
+        <name>RL_MonthlyPaymentAmount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Notice Date --></label>
+        <name>RL_NoticeDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of Days to Sell --></label>
+        <name>RL_NumberOfDaysToSell__c</name>
+    </fields>
+    <fields>
+        <label><!-- Other Reason for Repossession --></label>
+        <name>RL_OtherReasonForRepossession__c</name>
+    </fields>
+    <fields>
+        <label><!-- Performance Deposit --></label>
+        <name>RL_PerformanceDeposit__c</name>
+    </fields>
+    <fields>
+        <label><!-- Personal Property Fee --></label>
+        <name>RL_PersonalPropertyFee__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recovery Date --></label>
+        <name>RL_RecoveryDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Redemption Processing Fee --></label>
+        <name>RL_RedemptionProcessingFee__c</name>
+    </fields>
+    <fields>
+        <label><!-- Repo Location Name --></label>
+        <name>RL_RepoLocationName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Repossession Costs --></label>
+        <name>RL_RepossessionCosts__c</name>
+    </fields>
+    <fields>
+        <label><!-- Repossession Title Mailed Date --></label>
+        <name>RL_RepossessionTitleMailedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sales Tax --></label>
+        <name>RL_Sales_Tax__c</name>
+    </fields>
+    <fields>
+        <label><!-- Second Online Offering From Date --></label>
+        <name>RL_SecondOnlineOfferingFromDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Second Online Offering To Date --></label>
+        <name>RL_SecondOnlineOfferingToDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Second Physical Offering Date --></label>
+        <name>RL_SecondPhysicalOfferingDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Second Physical Offering Time --></label>
+        <name>RL_SecondPhysicalOfferingTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Second Sale Offering Date --></label>
+        <name>RL_SecondSaleOfferingDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Second Sale Offering Time --></label>
+        <name>RL_SecondSaleOfferingTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Security Deposit --></label>
+        <name>RL_SecurityDeposit__c</name>
+    </fields>
+    <fields>
+        <label><!-- Third Sale Offering Date --></label>
+        <name>RL_ThirdSaleOfferingDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Third Sale Offering Time --></label>
+        <name>RL_ThirdSaleOfferingTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Purchase Amount Of Lease Vehicle --></label>
+        <name>RL_TotalPurchaseAmountOfLeaseVehicle__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Redemption Amount --></label>
+        <name>RL_TotalRedemptionAmount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Reinstatement Amount --></label>
+        <name>RL_TotalReinstatementAmount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Transportation Expenses --></label>
+        <name>RL_TransportationExpenses__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type of Sale --></label>
+        <name>RL_TypeOfSale__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unearned Finance Charges --></label>
+        <name>RL_UnearnedFinanceCharges__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unearned Insurance Costs --></label>
+        <name>RL_UnearnedInsuranceCosts__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unearned Lease Payments --></label>
+        <name>RL_UnearnedLeasePayments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unearned Rent Charges --></label>
+        <name>RL_UnearnedRentCharges__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unpaid Gross Balance --></label>
+        <name>RL_UnpaidGrossBalance__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unpaid Late Charges --></label>
+        <name>RL_UnpaidLateCharges__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Holding Charges --></label>
+        <name>RL_VehicleHoldingCharges__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Daily Storage Rate --></label>
+        <name>RL_VehicleStorageDailyRate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Storage Fee --></label>
+        <name>RL_VehicleStorageFee__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recipient Address 1 --></label>
+        <name>Recipient_Address1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recipient Address 2 --></label>
+        <name>Recipient_Address2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recipient City State Zip code --></label>
+        <name>Recipient_CityStateZipCode__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recipient Country --></label>
+        <name>Recipient_Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recipient Email --></label>
+        <name>Recipient_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recipient Fax --></label>
+        <name>Recipient_Fax__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recipient Name Line 1 --></label>
+        <name>Recipient_NameLine1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recipient Phone --></label>
+        <name>Recipient_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recipient --></label>
+        <name>Recipient__c</name>
+    </fields>
+    <fields>
+        <label><!-- Redemption Agent Address 1 --></label>
+        <name>RedemptionAgent_Address1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Redemption Agent Address 2 --></label>
+        <name>RedemptionAgent_Address2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Redemption Agent City --></label>
+        <name>RedemptionAgent_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Redemption Agent Name --></label>
+        <name>RedemptionAgent_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Redemption Agent Phone --></label>
+        <name>RedemptionAgent_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Redemption Agent State --></label>
+        <name>RedemptionAgent_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Redemption Agent ZipCode --></label>
+        <name>RedemptionAgent_ZipCode__c</name>
+    </fields>
+    <fields>
+        <label><!-- Repossession Fee Payable To Address 1 --></label>
+        <name>RepoFeePayableTo_Address1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Repossession Fee Payable To Address 2 --></label>
+        <name>RepoFeePayableTo_Address2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Repossession Fee Payable To City --></label>
+        <name>RepoFeePayableTo_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Repossession Fee Payable To Name --></label>
+        <name>RepoFeePayableTo_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Repossession Fee Payable To Phone --></label>
+        <name>RepoFeePayableTo_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Repossession Fee Payable To State --></label>
+        <name>RepoFeePayableTo_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Repossession Fee Payable To Zip Code --></label>
+        <name>RepoFeePayableTo_ZipCode__c</name>
+    </fields>
+    <fields>
+        <label><!-- Repossession --></label>
+        <name>Repossession__c</name>
+        <relationshipLabel><!-- Document Requests --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Name --></label>
+        <name>Requestor_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phone --></label>
+        <name>Requestor_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Return Address 1 --></label>
+        <name>ReturnAddress_Address1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Return Address 2 --></label>
+        <name>ReturnAddress_Address2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Return Address 3 --></label>
+        <name>ReturnAddress_Address3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Return Address Phone --></label>
+        <name>ReturnAddress_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Return Document --></label>
+        <name>ReturnDocument__c</name>
+    </fields>
+    <fields>
+        <label><!-- Return Envelope --></label>
+        <name>ReturnEnvelope__c</name>
+    </fields>
+    <fields>
+        <label><!-- Return Address Location --></label>
+        <name>Return_Address_Location__c</name>
+        <picklistValues>
+            <masterLabel>Central</masterLabel>
+            <translation><!-- Central --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Source Form Identifier1 --></label>
+        <name>SourceFormIdentifier1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sub System Name --></label>
+        <name>Source_SubSystemName__c</name>
+    </fields>
+    <fields>
+        <label><!-- System Name --></label>
+        <name>Source_SystemName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sync Callout Error Response --></label>
+        <name>Sync_Callout_Error_Response__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sync Callout Response Status --></label>
+        <name>Sync_Callout_Response_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sync Callout XML Request --></label>
+        <name>Sync_Callout_XML_Request__c</name>
+    </fields>
+    <fields>
+        <label><!-- System Name --></label>
+        <name>Target_SystemName__c</name>
+    </fields>
+    <fields>
+        <label><!-- VIN --></label>
+        <name>VIN__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Storage Agent Address 1 --></label>
+        <name>VehicleStorageAgent_Address1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Storage Agent Address 2 --></label>
+        <name>VehicleStorageAgent_Address2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Storage Agent City --></label>
+        <name>VehicleStorageAgent_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Storage Agent Name --></label>
+        <name>VehicleStorageAgent_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Storage Agent Phone --></label>
+        <name>VehicleStorageAgent_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Storage Agent State --></label>
+        <name>VehicleStorageAgent_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Storage Agent ZipCode --></label>
+        <name>VehicleStorageAgent_ZipCode__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Storage Location Address 1 --></label>
+        <name>VehicleStorageLocation_Address1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Storage Location Address 2 --></label>
+        <name>VehicleStorageLocation_Address2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Storage Location City --></label>
+        <name>VehicleStorageLocation_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Storage Location State --></label>
+        <name>VehicleStorageLocation_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Storage Location ZipCode --></label>
+        <name>VehicleStorageLocation_ZipCode__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Make --></label>
+        <name>Vehicle_Make__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Model --></label>
+        <name>Vehicle_Model__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vehicle Year --></label>
+        <name>Vehicle_Year__c</name>
+    </fields>
+    <fields>
+        <label><!-- Water Mark Text --></label>
+        <name>WaterMarkText__c</name>
+    </fields>
+    <layouts>
+        <layout>Document Request Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Notice of Sale Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Notice of Sale --></label>
+        <name>Notice_of_Sale</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Rights Letters --></label>
+        <name>Rights_Letter_Doc_Request</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

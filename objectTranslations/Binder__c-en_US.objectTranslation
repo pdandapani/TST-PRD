@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Binder</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Binders</value>
+    </caseValues>
+    <fields>
+        <label><!-- Article Type --></label>
+        <name>Article_Type__c</name>
+        <picklistValues>
+            <masterLabel>Collections Pass Strategy</masterLabel>
+            <translation><!-- Collections Pass Strategy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Collections Talking Point</masterLabel>
+            <translation><!-- Collections Talking Point --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FAQ</masterLabel>
+            <translation><!-- FAQ --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>How To</masterLabel>
+            <translation><!-- How To --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Product and Program</masterLabel>
+            <translation><!-- Product and Program --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Reference</masterLabel>
+            <translation><!-- Reference --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Troubleshooting</masterLabel>
+            <translation><!-- Troubleshooting --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tutorial</masterLabel>
+            <translation><!-- Tutorial --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Comment --></label>
+        <name>Comment__c</name>
+    </fields>
+    <fields>
+        <label><!-- FOPP --></label>
+        <name>FOPP__c</name>
+    </fields>
+    <fields>
+        <label><!-- From Date --></label>
+        <name>From_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Include Archived Articles --></label>
+        <name>Include_Archived__c</name>
+    </fields>
+    <fields>
+        <label><!-- Include children of hierarchy --></label>
+        <name>Include_children__c</name>
+    </fields>
+    <fields>
+        <label><!-- Knowledge Container --></label>
+        <name>Knowledge_Container__c</name>
+        <relationshipLabel><!-- Binders --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- SOQL Archive 1 --></label>
+        <name>SOQL_Archive_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- SOQL Archive 2 --></label>
+        <name>SOQL_Archive_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- SOQL Archive 3 --></label>
+        <name>SOQL_Archive_3__c</name>
+    </fields>
+    <fields>
+        <label><!-- SOQL DG Pack --></label>
+        <name>SOQL_DG_Pack__c</name>
+    </fields>
+    <fields>
+        <label><!-- SOQL Online --></label>
+        <name>SOQL_Online__c</name>
+    </fields>
+    <fields>
+        <label><!-- To Date --></label>
+        <name>To_Date__c</name>
+    </fields>
+    <layouts>
+        <layout>Binder Print Function 1</layout>
+        <sections>
+            <label><!-- Criteria --></label>
+            <section>Criteria</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Binder Print Function 1 Debug</layout>
+        <sections>
+            <label><!-- Criteria --></label>
+            <section>Criteria</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Debug --></label>
+            <section>Debug</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Binder Print Function 2</layout>
+        <sections>
+            <label><!-- Criteria --></label>
+            <section>Criteria</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Print Function 1 --></label>
+        <name>Print_Function_1</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Print Function 2 --></label>
+        <name>Print_Function_2</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Clear_All_Binder_Pages --></label>
+        <name>Clear_All_Binder_Pages</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- OrderByArticleTypeNumberVersionDesc --></label>
+        <name>OrderByArticleTypeNumberVersionDesc</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- OrderByFoppArticleNumVersion --></label>
+        <name>OrderByFoppArticleNumVersion</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- OrderByPublishedDate --></label>
+        <name>OrderByPublishedDate</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Query_For_Articles --></label>
+        <name>Query_For_Articles</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Renumber --></label>
+        <name>Renumber</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Sort_by_ArticleVersionNum --></label>
+        <name>Sort_by_ArticleVersionNum</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Sort_by_Knowledge_Container --></label>
+        <name>Sort_by_Knowledge_Container</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Unit_Test_Sample --></label>
+        <name>Unit_Test_Sample</name>
+    </webLinks>
+</CustomObjectTranslation>

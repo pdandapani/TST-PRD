@@ -1,0 +1,713 @@
+<apex:page controller="TFSC_ConsoleManagerController">
+    
+    <apex:includeScript value="{!$Resource.jquery}"/>
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    <apex:includeScript value="{!$Resource.ctiEvents}"/>
+    
+    <apex:includeScript value="{!$Label.CIMplicity_JS_IIS_locale}"/>
+    
+    
+    <script>
+    
+(function($j) {
+    $j(document).ready(function() {
+        
+        //US512 DE7 - notification focus.
+        if(Notification.permission && Notification.permission !== "granted") {
+            Notification.requestPermission();
+        }
+        
+        sforce.console.addEventListener(CONSOLE_EVENT_ON_SAVE_ACTIVITY_UPDATE_SOFTPHONE_WITH_DETAILS, onSaveActivityFromTabUpdateSoftPhone);
+        sforce.console.addEventListener(CONSOLE_EVENT_NEW_FA_OPENED, newFaOpenedHandler);
+        sforce.console.addEventListener(CONSOLE_EVENT_SKIP_TRACE_SAVED_AND_OPEN_CASE_EDITED, onSelectedPassStratChange);
+        sforce.console.addEventListener(CONSOLE_EVENT_FA_POPPED, newTabPoppedHandler);
+        sforce.console.addEventListener(CONSOLE_EVENTS_LAST_INTERACTION_IS_ROUTED_WITH_NO_ACCOUNT, onLastCallWasInboundRoutedWithNoAccount);
+        
+        sforce.console.addEventListener(CONSOLE_EVENT_FA_TAB_CLOSED, faTabClosedHandler);
+        
+        //MAIN ARIA EVENT BINDING!!  Try-Catch for when not on VPN
+        try {
+            aria.api.events.interactionStateChanged.bind(stateChangeHandler);
+        } catch (err) {
+        
+        }
+        
+        //talk to already-opened tabs if such a thing occurred.
+        sforce.console.fireEvent(CTI_EVENT_CONSOLE_MANAGER_READY); //probably unneeded, but a possible explanation for an early defect we saw.
+    });
+})(jQuery);
+
+
+
+//US512 DE7 - notification focus.
+function displayNotificationForInboundCall(iid) {
+    var hasDisplayedInboundCallNotification = hashes.hasDisplayedInboundCallNotificationByIID[iid];
+    if(hasDisplayedInboundCallNotification === undefined || hasDisplayedInboundCallNotification === null) {
+        hashes.hasDisplayedInboundCallNotificationByIID[iid] = true;
+        var nc = new Notification("Incoming Call", 
+            {
+                body : 'Incoming phone call in Salesforce.',
+                tag : iid
+            }
+        );
+        
+        setTimeout( closeNotificationAfterTimeout(nc) , 4500 );
+    }
+}
+
+function closeNotificationAfterTimeout(nc) {
+    nc.close();
+}
+
+
+
+
+function consoleLog(string) {
+    console.log(string);
+}
+
+
+
+
+/*
+*   onSaveActivityFromTabUpdateSoftPhone is the handler for CONSOLE_EVENT_ON_SAVE_ACTIVITY_UPDATE_SOFTPHONE_WITH_DETAILS event
+*/
+function onSaveActivityFromTabUpdateSoftPhone(result) {
+    consoleLog('***ConsoleManager update event captured; onSaveActivityFromTabUpdateSoftPhone');
+    var msg = result.message;
+    if (msg) {
+        var strArray = [];
+        var interactionId;
+        if (msg.length > 2) {
+            strArray = msg.split(CONSOLE_MESSAGE_PROPERTY_DELIMITER);
+        }
+        if (strArray.length > 2) {
+            interactionId = strArray[0];
+            var objForUpdate = {};
+
+            objForUpdate.GSW_CALL_RESULT = strArray[1]; //"33";
+            objForUpdate.KVP_CALL_REASON = strArray[2]; //"RPC with No-Promise";
+            var faidFromMsg = strArray[3];
+            
+            consoleLog('***ConsoleManager  objForUpdate.GSW_CALL_RESULT = ' + objForUpdate.GSW_CALL_RESULT);
+            consoleLog('***ConsoleManager  objForUpdate.KVP_CALL_REASON = ' + objForUpdate.KVP_CALL_REASON);
+
+            var interactionObj;
+            if (faidFromMsg && faidFromMsg.length > 0) {
+                interactionObj = hashes.faidToLastInteractionDataObj[faidFromMsg.slice(0, 15)];
+            }
+            
+            consoleLog('***ConsoleManager setAttachedData');
+            consoleLog('***ConsoleManager interactionId = ' + interactionId);
+            setAttachedData(interactionId, objForUpdate);
+            
+            if( ! (hashes.iidIsManualDial[interactionId] && hashes.iidIsManualDial[interactionId] == true ) ) {
+                consoleLog('***ConsoleManager setOutboundData EXECUTING for manual dialed interactions.');
+                setOutboundDataPropertiesForReasonResult(interactionId, objForUpdate.KVP_CALL_REASON, objForUpdate.GSW_CALL_RESULT);
+            }
+
+        }
+    }
+}
+
+function setOutboundDataPropertiesForReasonResult(iid, reason, result) {
+    var dataObject = {};
+    if(reason != null && reason.length > 0) {
+        dataObject.KVP_CALL_REASON = reason;
+    }
+    
+    if(result != null && result.length > 0) {
+        dataObject.GSW_CALL_RESULT = result;
+    }
+    
+    setOutboundDataProperties(iid, dataObject);
+}
+
+
+
+
+
+/*
+*   newTabPoppedHandler is executed when CONSOLE_EVENT_FA_POPPED event is dispatched.
+*   Any time a new FA tab is opened in the console, the hidden component TFSC_UrlParameterHander
+*    dispatches the CONSOLE_EVENT_FA_POPPED and tells the consoleManager to inform on-screen components of the event and properties.
+*/
+function newTabPoppedHandler(result) {
+    if(result.message) {
+        consoleLog('***ConsoleManager CONSOLE_EVENT_FA_POPPED captured in console.');
+        var paramsObject = deStringifyObjectFromEventMessageString(result.message);
+        var iid = paramsObject.CIMDSK_InteractionID;
+        setInteractionIdToFocusedScreen(iid); //NEEDED FOR MULTIPLE TABS THAT MAY BE OPEN THAT HAVE SAME PHONE NUMBER FOR MANUAL DIAL -- DEFAULTING TO MOST RECENTLY OPENED TAB 
+        
+        
+        hashes.faIdToLastCampaignPhoneObject[paramsObject.faidFromPop.slice(0, 15)] = paramsObject;
+        hashes.lastAcctNum = paramsObject.KVP_ACCTNUM;
+        
+        //THIS PROPERTIES DATA OBJECT HAS 'faid' PROPERTY
+        var tabAndInteractionDataObject = buildTabObjectThatOpenedTab(paramsObject, iid, paramsObject.faidFromPop);
+        
+        
+        if(paramsObject.hasOwnProperty('KVP_ANI') && paramsObject.KVP_ANI != null && paramsObject.KVP_ANI.length > 0) {
+            //IS INBOUND SCREEN POP
+            hashes.iidToAcctNoFromPhone[iid] = paramsObject.KVP_ACCTNUM;
+            
+            //DOING THIS NOW INSTEAD OF REMOTING BECAUSE WE ALREADY HAVE FAID
+            dispatchEventToFATabOnScreenPop(tabAndInteractionDataObject);
+            
+            hashes.lastCallWasRouted = true;
+            hashes.lastRoutedCallParamsObject = paramsObject;
+            displayNotificationForInboundCall(iid);
+            // Changes Made for Story S-311850 By Paras Dhingra 7/6/2015 #Start
+            // update the call type in custom setting. 
+            setInteractionTypeSetting('Inbound Call',paramsObject.faidFromPop.slice(0, 15));
+            // S-311850 #End
+            var stringToSendForRouted = stringifyObjectForEventMessage(tabAndInteractionDataObject);
+            sforce.console.fireEvent(CONSOLE_EVENTS_ON_NEXT_ACCT_AFTER_INBOUND_ERROR_SYNC, stringToSendForRouted);
+        }else {
+            //used to say ELSE IF(paramsObject.hasOwnProperty('KVP_PHONETYPE') && paramsObject.KVP_PHONETYPE != null && paramsObject.KVP_PHONETYPE.length > 0) 
+            //IS OUTBOUND SCREEN POP
+            // Changes Made for Story S-311850 By Paras Dhingra 7/6/2015 #Start
+            // update the call type in custom setting. 
+            if(paramsObject.hasOwnProperty('GSW_CAMPAIGN_NAME') && paramsObject.GSW_CAMPAIGN_NAME != null && paramsObject.GSW_CAMPAIGN_NAME.length > 0){
+                setInteractionTypeSetting('Outbound Call',paramsObject.faidFromPop.slice(0, 15));
+            }
+            // S-311850 #End
+            //DOsetCaseFieldsING THIS NOW INSTEAD OF REMOTING BECAUSE WE ALREADY HAVE FAID ON POP
+            dispatchEventToFATabOnScreenPop(tabAndInteractionDataObject);
+        }
+        
+    }
+};
+/*
+* Call the Remote function to set the interaction type for an FA in the Custom setting.  
+  Story S-311850 By Paras Dhingra 7/6/2015 #Start  
+*/
+function setInteractionTypeSetting(itype, faid){
+    if(itype!=null && faid!=null){
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.TFSC_ConsoleManagerController.setInteractionType}',
+            faid,itype,
+            function(result, event) {
+
+            }
+        );
+    }
+}
+// Story S-311850 By Paras Dhingra 7/6/2015 #End
+/*
+*   _____________________________________BEGIN MANUAL DIAL FUNCTIONALITY________________________
+*/
+var eosScriptExecutedForIIDHash = {};
+function runEosScriptForManualDial(iid) {
+    
+    var script = "iif( (interaction != null && interaction.OtherDn != null), interaction.OtherDn, '')";
+    script += " + '/|' + ";
+    script += "iif( (outboundRecord != null && outboundRecord.CustomData != null && outboundRecord.CustomData.KVP_PHONETYPE != null), outboundRecord.CustomData.KVP_PHONETYPE, '')";
+    
+    if(!shouldExecuteEOSForManualDial(iid)) {
+        consoleLog("***ConsoleManager don't re-run dialing EOS script!!  STOPPED.");
+        return;
+    }
+    
+    var CALLBACK = function(result) {
+        eosScriptExecutedForIIDHash[iid] = true;
+        var responseString = result.returnValue;
+        var stringArray = responseString.split("/|");
+        
+        var phoneOtherDn = stringArray[0];
+        var kvpPhoneType = stringArray[1];
+        consoleLog('***ConsoleManager Dialing event handled in console');
+        consoleLog('***ConsoleManager OtherDn = ' + phoneOtherDn);
+        consoleLog("***ConsoleManager KVP_PHONETYPE = '" + kvpPhoneType + "' (need to use PHONETYPE because ACCTNUM might be on the softPhone's data record.)" );
+        if (phoneOtherDn && phoneOtherDn.length > 0 && (kvpPhoneType === null || kvpPhoneType == '' || kvpPhoneType == 'null') ) {
+            consoleLog('***ConsoleManager IsManualDial = true');
+            hashes.iidIsManualDial[iid] = true;
+            phoneOtherDn = '' + cleanPhoneNumberOfNonNumericCharacters(phoneOtherDn);
+            
+            if(phoneOtherDn.length > 10) {
+                phoneOtherDn = phoneOtherDn.substring(phoneOtherDn.length - 10); 
+            }
+            
+            useDialedNumberToAttemptPushingFANumToSoftPhone(phoneOtherDn, true, iid);
+        }
+    };
+    
+    runEosScript(script, iid, CALLBACK);
+}
+
+function shouldExecuteEOSForManualDial(iid) {
+    if(eosScriptExecutedForIIDHash[iid]) {
+        return false;
+    }
+    return true;
+}
+
+
+function useDialedNumberToAttemptPushingFANumToSoftPhone(numDialed, firstAttemptSoAttemptRemoting, interactionId) {
+    if (numDialed && numDialed.length > 0) {
+        var faObjForDialedPhoneNum;
+        
+        if(!firstAttemptSoAttemptRemoting) {
+            faObjForDialedPhoneNum = getFAObjFromNumberDialed(numDialed, interactionId);
+        }
+        //this used to be architected such that IF a phone number was found on an open tab, then, don't remote.
+        //We need to remote every time for all open tabs, because phone numbers are going to match multiple accounts.
+        
+        if(firstAttemptSoAttemptRemoting) {
+            
+            //this method will 
+            //1) run call the sfdc remote method to 
+            //   a) populate hashes.financialAccountObjectsForOpenTabs
+            remoteToSFDCToGetPhoneNumbersForOpenedTabs(numDialed, interactionId);
+        } 
+        else if(faObjForDialedPhoneNum){
+            //THEN OUR SFDC LIST OF FAs OBJECTS (data for each open tab) HAS THE DIALED PHONE NUMBER
+
+            if (faObjForDialedPhoneNum.faAcctNum) {
+                hashes.lastAcctNum = faObjForDialedPhoneNum.faAcctNum;
+                hashes.iidToAcctNoFromPhone[interactionId] = faObjForDialedPhoneNum.faAcctNum;
+                
+                var dataObjToPassToPhone = {};
+                dataObjToPassToPhone.KVP_ACCTNUM = faObjForDialedPhoneNum.faAcctNum;
+                dataObjToPassToPhone.KVP_CONTACT_INFO = numDialed;
+                dataObjToPassToPhone.KVP_IS_SKIP_CALL = 'Y';
+                consoleLog( '**ConsoleManager  pushing values to soft phone' );
+                
+                var objFromOriginallCampaignPop = hashes.faIdToLastCampaignPhoneObject[faObjForDialedPhoneNum.faId.slice(0, 15)];
+                if (objFromOriginallCampaignPop && (objFromOriginallCampaignPop.GSW_CAMPAIGN_NAME || objFromOriginallCampaignPop.GSW_CALLING_LIST)) {
+                    dataObjToPassToPhone.GSW_CAMPAIGN_NAME = objFromOriginallCampaignPop.GSW_CAMPAIGN_NAME;
+                    dataObjToPassToPhone.GSW_CALLING_LIST = objFromOriginallCampaignPop.GSW_CALLING_LIST;
+                    dataObjToPassToPhone.KVP_CAMPAIGN_NAME = objFromOriginallCampaignPop.GSW_CAMPAIGN_NAME;
+                    dataObjToPassToPhone.KVP_CALLING_LIST = objFromOriginallCampaignPop.GSW_CALLING_LIST;
+                }
+                
+                consoleLog( '***ConsoleManager  objFromOriginallCampaignPop (used to push acct, campaign to new interaction) = ' + JSON.stringify(objFromOriginallCampaignPop) );
+                consoleLog( '***ConsoleManager  dataObjToPassToPhone (new vals for new interaction) = ' + JSON.stringify(dataObjToPassToPhone) );
+
+                setAttachedData(interactionId, dataObjToPassToPhone, onCompleteOfValSetToSoftPhoneFromSFDCDial);
+                
+                var campaignId = '';
+                if (dataObjToPassToPhone.GSW_CAMPAIGN_NAME) {
+                    campaignId = dataObjToPassToPhone.GSW_CAMPAIGN_NAME
+                }
+                var lastInteractionObject = buildLastInteractionObject(faObjForDialedPhoneNum.faId.slice(0, 15), interactionId, numDialed, campaignId);
+                dispatchLastInteractionSyncEvent(lastInteractionObject);
+            }
+        }
+    }
+}
+
+/*
+*   getFAObjFromNumberDialed will attempt to push this interaction/phone to one of the tabs.
+*   A tab with the dialed phone number in the list of phones will receive this information.
+*   The default is a tab w/ the dialed phone that had focus on dial.
+*/
+function getFAObjFromNumberDialed(numDialed, interactionId) {
+    if (hashes.financialAccountObjectsForOpenTabs && hashes.financialAccountObjectsForOpenTabs.length > 0) {
+
+        var matchingFObjsByNumDialed = [];
+        var focusedTabObjectIdWhenNumberWasDialed = hashes.iidToFocusedTabSobjId[interactionId];
+
+        for (var i = 0; i < hashes.financialAccountObjectsForOpenTabs.length; i++) {
+            var faObj = hashes.financialAccountObjectsForOpenTabs[i];
+            var childArray = faObj.facPhoneList;
+
+            if (childArray && childArray.length > 0) {
+                var matchFound = false;
+                for (var n = 0; n < childArray.length; n++) {
+                    var childNmber = childArray[n];
+                    if (childNmber && numDialed.indexOf(childNmber) > -1) {
+                        matchFound = true;
+                    }
+                }
+                if (matchFound) {
+                    matchingFObjsByNumDialed.push(faObj);
+                }
+            }
+        }
+
+        if (matchingFObjsByNumDialed.length > 0) {
+            var objToReturn = matchingFObjsByNumDialed[0]; //DEFAULT TO THE FIRST IN THE LIST.
+            if (focusedTabObjectIdWhenNumberWasDialed) {
+                for (var m = 0; m < matchingFObjsByNumDialed.length; m++) {
+                    var faObj2 = matchingFObjsByNumDialed[m];
+                    if (faObj2.faId.slice(0, 15) == focusedTabObjectIdWhenNumberWasDialed.slice(0, 15)) {
+                        objToReturn = faObj2;
+                    }
+                }
+            }
+            return objToReturn;
+        }
+
+    }
+    return null;
+}
+
+
+function remoteToSFDCToGetPhoneNumbersForOpenedTabs(numDialed, interactionId) {
+    var stringListToSendToSF = [];
+    for (var key in hashes.faidTofaidFromOpenTabs) {
+        var strVal = hashes.faidTofaidFromOpenTabs[key];
+        if (hashes.faidTofaidFromOpenTabs.hasOwnProperty(key)) {
+            stringListToSendToSF.push(strVal);
+        }
+    }
+
+    if (stringListToSendToSF.length > 0) {
+        //!!!!!VF REMOTING!!!!!!
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.TFSC_ConsoleManagerController.getFaObjectsFromFaIdList}',
+            stringListToSendToSF,
+            function(resultList, event) {
+                if (event.status) {
+                    //!!!!!reset openTabList
+                    hashes.financialAccountObjectsForOpenTabs = [];
+                    if (resultList && resultList.length > 0) {
+                        for (var i = 0; i < resultList.length; i++) {
+                            var resultObj = resultList[i];
+                            //!!!!add resultObjects from TFSC_ConsoleManagerController.getFaObjectsFromFaIdList to openTabList
+                            hashes.financialAccountObjectsForOpenTabs.push(resultObj);
+                        }
+                    }
+
+                    //Now, try matching phone number again and pushing FA to soft phone
+                    useDialedNumberToAttemptPushingFANumToSoftPhone(numDialed, false, interactionId);
+                }else{
+                    alert('There was a network communication problem in the last Salesforce request.  You may need to refresh your browser to re-establish communication between Salesforce and Cimplicity.');
+                }
+            }
+        );
+    }
+}
+/*
+*   _____________________________________END MANUAL DIAL FUNCTIONALITY______________________________
+*/
+
+
+
+/*
+* Captured from CONSOLE_EVENTS_LAST_INTERACTION_IS_ROUTED_WITH_NO_ACCOUNT
+* Works in tandem with CONSOLE_EVENTS_ON_NEXT_ACCT_AFTER_INBOUND_ERROR_SYNC
+* This method shows inbound popup/alert and updates hashed values to be used on next account tab opened
+*/
+function onLastCallWasInboundRoutedWithNoAccount(result) {
+    var paramsObject = deStringifyObjectFromEventMessageString(result.message);
+    var iid = paramsObject.CIMDSK_InteractionID;
+    hashes.lastCallWasRouted = true;
+    hashes.lastRoutedCallParamsObject = paramsObject;
+    displayNotificationForInboundCall(iid);
+}
+
+
+
+//!!!!!!!!!!!!!!!!!! MAIN LISTENER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//￼￼status: Dialing, Ringing, Talking, Held, Idle, Complete
+//on call i get the events: "Dialing" "Dialing" "Dialing" "Idle"
+//on successful call i get: "Dialing" "Dialing" "Talking"
+//"Idle" is hangup.
+//on 'mark complete' = "Complete"
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+function stateChangeHandler(args) {
+    var iid = args.InteractionId;
+    var status = args.CurrentEvent.Status;
+    if (iid === undefined || iid === null || status === undefined || status === null) {
+        return;
+    }
+    
+    if(hashes.lastIId == null || hashes.lastIId != iid) {
+        //reset the hashes.lastCallWasRouted on a new interaction
+        hashes.lastCallWasRouted = false;
+    }
+    
+    //consoleLog("***ConsoleManager " + status + "Event from Aria");
+    hashes.lastIId = iid;
+    
+    
+    if (status == 'Dialing') {
+        runEosScriptForManualDial(iid);
+    }
+    
+}
+
+
+
+/*
+*   setInteractionIdToFocusedScreen executes sforce.console.getFocusedPrimaryTabObjectId
+*   and caches the faid.
+*   This information is used, then, for manual dials.  If 2 tabs have phones that match a dialed number, we default to this one. 
+*/
+function setInteractionIdToFocusedScreen(interactionId) {
+    if (!hashes.iidToFocusedTabSobjId[interactionId]) {
+        sforce.console.getFocusedPrimaryTabObjectId(
+            function(result) {
+                if (result.id && !hashes.iidToFocusedTabSobjId[interactionId]) {
+                    hashes.iidToFocusedTabSobjId[interactionId] = result.id;
+                }
+            }
+        );
+    }
+}
+
+
+
+
+
+function onCompleteOfValSetToSoftPhoneFromSFDCDial(iid) {
+    //probably no longer need this handler
+}
+
+
+function dispatchEventToFATabOnScreenPop(tabAndInteractionDataObject) {
+    if (tabAndInteractionDataObject) {
+        consoleLog('***ConsoleManager CTI_PUSH_TAB_OBJECT_FROM_MANAGER dispatched in console.');
+        var eventType = CTI_PUSH_TAB_OBJECT_FROM_MANAGER;
+        var eventMessage = stringifyObjectForEventMessage(tabAndInteractionDataObject);
+        hashes.faidToCampaignManagementDataObjs[tabAndInteractionDataObject.faId.slice(0, 15)] = tabAndInteractionDataObject;
+        sforce.console.fireEvent(eventType, eventMessage);
+    }
+}
+
+function dispatchLastInteractionSyncEvent(lastInteractionDataObject) {
+    if (lastInteractionDataObject) {
+        var eventType = CTI_PUSH_LAST_INTERACTION_OBJECT_FROM_MANAGER;
+        var eventMessage = stringifyObjectForEventMessage(lastInteractionDataObject);
+        hashes.faidToLastInteractionDataObj[lastInteractionDataObject.faId.slice(0, 15)] = lastInteractionDataObject;
+        
+        consoleLog( '***ConsoleManager Sending CTI_PUSH_LAST_INTERACTION_OBJECT_FROM_MANAGER to tabs.');
+        consoleLog( '***ConsoleManager obj being sent = ' + JSON.stringify(lastInteractionDataObject) );
+        sforce.console.fireEvent(eventType, eventMessage);
+    }
+}
+
+
+
+
+
+
+//______________________________ARIA INTEGRATION METHODS_____________________________
+
+function setAttachedData(iid, kvpObject, callbackFunction) {
+
+    aria.api.interaction.setAttachedData({
+            interactionId: iid,
+            data: kvpObject
+        },
+        function() { //onSuccess
+            consoleLog("***ConsoleManager setAttachedData SUCCESS");
+            if (callbackFunction !== undefined && callbackFunction !== null) {
+                callbackFunction.apply(this, [iid]);
+            }
+        },
+        function(error) { //onError
+            consoleLog("***ConsoleManager setAttachedData Error occurred: '" + error + "'.");
+            var tmp = error;
+        },
+        function() { //onTimeout
+            consoleLog("***ConsoleManager setAttachedData TIMEOUT");
+            alert("Timeout occurred.");
+        }
+    );
+}
+
+
+//NEW
+function setOutboundDataProperties(iid, dataObjectWithKeyValuePairs) {
+    aria.api.outbound.setOutboundData(
+        {
+            interactionId: iid,
+            data: dataObjectWithKeyValuePairs
+        },
+        //Sandeep: ConsoleLog added with extra output string "Data Vales" +dataObjectWithKeyValuePairs
+        function(){  consoleLog("***ConsoleManager setOutboundData SUCCESS. Data Vales" 
+                                +dataObjectWithKeyValuePairs.GSW_CALL_RESULT+" "+dataObjectWithKeyValuePairs.KVP_CALL_REASON);  },
+        function(error){  consoleLog('***ConsoleManager setOutboundData' + JSON.stringify(error, null, 2) );  },
+        function(){  alert("System timeout when attempting to set Reason and Result. Try again.");  }
+    );
+}
+
+
+function runEosScript(script, interactionId, callbackMethod) {
+    var args = {};
+    args.interactionId = interactionId;
+    args.script = script;
+
+    aria.api.scripting.runEosScript(args,
+        function(result) { //onSuccess 
+            if (callbackMethod) {
+                callbackMethod.apply(this, [result]);
+            }
+        },
+        function(error) { //onError 
+            consoleLog("***ConsoleManager Error occurred running an EosScript '" + JSON.stringify(error, null, 2) + "'.");
+        },
+        function() { //onTimeout 
+            consoleLog("***ConsoleManager Timeout occurred running an EosScript.");
+        }
+    );
+}
+
+//______________________________END ARIA INTEGRATION METHODS__________________________
+
+
+
+
+
+
+
+
+// ____________________________BEGIN TAB REFRESH FUNCTIONALITY______________________
+// newFaOpenedHandler is for the CONSOLE_EVENT_NEW_FA_OPENED event
+function newFaOpenedHandler(result) {
+    var message = result.message;
+    if (message) {
+        var obj = getConsoleEventObjectFromString(message);
+        hashes.faidTofaidFromOpenTabs[obj.faId.slice(0, 15)] = obj.faId.slice(0, 15);
+
+        reSyncTabInfoToRefreshedPage(obj.faId);
+    }
+}
+
+// onSelectedPassStratChange is for the CONSOLE_EVENT_SKIP_TRACE_SAVED_AND_OPEN_CASE_EDITED event
+function onSelectedPassStratChange(result) {
+    var message = result.message;
+    if (message) {
+        var obj = getConsoleEventObjectFromString(message);
+        hashes.faidToSelectedPassStratEventStr[obj.faId.slice(0, 15)] = message;
+    }
+}
+
+function reSyncTabInfoToRefreshedPage(faId) {
+    
+    if(faId == null || faId.length < 15) {
+        return;
+    }
+    
+    faId = faId.slice(0, 15);
+    
+    if (hashes.faidToCampaignManagementDataObjs[faId]) {
+        dispatchEventToFATabOnScreenPop(hashes.faidToCampaignManagementDataObjs[faId]);
+    }
+    if (hashes.faidToLastInteractionDataObj[faId]) {
+        dispatchLastInteractionSyncEvent(hashes.faidToLastInteractionDataObj[faId]);
+    }
+    if (hashes.faidToSelectedPassStratEventStr[faId]) {
+        sforce.console.fireEvent(CONSOLE_EVENT_SKIP_TRACE_SAVED_AND_OPEN_CASE_EDITED, hashes.faidToSelectedPassStratEventStr[faId]);
+    }
+    
+    
+    if(hashes.lastCallWasRouted) {
+        //DE10... the next account console tab opened after an inbound call should get call data.
+        var objToSerialize = hashes.lastRoutedCallParamsObject ;
+            objToSerialize.faId = faId;
+        var stringToSendForRouted = stringifyObjectForEventMessage(objToSerialize);
+        console.log( '*** syncing next tab from inbound ' + stringToSendForRouted );
+        sforce.console.fireEvent(CONSOLE_EVENTS_ON_NEXT_ACCT_AFTER_INBOUND_ERROR_SYNC, stringToSendForRouted);
+    }
+    
+}
+
+
+// faTabClosedHandler is for the CONSOLE_EVENT_FA_TAB_CLOSED event
+function faTabClosedHandler(result) {
+    if(result.message) {
+        var objString = result.message;
+        var obj = deStringifyObjectFromEventMessageString(objString);
+        var faid = obj.faid;
+        var tabId = obj.tabId;
+        
+        handleTabClose(faid);
+    }
+};
+
+
+function handleTabClose(faid) {
+    if(faid && faid.length >= 15) {
+        
+        faid = faid.slice(0, 15);
+        
+        delete hashes.faidToSelectedPassStratEventStr[faid];
+        
+        //3-MAR-2015 -- added these 2 based on defect... hesitant to leave them in (thinking of 'page/tab refresh' scenario)
+        //delete hashes.faidToCampaignManagementDataObjs[faid];
+        //delete hashes.faidToLastInteractionDataObj[faid];
+        
+        //this is an important deletion because a remoting call is done on dial to sfdc sending these numbers to get phone numbers on the account.
+        delete hashes.faidTofaidFromOpenTabs[faid];
+        // Added by Paras Dhingra Story S-311850 #sttart
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.TFSC_ConsoleManagerController.deleteInteractionType}',
+            faid,
+            function(result, event) {
+
+            }
+        );
+        // S-311850 #end
+    }
+}
+
+
+// ____________________________END TAB REFRESH FUNCTIONALITY_____________________________
+
+
+
+
+sforce.console.addEventListener('BorrowerPageEventWithFAID',
+    function(result) {
+        //Financial_Account_Customer__c.Id--Financial_Account_Customer__c.Financial_Account__c
+        var msg = result.message;
+        if (hashes.pageLoadCounterForRefreshEval[msg]) {
+            hashes.pageLoadCounterForRefreshEval[msg]++;
+        } else {
+            hashes.pageLoadCounterForRefreshEval[msg] = 1;
+        }
+
+        if (hashes.pageLoadCounterForRefreshEval[msg] > 1) {
+            var eventType = CONCOLE_EVENT_CONSOLIDATED_NOTES_UPDATE;
+            var faid = msg.slice(msg.indexOf('--') + 2);
+            var eventMessage = faid;
+            sforce.console.fireEvent(eventType, eventMessage);
+        }
+    }
+);
+    
+
+
+
+/**
+ *   @hashes.iidToAcctNoFromPhone
+ *   This hash is simply storing [interactionIds] => [KVP_ACCTNUM] (on softPhone data object)
+ *   If it is not set, then a chain is fired to take correct actions on phone dial (etc.)
+ *
+ *   @hashes.iidToFocusedTabSobjId
+ *   These could be inaccurate, because focused-tab-on-dial will take president for interactionId syncing.
+ *   (meaning, when a number is dialed, multiple primary tabs may have that number and focused one gets the interaction)
+ *
+ *   @hashes.faidToLastInteractionDataObj
+ *   
+ */
+
+var hashes = {
+    iidIsManualDial : {},
+    lastCallWasRouted : false,
+    lastRoutedCallParamsObject: {},
+    hasDisplayedInboundCallNotificationByIID : {},
+    iidToFocusedTabSobjId : {},
+    iidToAcctNoFromPhone : {},
+    faidToLastInteractionDataObj : {},
+    faidToCampaignManagementDataObjs : {},
+    faidTofaidFromOpenTabs : {},
+    faidToSelectedPassStratEventStr : {},
+    pageLoadCounterForRefreshEval : {},
+    faIdToLastCampaignPhoneObject : {},
+    lastAcctNum : '',
+    lastIId : '',
+    financialAccountObjectsForOpenTabs : []
+};
+    
+    
+    
+    </script>
+    
+    
+    
+</apex:page>

@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Compliance Requirement 
+Collection of Knowledge Management Articles or Contents to be printed as PDF.
+
+Rally US504</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Article_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Article Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>FAQ</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>How To</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Product and Program</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Troubleshooting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tutorial</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Collections Pass Strategy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Collections Talking Point</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Reference</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Comment__c</fullName>
+        <externalId>false</externalId>
+        <label>Comment</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>FOPP__c</fullName>
+        <externalId>false</externalId>
+        <label>FOPP</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>From_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>From Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Include_Archived__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Include Archived Articles</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Include_children__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Include children of hierarchy</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Knowledge_Container__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Knowledge Container</label>
+        <referenceTo>KnowledgeContainer__c</referenceTo>
+        <relationshipLabel>Binders</relationshipLabel>
+        <relationshipName>Binders</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SOQL_Archive_1__c</fullName>
+        <externalId>false</externalId>
+        <label>SOQL Archive 1</label>
+        <length>131072</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>SOQL_Archive_2__c</fullName>
+        <externalId>false</externalId>
+        <label>SOQL Archive 2</label>
+        <length>131072</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>SOQL_Archive_3__c</fullName>
+        <externalId>false</externalId>
+        <label>SOQL Archive 3</label>
+        <length>131072</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>SOQL_DG_Pack__c</fullName>
+        <externalId>false</externalId>
+        <label>SOQL DG Pack</label>
+        <length>131072</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>SOQL_Online__c</fullName>
+        <externalId>false</externalId>
+        <label>SOQL Online</label>
+        <length>131072</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>To_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>To Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <label>Binder</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Comment__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Binder Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Binders</pluralLabel>
+    <recordTypes>
+        <fullName>Print_Function_1</fullName>
+        <active>true</active>
+        <description>Select by Date Range, FOPP, Hierarchy, Article Type</description>
+        <label>Print Function 1</label>
+        <picklistValues>
+            <picklist>Article_Type__c</picklist>
+            <values>
+                <fullName>Collections Pass Strategy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Collections Talking Point</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FAQ</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>How To</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Product and Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reference</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Troubleshooting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tutorial</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Print_Function_2</fullName>
+        <active>true</active>
+        <description>Select by Date Range for Active and Archived Knowledge Articles</description>
+        <label>Print Function 2</label>
+        <picklistValues>
+            <picklist>Article_Type__c</picklist>
+            <values>
+                <fullName>Collections Pass Strategy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Collections Talking Point</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FAQ</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>How To</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Product and Program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reference</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Troubleshooting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tutorial</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>CREATED_DATE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATEDBY_USER</customTabListAdditionalFields>
+        <customTabListAdditionalFields>LAST_UPDATE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>UPDATEDBY_USER</customTabListAdditionalFields>
+        <searchResultsAdditionalFields>CREATEDBY_USER</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CREATED_DATE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Comment__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <webLinks>
+        <fullName>Clear_All_Binder_Pages</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Clear All Binder Pages</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/apex.js&quot;)}
+
+var r = confirm(&quot;Delete all pages in this binder ?&quot;);
+if(r == true)
+{
+   sforce.apex.execute(&quot;BinderPageFilter2&quot;,&quot;ClearAllBinderPages&quot;,
+         {BinderId:&quot;{!Binder__c.Id}&quot;});
+   document.location.reload(true);
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>OrderByArticleTypeNumberVersionDesc</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Sort by Article Type</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/apex.js&quot;)} 
+
+
+sforce.apex.execute(&quot;BinderPageFilter2&quot;,&quot;OrderByArticleTypeNumberVersionDesc&quot;, 
+  {BinderId:&quot;{!Binder__c.Id}&quot;}); 
+document.location.reload(true);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>OrderByFoppArticleNumVersion</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Sort by FOPP</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/apex.js&quot;)} 
+
+ 
+sforce.apex.execute(&quot;BinderPageFilter2&quot;,&quot;OrderByFoppArticleNumVersion&quot;, 
+  {BinderId:&quot;{!Binder__c.Id}&quot;}); 
+document.location.reload(true);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>OrderByPublishedDate</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Sort by Published Date</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/apex.js&quot;)} 
+
+
+sforce.apex.execute(&quot;BinderPageFilter2&quot;,&quot;OrderByPublishedDate&quot;, 
+{BinderId:&quot;{!Binder__c.Id}&quot;}); 
+document.location.reload(true);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Query_For_Articles</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Query For Articles</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/apex.js&quot;)} 
+
+var r = confirm(&quot;Query Salesforce for Articles based on criteria for binder ?&quot;); 
+if(r == true) 
+{ 
+sforce.apex.execute(&quot;BinderPageFilter2&quot;,&quot;QueryForArticles&quot;, 
+{BinderId:&quot;{!Binder__c.Id}&quot;}); 
+document.location.reload(true); 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Renumber</fullName>
+        <availability>online</availability>
+        <description>Renumber Binder Page with Sequence increment by 10</description>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Renumber</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/apex.js&quot;)}
+
+var r = confirm(&quot;Renumber the sequence # for all pages in this binder ?&quot;);
+if(r == true)
+{
+   sforce.apex.execute(&quot;BinderPageFilter2&quot;,&quot;RenumberAllBinderPages&quot;,
+         {BinderId:&quot;{!Binder__c.Id}&quot;});
+   document.location.reload(true);
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Sort_by_ArticleVersionNum</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Sort by ArticleVersionNum</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/apex.js&quot;)} 
+
+
+sforce.apex.execute(&quot;BinderPageFilter2&quot;,&quot;OrderByArticleNumVersionThenTitleForDeskGuides&quot;, 
+{BinderId:&quot;{!Binder__c.Id}&quot;}); 
+document.location.reload(true);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Sort_by_Knowledge_Container</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Sort by Knowledge Container</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/apex.js&quot;)} 
+
+
+sforce.apex.execute(&quot;BinderPageFilter2&quot;,&quot;OrderByKnowledgeContainerArticleNumVersion&quot;, 
+{BinderId:&quot;{!Binder__c.Id}&quot;}); 
+document.location.reload(true);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Unit_Test_Sample</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Unit Test Sample</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/apex.js&quot;)}
+
+
+   var size = prompt(&quot;Please enter number of random articles&quot;);
+   if (size != null) {
+      sforce.apex.execute(&quot;BinderPageFilter2&quot;,&quot;UnitTestSample&quot;,
+         {BinderId:&quot;{!Binder__c.Id}&quot;, pageCountStr:size});
+   }
+   document.location.reload(true);</url>
+    </webLinks>
+</CustomObject>

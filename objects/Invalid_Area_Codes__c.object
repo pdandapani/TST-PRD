@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <description>List of invalid area codes to check against for validation</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Area_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Area Code</label>
+        <length>3</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reason_Invalid__c</fullName>
+        <description>Reason area code is invalid.</description>
+        <externalId>false</externalId>
+        <label>Reason Invalid</label>
+        <length>255</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Invalid Area Codes</label>
+</CustomObject>

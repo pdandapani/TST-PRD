@@ -1,0 +1,34 @@
+<apex:page standardController="Case" extensions="TFSC_NewSupportRequestController" showHeader="false">
+	<apex:composition template="{!$Site.Template}">
+		<apex:define name="body">
+			<apex:form id="srForm">
+				<apex:actionFunction name="submitForm" action="{!create}" />
+			    <apex:pageBlock title="{!$Label.Support_Request_Edit}" mode="edit">
+			    	<apex:pageBlockButtons location="bottom">
+			    		<apex:commandButton onclick="this.disabled = true; if (!SFDC.ValidateForm('{!$Component.srForm}', submitForm)){this.disabled = false;} return false;" value=" {!$Label.Submit} " />
+			    		<apex:commandButton action="{!URLFOR($Page.TFSC_SupportRequests)}" value=" {!$Label.Cancel} " immediate="true"/>
+			    	</apex:pageBlockButtons>
+			   		<apex:pageBlockSection title="Details" columns="1">
+			   			<apex:pageBlockSectionItem >
+			   				<apex:outputLabel value="{!$Label.Account}"/>
+			   				<apex:outputPanel styleClass="requiredInput" layout="block">
+			   					<apex:outputPanel styleClass="requiredBlock" layout="block"/>
+				   				<apex:selectList value="{!Case.Financial_Account_Customer__c}" size="1" required="true">
+				   					<apex:selectOptions value="{!tfsAccts}" />
+				   				</apex:selectList>
+			   				</apex:outputPanel>
+			   			</apex:pageBlockSectionItem>
+			   			<apex:inputField value="{!Case.Service_Request_Subject__c}" required="true"/>			   			
+			   			<apex:pageBlockSectionItem >
+			   				<apex:outputLabel value="{!$ObjectType.Case.Fields.Description.Label}"/>
+			   				<apex:outputPanel >
+			   					<apex:inputField value="{!Case.Support_Request_Description__c}" required="true" styleClass="largetext" />
+			   					<em>{!$Label.Description_Limit}</em>
+			   				</apex:outputPanel>
+			   			</apex:pageBlockSectionItem>
+			   		</apex:pageBlockSection>
+			   	</apex:pageBlock>
+			</apex:form>
+		</apex:define>
+	</apex:composition>
+</apex:page>

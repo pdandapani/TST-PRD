@@ -1,0 +1,121 @@
+<apex:page controller="TFSC_CommunitiesIntermediateController" showHeader="false">
+    <apex:stylesheet value="{!URLFOR($Resource.EasyXDM, 'css/intermediate.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.EasyXDM, 'easyXDM.js')}"/>
+    <script type="text/javascript">
+        //(function() {
+
+            var sid = getCookie('sid');
+            if (typeof sid === 'undefined') {
+                //check if we can make a cookie
+                document.cookie="testcookie=1;domain=" + document.domain;
+                if (document.cookie.indexOf("testcookie") == -1
+                 || window.attachEvent //IE8
+                ) {
+                    //if we cannot set a cookie then redirct via top-level
+                    window.top.location.href = '{!URLFOR($Page.TFSC_CommunitiesLogin)}';
+                }
+                //else allow script to run as normal
+            }
+        
+            easyXDM.DomHelper.requiresJSON("{!URLFOR($Resource.EasyXDM, 'json2.js')}");
+
+            var iframe,
+                timer,
+                lastKeepAlive = 0;
+                
+            var provider = new easyXDM.Rpc({
+                local: "{!URLFOR($Resource.EasyXDM, 'name.html')}",
+                //swf: "{!URLFOR($Resource.EasyXDM_SWF)}",
+                onReady : function() {
+                    iframe = document.createElement("iframe");
+                    //iframe = document.getElementById('frame');
+                    iframe.frameBorder = 0;
+                    document.body.appendChild(iframe);
+                    
+                    var url = easyXDM.query.url;
+                    if (!url || url === '') {
+                        url = '{!defaultPage}';
+                    }
+
+                    if (iframe.attachEvent) { //IE
+                      iframe.attachEvent('onload', iframeOnLoad);
+
+                    } else { //everyone else
+                      iframe.onload = iframeOnLoad;
+                    }
+
+                    iframe.src = url;
+
+                }
+            }, {
+                remote: {
+                    resizeIframe: {}
+                },
+                local: {
+                    retrieveLastActivity: function() {
+                        var ts = 0;
+                        try {
+                            var lastAct = iframe.contentWindow.document.getElementById('xdm_lastActivity')
+                            if (lastAct) {
+                                ts = parseInt(lastAct.value, 10);
+                            }
+                        }
+                        catch(ex) {}
+                        return ts > lastKeepAlive ? ts : lastKeepAlive;
+                    },
+                    keepAlive: function() {
+                        try {
+                            Visualforce.remoting.Manager.invokeAction(
+                                '{!$RemoteAction.TFSC_CommunitiesIntermediateController.noop}',
+                                function() {
+                                    lastKeepAlive = (new Date()).getTime();
+                                    //console.log('keepalive confirmed');
+                                }
+                            )
+                        }
+                        catch (ex) {
+                            //console.log('keepalive rejected');
+                        }
+                        return true;
+                    }
+                }
+            });
+
+            function iframeOnLoad() {
+                
+                var d = iframe.contentWindow.document;
+                var originalHeight = d.body.clientHeight || d.body.offsetHeight || d.body.scrollHeight;
+
+                // We want to monitor the document for resize events in case of the use of accordions and such,
+                // but unfortunately only the window node emits the resize event, and we need the body's.
+                // The only solution then is to use polling..
+
+                // Lets start the polling if not all ready started
+                if(!timer) {
+                    timer = setInterval(function() {
+                        try {
+                            var d = iframe.contentWindow.document;
+                            var newHeight = d.body.clientHeight || d.body.offsetHeight || d.body.scrollHeight;
+                            if(newHeight != originalHeight) {
+                                // The height has changed since last we checked
+                                originalHeight = newHeight;
+                                provider.resizeIframe(originalHeight);
+                            }
+                        } catch(e) {
+                            // We tried to read the property at some point when it wasn't available
+                        }
+                    }, 300);
+                }
+                // Send the first message
+                provider.resizeIframe(originalHeight);
+            }
+
+            function getCookie(name) {
+                var value = "; " + document.cookie;
+                var parts = value.split("; " + name + "=");
+                if (parts.length == 2) return parts.pop().split(";").shift();
+            }
+
+        //})();
+    </script>
+</apex:page>

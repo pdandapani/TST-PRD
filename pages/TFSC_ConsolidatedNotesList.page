@@ -1,0 +1,8 @@
+<apex:page controller="ngForceControllerMin"  sidebar="false" standardStyleSheets="false" showHeader="false"  >
+    
+    
+    <c:TFSCNotesComp faid="{!$CurrentPage.parameters.id}"  q="{!$CurrentPage.parameters.q}"></c:TFSCNotesComp>
+    
+    
+    
+</apex:page>

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Form Validation</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Form Validations</value>
+    </caseValues>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Error Message --></label>
+        <name>Error_Message__c</name>
+    </fields>
+    <fields>
+        <label><!-- Hard Error --></label>
+        <name>Hard_Error__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Validation Val A Field1 --></label>
+        <name>Is_Validation_Val_A_Field1__c</name>
+    </fields>
+    <fields>
+        <label><!-- MigrationID --></label>
+        <name>MigrationID__c</name>
+    </fields>
+    <fields>
+        <label><!-- RL Field Type1 --></label>
+        <name>RL_Field1_Type__c</name>
+        <picklistValues>
+            <masterLabel>Boolean</masterLabel>
+            <translation><!-- Boolean --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Date</masterLabel>
+            <translation><!-- Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DateTime</masterLabel>
+            <translation><!-- DateTime --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Number</masterLabel>
+            <translation><!-- Number --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Picklist</masterLabel>
+            <translation><!-- Picklist --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>String</masterLabel>
+            <translation><!-- String --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- RL Field Type2 --></label>
+        <name>RL_Field2_Type__c</name>
+        <picklistValues>
+            <masterLabel>Boolean</masterLabel>
+            <translation><!-- Boolean --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Date</masterLabel>
+            <translation><!-- Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DateTime</masterLabel>
+            <translation><!-- DateTime --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Number</masterLabel>
+            <translation><!-- Number --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Picklist</masterLabel>
+            <translation><!-- Picklist --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>String</masterLabel>
+            <translation><!-- String --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- RL Field Type3 --></label>
+        <name>RL_Field3_Type__c</name>
+        <picklistValues>
+            <masterLabel>Boolean</masterLabel>
+            <translation><!-- Boolean --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Date</masterLabel>
+            <translation><!-- Date --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DateTime</masterLabel>
+            <translation><!-- DateTime --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Number</masterLabel>
+            <translation><!-- Number --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Picklist</masterLabel>
+            <translation><!-- Picklist --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>String</masterLabel>
+            <translation><!-- String --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- RL Field Name1 --></label>
+        <name>RL_Field_Name1__c</name>
+    </fields>
+    <fields>
+        <label><!-- RL Field Name2 --></label>
+        <name>RL_Field_Name2__c</name>
+    </fields>
+    <fields>
+        <label><!-- RL Field Name3 --></label>
+        <name>RL_Field_Name3__c</name>
+    </fields>
+    <fields>
+        <help><!-- When using IN, use parenthesis and a comma delimited list.  Quotes are not required, and code will trim the strings. --></help>
+        <label><!-- RL Operator1 --></label>
+        <name>RL_Operator1__c</name>
+        <picklistValues>
+            <masterLabel>&lt; (Less Than)</masterLabel>
+            <translation><!-- &lt; (Less Than) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&lt;= Less Than or Equal To</masterLabel>
+            <translation><!-- &lt;= Less Than or Equal To --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&lt;&gt; (Not Equal To)</masterLabel>
+            <translation><!-- &lt;&gt; (Not Equal To) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>== (Equal To)</masterLabel>
+            <translation><!-- == (Equal To) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&gt; (Greater Than)</masterLabel>
+            <translation><!-- &gt; (Greater Than) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&gt;= Greater Than or Equal To</masterLabel>
+            <translation><!-- &gt;= Greater Than or Equal To --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IN</masterLabel>
+            <translation><!-- IN --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- RL Operator2 --></label>
+        <name>RL_Operator2__c</name>
+        <picklistValues>
+            <masterLabel>&lt; (Less Than)</masterLabel>
+            <translation><!-- &lt; (Less Than) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&lt;= Less Than or Equal To</masterLabel>
+            <translation><!-- &lt;= Less Than or Equal To --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&lt;&gt; (Not Equal To)</masterLabel>
+            <translation><!-- &lt;&gt; (Not Equal To) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>== (Equal To)</masterLabel>
+            <translation><!-- == (Equal To) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&gt; (Greater Than)</masterLabel>
+            <translation><!-- &gt; (Greater Than) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&gt;= Greater Than or Equal To</masterLabel>
+            <translation><!-- &gt;= Greater Than or Equal To --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IN</masterLabel>
+            <translation><!-- IN --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- RL Operator3 --></label>
+        <name>RL_Operator3__c</name>
+        <picklistValues>
+            <masterLabel>&lt; (Less Than)</masterLabel>
+            <translation><!-- &lt; (Less Than) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&lt;= Less Than or Equal To</masterLabel>
+            <translation><!-- &lt;= Less Than or Equal To --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&lt;&gt; (Not Equal To)</masterLabel>
+            <translation><!-- &lt;&gt; (Not Equal To) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>== (Equal To)</masterLabel>
+            <translation><!-- == (Equal To) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&gt; (Greater Than)</masterLabel>
+            <translation><!-- &gt; (Greater Than) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&gt;= Greater Than or Equal To</masterLabel>
+            <translation><!-- &gt;= Greater Than or Equal To --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IN</masterLabel>
+            <translation><!-- IN --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- True/False can be in any case.  TODAY is a valid value.  Date format must be yyyy-mm-dd.  DateTime format must be yyyy-mm-dd hh:mm:ss. --></help>
+        <label><!-- RL Value1 --></label>
+        <name>RL_Value1__c</name>
+    </fields>
+    <fields>
+        <label><!-- RL Value2 --></label>
+        <name>RL_Value2__c</name>
+    </fields>
+    <fields>
+        <label><!-- RL Value3 --></label>
+        <name>RL_Value3__c</name>
+    </fields>
+    <fields>
+        <label><!-- SObject --></label>
+        <name>SObject__c</name>
+    </fields>
+    <layouts>
+        <layout>Form Validation Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Validations --></label>
+            <section>Validations</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

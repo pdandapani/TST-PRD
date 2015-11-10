@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <description>List of Callee relationship options</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Borrower_Position__c</fullName>
+        <externalId>false</externalId>
+        <label>Borrower Position</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Callee Relationship</label>
+</CustomObject>

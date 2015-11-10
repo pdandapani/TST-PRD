@@ -1,0 +1,73 @@
+<apex:page standardController="Repossession__c" extensions="RL_GenerateDocRequestController" >
+
+	<apex:includeScript value="{!$Resource.jquery}"/>
+	<apex:includeScript value="/support/console/31.0/integration.js"/>
+	
+	<script>
+	    var $j = jQuery.noConflict();
+	    
+	    $j(document).ready(function() {
+	        generateDocRequest();
+	    });
+	    
+	    
+	    function onActionfunctionComplete() {
+	        $j("#spinnerDiv").hide();
+	        var errorVal = $j("#errDisplayText").val();
+	        
+	        if(errorVal == null || errorVal == '' || errorVal == 'null') {
+		        //setTimeout(function(){ goBack(); }, 500);
+		        //the PageReference that generateDocRequest() returns does a redirect if successful... no goBack required.
+		    }else{
+		        $j("#goBackMessage").show();
+		    }
+	    }
+	    
+	    
+	    
+	    function goBack() {
+		    var url = '/{!Repossession__c.Id}';
+		    if(sforce.console.isInConsole()) {
+		        url += '?isdtp=vw';
+		    }
+		    
+		    window.location.href = url;
+		}
+	    
+	</script>
+	
+	
+	<apex:form id="mainForm" style="width:100%;height:100%;">
+	    <apex:actionFunction name="generateDocRequest" action="{!generateDocRequest}" 
+                             reRender="mainPanel"
+                             oncomplete="onActionfunctionComplete();" />
+		
+		
+		
+		
+		<apex:outputPanel id="mainPanel" style="width:100%;height:100%;">
+	 		
+	 		<input id="errDisplayText" type="text" style="display:none;" value="{!errDisplayText}" />
+	 		
+	 		<apex:pageMessages id="pageMessagesComponent" />
+	 		
+	 		
+	 		<div id="goBackMessage" style="display:none;">
+                <a href="#" onclick="goBack();">Go Back</a>
+            </div>
+	 		
+	 		
+	 		<div id="spinnerDiv" style="position:absolute;width:350px;height:200px;left:40%;top:40%;">
+		        <apex:image value="/img/loading32.gif" style="padding-left:90px;padding-bottom:8px;" /><br />
+		        <span style="font-weight:bold;font-size:16px;">Generating document</span>
+		    </div>
+		    
+		</apex:outputPanel>
+		
+		
+		
+		
+	</apex:form>
+	
+	
+</apex:page>

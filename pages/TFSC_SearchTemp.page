@@ -1,0 +1,373 @@
+<apex:page controller="TFSC_SearchController">
+<apex:includeScript value="{!$Resource.jquery}"/>
+<apex:includeScript value="/support/console/30.0/integration.js"/>
+<apex:includeScript value="{!$Resource.jquery_ui_1_10_4}"/>
+
+<script type="text/javascript">
+
+var $j = jQuery.noConflict();
+
+function cleanErrMesg(){
+    $j(".emptyCodeErrorMessage").text('');
+    $j(".fANoErr").removeClass("inputError");
+    $j(".sSNErr").removeClass("inputError");    
+    $j(".tINErr").removeClass("inputError");
+    $j(".fNameErr").removeClass("inputError");
+    $j(".lNameErr").removeClass("inputError");
+    $j(".busiNameErr").removeClass("inputError");
+    $j(".garZipErr").removeClass("inputError");
+    $j(".vINErr").removeClass("inputError");
+    $j(".vIN8Err").removeClass("inputError");
+ 
+}
+
+function resetParam(){
+    cleanErrMesg();
+    $j(".FANumber").val('');
+    $j(".SSN").val('');      
+    $j(".TIN").val('');
+    $j(".FName").val('');
+    $j(".LName").val('');
+    $j(".BusiName").val('');
+    $j(".GarageZip").val('');
+    $j(".VINFull").val('');
+    $j(".VIN8").val('');
+    $j(".SearchResults").val('');
+    resetFACList();
+}
+
+function validateAgentParms(){
+try {
+    cleanErrMesg();
+    //resetFACList();
+    var fANumber = $j(".FANumber").val();
+    var sSN  = $j(".SSN").val();      
+    var tIN  = $j(".TIN").val();
+    var fName  = $j(".FName").val();
+    var lName  = $j(".LName").val();
+    var busiName  = $j(".BusiName").val();
+    var garZip = $j(".GarageZip").val();
+    var vINFull = $j(".VINFull").val();
+    var vIN8  = $j(".VIN8").val();
+
+
+var regxAlfaNum = /^[A-Za-z0-9]+$/;
+var regxNumeric = /^[0-9]+$/;
+var regxAlfaNum = /^[A-Za-z0-9]+$/;
+var regxAlfa = /^[A-Za-z]+$/; 
+var regxAlfaWidSpace = /^[a-zA-Z\-\s]+$/;
+
+    if((fANumber == null || fANumber =='' || fANumber ==undefined ) && (sSN == null || sSN =='' || sSN ==undefined) 
+        && (tIN == null || tIN =='' || tIN ==undefined ) && (fName == null || fName =='' || fName ==undefined ) 
+            && (lName == null || lName ==''  || lName ==undefined ) && (busiName == null || busiName =='' || busiName ==undefined) 
+                && (garZip == null || garZip ==''  || garZip ==undefined) && (vINFull == null || vINFull =='' || vINFull ==undefined ) 
+                    && (vIN8 == null || vIN8 =='' || vIN8 ==undefined )){
+            $j(".emptyCodeErrorMessage").text('Please enter the Search Parameters and then click on Search.');
+            $j(".emptyCodeErrorMessage").addClass("inputError");        
+            return FALSE;   
+        }else 
+    {
+    if(fANumber !== null && fANumber !=='' && fANumber !==undefined ){    
+               if (!regxAlfaNum.test(fANumber)) {
+                    $j(".emptyCodeErrorMessage").text('Only alphanumeric characters allowed');
+                    $j(".emptyCodeErrorMessage").addClass("inputError"); 
+            
+                return FALSE; 
+            }
+            if(fANumber.length !=10 &&  fANumber.length !=11 && fANumber.length !=20 ){      
+                    $j(".fANoErr").addClass("inputError");
+               
+                return FALSE; 
+            }
+        } if(sSN !== null && sSN !=='' && sSN !==undefined  ){
+                if (!regxNumeric.test(sSN)) {
+                    $j(".emptyCodeErrorMessage").text('Only numeric characters allowed');
+                        $j(".emptyCodeErrorMessage").addClass("inputError"); 
+            
+                return FALSE; 
+            }
+            if(sSN.length < 9){
+                    $j(".sSNErr").addClass("inputError");
+               
+                return FALSE; 
+        }  
+        }if(tIN !== null && tIN !=='' && tIN !==undefined  ){                
+                if (!regxNumeric.test(tIN)) {
+                    $j(".emptyCodeErrorMessage").text('Only numeric characters allowed');
+                     $j(".emptyCodeErrorMessage").addClass("inputError"); 
+             
+                return FALSE; 
+            }
+            if(tIN.length < 9){
+                        $j(".tINErr").addClass("inputError");
+                    
+                    return FALSE;   
+            }    
+    }if(fName !== null && fName !=='' && fName !==undefined ){
+            if (!regxAlfaWidSpace.test(fName)) {
+                $j(".emptyCodeErrorMessage").text('Only alpha characters allowed');
+                    $j(".emptyCodeErrorMessage").addClass("inputError"); 
+               
+                return FALSE; 
+            }
+           if(fName.length < 2){
+                    $j(".fNameErr").addClass("inputError");
+              
+                return FALSE;
+           }
+          if(lName ==null || lName =='' || lName ==undefined) {
+                        $j(".fNameErr").addClass("inputError");
+              
+                return FALSE;
+    
+         }     
+        }if(lName !== null && lName !=='' && lName !==undefined ){ 
+       if (!regxAlfaWidSpace.test(lName)) {
+                $j(".emptyCodeErrorMessage").text('Only alpha characters allowed');
+                    $j(".emptyCodeErrorMessage").addClass("inputError"); 
+            
+                return FALSE; 
+            }
+          if((fName ==null || fName =='' || fName ==undefined) && (garZip ==null || garZip ==''  || garZip ==undefined) ) {
+                        $j(".lNameErr").addClass("inputError");
+                    
+                return FALSE;    
+           } 
+        }if(busiName !== null && busiName !=='' && busiName !==undefined ){
+           if(busiName.length < 2){
+                    $j(".busiNameErr").addClass("inputError");
+                   
+                 returnVal = FALSE; 
+           }
+        }if(garZip !== null && garZip !==''  && garZip !==undefined){
+            if (!regxNumeric.test(garZip)) {
+                    $j(".emptyCodeErrorMessage").text('Only numeric characters allowed');
+                    $j(".emptyCodeErrorMessage").addClass("inputError"); 
+               
+                return FALSE; 
+            }
+            if(garZip.length < 5){
+                        $j(".garZipErr").addClass("inputError");
+                     
+                    return FALSE;
+            }
+            if(lName ==null || lName =='' || lName ==undefined) {               
+                        $j(".garZipErr").addClass("inputError");
+                
+                return FALSE;
+    
+            } 
+        }if(vINFull !== null && vINFull !=='' && vINFull !==undefined  ){
+        if (!regxAlfaNum.test(vINFull)) {
+                    $j(".emptyCodeErrorMessage").text('Only alphanumeric characters allowed');
+                    $j(".emptyCodeErrorMessage").addClass("inputError"); 
+               
+                return FALSE; 
+            }
+            if(vINFull.length < 17)  {
+                        $j(".vINErr").addClass("inputError");
+                   
+                return FALSE;
+            }   
+        }if(vIN8 !== null && vIN8 !=='' && vIN8 !==undefined  ){
+                if (!regxAlfaNum.test(vIN8)) {
+                    $j(".emptyCodeErrorMessage").text('Only alphanumeric characters allowed');
+                        $j(".emptyCodeErrorMessage").addClass("inputError"); 
+               
+                return FALSE; 
+            }
+            if(vIN8.length < 8){         
+                        $j(".vIN8Err").addClass("inputError");
+                        
+                return FALSE;
+            }   
+     }
+    }
+console.log('calling searchAFC method'); 
+searchFACRecords();
+
+return TRUE;        
+}catch(err){}
+
+}
+function openFAInPrimaryTab(faId, faAccountNumber){
+        if(sforce.console.isInConsole()){
+                openPrimaryTabAfterValidations('/' + faId, faAccountNumber, true);
+            }else{
+                window.open('/' + faId);
+            }
+        }        
+         function openPrimaryTabAfterValidations(url, tabLabel, setFocus) {
+            sforce.console.openPrimaryTab(null, url, setFocus, tabLabel, null);
+        }
+        
+      function noenter(ev)  {
+
+        if (window.event && window.event.keyCode == 13 || ev.which == 13) {
+
+            validateAgentParms();
+
+            return false;
+
+         } else {
+
+              return true;
+
+         }
+
+     }
+
+  </script>
+<style>
+.inputError{
+                border-color: #FE5A53;
+                background-color: #FFEB55;
+}
+.searchButton{
+            padding:5px 150px 5px 150px;
+}
+.fieldLabel{
+                color:#000000 ;
+                font-size: 12px;
+                font-weight: bold;
+}
+ /* This is for the full screen DIV */
+.popupBackground {
+    /* Background color */
+    background-color:black;
+    opacity: 0.20;
+    filter: alpha(opacity = 20);
+    /* Dimensions */
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 998;
+    position: absolute;
+    /* Mouse */
+    cursor:wait;
+}
+/* This is for the message DIV */
+.PopupPanel {
+    /* Background color */
+    border: solid 2px blue;
+    background-color: white;
+ 
+    /* Dimensions */
+    left: 50%;
+    width: 200px;
+    margin-left: -100px;
+    top: 50%;
+    height: 50px;
+    margin-top: -25px;
+    z-index: 999;
+    position: fixed;
+    /* Mouse */
+    cursor:pointer;
+}
+</style>
+<apex:outputLabel styleClass="emptyCodeErrorMessage"  />
+<br/>
+<apex:form id="SearchForm">
+<apex:panelGrid columns="3" id="theGrid" cellspacing="1" onkeypress="return noenter(event)">
+    <apex:outputLabel id="fANumberLab" for="FANumber1" styleClass="fieldLabel" Value="Financial Account Number : "/>    
+    <apex:inputText id="FANumber" styleClass="FANumber" value="{!fANumber}" maxlength="20"/>
+    <apex:outputLabel styleClass="fANoErr" value="The Financial Account # must be 10 (Retail), 11 (Lease) or 20 (Collections) characters." />
+
+    <apex:outputLabel id="sSNLab" styleClass="fieldLabel" Value="SSN : "/> 
+    <apex:inputText id="SSN" styleClass="SSN" value="{!sSN}" maxlength="9"/> 
+    <apex:outputLabel styleClass="sSNErr" value="The SSN must be 9 digits without dashes."/>
+
+    <apex:outputLabel id="tINLab" styleClass="fieldLabel" Value="TIN : "/> 
+    <apex:inputText id="TIN" styleClass="TIN" value="{!tIN}" maxlength="9"/> 
+    <apex:outputLabel styleClass="tINErr" value="The TIN must be 9 digits without dashes." />
+
+    <apex:outputLabel id="fNameLab" styleClass="fieldLabel" Value="First Name : "/>
+    <apex:inputText id="FName" styleClass="FName" value="{!fName}" maxlength="40"/> 
+    <apex:outputLabel styleClass="fNameErr" value="The First Name (min first 2 characters) must be searched in conjunction with the Last Name" />
+
+     <apex:outputLabel id="lNameLab" styleClass="fieldLabel" Value="Last Name : "/>
+     <apex:inputText id="LName"  styleClass="LName" value="{!lName}" maxlength="80"/> 
+     <apex:outputLabel styleClass="lNameErr" value="The full Last Name must be searched with at least the first 2 characters of the First Name or with the Zip Code." />      
+
+     <apex:outputLabel id="busiNameLab" styleClass="fieldLabel" Value="Business Name : "/> 
+     <apex:inputText id="BusiName" styleClass="BusiName" value="{!busiName}"  maxlength="120"/> 
+     <apex:outputLabel styleClass="busiNameErr" value="Enter at least the first 2 characters of the Business Name."  /> 
+
+     <apex:outputLabel id="garZipLab" styleClass="fieldLabel" Value="Garage Address Zip Code : "/>
+     <apex:inputText id="GarageZip" styleClass="GarageZip" value="{!garZip}" maxlength="5" />  
+     <apex:outputLabel styleClass="garZipErr" value="The Zip Code must be 5 digits in conjunction with Full Last Name." />  
+
+     <apex:outputLabel id="vINLab" styleClass="fieldLabel" Value="VIN Number : "/> 
+     <apex:inputText id="VINFull" styleClass="VINFull" value="{!vINFull}" maxlength="17"/>
+     <apex:outputLabel styleClass="vINErr" value="The VIN must be 17 characters." />    
+
+     <apex:outputLabel id="vIN8Lab" styleClass="fieldLabel" Value="Last 8 digits of VIN Number : "/>
+     <apex:inputText id="VIN8" styleClass="VIN8" value="{!vIN8}" maxlength="8" />
+     <apex:outputLabel styleClass="vIN8Err" value="Enter the last 8 digits of the VIN." /> 
+
+</apex:panelGrid>
+
+<apex:actionFunction action="{!searchFAC}" name="searchFACRecords"  reRender="resultPanel,tempPanel" oncomplete="onControllerReturn()" status="actStatusId"/>
+<apex:actionFunction action="{!reset}" name="resetFACList"  reRender="resultPanel" /> 
+
+
+<span style="padding-left:13%;"/>
+<apex:commandButton value="Search" onClick="resetParam() , return validateAgentParms();  "  reRender="resultPanel"/>
+<span style="padding-left:35px;"/>
+<apex:commandButton value="Reset" onClick="resetParam()" action="{!reset}" reRender="resultPanel,theGrid" />
+
+<apex:actionStatus id="actStatusId" stopText="" >
+<apex:facet name="start">
+  <div>
+   <div class="popupBackground" />
+    <div class="PopupPanel">
+    <table border="0" width="100%" height="100%">
+        <tr>
+        <td align="center"><b>Please Wait</b></td>
+        </tr>
+        <tr>
+        <td align="center"><img src="/img/loading.gif"/></td>
+        </tr>
+    </table>
+    </div>
+   </div>
+</apex:facet>
+</apex:actionStatus>
+
+<apex:outputPanel id="tempPanel"  > 
+
+ <script>  
+  function onControllerReturn() {
+    if({!noOfFAC} ==1){
+        openFAInPrimaryTab('{!oneFAId}', '{!oneFANo}');
+    }
+  }
+  </script>
+
+ </apex:outputPanel>
+
+
+<apex:pageBlock id="resultsBlock" title="Search Result Section"  >
+
+<apex:outputPanel id="resultPanel"  layout="block" style="overflow:auto; height:300px;" >
+<apex:pageMessages id="showApexErrmsg"/>
+
+
+<apex:pageBlockTable id="SearchResults" styleClass="SearchResults" value="{!searchedFACs}" var="fac" rendered="{!IF(searchedFACs<>null && searchedFACs.size > 0,true,false)}">
+
+<apex:column headerValue="Financial Account Number" > 
+        <apex:commandLink onClick="openFAInPrimaryTab('{!fac.Financial_Account__r.Id}', '{!fac.Financial_Account_Number__c}')" >{!fac.Financial_Account_Number__c}</apex:commandLink>
+    </apex:column>
+    <apex:column headerValue="Account Name" value="{!fac.Account__r.Name}"> </apex:column>
+    <apex:column headerValue="Zip" value="{!fac.Mailing_Postal_Code_Garage__c}"> </apex:column>
+    <apex:column headerValue="VIN" value="{!fac.Vehicle_Identification_Number__c}"> </apex:column>
+    <apex:column headerValue="Year" value="{!fac.Model_Year__c}"> </apex:column>
+    <apex:column headerValue="Make" value="{!fac.Make__c}"> </apex:column>
+    <apex:column headerValue="Model" value="{!fac.Model_Name__c}"> </apex:column>
+    <apex:column headerValue="Status" value="{!fac.Financial_Account__r.Finance_Account_Status__c}"> </apex:column>
+</apex:pageBlockTable>           
+</apex:outputPanel>
+ </apex:pageBlock>  
+</apex:form>
+</apex:page>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Synchronize fields on case with the values set on repossession - Account Terminated, Template Available</description>
+    <label>RL Sync Case Flags</label>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Case</name>
+        <label>Update Case</label>
+        <locationX>41</locationX>
+        <locationY>41</locationY>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>sCase.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>RL_Account_Terminated__c</field>
+            <value>
+                <elementReference>sRepo.Account_Terminated__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RL_Template_Data_Available__c</field>
+            <value>
+                <elementReference>sRepo.iRepo_TemplateAvailable__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <startElementReference>Update_Case</startElementReference>
+    <variables>
+        <name>sCase</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Case</objectType>
+    </variables>
+    <variables>
+        <name>sRepo</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Repossession__c</objectType>
+    </variables>
+</Flow>

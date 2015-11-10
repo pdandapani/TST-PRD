@@ -1,0 +1,133 @@
+<apex:page standardController="Case" extensions="TFSC_SupportRequestController" showHeader="false" action="{!touchCase}">
+    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+            <apex:includeScript value="{!URLFOR($Resource.EasyXDM, 'jquery.min.js')}"/>
+            <apex:form >
+                <apex:commandButton action="{!URLFOR($Page.TFSC_SupportRequests)}" style="margin:10px;font-weight:bold;font-size:1.1em;" value="{!$Label.back}"/>
+                <apex:inputHidden value="{!Case.RecordTypeId}" rendered="false"/>
+                <apex:inputHidden value="{!Case.CreatedDate}" rendered="false"/>
+                <apex:inputHidden value="{!Case.Financial_Account__r.RecordType.Name}" rendered="false"/>
+                
+                <!--SUPPORT REQUEST LAYOUT-->
+                <apex:outputPanel rendered="{!isSupportRequest}" styleClass="details">
+                    <apex:pageBlock title="{!$Label.Support_Request+' '+Case.CaseNumber}" mode="detail">
+                        <apex:pageBlockSection id="details" columns="2" collapsible="false">
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="{!$Label.Account}"/>
+                                <apex:outputText value="{!Case.Financial_Account_Customer_Name__c}"/>
+                            </apex:pageBlockSectionItem>
+                            <apex:outputField value="{!Case.CreatedDate}"/>
+                            <apex:outputField value="{!Case.Status}"/>
+                            <apex:outputField value="{!Case.LastModifiedDate}"/>
+                        </apex:pageBlockSection>
+                        <apex:pageBlockSection columns="1" collapsible="false">
+                            <apex:outputField value="{!Case.Service_Request_Subject__c}"/>
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="{!$ObjectType.Case.Fields.Description.Label}"/>
+                                <apex:outputPanel style="overflow: auto; display: block" styleclass="largetext" >
+                                	{!Case.Support_Request_Description__c}
+                                    <!-- <textarea disabled="disabled" class="largetext readonly">{!Case.Support_Request_Description__c}</textarea> -->
+                                </apex:outputPanel>
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+                    </apex:pageBlock>
+                </apex:outputPanel>
+                
+                <!--DUE DATE CHANGE REQUEST LAYOUT-->
+                <apex:outputPanel rendered="{!isDueDateChangeRequest}" styleClass="details">
+                    <apex:pageBlock title="{!$Label.Due_Date_Change_Request+' '+Case.CaseNumber}" mode="detail">
+                        <apex:pageBlockSection id="details" columns="2" collapsible="false">
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="{!$Label.Account}"/>
+                                <apex:outputText value="{!Case.Financial_Account_Customer_Name__c}"/>
+                            </apex:pageBlockSectionItem>
+                            <apex:outputField value="{!Case.CreatedDate}"/>
+                            <apex:outputField value="{!Case.Status}"/>
+                            <apex:outputField value="{!Case.LastModifiedDate}"/>
+                            <apex:outputField value="{!Case.Next_Due_Date__c}"/>
+                            <apex:outputField value="{!Case.Requested_Due_Date_Day_of_Month__c}"/>
+                        </apex:pageBlockSection>
+                        <apex:pageBlockSection columns="1" collapsible="false">
+                            <apex:outputField value="{!Case.Service_Request_Subject__c}"/>
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="{!$ObjectType.Case.Fields.Description.Label}"/>
+                                <apex:outputPanel style="overflow: auto; display: block" styleclass="largetext" >
+                                	{!Case.Support_Request_Description__c}
+                                    <!-- <textarea disabled="disabled" class="largetext readonly">{!Case.Support_Request_Description__c}</textarea> -->
+                                </apex:outputPanel>
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+                        <c:TFSC_TermsConditions newcase="{!Case}" viewmode="read" accttype="{!Case.Financial_Account_Type__c}"/>
+                    </apex:pageBlock>
+                </apex:outputPanel>
+
+                <!--COMMENTS-->
+                <apex:pageBlock title="{!$Label.Support_Request_Comments}" mode="detail">
+                    <apex:pageBlockButtons location="top">
+                        <apex:commandButton action="{!addComment}" value=" {!$Label.Add_Comment} " />
+                    </apex:pageBlockButtons>
+                    <apex:pageBlockSection columns="1" collapsible="false">
+                        <apex:pageBlockTable var="pc" value="{!publicComments}" rendered="{!hasComments}">
+                            <apex:column headerValue="{!$Label.Comment}">
+                                <apex:outputText style="font-weight:bold" value="{!pc.CommentLabel}"/><br/>
+                                <!-- <apex:outputText value="{!SUBSTITUTE(SUBSTITUTE(JSENCODE(pc.CommentBody), '\\r\\n', '<br/>'),'\\n', '<br/>')}" escape="false"/> -->
+                                <apex:outputField value="{!pc.CommentObject.CommentBody}" />
+                            </apex:column>
+                        </apex:pageBlockTable>
+                        <apex:pageBlockSectionItem rendered="{!NOT(hasComments)}">
+                            <em>{!$Label.No_Comments}</em>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+
+                <!--ATTACHMENTS-->
+                <apex:pageBlock title="{!$Label.File_Attachments}" mode="detail">
+                    
+                    <apex:pageBlockButtons location="top">
+                        <apex:commandButton action="{!addAttachment}" value=" {!$Label.Add_Attachment} " styleClass="modernAttachButton" />
+                        <apex:commandButton action="{!addAttachmentLegacy}" value=" {!$Label.Add_Attachment} " styleClass="legacyAttachButton" style="display:none;" />
+                        <span class="legacyAttachButton" style="display:none;">5MB limit for attachments.</span>
+                    </apex:pageBlockButtons>
+                    
+                    <apex:pageBlockSection columns="1" collapsible="false">
+                        <apex:pageBlockTable var="fa" value="{!fileAttachments}" rendered="{!hasAttachments}">
+                            <apex:column headerValue="{!$Label.File_Name}">
+                                <apex:outputLink value="/sfc/servlet.shepherd/version/download/{!fa.id}" target="_blank">
+                                    <apex:outputText value="{!fa.name}"/>
+                                </apex:outputLink>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.Size}">
+                                <apex:outputText value="{!fa.len}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.Last_Modified}">
+                                <apex:outputText value="{!fa.lastModified}"/>
+                            </apex:column>
+                            <apex:column headerValue="{!$Label.Created_By}">
+                                <apex:outputText value="{!fa.creator}"/>
+                            </apex:column>
+                        </apex:pageBlockTable>
+                        <apex:pageBlockSectionItem rendered="{!NOT(hasAttachments)}">
+                            <em>{!$Label.No_Attachments}</em>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:form>
+            <script type="text/javascript">
+                (function($) {
+                    $(function() {
+                        $('span.details').find('table.detailList').filter(':first').find('.last').removeClass('last');
+                        
+                        //Sense HTML5 file upload capability. If not found, substitute with upload to apex.
+                         if (typeof window.FormData != 'undefined') {
+                            $('.modernAttachButton').show(0);
+                            $('.legacyAttachButton').hide(0);
+                         } else {
+                            $('.legacyAttachButton').show(0);
+                            $('.modernAttachButton').hide(0);
+                         }
+                    });
+                })(jQuery.noConflict());
+            </script>
+        </apex:define>
+    </apex:composition>
+</apex:page>

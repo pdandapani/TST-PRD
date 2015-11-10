@@ -1,0 +1,60 @@
+<apex:page controller="TFSC_manualProvisionController">
+
+    <apex:form >
+      <apex:pageBlock id="block" Title="Manual Weblogin Provisioning & Registration - ADMIN ONLY"><br/><br/><br/><br/>
+      
+        <apex:pageBlockButtons >
+                <apex:commandButton action="{!doProvisionWebAccount}" value="Provision"/>
+                <apex:commandButton action="{!doRegisterWebAccountToFinancialAccountCustomer}" value="Register"/>
+                <apex:commandButton action="{!doUnRegisterWebAccountToFinancialAccountCustomer}" value="Unregister"/>
+                <apex:commandButton action="{!doDeProvisionWebAccount}" value="Deprovision"/>
+                <apex:commandButton action="{!doChangeWebAccountProfile}" value="Change Profile"/>
+                <apex:commandButton action="{!doUnReadMessageCountSinceLastLogin}" value="Unread Count"/>
+        </apex:pageBlockButtons>
+      
+        <apex:pageBlockSection title="Input Parameter" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="SGUID" for="SGUID"/>
+                    <apex:inputText value="{!SGUID}" id="SGUID"/> 
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="AccountNumber" for="AccountNumber"/>
+                    <apex:inputText value="{!AccountNumber}" id="AccountNumber"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="BorrowerPosition" for="BorrowerPosition"/>
+                    <apex:inputText value="{!BorrowerPosition}" id="BorrowerPosition"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="ManagementEmail" for="ManagementEmail"/>
+                    <apex:inputText value="{!ManagementEmail}" id="ManagementEmail"/> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="userid" for="userid"/>
+                    <apex:inputText value="{!userid}" id="userid"/> 
+                </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+      </apex:pageBlock>
+      
+      <apex:pageBlock >
+        <apex:pageBlockSection title="Results" id="results" columns="1">
+            <br/><br/>
+            Last Command Executed :
+            <apex:outputText value="{!commandExecuted}"/>
+            
+            <br/><br/>
+            Result Code : 
+            <apex:outputText value="{!resultCode}"/>
+            
+            <br/><br/>
+            Result Message : 
+            <apex:outputText value="{!resultMessage}"/>
+        </apex:pageBlockSection>
+      </apex:pageBlock>
+   </apex:form>
+
+</apex:page>

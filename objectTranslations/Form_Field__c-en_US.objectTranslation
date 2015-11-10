@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Form Field</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Form Fields</value>
+    </caseValues>
+    <fields>
+        <label><!-- Line item field --></label>
+        <name>Line_item_field__c</name>
+    </fields>
+    <fields>
+        <label><!-- Line item type --></label>
+        <name>Line_item_type__c</name>
+        <picklistValues>
+            <masterLabel>Co-Customers</masterLabel>
+            <translation><!-- Co-Customers --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other Charges</masterLabel>
+            <translation><!-- Other Charges --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- MigrationID --></label>
+        <name>MigrationID__c</name>
+    </fields>
+    <fields>
+        <help><!-- If checked the primary borrower&apos;s record (FAC) is always used to fill in this field. --></help>
+        <label><!-- Primary FAC --></label>
+        <name>Primary_FAC__c</name>
+    </fields>
+    <fields>
+        <label><!-- Source Field --></label>
+        <name>Source_Field__c</name>
+    </fields>
+    <fields>
+        <label><!-- Source Object --></label>
+        <name>Source_Object__c</name>
+    </fields>
+    <fields>
+        <label><!-- Target Field --></label>
+        <name>Target_Field__c</name>
+    </fields>
+    <fields>
+        <help><!-- Object Notation of child nodes of the soap envelope beneath the &quot;LCForms&quot; level.  e.g. Request.CreationDate.
+IF this is a 1:many, then instead of dot notation, use a pipe &apos;|&apos; after property that denotes a &apos;many object&apos;.  e.g. req.node.addys|addy.state --></help>
+        <label><!-- WS_DestinationNode --></label>
+        <name>WS_DestinationNode__c</name>
+    </fields>
+    <fields>
+        <label><!-- WS_Sequence --></label>
+        <name>WS_Sequence__c</name>
+    </fields>
+    <layouts>
+        <layout>Form Field Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

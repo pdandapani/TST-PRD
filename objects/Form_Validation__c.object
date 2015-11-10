@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Field-level quality checks supporting a soft validation of inputs prior to generation of rights letters or documents in the Adobe Forms Service.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Description__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Helps identify nature of form validation rule for administrators.</description>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Error_Message__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Text to display to users and enter into error/issues field when validation rule fails.</description>
+        <externalId>false</externalId>
+        <label>Error Message</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hard_Error__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Checkbox to indicate whether failing this validation rule should stop a process from moving forward.</description>
+        <externalId>false</externalId>
+        <label>Hard Error</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Validation_Val_A_Field1__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Checkbox to indicate whether the value for comparison in the first criteria is a field name instead of a hard-coded value; note that only the first criteria supports field-to-field comparisons.</description>
+        <externalId>false</externalId>
+        <label>Is Validation Val A Field1</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>MigrationID__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Arbitrary unique number assigned to the record to facilitate migration of metadata between environments.</description>
+        <externalId>true</externalId>
+        <label>MigrationID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>RL_Field1_Type__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Picklist to define the field type being evaluated.</description>
+        <externalId>false</externalId>
+        <label>RL Field Type1</label>
+        <picklist>
+            <picklistValues>
+                <fullName>String</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Picklist</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Boolean</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Number</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DateTime</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RL_Field2_Type__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Picklist to define the field type being evaluated.</description>
+        <externalId>false</externalId>
+        <label>RL Field Type2</label>
+        <picklist>
+            <picklistValues>
+                <fullName>String</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Picklist</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Boolean</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Number</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DateTime</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RL_Field3_Type__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Picklist to define the field type being evaluated.</description>
+        <externalId>false</externalId>
+        <label>RL Field Type3</label>
+        <picklist>
+            <picklistValues>
+                <fullName>String</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Picklist</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Boolean</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Number</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Date</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DateTime</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RL_Field_Name1__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Identifies the field by API name that is being evaluated as part of the criteria.</description>
+        <externalId>false</externalId>
+        <label>RL Field Name1</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RL_Field_Name2__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Identifies the field by API name that is being evaluated as part of the criteria.</description>
+        <externalId>false</externalId>
+        <label>RL Field Name2</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RL_Field_Name3__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Identifies the field by API name that is being evaluated as part of the criteria.</description>
+        <externalId>false</externalId>
+        <label>RL Field Name3</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RL_Operator1__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Picklist to define the comparison operator as part of the criteria.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When using IN, use parenthesis and a comma delimited list.  Quotes are not required, and code will trim the strings.</inlineHelpText>
+        <label>RL Operator1</label>
+        <picklist>
+            <picklistValues>
+                <fullName>== (Equal To)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&lt;&gt; (Not Equal To)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&gt;= Greater Than or Equal To</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&lt;= Less Than or Equal To</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&gt; (Greater Than)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&lt; (Less Than)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IN</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RL_Operator2__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Picklist to define the comparison operator as part of the criteria.</description>
+        <externalId>false</externalId>
+        <label>RL Operator2</label>
+        <picklist>
+            <picklistValues>
+                <fullName>== (Equal To)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&lt;&gt; (Not Equal To)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&gt;= Greater Than or Equal To</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&lt;= Less Than or Equal To</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&gt; (Greater Than)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&lt; (Less Than)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IN</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RL_Operator3__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Picklist to define the comparison operator as part of the criteria.</description>
+        <externalId>false</externalId>
+        <label>RL Operator3</label>
+        <picklist>
+            <picklistValues>
+                <fullName>== (Equal To)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&lt;&gt; (Not Equal To)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&gt;= Greater Than or Equal To</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&lt;= Less Than or Equal To</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&gt; (Greater Than)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&lt; (Less Than)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IN</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RL_Value1__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: The literal value to compare with the field; only RL Value1 may be identified as another field on the object via the Is Validation Val A Field1 checkbox, providing some dynamic capability.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>True/False can be in any case.  TODAY is a valid value.  Date format must be yyyy-mm-dd.  DateTime format must be yyyy-mm-dd hh:mm:ss.</inlineHelpText>
+        <label>RL Value1</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RL_Value2__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: The literal value to compare with the field.</description>
+        <externalId>false</externalId>
+        <label>RL Value2</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RL_Value3__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: The literal value to compare with the field.</description>
+        <externalId>false</externalId>
+        <label>RL Value3</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SObject__c</fullName>
+        <description>SRC: Salesforce 
+INT: 
+Trans: N 
+BU: RL 
+FD: Identifies the object to which the validation applies and from which all fields are queried.</description>
+        <externalId>false</externalId>
+        <label>SObject</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Form Validation</label>
+    <nameField>
+        <label>Form Validation Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Form Validations</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Read</sharingModel>
+</CustomObject>

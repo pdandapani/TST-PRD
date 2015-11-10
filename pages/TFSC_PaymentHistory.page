@@ -1,0 +1,155 @@
+<apex:page controller="TFSC_PaymentHistoryController"
+           sidebar="false"
+           showHeader="false"
+           showChat="false"
+           title="Transaction History">
+           
+    <apex:includeScript value="{!$Resource.jquery}"/>
+    <apex:styleSheet value="{!URLFOR($Resource.jqueryui1_10_4All, 'css/ui-lightness/jquery-ui-1.10.4.min.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.jqueryui1_10_4All, 'js/jquery-ui-1.10.4.min.js')}"/>
+    
+    <apex:includeScript value="{!URLFOR($Resource.datatables, 'dataTables1.10/media/js/jquery.dataTables.js')}"/>
+    <apex:styleSheet value="{!URLFOR($Resource.datatables, 'dataTables1.10/media/css/jquery.dataTables.css')}"/>
+    
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    
+    
+    <script>
+        
+        var $j = jQuery.noConflict();
+        
+        $j(document).ready(function() {
+            $j('#historyTable').dataTable(
+                {
+                    paging: false,
+                    oLanguage: {
+				       sEmptyTable: "No Transactions Found"
+                    },
+                    order: [[ 1, "desc" ]]
+                }
+            );
+            setTabTitle();
+        } );
+        
+        
+        function setTabTitle() {
+            sforce.console.setTabTitle('Transaction History');
+        }
+        
+    </script>
+    
+    <style type="text/css">
+        table.dataTable tr.odd { background-color: #dddddd; }
+        table.dataTable tr.even { background-color: white; }
+    </style>
+    
+    
+    <apex:form id="mainForm" style="padding:10px; width:100%; height:100%; ">
+        
+        
+        <apex:messages style="color:red; font-weight:bold;" />
+        
+<!--         <apex:outputText value="{!historyObj.AccountNumber}"/> -->
+<!--         <apex:outputText value="{!historyObj.LateCharge}"/> -->
+<!--         <apex:outputText value="{!historyObj.AccoutId}"/> -->
+<!--         <apex:outputText value="{!historyObj.Bank}"/> -->
+<!--         <apex:outputText value="{!historyObj.CustomerNumber}"/> -->
+<!--         <apex:outputText value="{!historyObj.Id}"/> -->
+<!--         <apex:outputText value="{!historyObj.LeaseBranchNumber}"/> -->
+<!--         <apex:outputText value="{!historyObj.PaymentAmount}"/> -->
+<!--         <apex:outputText value="{!historyObj.RegionNumber}"/> -->
+<!--         <apex:outputText value="{!historyObj.RetailBranchNumber}"/> -->
+<!--         <apex:outputText value="{!historyObj.Type_x}"/> -->
+        
+        <table id="historyTable">
+            <thead>
+                <tr>
+                    <th>Process Date</th>
+                    <th>Effective Date</th>
+                    <th>Trxn</th>
+                    <th>Trxn Description</th>
+                    <th>Transaction Amt</th>
+                    <th>Interest</th>
+                    <th>Principle</th>
+                    <th>Misc Charges</th>
+                    <th>Loan Balance</th>
+                    <th>Late Charge</th>
+                    <th>Payment Amount</th>
+                    <th>Payment Type</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            
+            <apex:repeat value="{!historyList}" var="historyObj">
+                <tr>
+                    <td>
+                        <apex:outputText value="{!LEFT(historyObj.ProcessedDate,10)}" />
+<!--                         <apex:outputText value="{0,date,MM'/'dd'/'yyyy}"> -->
+<!-- 	                        <apex:param value="{!historyObj.ProcessedDate}" />  -->
+<!-- 	                    </apex:outputText> -->
+                    </td>
+                    <td>
+                        <apex:outputText value="{!LEFT(historyObj.EffectiveDate,10)}" />
+<!--                         <apex:outputText value="{0,date,MM'/'dd'/'yyyy}"> -->
+<!--                             <apex:param value="{!historyObj.EffectiveDate}" />  -->
+<!--                         </apex:outputText> -->
+                    </td>
+                    <td>
+                        <apex:outputText value="{!historyObj.TransactionType}"/>
+                    </td>
+                    <td>
+                        <apex:outputText value="{!historyObj.TransactionDescription}"/>
+                    </td>
+                    <td style="text-align:right;">
+                        <apex:outputText value="{0, number,$###,###,##0.00}" >
+                            <apex:param value="{!historyObj.TransactionAmount}" />
+                        </apex:outputText>
+                    </td>
+                    <td style="text-align:right;">
+<!--                         <apex:outputText value="{!historyObj.InterestAmount}" /> -->
+                        <apex:outputText value="{0, number,$###,###,##0.00}" >
+                            <apex:param value="{!historyObj.InterestAmount}" />
+                        </apex:outputText>
+                    </td>
+                    <td style="text-align:right;">
+<!--                          <apex:outputText value="{!historyObj.PrincipleAmount}" /> -->
+                        <apex:outputText value="{0, number,$###,###,##0.00}">
+                            <apex:param value="{!historyObj.PrincipleAmount}" />
+                        </apex:outputText>
+                    </td>
+                    <td style="text-align:right;">
+                        <apex:outputText value="{0, number,$###,###,##0.00}">
+                            <apex:param value="{!historyObj.MiscellaneousPaymentAmount}" />
+                        </apex:outputText>
+                    </td>
+                    <td style="text-align:right;">
+                        <apex:outputText value="{0, number,$###,###,##0.00}">
+                            <apex:param value="{!historyObj.LoanBalanceAmount}" />
+                        </apex:outputText>
+                    </td>
+                    <td>
+                        <apex:outputText value="{!historyObj.LateCharge}"/>
+                    </td>
+                    <td>
+                        <apex:outputText value="{!historyObj.PaymentAmount}"/>
+                    </td>
+                    <td>
+                        <apex:outputText value="{!historyObj.PaymentTypeCode}"/>
+                    </td>
+                    <td>
+                        <div style="width:300px;">
+                            <apex:outputText value="{!historyObj.PaymentDescription}"/>
+                        </div>
+                    </td>
+                </tr>
+            </apex:repeat>
+            
+        </table>
+        
+        
+        
+        
+        
+    </apex:form>
+    
+</apex:page>

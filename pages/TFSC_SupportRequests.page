@@ -1,0 +1,51 @@
+<apex:page controller="TFSC_SupportRequestsController" showHeader="false" standardStylesheets="true" >
+    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+            <apex:pageBlock mode="detail">
+                <apex:facet name="header">
+                    <apex:outputPanel layout="block" style="padding:10px;white-space:nowrap;">
+                        <apex:form >
+                            <apex:outputPanel style="float:right">
+	                            <apex:panelGrid columns="2" id="theGrid" >
+	                             	<apex:outputLabel for="viewby" style="font-weight:bold" value="View"/>
+	                                <apex:selectList id="viewby" value="{!orderBy}" size="1">
+	                                    <apex:actionSupport action="{!fetchSupportRequests}" event="onchange" rerender="cases"/>
+	                                    <apex:selectOption itemValue="0" itemLabel="{!$Label.Newest}"/>
+	                                    <apex:selectOption itemValue="1" itemLabel="{!$Label.Last_Updated}"/>
+	                                    <apex:selectOption itemValue="2" itemLabel="{!$Label.All_Support_Requests}"/>
+	                                    <apex:selectOption itemValue="3" itemLabel="{!$Label.Open_Support_Requests}"/>
+	                                    <apex:selectOption itemValue="4" itemLabel="{!$Label.Closed_Support_Requests}"/>
+	                                </apex:selectList>
+	                            </apex:panelGrid>
+                            </apex:outputPanel>
+                            <apex:outputPanel >
+                                <h2 class="mainTitle" style="font-size:1.3em;">{!$Label.My_Support_Requests}</h2>
+                            </apex:outputPanel>
+                            <apex:outputPanel style="margin-left:50px">
+                                <apex:commandButton action="{!URLFOR($Page.TFSC_NewSupportRequest)}" value="{!$Label.New_Support_Request}"/>
+                                <apex:commandButton action="{!URLFOR($Page.TFSC_RequestDueDateChange)}" value="{!$Label.Request_a_Due_Date_Change}"/>
+                            </apex:outputPanel>
+                        </apex:form>
+                    </apex:outputPanel>
+                </apex:facet>
+                <apex:pageBlockTable id="cases" value="{!supportReqs}" var="sr" rendered="{!hasSupportRequests}">
+                    <apex:column headerValue="{!$Label.Support_Request}">
+                        <apex:outputLink value="{!$Page.TFSC_SupportRequest}">
+                            <apex:param name="id" value="{!sr.details.Id}"/>
+                            <apex:outputText value="{!sr.details.CaseNumber}" style="{!sr.style}" />
+                        </apex:outputLink>
+                    </apex:column>
+                    <apex:column value="{!sr.details.Status}" style="{!sr.style}"/>
+                    <apex:column headerValue="Account" >
+                        <apex:outputText value="{!sr.details.Financial_Account_Customer_Name__c}" style="{!sr.style}"/>
+                    </apex:column>
+                    <apex:column value="{!sr.details.Service_Request_Subject__c}" style="{!sr.style}"/>
+                    <apex:column value="{!sr.details.LastModifiedDate}" style="{!sr.style}"/>
+                </apex:pageBlockTable> 
+                <apex:outputPanel rendered="{!NOT(hasSupportRequests)}">
+                    <em>{!$Label.No_Support_Requests}</em>
+                </apex:outputPanel>
+            </apex:pageBlock>
+        </apex:define>
+    </apex:composition>
+</apex:page>

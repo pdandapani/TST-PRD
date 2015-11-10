@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>EWS_Account</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>EWS_Accounts</value>
+    </caseValues>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>Contact__c</name>
+        <relationshipLabel><!-- EWS_Accounts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- EWS User --></label>
+        <name>EWS_User__c</name>
+        <relationshipLabel><!-- EWS_Accounts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- FA Num --></label>
+        <name>FA_Num__c</name>
+    </fields>
+    <fields>
+        <label><!-- FA Role --></label>
+        <name>FA_Role__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Error --></label>
+        <name>Last_Error__c</name>
+    </fields>
+    <fields>
+        <label><!-- SGUID --></label>
+        <name>SGUID__c</name>
+    </fields>
+    <layouts>
+        <layout>EWS_Account Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

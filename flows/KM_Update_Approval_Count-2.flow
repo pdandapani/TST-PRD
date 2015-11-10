@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignments>
+        <name>Update_Count</name>
+        <label>Update Count</label>
+        <locationX>292</locationX>
+        <locationY>83</locationY>
+        <assignmentItems>
+            <assignToReference>vNewApprovaCount</assignToReference>
+            <operator>Subtract</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Parent_Case_approval_count</targetReference>
+        </connector>
+    </assignments>
+    <description>This flow subtracts by one and updates Parent case approval count for Change Control Case</description>
+    <label>KM Update Approval Count</label>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Parent_Case_approval_count</name>
+        <label>Update Parent Case approval count</label>
+        <locationX>295</locationX>
+        <locationY>194</locationY>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>vParentCaseId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>KM_approval_Count__c</field>
+            <value>
+                <elementReference>vNewApprovaCount</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <startElementReference>Update_Count</startElementReference>
+    <variables>
+        <name>vNewApprovaCount</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>2.0</numberValue>
+        </value>
+    </variables>
+    <variables>
+        <name>vParentCaseId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>500S0000005M0cN</stringValue>
+        </value>
+    </variables>
+</Flow>
