@@ -1,0 +1,199 @@
+<apex:component controller="ActivityEntryPanelController" allowDML="true">
+    
+    <apex:attribute name="fac" description="Contextual financial account" 
+                    type="Financial_Account__c" required="false"
+                    assignTo="{!financialAccount}"/>
+    <apex:attribute name="firstNoteLabel" description="Label on First Note Tab" 
+                    type="String" required="true"/>
+    <apex:attribute name="firstNoteActivityCodesWhereClause" description="Where clause for activities on First Note Tab" 
+                    type="String" required="false"
+                    assignTo="{!firstNoteActivitiesWhereClause}" />
+    <apex:attribute name="firstNoteWhatId" description="The whatId for new notes on first note tab; probably Financial_Account__c.Id" 
+                    type="String" required="false"
+                    assignTo="{!whatIdForNote1Task}" />
+    
+    
+    <apex:includeScript value="/support/console/31.0/integration.js"/>
+    <apex:includeScript value="{!$Resource.jquery}"/>
+    
+    
+    <style>
+        
+        .greyLabel  {
+            color:#767676 ;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .accountNumberLabel{
+                color:#000000 ;
+                font-size: 15px;
+                font-weight: bold;
+        }
+        
+        .styleSaveActivity{
+                vertical-align: bottom;
+                margin-top: 4px;
+                background: none repeat scroll 0 0 #F8D949 !important;
+        }
+        
+        
+        .styleActivityInput{
+                padding-top: 3px;
+                padding-bottom: 3px;
+                width: 100%;
+                min-height:50px;
+        }
+        
+        
+        .styleActivityPicklist{
+                padding: 1px 1px;
+                width: 50%;
+        }
+        
+        .styleTabPanel{
+                margin: 5px 1px;
+                height: 100%;
+        }
+        
+        .styleGenerateNoteButton{
+                float: right;
+        }
+        
+        .topTabClass{
+                background-color: #FFFFFF;
+        }
+        
+        .canddClass{
+                height: 100%;
+                min-height: 600px;
+        }
+        
+        .activeTopTab { 
+                background-color: #93A1AA; color:white; background-image:none; 
+        }
+        .inactiveTopTab { 
+                background-color: white; color:black; background-image:none; 
+        }
+
+        .list_item {
+            position: relative;
+            margin:0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 1);
+            color:#969899;
+            cursor: pointer;
+            -moz-transition: all 0.25s;
+            -webkit-transition: all 0.25s;
+            -o-transition: all 0.25s;
+            transition: all 0.25s;
+        }
+        .list_item:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+        
+        .tableTalkingPoint tr {background-color: #EEEFFF;}
+        .tableTalkingPoint tr:hover {background-color: #DBFEF4;}
+          .tooltip {
+            display:none;
+            background:url(/media/img/tooltip/black_arrow_big.png);
+            height:163px;
+            padding:40px 30px 10px 30px;
+            width:310px;
+            font-size:11px;
+            color:#fff;
+          }
+          
+          .talkingPointClass{
+                border-size: 1px;
+          }
+
+        .div.container {
+                width: 80%;
+           }
+
+          .ptpAmount{
+          }
+          
+    </style>
+    
+    
+    <script>
+        
+        
+        function generateNote1Marshaller() {
+            if( clientSideNote1Method !== undefined ) {
+                var noteTextInput = $j(".note1Input");
+                var selectedCode = $j(".note1ActivityCombobox").val();
+                clientSideNote1Method( noteTextInput, selectedCode );
+            }else{
+                
+            }
+        }
+        
+        
+        function saveActivity1Marshaller() {
+            saveNote1();
+            
+            if(saveNote1ParentMethod) {
+                saveNote1ParentMethod();
+            }
+        }
+        
+        function onSaveCompleteMarshaller() {
+            if(afterSaveNote1ParentMethod) {
+                afterSaveNote1ParentMethod();
+            }
+        }
+        
+        
+        function setComponentLevelError(errString) {
+            setPageErrorMsg(errString);
+        }
+        
+        
+        
+    </script>
+    
+    
+    <apex:actionFunction name="saveNote1" action="{!saveNote1}" 
+                         reRender="mainOutputPanel"
+                         onComplete="onSaveCompleteMarshaller()" />
+    
+    <apex:actionFunction name="setPageErrorMsg" action="{!setPageErrorMsg}" 
+                         reRender="mainOutputPanel" >
+        <apex:param id="errString" name="errString" assignTo="{!errorStringUsedForErrorMessageSetting}" value=""/>
+    </apex:actionFunction>
+    
+    <apex:actionFunction name="rerenderComponentLevelOutputPanel" rerender="mainOutputPanel" />
+    
+    
+    
+    
+    <apex:outputPanel id="mainOutputPanel">
+    
+		<apex:tabPanel id="noteTabPanel" styleClass="styleTabPanel" switchType="ajax" rendered="{!noteTab1Wrapper != null}">
+		    <apex:tab label="{!firstNoteLabel}"  >
+				<apex:selectList styleClass="styleActivityPicklist note1ActivityCombobox" 
+				                 value="{!noteTab1Wrapper.selectedActivityCode}" 
+				                 multiselect="false" size="1">
+				    <apex:selectOptions value="{!noteTab1Wrapper.activityList}"/>
+				</apex:selectList>
+				<button type="button" class="styleGenerateNoteButton" onclick="generateNote1Marshaller();">Generate Note</button>
+				<br/>
+				<apex:inputTextArea styleClass="note1Input styleActivityInput" value="{!noteTab1Wrapper.note}" />
+				<br />
+				<button type="button" class="styleSaveActivity" onclick="saveActivity1Marshaller();">Save Activity</button>
+		    </apex:tab>
+		    
+		</apex:tabPanel>
+		
+		<apex:pageMessages id="messagePanel" />
+		<script>
+		    var componentHasErrorMessages = {!pageHasErrorMessages};
+		</script>
+		
+	</apex:outputPanel>
+    
+</apex:component>

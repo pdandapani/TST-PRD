@@ -1,0 +1,4 @@
+Case Number - {!Case.CaseNumber}
+Case Subject - {!Case.Subject}
+Case Approval Target Date - {!Case.KM_Approval_Target_Date__c}
+Case Owner - {!Case.OwnerFullName}

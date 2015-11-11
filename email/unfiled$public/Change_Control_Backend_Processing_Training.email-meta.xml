@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Change Control - Backend Processing - Training. Used in Backend Processing Flow</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Change Control - Backend Processing - Training</name>
+    <style>none</style>
+    <subject>Please review Approved Change Request - {!Case.Subject} #{!Case.CaseNumber}</subject>
+    <type>text</type>
+</EmailTemplate>

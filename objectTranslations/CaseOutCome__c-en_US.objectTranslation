@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>CaseOutCome</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>CaseOutComes</value>
+    </caseValues>
+    <fields>
+        <label><!-- CaseSubject --></label>
+        <name>CaseSubject__c</name>
+    </fields>
+    <fields>
+        <label><!-- OutComeId --></label>
+        <name>OutComeId__c</name>
+    </fields>
+    <fields>
+        <label><!-- OutCome --></label>
+        <name>OutCome__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

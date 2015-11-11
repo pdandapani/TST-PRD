@@ -1,0 +1,4 @@
+Following Case's implementation date is tomorrow. 
+Case Number: {!Case.CaseNumber}
+Case Subject: {!Case.Subject}
+Case Link: {!Case.Link}

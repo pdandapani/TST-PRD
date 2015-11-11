@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Change Control - When Parent case is cancelled, this email will be sent to all Backend processing teams</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Change Control - Parent case is cancelled</name>
+    <style>none</style>
+    <subject>Change Control - Parent case is cancelled / put On Hold</subject>
+    <type>text</type>
+</EmailTemplate>

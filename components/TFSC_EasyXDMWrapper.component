@@ -1,0 +1,111 @@
+<apex:component controller="TFSC_EasyXDMWrapperController">
+    <apex:includeScript value="{!URLFOR($Resource.EasyXDM, 'jquery.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.EasyXDM, 'easyXDM.min.js')}"/>
+    <input id="xdm_lastActivity" type="hidden" value="0"/>
+    <script type="text/javascript">
+
+        //dont allow this page to live outside of an iframe
+        if (!inIframe()) {
+            document.body.innerHTML = '';
+            window.location.href = '{!redirectUrl}';
+        }
+
+        function inIframe () {
+            try {
+                return window.self !== window.top;
+            } catch (e) {
+                return true;
+            }
+        }
+    
+        (function($) {
+            $(function() {
+                //open up the validation
+                $.extend(true, window, {
+                    SFDC : {
+                        ValidateForm : validateForm
+                    }
+                });
+
+                //retain the user's last activity timestamp
+                var $lastActivity = $('#xdm_lastActivity');
+                function updateLastActivity() {
+                    var ts = (new Date()).getTime();
+                    $lastActivity.val(ts);
+                };
+                updateLastActivity();
+                
+                //bind all inputs, selects, etc to update the lastactivity on any input
+                $(':input').on('blur focus input', updateLastActivity);
+
+                                //find any text areas and trim their size
+                $('textarea').each(function() {
+                    var $textarea = $(this),
+                        maxlength = $textarea.attr('maxlength');
+
+                    if (maxlength == 4000) {
+                        $textarea.attr('maxlength', 3960);
+                    }
+                });
+                
+                //custom validation, emulates the native style but works for all inputs
+                var $errorDivA = $('<div class="errorMsg"><strong>Error:</strong> You must enter a value</div>');
+                var $errorDivB = $('<div class="errorMsg"><strong>Error:</strong> File size too large (2GB max)</div>');
+                function validateForm(formId, callback) {
+                    
+                    var passed = true;
+                    //find all the inputs in the form that are wrapped in a requiredInput div
+                    $(document.getElementById(formId)).find('div.requiredInput > :input').each(function() {
+                        var $input = $(this),
+                            $parent = $input.parent();
+
+                        var val = '', length = 0;
+                        if ($input.is(':checkbox')) {
+                            val = $input.is(':checked');
+                        }
+                        else if ($input.is(':file')) {
+                            val = $input.val();
+                            if (typeof FileReader !== "undefined") {
+                                length = $input[0].files[0].size;
+                            }
+                        }
+                        else {
+                            val = $input.val();
+                        }
+
+                        if (!val || val == '') {
+                            passed = false;
+                            
+                            //add error msg if not already present
+                            if ($parent.find('.errorMsg').length == 0) {
+                                $input.addClass('error');
+                                $parent.append($errorDivA.clone());
+                            }
+                        }
+                        else if (length > 2147483648) { //2GB
+                            passed = false;
+                            if ($parent.find('.errorMsg').length == 0) {
+                                $input.addClass('error');
+                                $parent.append($errorDivB.clone());
+                            }
+                        }
+                        else { //make sure the error div is cleared
+                            $input.removeClass('error');
+                            $parent.find('.errorMsg').remove();
+                        }
+                    });
+
+                    if (passed && isFunction(callback)) {
+                        callback();
+                    }
+
+                    return passed;
+                }
+
+                function isFunction(object) {
+                   return !!(object && object.constructor && object.call && object.apply);
+                }
+            });
+        })(jQuery.noConflict());
+    </script>
+</apex:component>

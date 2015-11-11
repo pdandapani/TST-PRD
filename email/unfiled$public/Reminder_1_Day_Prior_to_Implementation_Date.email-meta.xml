@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Change Control - This template is used when email is sent to Case owner 1 day prior to the implementation date</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Reminder 1 Day Prior to Implementation Date</name>
+    <style>none</style>
+    <subject>Case {!Case.CaseNumber} implementation date is tomorrow</subject>
+    <type>text</type>
+</EmailTemplate>

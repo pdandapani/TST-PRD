@@ -1,0 +1,110 @@
+<table id="Table_01" width="630" height="635" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+                <td colspan="2">
+                        <a href="http://www.toyotafinancial.com/pub/home/"
+                                onmouseover="window.status='Toyota Financial Services';  return true;"
+                                onmouseout="window.status='';  return true;">
+
+                                <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/TFS-Logo.gif" width="144" height="71" border="0" alt="Toyota Financial Services Logo"></a></td>
+                <td colspan="3">
+                        
+                                <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/tfs_start.gif" width="252" height="71" border="0" alt="Start With Confidence"></td>
+                <td width="234" height="71" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="234" height="71" alt=""></td>
+        </tr>
+        
+        <tr>
+                <td colspan="6"><table width="630" height="53" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+
+            <td width="21" background="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/tfs_bkgrd.gif">&nbsp;</td>
+            <td width="609" background="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/tfs_bkgrd.gif" style="font-family: Verdana; font-size: 8pt;">This is a no reply email notification. Replies initiated from this email will neither be delivered nor answered. If you have additional questions, please log in to the <a href="http://www.toyotafinancial.com/pub/home/?deeplink=customer_center">Support Center</a> for further assistance.</td>
+          </tr>
+        </table></td>
+  </tr>
+  
+        <tr>
+                <td width="211" height="18" colspan="3" bgcolor="#FFFFFF">
+
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="211" height="18" alt=""></td>
+                <td width="16" height="18" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="16" height="18" alt=""></td>
+                <td width="403" height="18" colspan="2" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="403" height="18" alt=""></td>
+        </tr>
+        <tr>
+                <td colspan="3">
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/tf_how.gif" width="211" height="39" alt=""></td>
+
+                <td rowspan="4" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/tf_line.gif" width="16" height="441" alt=""></td>
+                <td width="403" height="441" colspan="2" rowspan="4" valign="top" bgcolor="#FFFFFF"><span style="font-family: Verdana; font-size: 10pt; color: #666666;">Dear {!Case.SuppliedName}:
+
+            <br><br>
+               Thank you for contacting Toyota Financial Services via the 'Contact Us' link at  <a href="http://www.toyotafinancial.com/pub/home/">www.ToyotaFinancial.com</a>. 
+            <br><br>
+Messages sent through this channel are unsecure.  As we value your privacy, we will not provide credit-specific information through this unsecured channel.
+ <br><br>
+The Toyota Financial Services Payment Estimator is designed to help you estimate monthly finance and lease payments. You may use it to estimate payments on all new Toyota vehicles with the exception of the Scion models.
+ <br><br>
+Please note not all terms are available in all areas, and terms may vary based on credit worthiness. Estimated monthly payments exclude applicable taxes, title and licensing fees, and will vary depending upon the final price and terms agreed upon between you and your dealer. 
+<br><br>
+Please see your participating Toyota dealer for details and available terms and conditions. 
+<br><br>
+We appreciate your interest and hope to have the opportunity to work with you.  Thank you for visiting us at <a href="http://www.toyotafinancial.com/pub/home/">www.ToyotaFinancial.com</a>.
+<br><br>
+        Sincerely,
+
+        <br>
+       Toyota Financial Services Customer Support
+         </span></td>
+  </tr>
+        <tr>
+
+                <td width="211" height="15" colspan="3" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="211" height="15" alt=""></td>
+        </tr>
+        <tr>
+                <td width="21" height="139" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="21" height="139" alt=""></td>
+                <td width="190" height="139" colspan="2" valign="top" bgcolor="#FFFFFF"><p style="font-family: Verdana; font-size: 8pt;"><a href="http://www.toyotafinancial.com/pub/w/#customer_service/contact_us">Contact Toyota Financial Services</a><br>
+              <br> 
+              <a href="http://www.toyotafinancial.com/pub/w/#customer_service/online_privacy_policy">Your Privacy</a><br>
+
+            <br>
+                <a href="http://www.toyotafinancial.com/pub/w/#about_us">
+                About Us</a></p>
+            </td>
+  </tr>
+        <tr>
+                <td colspan="3" bgcolor="#FFFFFF">
+                        <a href="http://www.toyotafinancial.com/pub/home/?deeplink=customer_center"
+                                onmouseover="window.status='Login to Your Toyota Financial Services Account';  return true;"
+                                onmouseout="window.status='';  return true;">
+
+                                <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/tf_login.gif" width="211" height="248" border="0" alt="Login to Your Toyota Financial Services Account"></a></td>
+        </tr>
+        <tr>
+                <td width="211" height="41" colspan="3" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="211" height="41" alt=""></td>
+                <td width="16" height="41" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="16" height="41" alt=""></td>
+                <td width="403" height="41" colspan="2" bgcolor="#FFFFFF"><span style="font-family: Verdana; font-size: 8pt; color: #666666;">Toyota Financial Services is a service mark of Toyota Motor Credit Corporation and Toyota Credit de Puerto Rico Corp.</span></td>
+
+  </tr>
+        <tr>
+                <td>
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="21" height="1" alt=""></td>
+                <td>
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="123" height="1" alt=""></td>
+                <td>
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="67" height="1" alt=""></td>
+                <td>
+
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="16" height="1" alt=""></td>
+                <td>
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="169" height="1" alt=""></td>
+                <td>
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="234" height="1" alt=""></td>
+        </tr>
+</table>

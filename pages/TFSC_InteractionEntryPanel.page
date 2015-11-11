@@ -1,0 +1,2021 @@
+<apex:page controller="TFSC_InteractionEntryPanelController" id="interactEntPan">
+
+    <apex:includeScript value="{!$Resource.jquery}"/>
+    <apex:includeScript value="{!URLFOR($Resource.select2, 'select2-3.4.8/select2.js')}"/>
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    <apex:includeScript value="{!$Resource.ctiEvents}"/>
+    <apex:includeScript value="{!URLFOR($Resource.datatables, 'dataTables1.10/media/js/jquery.dataTables.js')}"/>
+    <apex:includeScript value="{!$Resource.jquery_ui_1_10_4}"/>
+    <apex:includeScript value="{!$Resource.jquery_masked_input}"/>
+    <link rel="stylesheet" href="{!$Resource.jquery_ui_1_10_4_css}" />
+    <apex:styleSheet value="{!URLFOR($Resource.datatables, 'dataTables1.10/media/css/jquery.dataTables.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.select2, 'select2-3.4.8/select2.css')}"/>
+    
+    <script type="text/javascript">
+        function setFocusOnLoad() {}
+        var $j = jQuery.noConflict();
+        
+        var lastInteractionIdForThisTab;
+        var lastDialedPhoneNumberForThisTab;
+        var campaignName;
+        
+        /**
+        *   
+        *   @campaignTabManagerObject
+        *      @relatedSoftPhoneData -- should always be populated with softPhone getAllAttachedData KVPs.
+        *      @relatedParentSoftPhoneData -- not used yet, and not sure direction here.
+        *      @interactionId -- always populated
+        *      @faId -- always populated
+        *   
+        */
+        var campaignTabManagerObject;
+        sforce.console.addEventListener( CTI_PUSH_TAB_OBJECT_FROM_MANAGER, onScreenPopHandler );
+        function onScreenPopHandler(result) {
+            var obj = deStringifyObjectFromEventMessageString(result.message);
+            var faidFromController = '{!financialAccountId}';
+            if(obj && obj.faId && obj.faId.length >= 15 && obj.faId.slice(0,15) == faidFromController.slice(0,15)) {
+                campaignTabManagerObject = obj;
+                lastInteractionIdForThisTab = campaignTabManagerObject.interactionId ;
+                if(campaignTabManagerObject.relatedSoftPhoneData && campaignTabManagerObject.relatedSoftPhoneData.KVP_CONTACT_INFO && campaignTabManagerObject.relatedSoftPhoneData.KVP_CONTACT_INFO.length > 0) {
+                    lastDialedPhoneNumberForThisTab = campaignTabManagerObject.relatedSoftPhoneData.KVP_CONTACT_INFO;
+                    campaignName = campaignTabManagerObject.relatedSoftPhoneData.GSW_CAMPAIGN_NAME;
+                    updateApexPhoneValue(lastDialedPhoneNumberForThisTab);
+                    updateCampaignNameValue(campaignName);
+                    
+                    //to fix a defect where 1) next-record; 2) click-to-dial; 3) mark-done; 4) next-record = same account; 5) cti-activity selected and last dialed phone num isn't currect.
+                    lastInteractionObj = {};
+                    lastInteractionObj.faId = obj.faId.slice(0,15);
+                    lastInteractionObj.interactionId = lastInteractionIdForThisTab;
+                    lastInteractionObj.phoneDialed = lastDialedPhoneNumberForThisTab;
+                    lastInteractionObj.campaignId = campaignName;
+                }
+                
+                if(campaignTabManagerObject.relatedSoftPhoneData && campaignTabManagerObject.relatedSoftPhoneData.KVP_ROUTED && campaignTabManagerObject.relatedSoftPhoneData.KVP_ROUTED == 'Y') {
+                    $j(".hiddenKVPRouted").val('Y');
+                    lastDialedPhoneNumberForThisTab = campaignTabManagerObject.relatedSoftPhoneData.KVP_ANI ;
+                    updateApexPhoneValue(lastDialedPhoneNumberForThisTab);
+                }else{
+                    $j(".hiddenKVPRouted").val('N');
+                }
+                
+                if(campaignTabManagerObject.KVP_ROUTED && campaignTabManagerObject.KVP_ROUTED == 'Y') {
+                    $j(".hiddenKVPRouted").val('Y');
+                    lastDialedPhoneNumberForThisTab = campaignTabManagerObject.KVP_ANI ;
+                    updateApexPhoneValue(lastDialedPhoneNumberForThisTab);
+                }else{
+                    $j(".hiddenKVPRouted").val('N');
+                }
+                
+                rerenderRPCCode(); 
+                
+            }
+        }
+        
+        /**
+        *   @lastInteractionObj
+        *     @faId - will be populated
+        *     @interactionId  - will be populated
+        *     @phoneDialed - will be populated
+        *     @campaignId -- campaignid may be null
+        */
+        var lastInteractionObj;
+        sforce.console.addEventListener( CTI_PUSH_LAST_INTERACTION_OBJECT_FROM_MANAGER, syncLastInteractionObject );
+        function syncLastInteractionObject(result) {
+            console.log('***EntryPanel CTI_PUSH_LAST_INTERACTION_OBJECT_FROM_MANAGER captured');
+            var obj = deStringifyObjectFromEventMessageString(result.message);
+            var faidFromController = '{!financialAccountId}';
+            if(obj && obj.faId && obj.faId.length >= 15 && obj.faId.slice(0,15) == faidFromController.slice(0,15)) {
+                lastInteractionObj = obj;
+                lastInteractionIdForThisTab = lastInteractionObj.interactionId ;
+                var phoneDialed = lastInteractionObj.phoneDialed;
+                if(phoneDialed && phoneDialed.length > 0) {
+                    lastDialedPhoneNumberForThisTab = phoneDialed ;
+                    //campaignName = lastInteractionObj.campaignId;
+                    //updateCampaignNameValue(campaignName);
+                    updateApexPhoneValue(lastDialedPhoneNumberForThisTab);
+                }
+                
+                rerenderRPCCode();
+            }
+        }
+        
+        /**
+        *   This is used for an inbound call in which the user/customer never entered his/her account via the IVR.
+        *   In this case, the console manager has captured the faid via the CONSOLE_EVENT_NEW_FA_OPENED and is
+        *     using it to correctly be executed here.
+        */
+        sforce.console.addEventListener( CONSOLE_EVENTS_ON_NEXT_ACCT_AFTER_INBOUND_ERROR_SYNC, onPopAfterFaultyIVR );
+        function onPopAfterFaultyIVR(result) {
+            console.log('***EntryPanel CONSOLE_EVENTS_ON_NEXT_ACCT_AFTER_INBOUND_ERROR_SYNC captured');
+            var obj = deStringifyObjectFromEventMessageString(result.message);
+            var faidFromController = '{!financialAccountId}';
+            if(obj && obj.faId && obj.faId.length >= 15 && obj.faId.slice(0,15) == faidFromController.slice(0,15)) {
+                
+                if(obj.KVP_ANI) {
+                    $j(".hiddenKVPRouted").val('Y');
+                    lastDialedPhoneNumberForThisTab = obj.KVP_ANI ;
+                    
+                    rerenderRPCCode();
+                }
+                
+                if(obj.relatedSoftPhoneData && obj.relatedSoftPhoneData.KVP_ANI) {
+                    $j(".hiddenKVPRouted").val('Y');
+                    lastDialedPhoneNumberForThisTab = obj.relatedSoftPhoneData.KVP_ANI ;
+                    
+                    rerenderRPCCode();
+                }
+            }
+        }
+        
+        
+        //______________________________________URL PARAMETER HANDLER CODE______________________________
+        
+        
+        function getUrlParams() {
+            //if(sforce.console.isInConsole()) {
+                getEnclosingPrimaryTabId();
+            //}
+        }
+        
+        var getTabIdAttemptCount = 0; //for error handling... looks like this somtimes fails on initial console load.
+        var getEnclosingPrimaryTabId = function getEnclosingPrimaryTabId() {
+            getTabIdAttemptCount++;
+            console.log('***ParemeterHandler running sforce.console.getEnclosingPrimaryTabId.');
+            if(getTabIdAttemptCount < 10) {
+                sforce.console.getEnclosingPrimaryTabId(getTabLink);
+            }else{
+                //alert('unable to get url parameters from softPhone');
+                saveSystemMessage('Failed to capture URL parameters from Financial Account getTabLink() after 10 calls. Financial AccountId: {!financialAccount.Id}' );
+            }
+        }
+        var getTabLink = function getTabLink(result) {
+            if(result.id && result.id != "null") {
+                sforce.console.getTabLink(sforce.console.TabLink.TAB_ONLY, result.id, parsePrimaryTabLinkAndDispatchEvents);
+                if(getTabIdAttemptCount > 2) {
+                    saveSystemMessage('URL parameters succeeded, but failed after more than one call. Financial AccountId: {!financialAccount.Id}' );
+                }
+            }else{
+                setTimeout( function(){ getEnclosingPrimaryTabId() }, 300 );
+            }
+        }
+        
+        
+        /*
+        function tellConsoleThatLastCallWasRoutedAndNoAccountAdded(urlParamMap) {
+            var eventMessage = stringifyObjectForEventMessage(urlParamMap);
+            sforce.console.fireEvent(CONSOLE_EVENTS_LAST_INTERACTION_IS_ROUTED_WITH_NO_ACCOUNT, eventMessage);
+        }
+        */
+        
+        
+        var parsePrimaryTabLinkAndDispatchEvents = function(result) {
+            
+            var primaryTabUrl = result.tabLink;
+            //var primaryTabUrl = decodeURIComponent(result.tabLink); --was doing this but was getting failures
+            console.log('***ParemeterHandler  uncleaned primaryTabUrl = ' + primaryTabUrl);
+            
+            primaryTabUrl = primaryTabUrl.replace(/%25/g, '%');
+            primaryTabUrl = primaryTabUrl.replace(/%3F/g, '?');
+            primaryTabUrl = primaryTabUrl.replace(/%26/g, '&');
+            primaryTabUrl = primaryTabUrl.replace(/%3D/g, '=');
+            
+            console.log('***ParemeterHandler primaryTabUrl = ' + primaryTabUrl);
+            
+            var urlParametersObject = getUrlVarsAsObject(primaryTabUrl);
+            
+            if(urlParametersObject.KVP_ACCTNUM && urlParametersObject.KVP_ACCTNUM == 'null') {
+                urlParametersObject.KVP_ACCTNUM = '';
+            }
+            
+            urlParametersObject.faidFromPop = '{!financialAccount.Id}'; //Financial_Account__c.Id
+            
+            if(urlParametersObject.CIMDSK_InteractionID) {
+                var eventMessage = stringifyObjectForEventMessage(urlParametersObject);
+                console.log('***ParemeterHandler CONSOLE_EVENT_FA_POPPED dispatched.');
+                sforce.console.fireEvent(CONSOLE_EVENT_FA_POPPED, eventMessage);
+            }else{
+                console.log('***ParemeterHandler PARAMS OBJECT without CIMDSK_InteractionID.');
+                console.log('***ParemeterHandler ' + JSON.stringify(urlParametersObject) );
+            }
+        };
+        
+        
+        function getUrlVarsAsObject(url)  {
+            var vars = {}, hash;
+            
+            
+            if(url.indexOf('?') > 0) {
+                var hashes = url.slice(url.indexOf('?') + 1).split('&');
+                var prop;
+                for(var i = 0; i < hashes.length; i++)
+                {
+                    
+                    hash = hashes[i].split('=');
+                    prop = hash[0];
+                    if(prop && prop != 'isdtp' && prop != 'isWsVw' && prop != 'sfdcIFrameOrigin' && prop != 'nonce') {
+                        vars[prop] = hash[1];
+                    }
+                }
+            }
+            return vars;
+        }
+        
+        
+        
+        function saveSystemMessage(errorMessage) {
+            //String description, Boolean notifyUser, String source, String title, String msgType
+            //'Failed to capture URL parameters from Financial Account getTabLink() after 10 calls (see Salesforce Support case 11690187). Financial Account: Financial_Account__c.Name',
+            Visualforce.remoting.Manager.invokeAction(
+                                '{$RemoteAction.TFSC_UrlParameterHandlerController.saveNewSystemMessage}',
+                                errorMessage,
+                                false,
+                                'TFSC_URLParameterHandler',
+                                'TFSC_URLParameterHandler Error',
+                                'Handled Error',
+                                function() {
+                                    console.log('***ParemeterHandler SYSTEM MESSAGE saved');
+                                }
+                            );
+        }
+        
+        
+        //__________________________________END URL PARAMETER HANDLER CODE______________________________
+        
+        
+        
+        //_______________________________Skip Trace SelectedPassStrategy Changing and Saving_____________
+        
+        var updatedNoteObj; //properties = faId, passStratObj, datesDetails
+        sforce.console.addEventListener( CONSOLE_EVENT_SKIP_TRACE_SAVED_AND_OPEN_CASE_EDITED, onConsoleCaseEdit );
+        function onConsoleCaseEdit(result) {
+            var obj = deStringifyObjectFromEventMessageString(result.message);
+            var faidFromController = '{!financialAccountId}';
+            if(obj && obj.faId && obj.faId.length >= 15 && obj.faId.slice(0,15) == faidFromController.slice(0,15)) {
+                //get case from vf remote.
+                updatedNoteObj = obj; 
+                console.log(updatedNoteObj);
+                var passStratObj = JSON.parse(updatedNoteObj.passStratObj);
+                //Modified by Shashank Singhal for S-330388
+                if(passStratObj && passStratObj.hasOwnProperty('RES__c')) {
+                    updatePassStrategyHiddenFieldVal(passStratObj.RES__c);
+                }
+                //End of S-330388
+            }
+        }
+        
+        function setNoteTextFromSkipTraceIfAvailable() {
+            console.log(updatedNoteObj);
+            if(updatedNoteObj && updatedNoteObj.hasOwnProperty('passStratObj')) 
+            {
+                console.log('hello');
+                var parsedNoteVal = $j(".skipNotesStyleClass").val();
+                var passStratObj = JSON.parse(updatedNoteObj.passStratObj);
+                if(passStratObj && passStratObj.hasOwnProperty('Standard_Note__c')) {
+                    //Modified by Shashank Singhal for S-330388
+                    var resOnly = passStratObj.RES__c;
+                    
+                    //resOnly = resOnly.slice( resOnly.indexOf('-') + 1 );
+                    //Modified by Shashank Singhal for S-321636 to set MANL activity code when Recommended Pass is MANL/RCVR
+                    if(resOnly == 'MANL/RCVR'){
+                        resOnly = 'MANL';
+                    }
+                    //End of changes for S-321636
+                    $j(".skipPickList").val(resOnly);
+                    
+                    var noteText = passStratObj.Standard_Note__c;
+                    if(updatedNoteObj.datesDetails) {
+                        //noteText += '. ' + updatedNoteObj.datesDetails;
+                        noteText = noteText.replace('[DateDetails]', updatedNoteObj.datesDetails);
+                    }else{
+                        noteText = noteText.replace('[DateDetails]', '');
+                    }
+                    
+                    noteText = noteText.replace('[DPD]', '{!financialAccount.History_Counter_Days_Past_Due__c}');
+                    if(parsedNoteVal) {
+                        noteText += ' ' + parsedNoteVal;
+                    }
+                    
+                    if ((noteText.indexOf('[vDate]') > -1)) {
+                        if (passStratObj.NotesReviewedTo__c) {
+                            var a = String(passStratObj.NotesReviewedTo__c).split("-");
+                            var dateStr = a[1]+'/'+a[2]+'/'+a[0];
+                            noteText = noteText.replace('[vDate]', dateStr);
+                        } else {
+                            noteText = noteText.replace('[vDate]', '');
+                        }
+                    }
+                    console.log(noteText);
+                    
+                    //End of S-330388
+                    $j(".skipNotesStyleClass").val(noteText);
+                    setHiddenSkipNote();
+                    setHiddenSkipCode();
+                }
+            }
+        }
+        
+        function updateCaseStatusOnSkipSave() {
+            if(updatedNoteObj && updatedNoteObj.hasOwnProperty('passStratObj')) 
+            {
+                console.log(updatedNoteObj);
+                //passStratObj has Name, Sort__c, Article_Number__c, Standard_Note__c
+                var passStratObj = JSON.parse(updatedNoteObj.passStratObj);
+                //Modified by Shashank Singhal for S-330388
+                var fAccType = updatedNoteObj.fAccType;
+                var previousPass = updatedNoteObj.previousPass;
+                if(passStratObj && passStratObj.hasOwnProperty('RES__c')) {
+                    Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.TFSC_InteractionEntryPanelController.updateCaseAndTaskWithSkipTraceEdits}', 
+                        '{!financialAccountId}',
+                        passStratObj.RES__c, fAccType, previousPass,
+                        //End of S-330388
+                        function(result, event){
+                           refreshPrimaryTab(); //Modified by Shashank Singhal for S-321636 for defect fix to update recommended pass after generate note
+                        }
+                    );
+                }
+            }
+        }
+        
+        function updatePassStrategyHiddenFieldVal(passStrat) {
+            var hiddenNewPassStrat = $j(".hiddenNewPassStrat");
+            if(hiddenNewPassStrat) {
+                hiddenNewPassStrat.val(passStrat);
+            }
+        }
+        
+        //_______________________________END Skip Trace SelectedPassStrategy Changing and Saving_____________
+        
+        function updateApexPhoneValue(phoneNum) {
+            var hiddenPhoneApexComponent = $j(".hiddenDialedNumber");
+            if(phoneNum && hiddenPhoneApexComponent) {
+                $j(".hiddenDialedNumber").val(phoneNum);
+                var tmp = $j(".hiddenDialedNumber").val(); 
+            }
+        }
+        
+        function updateCampaignNameValue(cName) {
+            var hiddenCampaignName = $j(".hiddenCampaignName");
+            if(cName && hiddenCampaignName) {
+                $j(".hiddenCampaignName").val(cName);
+            }
+        }
+        
+        
+        function dispatchNewTabOpenedEvent() {
+            var faId = '{!financialAccountId}';
+            var faAcctNum = '<apex:outputText value="{!financialAccount.Financial_Account_Number__c}" escape="true"/>' ;
+            
+            var eventMessage = buildConsoleEventString( faId, faAcctNum );
+            sforce.console.fireEvent( CONSOLE_EVENT_NEW_FA_OPENED, eventMessage ) ;
+        }
+        
+        
+        
+        function bindChangeWatchers() {
+            buildQuickTabActivityChangeWatcher();
+            buildTalkedToRelationshipChangeWatcher();
+        }
+        
+        function buildTalkedToRelationshipChangeWatcher() {
+            $j(".relationshipPicklistSelector").unbind( 'change' );
+            $j(".relationshipPicklistSelector").change( onTalkedToComboboxChange );
+        }
+        
+        function buildQuickTabActivityChangeWatcher() {
+            $j(".quickTabActivityPicklist").unbind( 'change' );
+            $j(".quickTabActivityPicklist").change( onQuickTabActivityChange );
+        }
+        
+        function onTalkedToComboboxChange() {
+            rerenderRPCCode();
+        }
+        
+        
+        function onQuickTabActivityChange(){
+            var activityCodeCombobox = $j(this);
+            var selectedActivityCode;
+            if(activityCodeCombobox) {
+                selectedActivityCode = activityCodeCombobox.val();
+            }
+            
+            if(selectedActivityCode)
+            {
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.TFSC_InteractionEntryPanelController.getActivityCodeObjectFromActivityName}', 
+                     selectedActivityCode,
+                     function(result, event){
+                         var newNoteValue = '';
+                         var dpd = '{!financialAccount.History_Counter_Days_Past_Due__c}';
+                         var noteComponent = $j(".quickTabActivityTextInput");
+                         var originalNoteText = noteComponent.val();
+                         var phoneNumWithComma = '';
+                         
+                         //populate phoneNumWithComma
+                         if(lastDialedPhoneNumberForThisTab && lastDialedPhoneNumberForThisTab.length > 0) {
+                            phoneNumWithComma = lastDialedPhoneNumberForThisTab + ', ';
+                         }
+                         
+                         if(noteComponent) {
+                             if(event.status && result !== null && result.hasOwnProperty('CTI_Result__c')){
+                                 //the where clause on the query says WHERE CTI_Activity__c = true;  if not null, update note
+                                 
+                                 var cleanedPhone = '' + cleanPhoneNumberOfNonNumericCharacters(phoneNumWithComma);
+                                 var numberOnlyNoteText = '' + cleanPhoneNumberOfNonNumericCharacters(originalNoteText);
+                                 if(cleanedPhone.length > 0 && numberOnlyNoteText.length > 0 && numberOnlyNoteText.indexOf(cleanedPhone) > -1) {
+                                    //THEN note already added once (NEW DEFECT).
+                                    newNoteValue = originalNoteText;
+                                 }else{
+                                    //now, it is possible for 'DPD' to be the only note, so let's check that too.
+                                    if(originalNoteText.indexOf('DPD:') > -1 && cleanedPhone.length == 0) {
+                                        newNoteValue = originalNoteText;
+                                    }else{
+                                        newNoteValue = phoneNumWithComma + 'DPD: ' + dpd + ' ' + originalNoteText ; //DPD
+                                    }
+                                 }
+                                 
+                             }else{
+                                //if CTI_Activity__c = false, don't add dpd.
+                                //newNoteValue = 'DPD: ' + dpd + ' ' + originalNoteText ;
+                                newNoteValue = originalNoteText;
+                             }
+                             noteComponent.val(newNoteValue);
+                             setHiddenQuickNote(newNoteValue);
+                         }
+                     }
+                );
+            }else{
+                /* 
+                    //latest defect = no DPD: on non-CTI-activity-codes.
+                    var existingNoteVal = $j(".quickTabActivityTextInput").val();
+                    if(existingNoteVal == null) {
+                        existingNoteVal = ''; 
+                    }
+                    var daysPastDue = '{!financialAccount.History_Counter_Days_Past_Due__c}';
+                    var newVal = 'DPD: ' + daysPastDue;
+                    if(existingNoteVal.length > 0) {
+                        newVal += ' ' + existingNoteVal;
+                    }
+                    $j(".quickTabActivityTextInput").val(newVal);
+                */
+            }
+            
+            
+        }
+        
+        function onSaveActivityPushCallReasonAndResultToSoftPhone(callResult, callReason) {
+            var interactionidToSend = '';
+            if(lastInteractionIdForThisTab && lastInteractionIdForThisTab.length > 0) {
+                interactionidToSend = lastInteractionIdForThisTab;
+            }else if(campaignTabManagerObject && campaignTabManagerObject.interactionId && campaignTabManagerObject.interactionId.length > 0) {
+                interactionidToSend = campaignTabManagerObject.interactionId;
+            }
+            
+            if(callReason && callReason != '' && callResult && callResult != '' && interactionidToSend.length > 0) {
+                var eventType = CONSOLE_EVENT_ON_SAVE_ACTIVITY_UPDATE_SOFTPHONE_WITH_DETAILS;
+                var eventMessage  = interactionidToSend + CONSOLE_MESSAGE_PROPERTY_DELIMITER;
+                    eventMessage += callResult + CONSOLE_MESSAGE_PROPERTY_DELIMITER + callReason;
+                    eventMessage += CONSOLE_MESSAGE_PROPERTY_DELIMITER + '{!financialAccountId}' ;
+                sforce.console.fireEvent( eventType, eventMessage ) ;
+            }
+        }
+        
+        function getActivityCodeObjectFromVFRemotingAndPushResultToSoftPhone(activityCodeVal) {
+            
+            if(activityCodeVal && activityCodeVal.length > 0) {
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.TFSC_InteractionEntryPanelController.getActivityCodeObjectFromActivityName}', 
+                     activityCodeVal,
+                     function(result, event){
+                         if(event.status && result !== null && result.hasOwnProperty('CTI_Result__c')){
+                             var callReason = result.CTI_Reason__c;
+                             var callResult = result.CTI_Result__c;
+                             onSaveActivityPushCallReasonAndResultToSoftPhone(callResult, callReason);
+                         }
+                     }
+                );
+                
+            }
+        }
+        
+        function getInOrderActivityCodeObjectFromVFRemotingAndPushResultToSoftPhone(rpcCode, quickCode, skipCode) {
+            
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.TFSC_InteractionEntryPanelController.getInOrderValidActivityCodeObjectFromActivityName}', 
+                     rpcCode,
+                     quickCode,
+                     skipCode,
+                     function(result, event){
+                         if(event.status && result !== null && result.hasOwnProperty('CTI_Result__c')){
+                             var callReason = result.CTI_Reason__c;
+                             var callResult = result.CTI_Result__c;
+                             onSaveActivityPushCallReasonAndResultToSoftPhone(callResult, callReason);
+                             callLaterCloseFATab();
+                         }else{
+                            closeFATab();
+                         }
+                         
+
+                     }
+                );
+        }
+        
+        function callLaterCloseFATab() {
+            window.setTimeout( function(){
+                closeFATab();
+            }, 300 );
+        }
+        
+        
+        function closeFATab(){
+            sforce.console.getEnclosingPrimaryTabId(
+                function(result){
+                    sforce.console.closeTab(
+                        result.id
+                    );
+                }
+            );
+        }
+        
+                
+        function retrieveCampaignName(){
+            aria.api.interaction.getAllAttachedData( 
+                {
+                    interactionId: lastInteractionIdForThisTab
+                },
+                function (result) { //onSuccess
+                    var campaignName = '';
+                    if(result.attachedData) {
+                        campaignName = result.attachedData['GSW_CAMPAIGN_NAME'];
+                    }
+                    
+                    if(campaignName && campaignName.length > 0){
+                    }
+                },
+                function (error) {  //onError 
+                    console.log("Get all attached data failed with error: '" + JSON.stringify(error, null, 2) + ".'"); 
+                }, 
+                function () { //onTimeout  
+                    console.log("Timed out trying to get all data."); 
+                }
+                
+            );
+        }
+    
+        function retrieveAndSetCampaignType(campaignName){
+        
+            Visualforce.remoting.Manager.invokeAction(
+                         '{!$RemoteAction.TFSC_InteractionEntryPanelController.getCampaignTypeFromName}',
+                         campaignName,
+                         function(result, event){
+                            if(event.status){
+                                $j("#campaignType").val(result);
+                            }
+                         });
+        }
+        
+        function getDateFromDateString(str) {
+            var dToReturn;
+            dateList = str.split("/");
+            if(dateList.length == 3) {
+                var m = +dateList[0] - 1;
+                dToReturn = new Date(dateList[2], m, dateList[1]);
+            }
+            return dToReturn;
+        }
+        
+        function getTodayMidnight() {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+            
+            return getDateFromDateString('' + mm + '/' + dd + '/' + yyyy); 
+        }
+        
+        function attemptFrontEndPTPDateValidationAndReturnERRORBOOL() {
+            var boolToReturn = false;
+            try {
+                var pdate1 = $j(".date1Input").val();
+                var pdate2 = $j(".date2Input").val();
+                if(pdate1 !== null && pdate1 !== undefined && pdate1 != '') {
+                    
+                    var todayDate = getTodayMidnight();
+                    var pddate1 = getDateFromDateString(pdate1);
+                    
+                    var pddate2 = null;
+                    if(pdate2 !== null && pdate2 !== undefined && pdate2 != '') {
+                        pddate2 = getDateFromDateString(pdate2);
+                    }
+                    
+                    if(pddate2 !== null && pddate1.getTime() >= pddate2.getTime()) {
+                        document.getElementById("emptyCodeErrorMessage").innerHTML = "PTP Date 2 must be after PTP Date 1.";
+                        $j(".date1Input").addClass("dateError");
+                        boolToReturn = true;
+                    }else if(todayDate.getTime() > pddate1.getTime()) {
+                        document.getElementById("emptyCodeErrorMessage").innerHTML = "PTP Date 1 cannot be prior to today's date.";
+                        $j(".date1Input").addClass("dateError");
+                        boolToReturn = true;
+                    }else{
+                        document.getElementById("emptyCodeErrorMessage").innerHTML = "";
+                        $j(".date1Input").removeClass("dateError");
+                    }
+                }else{
+                    document.getElementById("emptyCodeErrorMessage").innerHTML = "";
+                    $j(".date1Input").removeClass("dateError");
+                }
+            }catch(err){}
+            
+            return boolToReturn;
+            
+        }
+        
+        function validatePTPRules(ptpNumber){
+            var promiseDate;
+            var promiseStartDate;
+            var promiseMethod;
+            var promiseConfirmation;
+            
+            attemptFrontEndPTPDateValidationAndReturnERRORBOOL();
+            
+            
+            if(ptpNumber == '1'){
+                promiseDate = document.getElementById("{!$Component.activityForm.firstPromiseDateId}");
+                promiseStartDate = '{!MONTH(TODAY())}/{!DAY(TODAY())}/{!YEAR(TODAY())}';
+                promiseMethod = document.getElementById("{!$Component.activityForm.firstMethodOfPaymentId}");
+                promiseMethod_2 = promiseMethod;
+                promiseConfirmation = document.getElementById("{!$Component.activityForm.firstConfirmationPTPId}");
+            }else if(ptpNumber == '2'){
+                promiseDate = document.getElementById("{!$Component.activityForm.secondPromiseDateId}");
+                promiseStartDate = document.getElementById("{!$Component.activityForm.firstPromiseDateId}").value;
+                promiseMethod_2 = document.getElementById("{!$Component.activityForm.secondMethodOfPaymentId}");
+                promiseMethod = document.getElementById("{!$Component.activityForm.firstMethodOfPaymentId}");
+                promiseConfirmation = document.getElementById("{!$Component.activityForm.secondConfirmationPTPId}");
+            }
+            
+            var promiseDateVal = $j(promiseDate).val();
+            
+            Visualforce.remoting.Manager.invokeAction(
+            
+                         '{!$RemoteAction.TFSC_InteractionEntryPanelController.checkPromiseToPayRules}', 
+                         promiseDateVal,
+                         promiseMethod.value,
+                         promiseMethod_2.value,
+                         promiseStartDate,
+                         promiseConfirmation.value,
+                         ptpNumber,
+                         function(result, event){
+                             if(event.status){
+                                    if(ptpNumber == '1'){
+                                        if(!result["DateRulePromise_1"]){
+                                            $j(promiseDate).addClass("dateError");
+                                        }else {
+                                            $j(promiseDate).removeClass("dateError");
+                                        }
+                                        
+                                        if(!result["WuspConfirmationRequired_1"]){
+                                            $j(promiseConfirmation).addClass("dateError");
+                                        }else {
+                                            $j(promiseConfirmation).removeClass("dateError");
+                                        }
+                                    }else if(ptpNumber == '2'){
+                                        if(!result["DateRulePromise_2"]){
+                                            $j(promiseDate).addClass("dateError");
+                                        }else{
+                                            $j(promiseDate).removeClass("dateError");
+                                        }
+                                        
+                                        if(!result["WuspConfirmationRequired_2"]){
+                                            $j(promiseConfirmation).addClass("dateError");
+                                        }else{
+                                            $j(promiseConfirmation).removeClass("dateError");
+                                        }
+                                        
+                                    }
+                             }
+                         }
+              );
+        }
+        
+        
+        
+        function isNotNullAndIsFalse(value) {
+            if(value !== undefined && value !== null && value == false)
+                return true;
+            
+            return false;
+        }
+        
+        
+        
+        function validateAndSaveActivities(selectedName){
+            syncHiddenValues();
+            clearIncompleteDataErrorMessage();
+            
+            //used for pushing vals to soft phone
+            //quickCodeId, rpcCodeId, skipCodeId
+            var activityCodeVal;
+            
+            var boolError = attemptFrontEndPTPDateValidationAndReturnERRORBOOL();
+            if( boolError == true ) {
+                return;
+            }
+            
+            if(selectedName == 'rpc-note-tabname'){
+                var promiseDate_1 = document.getElementById("{!$Component.activityForm.firstPromiseDateId}");
+                var promiseMethod_1 = document.getElementById("{!$Component.activityForm.firstMethodOfPaymentId}");
+                var promiseAmount_1 = document.getElementById("{!$Component.activityForm.firstAmountPTPId}");
+                var promiseConfirmation_1 = document.getElementById("{!$Component.activityForm.firstConfirmationPTPId}");
+                
+                var promiseDate_2 = document.getElementById("{!$Component.activityForm.secondPromiseDateId}");
+                var promiseMethod_2 = document.getElementById("{!$Component.activityForm.secondMethodOfPaymentId}");
+                var promiseAmount_2 = document.getElementById("{!$Component.activityForm.secondAmountPTPId}");
+                var promiseConfirmation_2 = document.getElementById("{!$Component.activityForm.secondConfirmationPTPId}");
+                
+                var rpcCode = document.getElementById("{!$Component.activityForm.rpcCodeId}");
+                var rpcNote = document.getElementById("{!$Component.activityForm.rpcNotesId}");
+                
+                var promiseDate1Val = $j(promiseDate_1).val();
+                var promiseDate2Val = $j(promiseDate_2).val();
+                
+                //console.log('rpcCode = ' + rpcCode.value);
+                //console.log('promiseAmount_1.value = ' + promiseAmount_1.value + '; promiseMethod_1.value = ' + promiseMethod_1.value + '; promiseDate_1.value = ' + promiseDate_1.value);
+                //console.log('promiseAmount_2.value = ' + promiseAmount_2.value + '; promiseMethod_2.value = ' + promiseMethod_2.value + '; promiseDate_2.value = ' + promiseDate_2.value);
+                //console.log('rpcCode = ' + rpcCode.value + '; rpcNote = ' + rpcNote.value);
+                if(rpcCode == null || rpcCode.value == 'None'){
+                    $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                    document.getElementById("emptyCodeErrorMessage").innerHTML = "Cannot save activity if RPC Code is 'None'.";
+                }else{
+                    clearCodeErrorMessage();
+                    if(validateAmount(getCleanAmount(promiseAmount_1.value), 'invalidAmount_1') && validateAmount(getCleanAmount(promiseAmount_2.value), 'invalidAmount_2')){
+                        disableSaveButtons();
+                        activityCodeVal = rpcCode.value; //used for pushing values to softPhone
+                        Visualforce.remoting.Manager.invokeAction(
+                                     '{!$RemoteAction.TFSC_InteractionEntryPanelController.validatePromiseData}', 
+                                     promiseDate1Val,
+                                     promiseMethod_1.value,
+                                     getCleanAmount(promiseAmount_1.value),
+                                     promiseConfirmation_1.value,
+                                     promiseDate2Val,
+                                     promiseMethod_2.value, 
+                                     getCleanAmount(promiseAmount_2.value),
+                                     promiseConfirmation_2.value,
+                                     '',
+                                     '',
+                                     rpcCode.value,
+                                     rpcNote.value,
+                                     '',
+                                     '',
+                                     selectedName,
+                                     function(result, event){
+                                         enableSaveButtons();
+                                         if(event.status){
+                                                    var isAllValid = true;
+                                                    if( isNotNullAndIsFalse(result["RPCNoteRequiredForCode"]) ){
+                                                        $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                                                        document.getElementById("emptyCodeErrorMessage").innerHTML = "The selected RPC code '" + rpcCode.value + "' requires a note.";
+                                                        isAllValid = false;
+                                                    }
+                                                    if( isNotNullAndIsFalse(result["PTPRequiredForRPCCode"]) ){
+                                                        $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                                                        var oldInnerHtml = document.getElementById("emptyCodeErrorMessage").innerHTML;
+                                                        document.getElementById("emptyCodeErrorMessage").innerHTML = oldInnerHtml + "<br/> The selected RPC code '" + rpcCode.value + "' requires a promise-to-pay.";
+                                                        isAllValid = false;
+                                                    }
+                                                    if( isNotNullAndIsFalse(result["PTPNotAllowedForRPCCode"]) ){
+                                                        $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                                                        var oldInnerHtml = document.getElementById("emptyCodeErrorMessage").innerHTML;
+                                                        document.getElementById("emptyCodeErrorMessage").innerHTML = oldInnerHtml + "<br/> The selected RPC code '" + rpcCode.value + "' does not allow a promise-to-pay.";
+                                                        isAllValid = false;
+                                                    }
+                                                    if( isNotNullAndIsFalse(result["DateRulePromise_1"]) ){
+                                                        $j(promiseDate_1).addClass("dateError");
+                                                        isAllValid = false;
+                                                    }
+                                                    if( isNotNullAndIsFalse(result["CompleteDataPromise_1"]) ){
+                                                        $j("#errorMessage1").addClass("errorMessage");
+                                                        document.getElementById("errorMessage1").innerHTML = "Incomplete Data in PTP #1: Date, Method and Amount must ALL be filled or ALL be empty.";
+                                                        isAllValid = false;
+                                                    }
+                                                    if( isNotNullAndIsFalse(result["WuspConfirmationRequired_1"]) ){
+                                                        $j(promiseConfirmation_1).addClass("dateError");
+                                                        isAllValid = false;
+                                                    }
+                                                    if( isNotNullAndIsFalse(result["DateRulePromise_2"]) ){
+                                                        $j(promiseDate_2).addClass("dateError");
+                                                        isAllValid = false;
+                                                    }
+                                                    if( isNotNullAndIsFalse(result["Date2LessThanDate1"]) ){
+                                                        $j("#errorMessage1").addClass("errorMessage");
+                                                        document.getElementById("errorMessage1").innerHTML = "PTP Date 2 must be after PTP Date 1.";
+                                                        isAllValid = false;
+                                                    }
+                                                    if( isNotNullAndIsFalse(result["CompleteDataPromise_2"]) ){
+                                                        $j("#errorMessage2").addClass("errorMessage");
+                                                        document.getElementById("errorMessage2").innerHTML = "Incomplete Data in PTP #2: Date, Method and Amount must ALL be filled or ALL be empty.";
+                                                        isAllValid = false;
+                                                    }
+                                                    if( isNotNullAndIsFalse(result["WuspConfirmationRequired_2"]) ){
+                                                        $j(promiseConfirmation_2).addClass("dateError");
+                                                        isAllValid = false;
+                                                    }
+                                                    if(isAllValid){
+                                                        lastActivityAcronym = rpcCode.value;
+                                                        //showActivitySavedMessage( rpcCode.value );
+                                                        clearIncompleteDataErrorMessage();
+                                                        parsedRpcVal = rpcCode.value; //to parse for post save error.
+                                                        disableSaveButtons();
+                                                        saveCurrentRPCActivity();
+                                                    }
+                                             
+                                             bindChangeWatchers();
+                                         }//end if(event.status)
+                                         else{
+                                                 $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                                                 document.getElementById("emptyCodeErrorMessage").innerHTML = "Network connectivity error.  Try again.";
+                                         }
+                                     }
+                          );
+                    }
+                }
+            }else if(selectedName == 'quick-note-tabname'){
+                    var quickCode = document.getElementById("{!$Component.activityForm.quickCodeId}");
+                    var quickNote = document.getElementById("{!$Component.activityForm.quickNotesId}");
+                    if(quickCode == null || quickCode.value == 'None'){
+                        $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                        document.getElementById("emptyCodeErrorMessage").innerHTML = "Cannot save activity if Quick Code is 'None'.";
+                    }else{
+                        activityCodeVal = quickCode.value; //used for pushing values to softPhone
+                        disableSaveButtons();
+                        Visualforce.remoting.Manager.invokeAction(
+                                     '{!$RemoteAction.TFSC_InteractionEntryPanelController.checkRPCCodeRules}',
+                                     '',
+                                     'None',
+                                     '',
+                                     quickCode.value,
+                                     quickNote.value,
+                                     selectedName,
+                                     function(result, event){
+                                        enableSaveButtons();
+                                        if(event.status){
+                                            var isAllValid = true;
+                                            if(!result["QuickNoteRequiredForCode"]){
+                                                $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                                                document.getElementById("emptyCodeErrorMessage").innerHTML = "The selected Quick code '" + quickCode.value + "' requires a note.";
+                                                isAllValid = false;
+                                            }else{
+                                                //showActivitySavedMessage( quickCode.value );
+                                                lastActivityAcronym = quickCode.value;
+                                                
+                                                clearCodeErrorMessage();
+                                                parsedQuickCodeVal = quickCode.value;
+                                                disableSaveButtons();
+                                                saveCurrentActivitiesQuick();
+                                            }
+                                        }//end if(event.status)
+                                        else{
+                                                $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                                                document.getElementById("emptyCodeErrorMessage").innerHTML = "Network connectivity error.  Try again.";
+                                        }
+                                        
+                                        bindChangeWatchers();
+                                     }
+                        );
+
+                    }
+            }else if(selectedName == 'skip-note-tabname'){
+                    var skipCode = document.getElementById("{!$Component.activityForm.skipCodeId}");
+                    var skipNote = document.getElementById("{!$Component.activityForm.skipNotesId}");
+                    if(skipCode == null || skipCode.value == 'None'){
+                        $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                        document.getElementById("emptyCodeErrorMessage").innerHTML = "Cannot save activity if Skip Code is 'None'.";
+                    }else{
+                        activityCodeVal = skipCode.value; //used for pushing values to softPhone
+                        disableSaveButtons();
+                        Visualforce.remoting.Manager.invokeAction(
+                                     '{!$RemoteAction.TFSC_InteractionEntryPanelController.checkRPCCodeRules}',
+                                     '',
+                                     'None',
+                                     '',
+                                     skipCode.value,
+                                     skipNote.value,
+                                     selectedName,
+                                     function(result, event){
+                                        enableSaveButtons();
+                                        if(event.status){
+                                            var isAllValid = true;
+                                            if(!result["SkipNoteRequiredForCode"]){
+                                                $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                                                document.getElementById("emptyCodeErrorMessage").innerHTML = "The selected Quick code '" + skipCode.value + "' requires a note.";
+                                                isAllValid = false;
+                                            }else{
+                                                //showActivitySavedMessage( skipCode.value );
+                                                lastActivityAcronym = skipCode.value;
+                                                
+                                                clearCodeErrorMessage();
+                                                updateCaseStatusOnSkipSave();
+                                                
+                                                parsedSkipCodeVal = skipCode.value;
+                                                disableSaveButtons();
+                                                saveCurrentActivitiesSkip();
+                                                
+                                            }
+                                        } //end if(event.status)
+                                        else{
+                                                $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                                                document.getElementById("emptyCodeErrorMessage").innerHTML = "Network connectivity error.  Try again.";
+                                        }
+                                        bindChangeWatchers();
+                                     }
+                        );
+                    }
+            }
+            
+        }
+        
+        var parsedRpcVal = '';
+        function afterSuccessfulRpcRun() {
+            var errString = $j(".saveResponseErrMsg").html();
+            if(errString === undefined || errString === null || errString == '') {
+                fireConsolidateNotesUpdateEvent('{!financialAccountId}');
+                getActivityCodeObjectFromVFRemotingAndPushResultToSoftPhone(parsedRpcVal);
+            }
+        }
+        
+        var parsedQuickCodeVal = '';
+        function afterSuccessfulQuickNoteRun() {
+            var errString = $j(".saveResponseErrMsg").html();
+            if(errString === undefined || errString === null || errString == '') { 
+                fireConsolidateNotesUpdateEvent('{!financialAccountId}');
+                getActivityCodeObjectFromVFRemotingAndPushResultToSoftPhone(parsedQuickCodeVal);
+            }
+        }
+        
+        var parsedSkipCodeVal = '';
+        function afterSuccessfulSkipNoteRun() {
+            var errString = $j(".saveResponseErrMsg").html();
+            if(errString === undefined || errString === null || errString == '') {
+                fireConsolidateNotesUpdateEvent('{!financialAccountId}');
+                getActivityCodeObjectFromVFRemotingAndPushResultToSoftPhone(parsedSkipCodeVal);
+            }
+        }
+        
+        
+        function clearCodeErrorMessage(){
+            $j("#emptyCodeErrorMessage").removeClass("errorMessage");
+            document.getElementById("emptyCodeErrorMessage").innerHTML = "";
+        }
+
+        function clearIncompleteDataErrorMessage(){
+            document.getElementById("errorMessage1").innerHTML = "";
+            document.getElementById("errorMessage2").innerHTML = ""
+        }
+        
+        function resetPromiseToPay(){
+            var promiseDate_1 = document.getElementById("{!$Component.activityForm.firstPromiseDateId}");
+            var promiseMethod_1 = document.getElementById("{!$Component.activityForm.firstMethodOfPaymentId}");
+            var promiseAmount_1 = document.getElementById("{!$Component.activityForm.firstAmountPTPId}");
+            var promiseConfirmation_1 = document.getElementById("{!$Component.activityForm.firstConfirmationPTPId}");
+            
+            var promiseDate_2 = document.getElementById("{!$Component.activityForm.secondPromiseDateId}");
+            var promiseMethod_2 = document.getElementById("{!$Component.activityForm.secondMethodOfPaymentId}");
+            var promiseAmount_2 = document.getElementById("{!$Component.activityForm.secondAmountPTPId}");
+            var promiseConfirmation_2 = document.getElementById("{!$Component.activityForm.secondConfirmationPTPId}");
+            
+            promiseDate_1.value = '';
+            promiseMethod_1.value = 'None';
+            promiseAmount_1.value = '';
+            promiseConfirmation_1.value = '';
+            
+        }
+
+        function enableOrDisableSecondPromise(){
+                var promiseDate_1 = document.getElementById("{!$Component.activityForm.firstPromiseDateId}").value;
+                var promiseMethod_1 = document.getElementById("{!$Component.activityForm.firstMethodOfPaymentId}").value;
+                var promiseAmount_1 = document.getElementById("{!$Component.activityForm.firstAmountPTPId}").value;
+                var promiseConfirmation_1 = document.getElementById("{!$Component.activityForm.firstConfirmationPTPId}").value;
+                
+                console.log("promiseDate_1 = " + promiseDate_1);
+                console.log("promiseMethod_1 = " + promiseMethod_1);
+                console.log("promiseAmount_1 = " + promiseAmount_1);
+                console.log("promiseConfirmation_1 = " + promiseConfirmation_1);
+                
+                if($j.trim(promiseDate_1) != '' && $j.trim(promiseMethod_1) != 'None' && $j.isNumeric($j.trim(getCleanAmount(promiseAmount_1)))){
+
+                    $j(document.getElementById("wrapSecondAmount")).css("display", "");
+                    $j(document.getElementById("wrapSecondDate")).css("display", "");
+                    $j(document.getElementById("wrapSecondMethod")).css("display", "");
+                    $j(document.getElementById("wrapSecondConfirmation")).css("display", "");
+                    $j(document.getElementById("secondAmountDisabledInput")).hide();
+                    $j(document.getElementById("secondDateDisabledInput")).hide();
+                    $j(document.getElementById("secondMethodDisabledInput")).hide();
+                    $j(document.getElementById("secondConfirmationDisabledInput")).hide();
+                    
+                }else{
+                    
+                    var tpromiseDate_2 = document.getElementById("{!$Component.activityForm.secondPromiseDateId}");
+                    var tpromiseMethod_2 = document.getElementById("{!$Component.activityForm.secondMethodOfPaymentId}");
+                    var tpromiseAmount_2 = document.getElementById("{!$Component.activityForm.secondAmountPTPId}");
+                    var tpromiseConfirmation_2 = document.getElementById("{!$Component.activityForm.secondConfirmationPTPId}");
+                    $j(tpromiseDate_2).val('');
+                    $j(tpromiseMethod_2).val('None');
+                    $j(tpromiseAmount_2).val('');
+                    $j(tpromiseConfirmation_2).val('');
+                    
+                    $j(document.getElementById("wrapSecondAmount")).css("display", "none");
+                    $j(document.getElementById("wrapSecondDate")).css("display", "none");
+                    $j(document.getElementById("wrapSecondMethod")).css("display", "none");
+                    $j(document.getElementById("wrapSecondConfirmation")).css("display", "none");
+                    $j(document.getElementById("secondAmountDisabledInput")).show();
+                    $j(document.getElementById("secondDateDisabledInput")).show();
+                    $j(document.getElementById("secondMethodDisabledInput")).show();
+                    $j(document.getElementById("secondConfirmationDisabledInput")).show();
+                }
+        }
+        
+        function validateRFDAndGenerateNoteButton(){
+                var rfd = document.getElementById("{!$Component.activityForm.reasonOfDelinquencyId}");
+                var rfdText = document.getElementById("{!$Component.activityForm.reasonOfDelinquencyNoteId}");
+                
+                if(rfd.value == 'OTHER' && $j.trim(rfdText.value) == ''){
+                    $j(rfdText).addClass("dateError");
+                }else{
+                    $j(rfdText).removeClass("dateError");
+                    
+                    setMousePointerBusy(true);
+                    generateFormattedNote();
+                }
+        
+        }
+        
+        function setMousePointerBusy(bool) {
+            if(bool == true) {
+                $j(".mainContentClassSelector").addClass('busy');  
+            }else{
+                $j(".mainContentClassSelector").removeClass('busy');
+            }
+        }
+        
+        
+        function getPriorityActivityCode(quickCode, rpcCode, skipCode){
+                if(rpcCode !== 'None' && rpcCode !== '' || rpcCode !== undefined)
+                    return rpcCode;
+                else if(quickCode !== 'None' && quickCode !== '' && quickCode !== undefined)
+                    return quickCode;
+                else if(skipCode !== 'None' && skipCode !== '' && skipCode !== undefined)
+                    return skipCode;
+                else
+                    '';
+        }
+        
+        function saveAllActivitiesAndCloseFinancialAccount(){
+            syncHiddenValues();
+            clearIncompleteDataErrorMessage();
+            var isAllValid = true;
+            
+            var quickCode = $j("input[type=hidden]#hiddenQuickCode").val();
+            var quickNote = $j("input[type=hidden]#hiddenQuickNote").val();
+            
+            var rpcCode = $j("input[type=hidden]#hiddenRPCCode").val();
+            var rpcNote;
+            if(document.getElementById("{!$Component.activityForm.rpcNotesId}") !== null){
+                rpcNote = document.getElementById("{!$Component.activityForm.rpcNotesId}").value;
+            }else{
+                rpcNote = $j("input[type=hidden]#hiddenRPCNote").val();
+            }
+            
+            var skipCode = $j("input[type=hidden]#hiddenSkipCode").val();
+            var skipNote = $j("input[type=hidden]#hiddenSkipNote").val();
+            
+            parsedSkipCodeVal = skipCode;
+            parsedRpcVal = rpcCode;
+            parsedQuickCodeVal = quickCode;
+            
+            var rpcTabName = 'rpc-note-tabname';
+            // Check that rpc data are valid
+            console.log('rpcCodeAll = ' + rpcCode);
+            // If a quick Note was entered without a quick Code
+            if($j.trim(quickNote) != '' && (quickCode == 'None' || quickCode == '')){
+                $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                document.getElementById("emptyCodeErrorMessage").innerHTML = "Quick Code cannot be 'None' when the Quick Note is not empty.";
+            }else if($j.trim(rpcNote) != '' && (rpcCode == 'None' || rpcCode == '')){
+                $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                document.getElementById("emptyCodeErrorMessage").innerHTML = "RPC Code cannot be 'None' when the RPC Note is not empty.";
+            }else if($j.trim(skipNote) != '' && (skipCode == 'None' || skipCode == '')){
+                $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                document.getElementById("emptyCodeErrorMessage").innerHTML = "Skip Code cannot be 'None' when the Skip Note is not empty.";
+            }else if( attemptFrontEndPTPDateValidationAndReturnERRORBOOL() ) {
+                //nothing to do here... display is done in method.
+            }else{
+
+                    var promiseDate_1 = document.getElementById("{!$Component.activityForm.firstPromiseDateId}");
+                    var promiseMethod_1 = document.getElementById("{!$Component.activityForm.firstMethodOfPaymentId}");
+                    var promiseAmount_1 = document.getElementById("{!$Component.activityForm.firstAmountPTPId}");
+                    var promiseConfirmation_1 = document.getElementById("{!$Component.activityForm.firstConfirmationPTPId}");
+                    
+                    var promiseDate_2 = document.getElementById("{!$Component.activityForm.secondPromiseDateId}");
+                    var promiseMethod_2 = document.getElementById("{!$Component.activityForm.secondMethodOfPaymentId}");
+                    var promiseAmount_2 = document.getElementById("{!$Component.activityForm.secondAmountPTPId}");
+                    var promiseConfirmation_2 = document.getElementById("{!$Component.activityForm.secondConfirmationPTPId}");
+                    
+                    //console.log('promiseAmount_1.value = ' + promiseAmount_1.value + '; promiseMethod_1.value = ' + promiseMethod_1.value + '; promiseDate_1.value = ' + promiseDate_1.value);
+                    //console.log('promiseAmount_2.value = ' + promiseAmount_2.value + '; promiseMethod_2.value = ' + promiseMethod_2.value + '; promiseDate_2.value = ' + promiseDate_2.value);
+                    //console.log('quickCode = ' + quickCode + '; rpcCode = ' + rpcCode + '; skipCode = ' + skipCode);
+                    //console.log('quickNote = ' + quickNote + '; rpcNote = ' + rpcNote + '; skipNote = ' + skipNote);
+                    clearCodeErrorMessage();
+                    
+                    if(validateAmount(getCleanAmount(promiseAmount_1.value), 'invalidAmount_1') && validateAmount(getCleanAmount(promiseAmount_2.value), 'invalidAmount_2')){
+                        disableSaveButtons();
+                        Visualforce.remoting.Manager.invokeAction(
+                                     '{!$RemoteAction.TFSC_InteractionEntryPanelController.validatePromiseData}', 
+                                     $j(promiseDate_1).val(),
+                                     promiseMethod_1.value,
+                                     getCleanAmount(promiseAmount_1.value),
+                                     promiseConfirmation_1.value,
+                                     $j(promiseDate_2).val(),
+                                     promiseMethod_2.value, 
+                                     getCleanAmount(promiseAmount_2.value),
+                                     promiseConfirmation_2.value,
+                                     quickCode,
+                                     quickNote,
+                                     rpcCode,
+                                     rpcNote,
+                                     skipCode,
+                                     skipNote,
+                                     '',
+                                     function(result, event){
+                                        enableSaveButtons();
+                                        if(event.status){
+                                                    var isAllValid = true;
+                                                    var codeValForReasonAndResult;
+                                                    var isCodeValForReasonAndResultSet = false;
+                                                    // If the rpcCode is not null/empty
+                                                    if(rpcCode != null && rpcCode != 'None' && rpcCode != ''){
+                                                        if(validateAmount(getCleanAmount(promiseAmount_1.value), 'invalidAmount_1') && validateAmount(getCleanAmount(promiseAmount_2.value), 'invalidAmount_2')){
+                                                        
+                                                                if(!result["RPCNoteRequiredForCode"]){
+                                                                    $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                                                                    document.getElementById("emptyCodeErrorMessage").innerHTML = "The selected RPC code '" + rpcCode + "' requires a note.";
+                                                                    isAllValid = false;
+                                                                }
+                                                                if(!result["PTPRequiredForRPCCode"]){
+                                                                    $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                                                                    var oldInnerHtml = document.getElementById("emptyCodeErrorMessage").innerHTML;
+                                                                    document.getElementById("emptyCodeErrorMessage").innerHTML = oldInnerHtml + "<br/> The selected RPC code '" + rpcCode + "' requires a promise-to-pay.";
+                                                                    isAllValid = false;
+                                                                }
+                                                                if(!result["PTPNotAllowedForRPCCode"]){
+                                                                    $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                                                                    var oldInnerHtml = document.getElementById("emptyCodeErrorMessage").innerHTML;
+                                                                    document.getElementById("emptyCodeErrorMessage").innerHTML = oldInnerHtml + "<br/> The selected RPC code '" + rpcCode.value + "' does not allow a promise-to-pay.";
+                                                                    isAllValid = false;
+                                                                }
+                                                                if(!result["DateRulePromise_1"]){
+                                                                    $j(promiseDate_1).addClass("dateError");
+                                                                    isAllValid = false;
+                                                                }
+                                                                if(!result["CompleteDataPromise_1"]){
+                                                                    $j("#errorMessage1").addClass("errorMessage");
+                                                                    document.getElementById("errorMessage1").innerHTML = "Incomplete Data in PTP #1: Date, Method and Amount must ALL be filled or ALL be empty.";
+                                                                    isAllValid = false;
+                                                                }
+                                                                if(!result["WuspConfirmationRequired_1"]){
+                                                                    $j(promiseConfirmation_1).addClass("dateError");
+                                                                    isAllValid = false;
+                                                                }
+                                                                if(!result["DateRulePromise_2"]){
+                                                                    $j(promiseDate_2).addClass("dateError");
+                                                                    isAllValid = false;
+                                                                }
+                                                                if(!result["CompleteDataPromise_2"]){
+                                                                    $j("#errorMessage2").addClass("errorMessage");
+                                                                    document.getElementById("errorMessage2").innerHTML = "Incomplete Data in PTP #2: Date, Method and Amount must ALL be filled or ALL be empty.";
+                                                                    isAllValid = false;
+                                                                }
+                                                                if(!result["WuspConfirmationRequired_2"]){
+                                                                    $j(promiseConfirmation_2).addClass("dateError");
+                                                                    isAllValid = false;
+                                                                }
+                                                        
+                                                        }else{
+                                                            isAllValid = false;
+                                                        }
+                                                    }
+                                                    // If the quickCode is not null/empty
+                                                    if(quickCode != null && quickCode != 'None' && quickCode != ''){
+                                                                if(!result["QuickNoteRequiredForCode"]){
+                                                                    $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                                                                    var oldInnerHtml = document.getElementById("emptyCodeErrorMessage").innerHTML;
+                                                                    document.getElementById("emptyCodeErrorMessage").innerHTML = oldInnerHtml + "<br/>The selected Quick code '" + quickCode + "' requires a note.";
+                                                                    isAllValid = false;
+                                                                }
+                                                    }
+                                                    
+                                                    // If the skipCode is not null/empty
+                                                    if(skipCode != null && skipCode != 'None' && skipCode != ''){
+                                                                if(!result["SkipNoteRequiredForCode"]){
+                                                                    $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                                                                    var oldInnerHtml = document.getElementById("emptyCodeErrorMessage").innerHTML;
+                                                                    document.getElementById("emptyCodeErrorMessage").innerHTML = oldInnerHtml + "<br/>The selected Skip code '" + skipCode + "' requires a note.";
+                                                                    isAllValid = false;
+                                                                }else{
+                                                                    clearCodeErrorMessage();
+                                                                    updateCaseStatusOnSkipSave();
+                                                                    
+                                                                }
+                                                    }
+                                                    // Set call result and call reason back to Softphone
+                                                    if(isAllValid){
+                                                        var activityCode = getPriorityActivityCode(quickCode, rpcCode, skipCode);
+                                                        //getActivityCodeObjectFromVFRemotingAndPushResultToSoftPhone(activityCode);
+                                                    }
+                                                    saveAndClosePrimaryTab(isAllValid, rpcCode, quickCode, skipCode);
+                                                    
+                                         }// !!!!END if(event.status)
+                                         else{
+                                                 $j("#emptyCodeErrorMessage").addClass("errorMessage");
+                                                 document.getElementById("emptyCodeErrorMessage").innerHTML = "Network connectivity error.  Try again.";
+                                         }
+                                     }
+                          );
+                    }
+              }
+        }
+        
+        function saveAndClosePrimaryTab(isAllValid, rpcCode, quickCode, skipCode){
+            if(isAllValid){
+                    parsedRpcCode = rpcCode;
+                    parsedQuickCode = quickCode;
+                    parsedSkipCode = skipCode;
+                    saveAllActivities();
+            }
+        }
+        var parsedRpcCode = '';
+        var parsedQuickCode = '';
+        var parsedSkipCode = '';
+        function runMethodsAfterAllSaved() {
+            
+            var errString = $j(".saveResponseErrMsg").html();
+            if(errString === undefined || errString === null || errString == '') {
+                fireConsolidateNotesUpdateEvent('{!financialAccountId}');
+                getInOrderActivityCodeObjectFromVFRemotingAndPushResultToSoftPhone(parsedRpcCode, parsedQuickCode, parsedSkipCode);
+            }
+        }
+          
+        function validateAmount(amount, errorId){
+            if(!$j.isNumeric(amount) && amount != null && $j.trim(amount) != ''){
+                $j("#" + errorId).show();
+                return false;
+            }else{
+                $j("#" + errorId).hide();
+                return true;
+            }
+        }
+        
+                
+        function fireConsolidateNotesUpdateEvent(faId){
+                if(sforce.console.isInConsole()){
+                    sforce.console.fireEvent(CONCOLE_EVENT_CONSOLIDATED_NOTES_UPDATE, faId, function(result){
+                            if (result.success) { 
+                                   console.log('The ' + CONCOLE_EVENT_CONSOLIDATED_NOTES_UPDATE + ' event is successfully fired.');
+                            } else { 
+                                   console.log('The ' + CONCOLE_EVENT_CONSOLIDATED_NOTES_UPDATE + ' event could not be fired.');
+                            } 
+                        }
+                    );
+                } 
+        }
+        
+        function triggerUIChanges(errorId, amountNumber){
+            
+            var amount;
+
+            if(amountNumber == '1'){
+                amount = document.getElementById("{!$Component.activityForm.firstAmountPTPId}").value;
+                amount = getCleanAmount(amount);
+                console.log('INVALID_AMOUNT_AMOUNT_NUMBER: ' + amount);
+                if(validateAmount(amount, errorId)){
+                    enableOrDisableSecondPromise(); 
+                    setBalances();
+                }
+            }else{
+                amount = document.getElementById("{!$Component.activityForm.secondAmountPTPId}").value;
+                amount = getCleanAmount(amount);
+                if(validateAmount(amount, errorId)){
+                    setBalances();
+                }
+            }
+        }
+        
+        function syncHiddenValues() {
+            try {
+                setHiddenRPCCode();
+                setHiddenRPCNote(); 
+            }
+            catch(err1) {
+            }
+            
+            try {
+                setHiddenQuickCode();
+                setHiddenQuickNote(); 
+            }
+            catch(err2) {
+            }
+            
+            try {
+                setHiddenSkipCode();
+                setHiddenSkipNote(); 
+            }
+            catch(err3) {
+            }
+            
+        }
+        //function to clear RFD text on change of RFD picklist
+        function clearRFDText(){
+            document.getElementById("{!$Component.activityForm.reasonOfDelinquencyNoteId}").value = "";
+        }
+        //6/29/2015 Created for Story S-310348 #Start
+        function clearTalkedTo(){
+            document.getElementById("{!$Component.activityForm.talkedtoId}").value = "";
+        }// S-310348 #End
+        function setHiddenQuickCode(){
+            var quickCode = document.getElementById("{!$Component.activityForm.quickCodeId}").value;
+            console.log('QUICK_CODE = ' + quickCode);
+            $j("#hiddenQuickCode").val(quickCode);
+        }
+        function setHiddenQuickNote(){
+            var quickNote = document.getElementById("{!$Component.activityForm.quickNotesId}").value;
+            setCharLimitWarningMessage(quickNote);
+            $j("#hiddenQuickNote").val(quickNote);
+        }
+         
+        function setHiddenRPCCode(){
+            var rpcCode = document.getElementById("{!$Component.activityForm.rpcCodeId}").value;
+            $j("#hiddenRPCCode").val(rpcCode);
+        }
+        function setHiddenRPCNote(){
+            var rpcNote = document.getElementById("{!$Component.activityForm.rpcNotesId}").value;
+            setCharLimitWarningMessage(rpcNote);
+            $j("#hiddenRPCNote").val(rpcNote);
+        }
+              
+        function setHiddenSkipCode(){
+            var skipCode = document.getElementById("{!$Component.activityForm.skipCodeId}").value;
+            $j("#hiddenSkipCode").val(skipCode);
+        }
+        function setHiddenSkipNote(){
+            var skipNote = document.getElementById("{!$Component.activityForm.skipNotesId}").value;
+            setCharLimitWarningMessage(skipNote);
+            $j("#hiddenSkipNote").val(skipNote);
+        }
+        
+        function setCharLimitWarningMessage(textInputString) {
+            var msg = '';
+            
+            if(textInputString && textInputString.length >= 430 && textInputString.length <= 450) {
+                var remaining = 450 - textInputString.length;
+                msg = '' + remaining + ' characters remaining. Use a CONT note on Quick tab to continue';
+            }else if(textInputString && textInputString.length < 430) {
+                msg = '';
+            }else if(textInputString && textInputString.length > 450) {
+                var remainingOver = textInputString.length - 450;
+                msg = 'Current note length is ' + remainingOver + ' characters over the 450 limit.' ;
+            }
+            
+            $j("#countDownErrorMessage").html(msg);
+        }
+        
+        function talkingPointsTable(){
+            $j('#talkinPointTable').dataTable( {
+                "scrollY"       :"100px",
+                "scrollCollapse": true,
+                "paging"        :false,
+                "bFilter"       :false,
+                "bInfo"         :false
+            } );
+        }
+        
+        function getCleanAmount(amount){
+            var cleanAmount;
+            if(amount !== "" || amount !== null){
+                cleanAmount = amount.replace(/[$,]+/g,""); 
+            }else{
+                cleanAmount = "";
+            }
+             
+            return cleanAmount;
+        }
+        
+        function setMaskOnAmount(){
+            $j('.ptpAmount').maskMoney({prefix:'$ ', allowNegative: false, affixesStay: true});
+        }
+        
+        $j(function() {
+            $j(".talkingPointSpanClass").tooltip({
+                content: function () {
+                    if( $j(this).find(".childSpan").html() ) {
+                        var tmpx = $j(this).find(".childSpan").html() ;
+                        return tmpx ;
+                    }
+                    return ' ';
+                },
+                items: 'span',
+                tooltipClass: "talkingPointTooltipClass"
+            })
+              .off("mouseover");
+            
+            
+            $j(".talkingPointSpanClass").click( function() {
+                $j( this ).tooltip( "open" );
+            });
+            
+        });
+        
+        
+        // @jeremy -- lastActivityAcronym is being used because the save and validation were broken apart by last dev.
+        //            I want to call showActivitySavedMessage from the save, and have to chain the 'show message'
+        var lastActivityAcronym = '';
+        function showActivitySavedMessage() {
+        
+            //!!!!!!
+            
+            return;
+            
+            //!!!!!!
+            
+            var msgText = lastActivityAcronym + ' activity saved.';
+            $j("#saveMsgSpan").html(msgText)
+                              .show()
+                              .fadeOut(1500, function(){$(this).hide();} );
+        }
+        
+        function disableSaveButtons() {
+            $j('#mainContentDiv').css({'cursor':'wait'})
+            $j('.getNext').prop("disabled",true);
+            $j('.saveActivity').prop("disabled",true);
+            $j('.saveActivity').css("opacity",".5");
+            $j('.getNext').css("opacity",".5");
+        }
+        
+        function enableSaveButtons() {
+            $j('#mainContentDiv').css({'cursor':'default'})
+            $j('.getNext').prop("disabled",false);
+            $j('.saveActivity').prop("disabled",false);
+            $j('.saveActivity').css("opacity","1");
+            $j('.getNext').css("opacity","1");
+        }
+        //Modified by Shashank Singhal for S-321636 for defect fix to update recommended pass after generate note
+        function refreshPrimaryTab() {
+
+            sforce.console.getFocusedPrimaryTabId(refreshPrimarytab);
+
+        }
+        var refreshPrimarytab = function refreshPrimarytab(result){
+
+            var primaryTabId = result.id;
+    
+            console.log(result);
+    
+            sforce.console.refreshPrimaryTabById(primaryTabId, true, refreshSuccess );         
+
+        }
+        var refreshSuccess = function refreshSuccess(result) {
+    
+            console.log(result);
+    
+            if (result.success == true) {
+    
+                console.log('Primarytab refreshed successfully');
+    
+            } else {
+    
+                console.log('Primarytab did not refresh');
+    
+            }
+    
+        };
+        //End of Defect fix for S-321636
+      
+      
+        window.onload = function() {
+            //if(previousOnLoad) {
+            //  previousOnLoad();
+            //}
+            setTimeout( function(){ getUrlParams() }, 2000 );
+        };
+        
+       $j(document).ready(function() {
+            //console.log('Current Tab = {!currentCodeTab}');
+            //console.log('Current Financial Rec Id = {!financialAccountId} Financial ID = {!financialAccount.Id} and Total Amount Due = {!financialAccount.Total_Amount_Due__c} and Account Number = {!financialAccount.Financial_Account_Number__c}');
+            sforce.console.addEventListener('BorrowerPageEvent', function (result) {
+                    //console.log('Message received from Borrower event: ' + result.message);
+                    setClickedCustomerValues(result.message);
+                    //rerenderRPCCode(); //because of the async nature of the sfdc ajax calls, this has to be done onComplete of setClickedCustomerValues() 
+                }
+            );
+            
+            setMaskOnAmount();
+            
+            talkingPointsTable();
+            bindChangeWatchers();
+            dispatchNewTabOpenedEvent();
+            
+            window.setTimeout( function(){
+                $j("#mainContentDiv").css("display",""); //hokey, but it improves initial load performance of highlights panel by 55-120ms;
+            }, 250 );
+            
+        });
+    </script>
+    <style>
+        .talkingPointTooltipClass{
+            background-color: #000000;
+            color: #FFFFFF;
+            border-radius: 10px;
+        }
+        body { 
+            height: 100%; 
+        }
+        .promiseToPay {
+                background-color: #EFEEFD; /*transparent;*/
+                border-collapse: separate;
+                border-color: #000000;
+                border-spacing: 1px;
+                border-style: solid;
+                width: 100%;
+        }
+        
+        .promiseToPay th, .promiseToPay td {
+                padding: 1px;
+                line-height: 20px;
+                text-align: left;
+                vertical-align: top;
+                border-top: 1px solid #dddddd;
+        }
+        
+        .dataPicker {
+                border: 1px solid #ACADB9;
+                border-radius: 5px;
+                height: 98%;
+                padding: 1px 17px 1px 1px;
+                width: 80%;
+                background: white url('/img/func_icons/util/datePicker16.gif') right no-repeat;
+                
+        }
+        
+        .greyLabel  {
+            color:#767676 ;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .accountNumberLabel{
+                color:#000000 ;
+                font-size: 15px;
+                font-weight: bold;
+        }
+        
+        .comboList{
+                width: 100%;
+        }
+        
+        .saveActivity{
+                vertical-align: bottom;
+                background: none repeat scroll 0 0 #F8D949 !important;
+        }
+        
+        .getNext{
+                vertical-align: bottom;
+                background: none repeat scroll 0 0 #30CB5F !important;
+                float: right;
+        }
+
+        .activityInput{
+                padding: 1px 1px;
+                width: 100%;
+                min-height:50px;
+        }
+        
+        .ptpInput{
+                padding: 1px 1px;
+                width: 90%;
+        }
+        
+        .activityCodePicklist{
+                padding: 1px 1px;
+                width: 50%;
+        }
+        
+        .panel{
+                margin: 5px 1px;
+                height: 100%;
+        }
+
+        .ptpHeader{
+                background-color: #B2B2BF;
+        }
+        
+        .ptpFooter{
+                background-color: #CDCDDC;
+        }
+        .top{
+                overflow: hidden;
+                position: relative;
+                height: 20px;
+        }
+        .talkingPoint{
+                margin: 1px;
+        }
+        .dateError{
+                border-color: #FE5A53;
+                background-color: #FFEB55;
+        }
+        
+        .errorMessage{
+                color: #FD5139;
+                font-size: 10px;
+        }
+        
+        .confirmDataList{
+                width:100%;
+                padding: 7px 2px;
+        }
+        
+        .tableConfirmField td{
+                text-align: right;
+        }
+        
+        .smallConfirmField{
+                width: 25%;
+                margin: 2px;
+        }
+        
+        .talkTo{
+                width: 95%;
+                float: right;
+        }
+
+        .picklistShort{
+                padding: 1px 1px;
+                width: 60%;
+        }
+        
+        .picklistLong{
+                padding: 1px 1px;
+                width: 70%;
+        }
+        
+        .generateNoteButton{
+                float: right;
+        }
+        
+        .topTabClass{
+                background-color: #FFFFFF;
+        }
+        
+        .canddClass{
+                height: 100%;
+                min-height: 600px;
+        }
+        
+        .activeTopTab { 
+                background-color: #93A1AA; color:white; background-image:none; 
+        }
+        .inactiveTopTab { 
+                background-color: white; color:black; background-image:none; 
+        }
+
+        .list_item {
+            position: relative;
+            margin:0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 1);
+            color:#969899;
+            cursor: pointer;
+            -moz-transition: all 0.25s;
+            -webkit-transition: all 0.25s;
+            -o-transition: all 0.25s;
+            transition: all 0.25s;
+        }
+        .list_item:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+        
+        .tableTalkingPoint tr {background-color: #EEEFFF;}
+        .tableTalkingPoint tr:hover {background-color: #DBFEF4;}
+          .tooltip {
+            display:none;
+            background:url(/media/img/tooltip/black_arrow_big.png);
+            height:163px;
+            padding:40px 30px 10px 30px;
+            width:310px;
+            font-size:11px;
+            color:#fff;
+          }
+          
+          .talkingPointClass{
+                border-size: 1px;
+          }
+
+        .div.container {
+                width: 80%;
+           }
+
+          .ptpAmount{
+          }
+          
+    </style>
+
+    <div id="mainContentDiv" class="mainContentClassSelector" style="height:100%;display:none;">
+    
+    <apex:tabPanel styleClass="panel" switchType="client" selectedTab="rpc-top-tabname"  id="topTabPanel" tabClass="activeTopTab" inactiveTabClass="inactiveTopTab" >
+        <apex:tab label="RPC" name="rpc-top-tabname" id="rpc-top-tabid" styleClass="topTabClass">
+            
+            <apex:form id="activityForm">
+                
+                
+                
+                <apex:inputText value="{!lastDialedPhoneNumber}" styleClass="hiddenDialedNumber" style="display:none;" />
+                <!--  US 512 - RM -->
+                <apex:inputText value="{!isKVPRouted}" styleClass="hiddenKVPRouted" style="display:none;" />
+                <apex:inputText styleClass="hiddenCampaignName" value="{!campaignName}" style="display:none;" />
+                <apex:inputText styleClass="hiddenNewPassStrat" value="{!newPassStrategy}" style="display:none;" />
+                
+                <apex:outputText styleClass="greyLabel" value="Account Number: "/>
+                <apex:outputText styleClass="accountNumberLabel" value="{!financialAccount.Financial_Account_Number__c}"/>
+                <div class="confirmDataList">
+                    <table id="ConfirmationTableId">
+                        <tr class="tableConfirmField">
+                            <td >
+                                <apex:outputText styleClass="greyLabel" value="Talked To: "/>
+                                <apex:selectList id="callee-relationship-id"  styleClass="picklistShort relationshipPicklistSelector" 
+                                                 multiselect="false" 
+                                                 size="1" 
+                                                 value="{!interactionPanelWrapper.calleeRelationship}" onchange="clearTalkedTo();"><!--Added js function to clear talked to value Story S-310348-->
+                                    <apex:selectOptions value="{!listOfCalleeRelationships}"/>
+                                </apex:selectList>
+                            </td>
+                            <td class="smallConfirmField" colspan="2">
+                                <apex:inputText id="talkedtoId" styleClass="talkTo" value="{!interactionPanelWrapper.calleeName}"/>
+                            </td>
+                        </tr>
+                        <tr class="tableConfirmField">
+                            <td >
+                                <apex:outputText styleClass="greyLabel" value="VAP: "/>
+                                <apex:selectList id="vpa-id"  styleClass="picklistLong" multiselect="false" size="1" value="{!interactionPanelWrapper.vapChoice}">
+                                    <apex:selectOptions value="{!listOfVPAs}"/>
+                                </apex:selectList>
+                            </td>
+                            <td class="smallConfirmField">
+                                <apex:outputText styleClass="greyLabel" value="Garage: "/>
+                                <apex:inputCheckbox value="{!interactionPanelWrapper.isGarageAddressConfirmed}"/>                           
+                            </td>
+                            <td class="smallConfirmField">
+                                <apex:outputText styleClass="greyLabel" value="Bill To: "/>
+                                <apex:inputCheckbox value="{!interactionPanelWrapper.isBillToAddressConfirmed}"/>
+                            </td>
+                        </tr>
+                        <tr class="tableConfirmField">
+                            <td>
+                                <apex:outputText styleClass="greyLabel" value="Home: "/>
+                                <apex:inputCheckbox value="{!interactionPanelWrapper.isHomePhoneNumber}"/>
+                            </td>
+                            <td class="smallConfirmField">
+                                <apex:outputText styleClass="greyLabel" value="Cell: "/>
+                                <apex:inputCheckbox value="{!interactionPanelWrapper.isCellPhoneNumber}"/>
+                            </td>
+                            <td class="smallConfirmField">
+                                <apex:outputText styleClass="greyLabel" value="Work: "/>
+                                <apex:inputCheckbox value="{!interactionPanelWrapper.isWorkPhoneNumber}"/>  
+                            </td>
+                        </tr>
+                        
+                        <tr class="tableConfirmField">
+                            <td id="rfd">
+                                <apex:outputText styleClass="greyLabel" value="RFD: "/>
+                                <apex:selectList id="reasonOfDelinquencyId"  styleClass="picklistLong" multiselect="false" size="1" value="{!interactionPanelWrapper.reasonOfDelinquency}" onchange="clearRFDText();"><!--Added Onchange Statement for Story S-310930 bY paras dhingra 6/1/2015 -->
+                                    <apex:selectOptions value="{!listOfRFDs}"/>
+                                </apex:selectList>
+                            </td>
+                            <td class="smallConfirmField" colspan="2">
+                                <apex:inputText id="reasonOfDelinquencyNoteId" styleClass="talkTo" value="{!interactionPanelWrapper.reasonOfDelinquencyNote}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- div class="top"> </div-->
+                
+                <!-- apex:pageBlock >
+                    <apex:pageBlockTable value="{!interactionPanelWrapper.listOfTalkingPoints}" var="talkingPoint">
+                        <apex:column value="{!talkingPoint.Title}"/>
+                        <apex:column value="{!talkingPoint.Summary}"/>
+                    </apex:pageBlockTable> 
+                </apex:pageBlock -->
+                <div style="right:0;left:0;" class="talkingPoint">
+                    <!-- table id="talkinPointTable" class="stripe hover"-->
+                   <table id="talkinPointTable" class="display" cellspacing="0" style="right:0;left:0;" >
+                        <thead >
+                            <tr>
+                                <th style="border:0px;">&nbsp;</th>
+                                <th style="border:0px;">Title</th>
+                                <th style="border:0px;">Summary</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <apex:repeat value="{!interactionPanelWrapper.listOfTalkingPoints}" var="talkingPoint">
+                            
+                            <tr id="{!talkingPoint.article.Id}">
+                                <td><apex:inputCheckbox value="{!talkingPoint.isSelected}"/></td>
+                                <td class="talkingPointClass" >{!talkingPoint.article.Title}</td>
+                                <td class="talkingPointClass" >
+                                    <span class="talkingPointSpanClass" >
+                                        {!talkingPoint.article.Summary}
+                                        <span class="childSpan" style="display:none;">
+                                            <apex:outputText escape="false" value="{!talkingPoint.article.Details__c}" />
+                                        </span>
+                                    </span>
+                                </td>
+                            </tr>
+                        </apex:repeat>
+                        </tbody>
+                    </table>
+               </div>
+                
+                <!-- table class='table table-bordered table-hover'>
+                    <tr>
+                        <th>Title</th><th>Summary</th>
+                    </tr>
+                    <apex:repeat value="{!interactionPanelWrapper.listOfTalkingPoints}" var="talkingPoint">
+                        <tr class="list_item">
+                            <td>{!talkingPoint.Title}</td>
+                            <td>{!talkingPoint.Summary}</td>
+                        </tr>
+                    </apex:repeat>                 
+                </table-->
+                
+                <apex:outputPanel id="ptpId" >
+                    <div id="errorMessage1"></div>
+                    <div id="errorMessage2"></div>
+                    <!-- div id="ptpTableWrapperId"  style="display:{!IF(interactionPanelWrapper.rpcCodePTPRequired == true, 'inline', 'none')}"-->
+                    <div>
+                            <table style="width: 100%" cellpadding="0" cellspacing="0" border="0" class="promiseToPay">
+                            <tr class="ptpHeader">
+                                <td>PTP Info</td>
+                                <td>#1</td>
+                                <td>#2</td>
+                            </tr>
+                            <tr>
+                                <td>Method</td>
+                                <td>
+                                        <apex:selectList id="firstMethodOfPaymentId"  styleClass="ptpInput" disabled="false" multiselect="false" size="1" value="{!interactionPanelWrapper.firstMethodOfPayment}" onblur="enableOrDisableSecondPromise();  validatePTPRules('1'); validatePTPRules('2');">
+                                                <apex:selectOptions value="{!MethodsOfPayment}"/>
+                                                <apex:actionSupport event="onchange" reRender="rpcCodeId" oncomplete="bindChangeWatchers();" />
+                                        </apex:selectList>
+                                </td>
+                                <td>
+                                    <div id="wrapSecondMethod" style="display: none;">
+                                        <apex:selectList id="secondMethodOfPaymentId"  styleClass="ptpInput" multiselect="false" size="1" value="{!interactionPanelWrapper.secondMethodOfPayment}" onblur="validatePTPRules('2');">
+                                                <apex:selectOptions value="{!MethodsOfPayment}"/>
+                                        </apex:selectList>
+                                    </div>
+                                    <select id="secondMethodDisabledInput" class="ptpInput" disabled="true">
+                                        <option value="None">None</option>
+                                    </select>
+                                </td> 
+                            </tr>
+                            
+                            <tr>
+                                <td>Amount</td>
+                                <td>
+                                    <apex:inputText id="firstAmountPTPId" maxlength="13" styleClass="ptpInput ptpAmount" disabled="false" value="{!interactionPanelWrapper.firstAmountPTP}" onblur="triggerUIChanges('invalidAmount_1', '1')" onFocus="setMaskOnAmount()"/>
+                                    <span id="invalidAmount_1" class="errorMessage" style="display: none">Invalid Amount</span>
+                                </td> 
+                                <td>
+                                    <div id="wrapSecondAmount" style="display: none;">
+                                        <apex:inputText id="secondAmountPTPId" maxlength="13" styleClass="ptpInput ptpAmount" rendered="true" value="{!interactionPanelWrapper.secondAmountPTP}" onblur="triggerUIChanges('invalidAmount_2', '2')" onFocus="setMaskOnAmount()"/>
+                                        <span id="invalidAmount_2" class="errorMessage" style="display: none">Invalid Amount</span>
+                                    </div>
+                                    <input type="text" id="secondAmountDisabledInput" class="ptpInput" disabled="true"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Date</td>
+                                <td>
+                                    <apex:inputText styleClass="dataPicker date1Input" id="firstPromiseDateId" disabled="false" value="{!interactionPanelWrapper.firstPromiseDate}" onblur="enableOrDisableSecondPromise(); validatePTPRules('1'); validatePTPRules('2');" onfocus="DatePicker.pickDate(false, this , false);"/>
+                                </td> 
+                                <td>
+                                    <div id="wrapSecondDate" style="display: none;">
+                                        <apex:inputText styleClass="dataPicker date2Input" id="secondPromiseDateId" rendered="true" value="{!interactionPanelWrapper.secondPromiseDate}" onfocus="DatePicker.pickDate(false, this , false);" onblur="validatePTPRules('2');"/>
+                                    </div>
+                                    <input type="text" id="secondDateDisabledInput" class="ptpInput" disabled="true"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Confirmation</td>
+                                <td><apex:inputText id="firstConfirmationPTPId" styleClass="ptpInput" disabled="false" value="{!interactionPanelWrapper.firstConfirmationPTP}" onblur="validatePTPRules('1');"/></td>
+                                <td>
+                                    <div id="wrapSecondConfirmation" style="display: none;">
+                                        <apex:inputText id="secondConfirmationPTPId" styleClass="ptpInput" value="{!interactionPanelWrapper.secondConfirmationPTP}" onblur="validatePTPRules('2');"/>
+                                    </div>
+                                    <input type="text" id="secondConfirmationDisabledInput" class="ptpInput" disabled="true"/>
+                                </td>
+                            </tr>
+                            <tr id="ptpFooter" class="ptpFooter">
+                                <td>Balance</td>
+                                <td>
+                                    <apex:outputText id="firstPromiseBalance" value="{0, number,$###,###,##0.00}">
+                                        <apex:param value="{!interactionPanelWrapper.firstBalancePTP}" />
+                                    </apex:outputText>
+                                </td> 
+                                <td>
+                                    <apex:outputText id="secondPromiseBalance" value="{0, number,$###,###,##0.00}">
+                                        <apex:param value="{!interactionPanelWrapper.secondBalancePTP}" />
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                            </table>
+                </div>
+                </apex:outputPanel>
+                <div>
+                    
+                    <div id="emptyCodeErrorMessage" style="font-size:10px; color:#FD5139;" />
+                    <div id="countDownErrorMessage" style="font-size:10px; color:#FD5139;" />
+                    <apex:outputText id="saveRespErrMsg" style="color:#FD5139;" value="{!saveResponseErrorMessage}" styleClass="saveResponseErrMsg" />
+                    <apex:tabPanel styleClass="panel" switchType="ajax" selectedTab="{!currentCodeTab}" value="{!currentCodeTab}" id="noteTabPanel" >
+                        <apex:tab label="Quick" name="quick-note-tabname" id="quick-note-tabid" ontabenter="setActiveTab('quick-note-tabname');">
+                                <apex:selectList id="quickCodeId"  styleClass="activityCodePicklist comboList quickTabActivityPicklist" multiselect="false" size="1" value="{!interactionPanelWrapper.quickCode}" onblur="setHiddenQuickCode()">
+                                    <apex:selectOptions value="{!quickCodeItems}"/>
+                                </apex:selectList>
+                                <br/>
+                                <apex:inputTextArea id="quickNotesId" styleClass="activityInput quickTabActivityTextInput" value="{!interactionPanelWrapper.quickNote}" onchange="setHiddenQuickNote();" onblur="setHiddenQuickNote()" onkeyup="setHiddenQuickNote()" />
+                        </apex:tab>
+                        
+                        <apex:tab label="RPC" name="rpc-note-tabname" id="rpc-note-tabid" ontabenter="setActiveTab('rpc-note-tabname');" ontableave="setHiddenRPCNote()">
+                                <apex:selectList id="rpcCodeId"  styleClass="activityCodePicklist comboList rpcCodeSelector" multiselect="false" size="1" value="{!interactionPanelWrapper.rpcCode}" onblur="setHiddenRPCCode()">
+                                    <apex:selectOptions value="{!rpcCodeItems}"/>
+                                </apex:selectList>
+                                <apex:commandButton styleClass="generateNoteButton" id="validateRFDAndGenerateNoteButtonId" value="Generate Note" onClick="validateRFDAndGenerateNoteButton();" reRender="skip-note-tabid" oncomplete="bindChangeWatchers();" />
+                                 <apex:actionFunction name="generateFormattedNote" action="{!generateFormattedNote}" reRender="noteTabPanel, hiddenRPCNote" oncomplete="bindChangeWatchers(); setMousePointerBusy(false); setHiddenRPCNote();" /> 
+                                <br/>
+                                <apex:inputTextArea id="rpcNotesId" styleClass="activityInput" value="{!interactionPanelWrapper.rpcNote}" onchange="setHiddenRPCNote();" onblur="setHiddenRPCNote();" onkeyup="setHiddenRPCNote();" />
+                        </apex:tab>
+            
+                        <apex:tab label="Skip" name="skip-note-tabname" id="skip-note-tabid" ontabenter="setActiveTab('skip-note-tabname');">
+                                <apex:selectList id="skipCodeId"  styleClass="activityCodePicklist comboList skipPickList" multiselect="false" size="1" value="{!interactionPanelWrapper.skipCode}" onblur="setHiddenSkipCode(); setHiddenSkipNote();">
+                                    <apex:selectOptions value="{!skipCodeItems}"/>
+                                </apex:selectList>
+                                <button onclick="setNoteTextFromSkipTraceIfAvailable()" class="generateNoteButton" style="display:inline-block;font-weight:bold;font-family:Arial,Helvetica,sans-serif;padding:4px 3px;" type="button" id="generateSkipNoteButton">Generate Note</button>
+                                <br/>
+                                <apex:inputTextArea id="skipNotesId" styleClass="activityInput skipNotesStyleClass" value="{!interactionPanelWrapper.skipNote}" onchange="setHiddenSkipNote()" onblur="setHiddenSkipNote()" onkeyup="setHiddenSkipNote()" />
+                        </apex:tab>
+                    </apex:tabPanel>
+                    
+                    
+                    <apex:actionFunction name="setActiveTab" action="{!setActiveCodeTab}" reRender="noteTabPanel, saveActivitiesBTN" oncomplete="bindChangeWatchers();">
+                        <apex:param id="codetabnameid" name="codetabname" assignTo="{!currentCodeTab}" value=""/>
+                    </apex:actionFunction>
+                    
+                    <apex:actionFunction name="setClickedCustomerValues" action="{!changeTalkToData}" reRender="callee-relationship-id, talkedtoId" oncomplete="rerenderRPCCode();">
+                        <apex:param id="facId" name="facname" assignTo="{!clickedId}" value=""/>
+                    </apex:actionFunction> 
+                    <!-- apex:actionFunction name="setFinancialAccountId" action="{!setFinancialAccountIdFromMainTab}" reRender="no">
+                        <apex:param name="accountId" assignTo="{!financialAccountId}" value=""/>
+                    </apex:actionFunction -->
+                    
+                    <apex:actionFunction name="setBalances" action="{!updateBalances}" reRender="firstPromiseBalance, secondPromiseBalance"/>
+                    <apex:actionFunction action="{!saveActivities}" name="saveCurrentActivities" reRender="noteTabPanel,saveRespErrMsg" oncomplete="bindChangeWatchers(); showActivitySavedMessage();" />
+                    <apex:actionFunction action="{!saveActivities}" name="saveCurrentActivitiesSkip" reRender="noteTabPanel,saveRespErrMsg" oncomplete="enableSaveButtons();bindChangeWatchers(); syncHiddenValues(); showActivitySavedMessage(); afterSuccessfulSkipNoteRun();" />
+                    <apex:actionFunction action="{!saveActivities}" name="saveCurrentActivitiesQuick" reRender="noteTabPanel,saveRespErrMsg" oncomplete="enableSaveButtons();bindChangeWatchers(); syncHiddenValues(); showActivitySavedMessage(); afterSuccessfulQuickNoteRun();" /> 
+                    <apex:actionFunction action="{!saveActivities}" name="saveCurrentRPCActivity" reRender="noteTabPanel,ptpId,saveRespErrMsg" oncomplete="enableSaveButtons();bindChangeWatchers(); syncHiddenValues(); afterSuccessfulRpcRun();"/> 
+                    <apex:actionFunction action="{!saveAllActivities}" name="saveAllActivities" reRender="noteTabPanel,saveRespErrMsg" oncomplete="bindChangeWatchers(); syncHiddenValues(); runMethodsAfterAllSaved();"/>
+                    <apex:actionFunction name="rerenderRPCCode" rerender="rpcCodeId" oncomplete="bindChangeWatchers();" />
+                    <apex:actionFunction name="rerenderNotePanel" rerender="noteTabPanel" oncomplete="bindChangeWatchers();" />
+                    <!--Updated Save Activiy and Next account button to add saveRFD story S-310930-->
+                    <apex:commandbutton id="saveActivitiesBTN" styleClass="saveActivity" value="Save Activity" onClick="validateAndSaveActivities('{!currentCodeTab}');saveRFD(); " reRender="dummyItemForRerenderPrevent" />  <!--  reRender="noteTabPanel" oncomplete="bindChangeWatchers();" -->
+                    <span id="saveMsgSpan" style="color:red; vertical-align:top; font-weight:bold;" />
+                    <apex:commandbutton id="saveAllActivities" styleClass="getNext" onClick="saveAllActivitiesAndCloseFinancialAccount();saveRFD();" value="Next Account" reRender="dummyItemForRerenderPrevent" /> <!-- reRender="noteTabPanel" oncomplete="bindChangeWatchers();"  -->
+                    <!--Update RFD values in an Open Collections Cycle Case. Story S-310930 #Start-->
+                    <apex:actionFunction name="saveRFD" action="{!saveRFDValues}" reRender="dummyItemForRerenderPrevent"></apex:actionFunction>
+                    <!--Story S-310930 #End-->
+                </div>
+                <input type="hidden" id="hiddenRPCCode" value=""/>
+                <input type="hidden" id="hiddenRPCNote" value=""/>
+                <input type="hidden" id="hiddenQuickCode" value=""/>
+                <input type="hidden" id="hiddenQuickNote" value=""/>
+                <input type="hidden" id="hiddenSkipCode" value=""/>
+                <input type="hidden" id="hiddenSkipNote" value=""/>
+                <input type="hidden" id="campaignType" value=""/>
+                <apex:outputText id="dummyItemForRerenderPrevent" style="display:none;" />
+            </apex:form>
+        </apex:tab>
+        <apex:tab label="C&D" name="candd-top-tabname" id="candd-top-tabid" styleClass="topTabClass">
+            <div class="canddClass">
+                <apex:iframe rendered="true" scrolling="true" src="/flow/Cease_Desist?FlowInputAccountId={!financialAccount.Financial_Account_Number__c}" width="100%" height="600px" id="c-and-d-iframe" />
+            </div>
+        </apex:tab>
+    </apex:tabpanel>
+    
+    </div>
+    
+</apex:page>

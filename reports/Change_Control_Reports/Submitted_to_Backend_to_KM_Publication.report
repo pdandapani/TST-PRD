@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Case.Time_to_Complete_Front_End_Approval__c:AVG</calculatedFormula>
+        <datatype>number</datatype>
+        <description>Average time to approve requests</description>
+        <developerName>FORMULA1</developerName>
+        <downGroupingContext>GRAND_SUMMARY</downGroupingContext>
+        <isActive>false</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Average Approval Time</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <columns>
+        <field>SUBJECT</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Average</aggregateTypes>
+        <field>Case.Submitted_for_Backend_to_KM_Publication__c</field>
+    </columns>
+    <description>Indicates Days from &quot;Submitted to Backend&quot; to the KM Publication Date entered on the Case.</description>
+    <filter>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <operator>equals</operator>
+            <value>Case.Change_Control</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.Submitted_for_Backend_to_KM_Publication__c</column>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.KM_Impact__c</column>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>PRIORITY</column>
+            <operator>notEqual</operator>
+            <value>Cosmetic</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>PRIORITY</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Submitted to Backend to KM Publication</name>
+    <params>
+        <name>units</name>
+        <value>d</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CaseList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <sortColumn>Case.Submitted_for_Backend_to_KM_Publication__c</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Case.KM_Implementation_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

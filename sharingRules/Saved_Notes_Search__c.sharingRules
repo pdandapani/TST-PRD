@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Collections_Saved_Search</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Enables manager-level Collections users to manage Consolidated Notes searches for all users and make them visible to identified profiles</description>
+        <label>Collections Saved Search</label>
+        <sharedTo>
+            <group>Collections_Managers</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Manage_All_Searches_by_Managers</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Enables manager-level Collections users to manage Consolidated Notes searches for all users and make them visible to identified profiles</description>
+        <label>Manage All Searches by Managers</label>
+        <sharedTo>
+            <role>Collections</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+</SharingRules>

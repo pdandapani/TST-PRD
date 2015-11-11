@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>TFS Initiated Support Request Customer Must Register</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>TFS: TFS Initiated Support Request Notification</name>
+    <style>none</style>
+    <subject>Toyota Financial Services Support Request Confirmation</subject>
+    <textOnly>Dear {!Case.Contact}:
+
+Thank you for being a valued customer. We have created a Support Request which includes the information you recently requested. To access your secure message in the Support Center please go to ToyotaFinancial.com and register or log into your account.
+
+What information do I need to register my account online?
+
+ - First Name
+ - Last Name
+ - TFS Account Number (do not include any spaces or dashes)
+ - Last 4 digits of Social Security Number
+ - Username and Confirm Username
+ - Choose a Password and Confirm Password
+ - Email address for account management
+ - Choose 3 Security Questions
+ - Answer each Security Question
+ - Click Submit at the bottom of the page
+
+
+Already registered but need to add a vehicle?
+
+ - Login to ToyotaFinancial.com with your username and password
+ - Answer your security question
+ - Go to Add &apos;Another Vehicle&apos; on the Account Overview page
+ - Enter your account number (do not include any spaces or dashes)
+ - Enter the last 4 digits of your Social Security Number
+ - Click Submit
+
+
+How do I retrieve my secure message in the Support Center?
+
+Please follow these instructions to view your messages:
+
+ - Select &apos;Support Center Inbox&apos; link on the left side of the web page
+ - Click on Support Request {!Case.CaseNumber} to see the message
+
+
+We value your business and look forward to serving your needs. Thank you for visiting us at ToyotaFinancial.com.
+
+Sincerely,
+Toyota Financial Services Customer Support
+
+
+
+This is a no reply email notification. Replies initiated from this email will neither be delivered nor answered. If you have additional questions, please log in to the Support Center for further assistance.</textOnly>
+    <type>custom</type>
+</EmailTemplate>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Form-Rule Junction</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Form-Rule Junctions</value>
+    </caseValues>
+    <fields>
+        <label><!-- FMigrationID --></label>
+        <name>FMigrationID__c</name>
+    </fields>
+    <fields>
+        <label><!-- FRMigrationID --></label>
+        <name>FRMigrationID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Form Rule --></label>
+        <name>Form_Rule__c</name>
+        <relationshipLabel><!-- Forms --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Form --></label>
+        <name>Form__c</name>
+        <relationshipLabel><!-- Form Rules --></relationshipLabel>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

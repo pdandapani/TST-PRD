@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>sandeep_diggimpudi@toyota.com</contactEmail>
+    <iconUrl>https://test.salesforce.com/logos/Salesforce/AppLauncher/icon.png</iconUrl>
+    <label>TFS IVR USER</label>
+    <logoUrl>https://test.salesforce.com/logos/Salesforce/AppLauncher/logo.png</logoUrl>
+    <oauthConfig>
+        <callbackUrl>http://localhost:8080/RestTest/oauth/_callback</callbackUrl>
+        <consumerKey>3MVG90D5vR7UtjbrXCeNUAklwBC47fEs81BXPwtsuDEoa6rbs8M3odJcp3dEpx15aL2lLio1QBF1Vfy2N_n4b</consumerKey>
+        <scopes>Api</scopes>
+    </oauthConfig>
+</ConnectedApp>

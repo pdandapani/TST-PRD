@@ -1,0 +1,2 @@
+<apex:page standardController="Case" extensions="TouchCaseController" showHeader="false" action="{!touchCase}">
+</apex:page>

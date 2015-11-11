@@ -1,0 +1,106 @@
+<apex:component controller="TFSC_FACPhoneNumberTableController" allowDML="true">
+    
+<!--     NOTE:  CURRENTLY, THIS SCREEN HAS 2 DEPENDENCIES.                  -->
+<!--     IT MUST BE USED IN A PAGE THAT HAS SCRIPT INCLUDES FOR             -->
+<!--     1) THE ctiEvents RESOURCE SCRIPT-INCLUDED.                         -->
+<!--     2) jquery MUST BE INCLUDED WITH A VAR $j SET TO NO-CONFLICT.       -->
+<!--      note:  there is a document ready here, but should have no impact       -->
+    
+    
+    <apex:attribute name="fac" description="selected fac for phone info display." type="Financial_Account_Customer__c" required="true"/>
+    <apex:attribute name="financialAcctNum" description="selected FA AccountNum." type="String" required="true"/>
+    <apex:attribute name="enableHomeNumber" description="Enabled/Disabled Click-to-Dial Home Number." type="Boolean" required="true"/>
+    <apex:attribute name="enableMobileNumber" description="Enabled/Disabled Click-to-Dial Mobile Number." type="Boolean" required="true"/>
+    <apex:attribute name="enableWorkNumber" description="Enabled/Disabled Click-to-Dial Work Number." type="Boolean" required="true"/>
+    
+    <script>
+        
+        $j(document).ready(function() {
+            fireFacPhoneNumberTableBindings();
+        });
+        
+        function fireFacPhoneNumberTableBindings() {
+            updateSpanWithPhoneLink( $j("#homePhoneGarageSpan"), '{!fac.Home_Phone_Garage__c}', {!enableHomeNumber});
+            updateSpanWithPhoneLink( $j("#mobilePhoneSpan"), '{!fac.Mobile_Phone__c}', {!enableMobileNumber});
+            updateSpanWithPhoneLink( $j("#workPhoneGarageSpan"), '{!fac.Work_Phone_Garage__c}', {!enableWorkNumber});
+        }
+        
+        function updateSpanWithPhoneLink(jquerySpanObj, phoneVal, enabled) {
+            
+            var htmlToAddToPhoneSpan = '';
+            
+            if(phoneVal && phoneVal != '' && phoneVal != 'null' ) {
+	            if(enabled) 
+	            {
+	                var phoneImgUrl = "{!URLFOR($Resource.TFSCAssets, 'img/mobilePhoneIcon.png')}";
+	                var tmpPhoneAnchorString = buildCtiAnchorString(phoneVal, 'xyz', phoneImgUrl, true, '{!fac.Financial_Account__c}', '{!financialAcctNum}');
+	                htmlToAddToPhoneSpan = tmpPhoneAnchorString
+	            }else{
+	                htmlToAddToPhoneSpan = phoneVal;
+	            }
+            }
+            
+            jquerySpanObj.html(htmlToAddToPhoneSpan);
+        }
+        
+        
+    </script>
+    
+    
+    <style>
+    	 .disableClickToDial:after {
+            content: url("/img/btn_nodial_inline.gif");
+            padding-right: 4px;
+        }
+    </style>
+    
+    <table>
+		<tr style="vertical-align:top;">
+		    <td class="greyLabel" style="height:17px; font-size:10px;">Home:</td>
+		    <td style="font-size:10px;">
+<!-- 		        <support:clickToDial number="{!fac.Home_Phone_Garage__c}" entityId="{!fac.Id}" rendered="{!enableHomeNumber}"/> -->
+                <span id="homePhoneGarageSpan" class="disableClickToDial"></span>
+<!-- 		        <apex:outputText styleClass="disableClickToDial" rendered="{!!enableHomeNumber}" value="{!fac.Home_Phone_Garage__c}"/> -->
+		    </td>
+		    <td>
+		        <apex:outputText value="{!fac.Home_Phone_No_Call_Reason_Code_Garage__c}"/>
+		    </td>
+		    <td>
+		        <apex:image url="{!URLFOR($Resource.TFSCAssets, 'img/mobilePhoneIcon.png')}" rendered="{!fac.Flag_Home_Phone_IsMobile_Garage__c}"/>
+		    </td>
+		</tr>
+		<tr style="vertical-align:top;">
+		    <td class="greyLabel" style="height:17px; font-size:10px;">Mobile:</td>
+		    <td style="font-size:10px;">
+<!-- 		        <support:clickToDial number="{!fac.Mobile_Phone__c}" entityId="{!fac.Id}" rendered="{!enableMobileNumber}" /> -->
+                <span id="mobilePhoneSpan" class="disableClickToDial"></span>
+<!-- 		        <apex:outputText styleClass="disableClickToDial" rendered="{!!enableMobileNumber}" value="{!fac.Mobile_Phone__c}"/> -->
+		    </td>
+		    <td>
+		        <apex:outputText value="{!fac.Mobile_Phone_No_Call_Reason_Code__c}"/>
+		    </td>
+		    <td>
+		        <apex:image url="{!URLFOR($Resource.TFSCAssets, 'img/mobilePhoneIcon.png')}" />
+		    </td>
+		</tr>
+		
+		<tr style="vertical-align:top;">
+		    <td class="greyLabel" style="height:17px; font-size:10px;">Work:</td>
+		    <td style="font-size:10px;">
+<!-- 		            <support:clickToDial number="{!fac.Work_Phone_Garage__c}" entityId="{!fac.Id}" rendered="{!enableWorkNumber}" /> -->
+                    <span id="workPhoneGarageSpan" class="disableClickToDial"></span>
+<!-- 		            <apex:outputText styleClass="disableClickToDial" rendered="{!!enableWorkNumber}" value="{!fac.Work_Phone_Garage__c}"/> -->
+		        </td>
+		        <td>
+		            <apex:outputText value="{!fac.Work_Phone_NoCall_Reason_Code_Garage__c}"/>
+		        </td>
+		        <td>
+		            <apex:image url="{!URLFOR($Resource.TFSCAssets, 'img/mobilePhoneIcon.png')}" rendered="{!fac.Flag_Work_Phone_IsMobile_Garage__c}}"/>
+		        </td>
+		    </tr>
+		    
+    </table>
+    
+    
+    
+</apex:component>

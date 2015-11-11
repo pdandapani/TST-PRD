@@ -1,0 +1,60 @@
+<!--This is a demo page used to emulate how the external parent page will load our iframed content-->
+<apex:page showHeader="false">
+    <apex:includeScript value="{!URLFOR($Resource.EasyXDM, 'easyXDM.js')}"/>
+    <style>body{background-color:#fff;}</style>
+    Some IDP Content Lorem Ipsum etc<br/>
+    <strong>{!$Site.Name}</strong>
+    <br/>
+    Last Activity in iFrame: <span id="lastact"></span><br/>
+    SVP Iframe:<br/>
+    <div id="embedded" style="margin-left:100px;margin-right:50px;border:1px dotted black;"></div>
+    <script type="text/javascript">
+        
+        var url = ''; //the URL to show
+        var siteName = '{!$Site.BaseUrl}';
+        var containerId = 'embedded';
+        var transport = new easyXDM.Rpc(/** The configuration */{
+            //MUST USE ABSOLUTE URLS
+            remote: siteName + '/apex/TFSC_CommunitiesIntermediate?url=' + url,
+            swf: "{!URLFOR($Resource.EasyXDM_SWF)}",
+            container: containerId,
+            onReady: function() {
+                document.getElementById(containerId).getElementsByTagName("iframe")[0].style.width = '100%';
+                getLastActivity();
+            }
+        }, {
+            remote: {
+                retrieveLastActivity: {},
+                keepAlive: {}
+            },
+            local: {
+                resizeIframe: function(size){
+                    resizeEmbeddedIframe(size);
+                }
+            }
+        });
+        
+        function resizeEmbeddedIframe(size) {
+            //console.log('resizing to ' + size);
+            document.getElementById(containerId).getElementsByTagName("iframe")[0].style.height = (parseInt(size, 10) + 10) + "px";
+        }
+        
+        //demo interval to query last activity of child frame
+        function getLastActivity() {
+            transport.retrieveLastActivity(function(result) {
+                document.getElementById('lastact').innerHTML = new Date(parseInt(result, 10));
+            });
+        };
+
+        function keepAlive() {
+            if (transport) {
+                //console.log('keep alive request sent');
+                transport.keepAlive();
+            }
+        }
+        
+        setInterval(getLastActivity, 3*1000); //every 3 seconds
+        setInterval(keepAlive, 10*60*1000); //every 10 mins
+
+    </script>
+</apex:page>

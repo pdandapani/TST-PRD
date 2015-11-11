@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>System Message</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>System Messages</value>
+    </caseValues>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Notify User --></label>
+        <name>Notify_User__c</name>
+    </fields>
+    <fields>
+        <label><!-- Source --></label>
+        <name>Source__c</name>
+    </fields>
+    <fields>
+        <label><!-- Title --></label>
+        <name>Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Handled Error</masterLabel>
+            <translation><!-- Handled Error --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Informational</masterLabel>
+            <translation><!-- Informational --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Notification</masterLabel>
+            <translation><!-- Notification --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unhandled Error</masterLabel>
+            <translation><!-- Unhandled Error --></translation>
+        </picklistValues>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

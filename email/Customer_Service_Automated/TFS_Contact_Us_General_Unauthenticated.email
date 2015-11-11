@@ -1,0 +1,119 @@
+<table id="Table_01" width="630" height="635" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+                <td colspan="2">
+                        <a href="http://www.toyotafinancial.com/pub/home/"
+                                onmouseover="window.status='Toyota Financial Services';  return true;"
+                                onmouseout="window.status='';  return true;">
+
+                                <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/TFS-Logo.gif" width="144" height="71" border="0" alt="Toyota Financial Services Logo"></a></td>
+                <td colspan="3">
+                        
+                                <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/tfs_start.gif" width="252" height="71" border="0" alt="Start With Confidence"></td>
+                <td width="234" height="71" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="234" height="71" alt=""></td>
+        </tr>
+        
+        <tr>
+                <td colspan="6"><table width="630" height="53" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+
+            <td width="21" background="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/tfs_bkgrd.gif">&nbsp;</td>
+            <td width="609" background="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/tfs_bkgrd.gif" style="font-family: Verdana; font-size: 8pt;">This is a no reply email notification. Replies initiated from this email will neither be delivered nor answered. If you have additional questions, please log in to the <a href="http://www.toyotafinancial.com/pub/home/?deeplink=customer_center">Support Center</a> for further assistance.</td>
+          </tr>
+        </table></td>
+  </tr>
+  
+        <tr>
+                <td width="211" height="18" colspan="3" bgcolor="#FFFFFF">
+
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="211" height="18" alt=""></td>
+                <td width="16" height="18" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="16" height="18" alt=""></td>
+                <td width="403" height="18" colspan="2" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="403" height="18" alt=""></td>
+        </tr>
+        <tr>
+                <td colspan="3">
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/tf_how.gif" width="211" height="39" alt=""></td>
+
+                <td rowspan="4" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/tf_line.gif" width="16" height="441" alt=""></td>
+                <td width="403" height="441" colspan="2" rowspan="4" valign="top" bgcolor="#FFFFFF"><span style="font-family: Verdana; font-size: 10pt; color: #666666;">Dear {!Case.SuppliedName}:
+
+            <br><br>
+               Thank you for contacting Toyota Financial Services via the 'Contact Us' link at  <a href="http://www.toyotafinancial.com/pub/home/">www.ToyotaFinancial.com</a>. 
+            <br><br>
+Messages sent through this email channel are unsecure.  Because, we value your privacy, we will not provide account-specific or password related information through this unsecured email channel.
+ <br><br>
+If your question is account-specific or password related please follow the instructions below to submit a Support Request in our secure Support Center in order for us to assist you.  
+ <br><br>
+If your question is not account specific, we will respond with an email within 2 business days.
+ <br><br>
+<strong>SEND A SECURE MESSAGE</strong><br><br>
+Please follow these instructions to send us a secure message: <br>
+<ul>
+<li>Login to <a href="http://www.toyotafinancial.com/pub/home/?deeplink=customer_center">www.ToyotaFinancial.com</a> with your username and password.  If you do not have a log in, please click register and follow the prompts</li>
+<li>Select <u>Support Center Inbox</u> link on the left side of the web page</li>
+<li>Select 'NEW Support Request' button to send a message </li>
+</ul>
+        <br>
+<strong>CONTACT US BY PHONE</strong><br><br>
+To speak with a Customer Service Representative, please call toll free (800)874-8822.  The hours of operation are 8am to 8pm Monday-Friday.
+<br><br>
+Thank you for visiting us at <a href="http://www.toyotafinancial.com/pub/home/">www.ToyotaFinancial.com</a>.
+<br><br>
+        Sincerely,
+
+        <br>
+       Toyota Financial Services Customer Support
+         </span></td>
+  </tr>
+        <tr>
+
+                <td width="211" height="15" colspan="3" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="211" height="15" alt=""></td>
+        </tr>
+        <tr>
+                <td width="21" height="139" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="21" height="139" alt=""></td>
+                <td width="190" height="139" colspan="2" valign="top" bgcolor="#FFFFFF"><p style="font-family: Verdana; font-size: 8pt;"><a href="http://www.toyotafinancial.com/pub/w/#customer_service/contact_us">Contact Toyota Financial Services</a><br>
+              <br> 
+              <a href="http://www.toyotafinancial.com/pub/w/#customer_service/online_privacy_policy">Your Privacy</a><br>
+
+            <br>
+                <a href="http://www.toyotafinancial.com/pub/w/#about_us">
+                About Us</a></p>
+            </td>
+  </tr>
+        <tr>
+                <td colspan="3" bgcolor="#FFFFFF">
+                        <a href="http://www.toyotafinancial.com/pub/home/?deeplink=customer_center"
+                                onmouseover="window.status='Login to Your Toyota Financial Services Account';  return true;"
+                                onmouseout="window.status='';  return true;">
+
+                                <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/tf_login.gif" width="211" height="248" border="0" alt="Login to Your Toyota Financial Services Account"></a></td>
+        </tr>
+        <tr>
+                <td width="211" height="41" colspan="3" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="211" height="41" alt=""></td>
+                <td width="16" height="41" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="16" height="41" alt=""></td>
+                <td width="403" height="41" colspan="2" bgcolor="#FFFFFF"><span style="font-family: Verdana; font-size: 8pt; color: #666666;">Toyota Financial Services is a service mark of Toyota Motor Credit Corporation and Toyota Credit de Puerto Rico Corp.</span></td>
+
+  </tr>
+        <tr>
+                <td>
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="21" height="1" alt=""></td>
+                <td>
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="123" height="1" alt=""></td>
+                <td>
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="67" height="1" alt=""></td>
+                <td>
+
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="16" height="1" alt=""></td>
+                <td>
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="169" height="1" alt=""></td>
+                <td>
+                        <img src="http://www.sc.toyotafinancial.com/web/tfs/pub/img/ofsc_emails/spacer.gif" width="234" height="1" alt=""></td>
+        </tr>
+</table>

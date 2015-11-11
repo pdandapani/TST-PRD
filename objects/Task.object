@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Close</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>DeleteSeries</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>NewTask</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>ActivityDate</fullName>
+    </fields>
+    <fields>
+        <fullName>CallDisposition</fullName>
+    </fields>
+    <fields>
+        <fullName>CallDurationInSeconds</fullName>
+    </fields>
+    <fields>
+        <fullName>CallObject</fullName>
+    </fields>
+    <fields>
+        <fullName>CallType</fullName>
+    </fields>
+    <fields>
+        <fullName>Description</fullName>
+    </fields>
+    <fields>
+        <fullName>Email</fullName>
+    </fields>
+    <fields>
+        <fullName>IsVisibleInSelfService</fullName>
+    </fields>
+    <fields>
+        <fullName>OwnerId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Phone</fullName>
+    </fields>
+    <fields>
+        <fullName>Priority</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>High</fullName>
+                <default>false</default>
+                <highPriority>true</highPriority>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Normal</fullName>
+                <default>true</default>
+                <highPriority>false</highPriority>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+                <highPriority>false</highPriority>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RecurrenceInterval</fullName>
+    </fields>
+    <fields>
+        <fullName>RecurrenceRegeneratedType</fullName>
+    </fields>
+    <fields>
+        <fullName>Status</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Not Started</fullName>
+                <closed>false</closed>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Progress</fullName>
+                <closed>false</closed>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <closed>true</closed>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Waiting on someone else</fullName>
+                <closed>false</closed>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Deferred</fullName>
+                <closed>false</closed>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Subject</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Call</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Send Letter</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Send Quote</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TaskSubtype</fullName>
+    </fields>
+    <fields>
+        <fullName>Type</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Call</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Meeting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>WhatId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>WhoId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Note_Length_for_Collection_Activities</fullName>
+        <active>true</active>
+        <description>Enforces the 450-character limit for collection activity notes (Description) in Collections Host.</description>
+        <errorConditionFormula>AND(
+  NOT(ISBLANK(TEXT(Collection_Activity_Code__c))),
+  LEN(Description) &gt; 450
+)</errorConditionFormula>
+        <errorDisplayField>Description</errorDisplayField>
+        <errorMessage>Notes may not exceed 450 characters for a collection activity. Use a CONT activity on the Quick tab to continue your note.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Notes_Required_for_Collection_Activities</fullName>
+        <active>true</active>
+        <description>For some collection activity codes, notes are required - typically, this is enforced via the front-end UI, but some tasks may be falling through</description>
+        <errorConditionFormula>AND(
+  NOT(ISBLANK(TEXT(Collection_Activity_Code__c))),
+  VLOOKUP($ObjectType.Activity_Code__c.Fields.Flag_Notes_Required__c, $ObjectType.Activity_Code__c.Fields.Name, TEXT(Collection_Activity_Code__c)),
+  ISBLANK(Description)
+)</errorConditionFormula>
+        <errorDisplayField>Description</errorDisplayField>
+        <errorMessage>Notes are required for the selected activity code</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>PTP_Required_for_Collection_Activities</fullName>
+        <active>true</active>
+        <description>For some collection activity codes, PTP is required - typically, this is enforced via the front-end UI, but some tasks may be falling through</description>
+        <errorConditionFormula>AND(
+  NOT(ISBLANK(TEXT(Collection_Activity_Code__c))),
+  VLOOKUP($ObjectType.Activity_Code__c.Fields.Flag_Promise_Required__c, $ObjectType.Activity_Code__c.Fields.Name, TEXT(Collection_Activity_Code__c)),
+  OR(
+    ISBLANK(Collection_Activity_Promise_Date_1__c),
+    ISBLANK(Collection_Activity_Promise_Amount_1__c)
+  )
+)</errorConditionFormula>
+        <errorDisplayField>Collection_Activity_Promise_Date_1__c</errorDisplayField>
+        <errorMessage>Promise to pay 1 is required for the selected activity code</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Prevent_Back_Dated_PTP_for_Collection</fullName>
+        <active>true</active>
+        <description>For collection activities, PTP dates can never be in the past - typically, this is enforced via the front-end UI, but some tasks may be falling through</description>
+        <errorConditionFormula>AND(
+  OR(
+   AND(
+     NOT(ISBLANK(Collection_Activity_Promise_Date_1__c)),
+     Collection_Activity_Promise_Date_1__c &lt; TODAY()
+   ),
+   AND(
+     NOT(ISBLANK(Collection_Activity_Promise_Date_2__c)),
+     OR(
+      Collection_Activity_Promise_Date_2__c &lt; TODAY(),
+      Collection_Activity_Promise_Date_2__c &lt;= Collection_Activity_Promise_Date_1__c
+     )
+   )
+  ),
+  $User.FirstName &lt;&gt; &apos;ETL&apos; 
+)</errorConditionFormula>
+        <errorDisplayField>Collection_Activity_Promise_Date_1__c</errorDisplayField>
+        <errorMessage>Promise to pay dates prior to today may not be entered and the second promise to pay must be after the first promise to pay</errorMessage>
+    </validationRules>
+</CustomObject>

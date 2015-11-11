@@ -1,0 +1,4 @@
+Following Case's implementation status has been modified to On Hold, Closed - Withdrawn or Closed - Deleted.
+Case Number: {!Case.CaseNumber}
+Case Subject: {!Case.Subject}
+Case Link: {!Case.Link}

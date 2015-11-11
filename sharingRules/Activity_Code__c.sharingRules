@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Collection_Lead_Activity_Codes</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Activity Codes with Security Category 2 are only available to Collections Team Leads and above</description>
+        <label>Collection Lead Activity Codes</label>
+        <sharedTo>
+            <group>Collections_Team_Leads</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Account_Security_Category__c</field>
+            <operation>equals</operation>
+            <value>2</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Collection_Mgr_Activity_Codes</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Activity Codes with Security Category 4 are only available to Collections managers and above</description>
+        <label>Collection Mgr Activity Codes</label>
+        <sharedTo>
+            <group>Collections_Managers</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Account_Security_Category__c</field>
+            <operation>equals</operation>
+            <value>4</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Collection_Mgr_Activity_Codes_2</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Activity Codes with Account Security Category are shared with Managers</description>
+        <label>Collection Mgr Activity Codes 2</label>
+        <sharedTo>
+            <group>Collections_Managers</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Account_Security_Category__c</field>
+            <operation>equals</operation>
+            <value>2</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Collections_Management</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Activity Codes only available to Collections managers and above</description>
+        <label>Collections Management</label>
+        <sharedTo>
+            <role>Collections</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Account_Security_Category__c</field>
+            <operation>equals</operation>
+            <value>4</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Collections_Team_Leads</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Activity Codes only available to Collections team leads and above</description>
+        <label>Collections Team Leads</label>
+        <sharedTo>
+            <role>Collections_Team_Leads</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Account_Security_Category__c</field>
+            <operation>equals</operation>
+            <value>2</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Operations</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Operations</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Operations</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>Account_Security_Category__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+</SharingRules>

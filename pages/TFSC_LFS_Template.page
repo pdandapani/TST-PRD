@@ -1,0 +1,10 @@
+<apex:page showHeader="false">
+    <apex:insert name="header">
+        <apex:stylesheet value="{!URLFOR($Resource.EasyXDM, 'css/common.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.EasyXDM, 'css/lfs.css')}"/>
+    </apex:insert>
+    <apex:insert name="body" />
+    <apex:insert name="footer">
+        <c:TFSC_EasyXDMWrapper />
+    </apex:insert>
+</apex:page>

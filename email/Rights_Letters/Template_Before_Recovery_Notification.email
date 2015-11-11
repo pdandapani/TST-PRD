@@ -1,0 +1,7 @@
+The following repossession was created from an iRepo assignment, but is missing a Recovery Date/Time. This indicates that it is likely the template data has been sent prior to the recovery data. Contact iRepo to inform them and have them queue the recovery data:
+
+{!Repossession__c.Link}
+iRepo Assignment Number: {!Repossession__c.iRepo_AssignmentNumber__c}
+Insert Date/Time: {!Repossession__c.CreatedDate}
+Account: {!Repossession__c.iRepo_AccountNumber__c}
+VIN: {!Repossession__c.iRepo_VIN__c}

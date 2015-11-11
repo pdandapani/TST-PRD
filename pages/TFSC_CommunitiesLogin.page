@@ -1,0 +1,12 @@
+<apex:page showHeader="false" controller="TFSC_CommunitiesLoginController" action="{!redirect}">
+	<script type="text/javascript">
+		//(function() {
+			document.cookie="testcookie=1;domain=" + document.domain;
+            if (document.cookie.indexOf("testcookie") != -1) {
+				window.location.href = '{!redirectUrl}';
+			} else {
+				alert('Error: Cookies must be enabled to view this page.');
+			}
+		//})();
+	</script>
+</apex:page>

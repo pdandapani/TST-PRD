@@ -1,0 +1,9 @@
+<apex:page standardController="Financial_Account__c" showHeader="false" sidebar="false">
+    
+    <apex:variable value="{!Financial_Account__c}" var="fa"/>
+    
+    <flow:interview name="Repo_Recovery_Questionnaire" finishLocation="/apex/TFSC_CloseTabAndRefreshNotes?id={!fa.Id}">
+        <apex:param name="FinancialAccountId" value="{!fa.Id}"/>
+    </flow:interview>
+	
+</apex:page>

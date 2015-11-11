@@ -1,0 +1,6 @@
+Your change request has been {!Case.Status}
+Change Request: {!Case.Subject}
+Change Request Description: {!Case.Description}
+Change Request Owner - {!Case.OwnerFullName}
+Change Request Opened: {!Case.CreatedDate}
+Change Request Number: {!Case.CaseNumber}

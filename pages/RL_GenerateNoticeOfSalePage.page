@@ -1,0 +1,4 @@
+<apex:page standardController="Case" extensions="RL_GenerateNoticeOfSaleController" action="{!generateNoticeOfSale}">
+<apex:messages style="color: red"/>
+<apex:detail subject="{!Case.Id}" inlineEdit="true"/>
+</apex:page>

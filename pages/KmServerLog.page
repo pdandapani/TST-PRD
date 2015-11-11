@@ -1,0 +1,8 @@
+<apex:page controller="KmServerLogModel">
+
+	<h1>KM Server Log</h1>
+	<br/><br/>
+
+	<apex:outputtext escape="false" value="{!serverLog}" />
+
+</apex:page>

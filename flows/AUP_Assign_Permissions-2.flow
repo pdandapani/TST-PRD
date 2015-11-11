@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Setup_User_Permissions</name>
+        <label>Setup User Permissions</label>
+        <locationX>533</locationX>
+        <locationY>170</locationY>
+        <actionName>TFS_AUP_ManageUserPermissionsNextGen</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Clear_Set_User_Permission_Flag</targetReference>
+        </connector>
+        <inputParameters>
+            <name>listUsers</name>
+            <value>
+                <elementReference>UserObject</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <assignments>
+        <name>Clear_Set_User_Permission_Flag</name>
+        <label>Clear Set User Permission Flag</label>
+        <locationX>535</locationX>
+        <locationY>291</locationY>
+        <assignmentItems>
+            <assignToReference>UserObject.AUP_Change_Permissions__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_User</targetReference>
+        </connector>
+    </assignments>
+    <choices>
+        <name>True</name>
+        <choiceText>True</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <decisions>
+        <description>Step that checks if user record indicate that permissions needs to be assigned / reassigned</description>
+        <name>Check_For_User_Access_Reset</name>
+        <label>Check For User Access Reset</label>
+        <locationX>153</locationX>
+        <locationY>169</locationY>
+        <defaultConnectorLabel>[Default Outcome]</defaultConnectorLabel>
+        <rules>
+            <name>Assign_User_Permissions</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>UserObject.AUP_Change_Permissions__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Setup_User_Permissions</targetReference>
+            </connector>
+            <label>Assign User Permissions</label>
+        </rules>
+        <rules>
+            <name>Permissions_Already_Assigned</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>UserObject.AUP_Change_Permissions__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Display_User_Details</targetReference>
+            </connector>
+            <label>Permissions Already Assigned</label>
+        </rules>
+    </decisions>
+    <interviewLabel>AUP Assign Permissions {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AUP Assign Permissions</label>
+    <processType>Flow</processType>
+    <recordLookups>
+        <description>Lookup current user record based on environment value set for UserLogin_UserId</description>
+        <name>Lookup_User_Record</name>
+        <label>Lookup User Record</label>
+        <locationX>151</locationX>
+        <locationY>11</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_For_User_Access_Reset</targetReference>
+        </connector>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>LoginFlow_UserId</elementReference>
+            </value>
+        </filters>
+        <object>User</object>
+        <outputReference>UserObject</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Alias</queriedFields>
+        <queriedFields>IsActive</queriedFields>
+        <queriedFields>Email</queriedFields>
+        <queriedFields>FirstName</queriedFields>
+        <queriedFields>LastName</queriedFields>
+        <queriedFields>AUP_Business_Unit__c</queriedFields>
+        <queriedFields>AUP_User_Function__c</queriedFields>
+        <queriedFields>AUP_Change_Permissions__c</queriedFields>
+        <queriedFields>Collection_User_ID__c</queriedFields>
+        <queriedFields>Coll_Racf_Id__c</queriedFields>
+        <queriedFields>Lan_Id__c</queriedFields>
+        <queriedFields>Username</queriedFields>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_User</name>
+        <label>Update User</label>
+        <locationX>533</locationX>
+        <locationY>424</locationY>
+        <connector>
+            <targetReference>Display_User_Details</targetReference>
+        </connector>
+        <inputReference>UserObject</inputReference>
+    </recordUpdates>
+    <screens>
+        <name>Display_User_Details</name>
+        <label>Display User Details</label>
+        <locationX>153</locationX>
+        <locationY>422</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>UserName</name>
+            <fieldText>User Name: {!UserObject.Username}
+First Name: {!UserObject.FirstName}
+Last Name: {!UserObject.LastName}
+Email: {!UserObject.Email}
+User Lan Id: {!UserObject.Lan_Id__c}
+User Business Unit: {!UserObject.AUP_Business_Unit__c}
+User Function: {!UserObject.AUP_User_Function__c}</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+    </screens>
+    <startElementReference>Lookup_User_Record</startElementReference>
+    <variables>
+        <name>LoginFlow_UserId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>UserObject</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>User</objectType>
+    </variables>
+</Flow>

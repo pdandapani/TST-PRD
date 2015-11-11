@@ -1,0 +1,22 @@
+<apex:page standardController="Case" extensions="RL_NewRightsLetterController" action="{!createRightsLetter}">
+    <apex:includeScript value="/support/console/32.0/integration.js"/>
+
+    <script type="text/javascript">
+
+        // Determine whether this is running in the console or standard interface
+        if(sforce.console.isInConsole()) {
+
+            //Open a new primary tab with the newly created case in it
+            sforce.console.openPrimaryTab(null, '/{!newCaseId}?isdtp=vw', true);
+
+            //Reset the navigation tab to the first/primary one - expected to be Cases
+            sforce.console.setSelectedNavigationTab(null, 'nav-tab-0');
+
+        }else{
+
+            //Open the newly created case
+            window.location.href = '/{!newCaseId}';
+        }
+
+    </script>
+</apex:page>

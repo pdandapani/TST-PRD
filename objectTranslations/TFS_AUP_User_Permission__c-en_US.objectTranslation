@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>TFS AUP User Permission</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>TFS AUP User Permissions</value>
+    </caseValues>
+    <fields>
+        <help><!-- Select all business unit to which this permission set or group is applicable --></help>
+        <label><!-- Business Unit --></label>
+        <name>Business_Unit__c</name>
+        <picklistValues>
+            <masterLabel>Change Control</masterLabel>
+            <translation><!-- Change Control --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Collections</masterLabel>
+            <translation><!-- Collections --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Service</masterLabel>
+            <translation><!-- Customer Service --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rights Letters</masterLabel>
+            <translation><!-- Rights Letters --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Universal Console</masterLabel>
+            <translation><!-- Universal Console --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Set group or permission set Id --></help>
+        <label><!-- SysId --></label>
+        <name>SysId__c</name>
+    </fields>
+    <fields>
+        <label><!-- User Function --></label>
+        <name>User_Function__c</name>
+        <picklistValues>
+            <masterLabel>Admin</masterLabel>
+            <translation><!-- Admin --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Agent</masterLabel>
+            <translation><!-- Agent --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Associate</masterLabel>
+            <translation><!-- Associate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>General</masterLabel>
+            <translation><!-- General --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Manager</masterLabel>
+            <translation><!-- Manager --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>QA</masterLabel>
+            <translation><!-- QA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Quality Reviewers</masterLabel>
+            <translation><!-- Quality Reviewers --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Reporting</masterLabel>
+            <translation><!-- Reporting --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Team Lead</masterLabel>
+            <translation><!-- Team Lead --></translation>
+        </picklistValues>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

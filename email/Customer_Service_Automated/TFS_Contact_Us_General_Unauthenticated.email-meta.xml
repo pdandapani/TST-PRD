@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>TFS Contact Us - Web-to-Case - General Auto-response</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>TFS: Contact Us - General (Unauthenticated)</name>
+    <style>none</style>
+    <subject>Toyota Financial Services - Contact Us Confirmation</subject>
+    <textOnly>Dear {!Case.SuppliedName}:
+
+Thank you for contacting Toyota Financial Services via the &apos;Contact Us&apos; link at www.ToyotaFinancial.com.
+
+Messages sent through this email channel are unsecure.  Because, we value your privacy, we will not provide account-specific or password related information through this unsecured email channel.
+
+If your question is account-specific or password related please follow the instructions below to submit a Support Request in our secure Support Center in order for us to assist you.
+
+If your question is not account specific, we will respond with an email within 2 business days.
+
+SEND A SECURE MESSAGE
+
+Please follow these instructions to send us a secure message:
+
+ - Login to www.ToyotaFinancial.com with your username and password.  If you do not have a log in, please click register and follow the prompts
+ - Select &apos;Support Center Inbox&apos; link on the left side of the web page
+ - Select &apos;NEW Support Request&apos; button to send a message
+
+
+CONTACT US BY PHONE
+
+To speak with a Customer Service Representative, please call toll free (800)874-8822.  The hours of operation are 8am to 8pm Monday-Friday.
+
+Thank you for visiting us at www.ToyotaFinancial.com.
+
+Sincerely,
+Toyota Financial Services Customer Support
+
+
+This is a no reply email notification. Replies initiated from this email will neither be delivered nor answered. If you have additional questions, please log in to the Support Center for further assistance.</textOnly>
+    <type>custom</type>
+</EmailTemplate>

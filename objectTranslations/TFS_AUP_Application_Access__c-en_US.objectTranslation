@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>TFS AUP Application Access</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>TFS AUP Application Access</value>
+    </caseValues>
+    <fields>
+        <help><!-- Collections Console --></help>
+        <label><!-- Collections Console --></label>
+        <name>TFS_AUP_Collections_Console__c</name>
+    </fields>
+    <fields>
+        <help><!-- Customer Service Console --></help>
+        <label><!-- Customer Service Console --></label>
+        <name>TFS_AUP_Customer_Service_Console__c</name>
+    </fields>
+    <fields>
+        <help><!-- Knowledge Management --></help>
+        <label><!-- Knowledge Management --></label>
+        <name>TFS_AUP_Knowledge_Management__c</name>
+    </fields>
+    <fields>
+        <help><!-- RMS --></help>
+        <label><!-- RMS --></label>
+        <name>TFS_AUP_RMS__c</name>
+    </fields>
+    <fields>
+        <help><!-- Rights Letters --></help>
+        <label><!-- Rights Letters --></label>
+        <name>TFS_AUP_Rights_Letters__c</name>
+    </fields>
+    <fields>
+        <help><!-- Universal Console --></help>
+        <label><!-- Universal Console --></label>
+        <name>TFS_AUP_Universal_Console__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

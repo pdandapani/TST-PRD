@@ -1,0 +1,1782 @@
+<apex:page standardController="Financial_Account__c" 
+           extensions="TFSC_SkipTraceController" >
+    
+    
+    <apex:includeScript value="{!$Resource.jquery}"/>
+    <apex:styleSheet value="{!URLFOR($Resource.jqueryui1_10_4All, 'css/ui-lightness/jquery-ui-1.10.4.min.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.jqueryui1_10_4All, 'js/jquery-ui-1.10.4.min.js')}"/>
+    
+    <apex:includeScript value="{!URLFOR($Resource.datatables, 'dataTables1.10/media/js/jquery.dataTables.js')}"/>
+    <apex:styleSheet value="{!URLFOR($Resource.datatables, 'dataTables1.10/media/css/jquery.dataTables.css')}"/>
+    
+    <apex:styleSheet value="{!URLFOR($Resource.multiselectPicklist, 'multiple-select.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.multiselectPicklist, 'jquery.multiple.select.js')}"/>
+
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    
+    <apex:includeScript value="{!$Label.CIMplicity_JS_IIS_locale}"/>
+    <apex:includeScript value="{!$Resource.ctiEvents}"/>
+    
+    <script>
+        
+        var $j = jQuery.noConflict();
+        var MOBILE_PHONE_IMG_URL = "{!URLFOR($Resource.TFSCAssets, 'img/mobilePhoneIcon.png')}";
+        var PHONE_TABLE_HEIGHT = "222px";
+        var ADDRESS_TABLE_HEIGHT = "100px";
+        
+        var faidFromController = '{!Financial_Account__c.Id}' ;
+        
+        $j(document).ready( function() {
+            initializeDatatables(); //temporarily for DataTable() being called before the datatable() init method.
+            callLaterOnBindings();
+            updateDateDropdowns();
+        } );
+        
+        function updateDateDropdowns() {
+            var select = document.getElementById('calYearPicker');
+            if (!select) 
+                return;
+            
+            select.innerHTML = '';
+            var startYear = new Date().getFullYear() - 8;
+            for (var year = startYear; year < startYear + 8; year++) {
+              select.options[select.options.length] = new Option(year, year);
+            }
+        }
+        
+        function callLaterOnBindings() {
+            window.setTimeout( function () {
+                    bindListenersAndSetupPhoneAddys();
+                } ,
+                250
+            );
+        }
+        
+        
+        /*
+        * __________________________START BINDINGS________________________________
+        */
+        
+        
+        var phoneNumTableVariable;
+        var addressTableVariable;
+        function bindListenersAndSetupPhoneAddys() {
+            
+            var mainContentPanel = $j('.selectorForMainOutputPanel');
+            if(mainContentPanel != null) 
+            {
+                
+                initializeDatatables();
+                
+                var tempTable = $j('#phoneNumTable').DataTable();
+                tempTable.clear();
+                addDataToPhoneTable(tempTable);
+                tempTable.draw();
+                
+                
+                var tmpAddyTable = $j('#addressTable').DataTable();
+                tmpAddyTable.clear();
+                addDataToAddressTable(tmpAddyTable);
+                tmpAddyTable.draw();
+                
+                $j('.passStrategySelectListSelectorClass').change( function() {
+                    var newValue = $j(this).val();
+                    var newLabel = $j(this).find("option:selected").text();
+                    handleUpdatedPassStrategy(newValue, newLabel); 
+                });
+                
+                handleUpdatedPassStrategy( $j('.passStrategySelectListSelectorClass').val(),  $j('.passStrategySelectListSelectorClass').find("option:selected").text() );
+                
+                
+                setupComboboxesAndCheckboxes();
+                setupModalBindings();
+                
+                pushDataFromHiddenPicklistsToVisibleOnes();
+                
+                $j("#phoneListDiv").css("display","");
+                $j("#addyListDiv").css("display","");
+                $j('.customPhoneAnchorTag').on('click', function(){
+                    if ($j(this).hasClass('phoneNumberClicked')) {
+                    } else {
+                        $j(this).addClass('phoneNumberClicked');
+                    }
+                });
+            }
+            
+        }
+        
+        
+        function initializeDatatables() {
+            var mainContentPanel = $j('.selectorForMainOutputPanel');
+            var textNewlyRenderedText = $j('.textNewlyRendered').html();
+            if(mainContentPanel != null && textNewlyRenderedText && textNewlyRenderedText.length > 0) {
+                
+                $j('.textNewlyRendered').html(''); //CLEAR TEXT SO IT DOESN'T RE-ENTER THIS BLOCK ON VF RERENDER.
+                                                   //Which is to say, the value "newly rendered" is present on VF RERENDER.
+                
+                phoneNumTableVariable = $j('#phoneNumTable').dataTable( {
+                     "scrollY"       : PHONE_TABLE_HEIGHT,
+                     "scrollCollapse": true,
+                     "paging"        :false,
+                     "bFilter"       :false,
+                     "bInfo"         :false,
+                     "order": [[ 2, "asc" ]],
+                     "aoColumns" : [
+                         { sWidth: '30px' },
+                         { sWidth: '115px' },
+                         { sWidth: '60px' },
+                         { sWidth: '18px' },
+                         { sWidth: '50px' },
+                         { sWidth: '50px' }
+                     ],
+                     aoColumnDefs: [
+                       {
+                          bSortable: false,
+                          aTargets: [ 0 ]
+                       }
+                     ]
+                 } );
+                 
+                 addressTableVariable = $j('#addressTable').dataTable( {
+                     "scrollY"       : ADDRESS_TABLE_HEIGHT,
+                     "scrollCollapse": true,
+                     "paging"        :false,
+                     "bFilter"       :false,
+                     "bInfo"         :false,
+                     "aoColumns" : [
+                         { sWidth: '20px' },
+                         { sWidth: '100px' },
+                         { sWidth: '62px' }
+                     ]  
+                 } );
+                 
+             
+            }
+            
+            
+        
+        }
+        
+        function setupComboboxesAndCheckboxes() {
+            $j(".checkboxClassForChangeWatcher").change(function() {
+               // saveWrapper();
+            });
+            
+            $j(".multiSelectEnabled").multipleSelect({
+                width:150
+            });
+            $j(".multiSelectEnabled2").multipleSelect({
+                width:150
+            });
+        }
+        
+        function setupModalBindings() {
+            $j( "#modalForm" ).dialog({
+                autoOpen: false,
+                modal: true,
+                closeOnEscape: false,
+                open: function(event, ui) { $j(".ui-dialog-titlebar-close", ui.dialog || ui).hide(); },
+                buttons: {
+                    Save: function() {
+                        handleModalSaveClick( $j(this) );
+                    },        
+                    Cancel: function() {
+                        $j(this).dialog( "close" );
+                    },
+                    Delete: function() {
+                        handleModalDeleteClick( $j(this) );
+                    }
+                }
+            });
+            
+            $j( "#addyModalForm" ).dialog({
+                autoOpen: false,
+                modal: true,
+                closeOnEscape: false,
+                open: function(event, ui) { $j(".ui-dialog-titlebar-close", ui.dialog || ui).hide(); },
+                buttons: {
+                    Save: function() {
+                        handleAddyModalSaveClick();
+                    },        
+                    Cancel: function() {
+                        $j(this).dialog( "close" );
+                    },
+                    Delete: function() {
+                        handleAddyModalDeleteClick();
+                    }
+                }
+            });
+            
+            setupEditButtonsInPhoneGrid();
+            
+        }
+        
+        function setupEditButtonsInPhoneGrid() {
+            $j(".editButtonHref").click(function(){
+                var isPopupOpen = $j( "#modalForm" ).dialog( "isOpen" );
+                if(!isPopupOpen) {
+                    setDataRowPropertiesAndPushToPopup($j(this));
+                    $j("#modalForm").dialog( "open" );
+                    $j("#modalFormErrorMsg").html( '' );
+                }
+            });
+            
+            $j(".editAddressBtn").click( function(){
+                var isPopupOpen = $j( "#addyModalForm" ).dialog( "isOpen" );
+                if(!isPopupOpen) {
+                    setAddyDataRowPropertiesAndPushToPopup($j(this));
+                    $j("#addyModalForm").dialog( "open" );
+                    $j("#addyFormErrorMessage").html( '' );
+                }
+            });
+        }
+        
+        /*
+        * __________________________END BINDINGS________________________________
+        */
+        
+        
+        function addAddressObjectToTable( tmpAddyTable, randomId, address, source, dateRange ) {
+            var arrayObjToAdd = getArrayOFDataValsForAddyRecord(randomId, address, source, dateRange);
+            tmpAddyTable.row.add(arrayObjToAdd);
+            tmpAddyTable.draw();
+        }
+        function getArrayOFDataValsForAddyRecord(randomId, address, source, dateRange) {
+            return [ '<a href="#" class="editAddressBtn" randomId="' + randomId + '" />', 
+                      address, 
+                      '<span><span class="addressSrcSpan">' + source + '</span><br /><span class="addressDateRangeSpan">' + dateRange + '</span></span>'] ;
+        }
+        
+        function addRowToPhoneTable(tempTable, randomId, phoneNumber, statusOrder, phoneStatus, phoneType, phoneSource, enableClickToDial, lastCalled, addition) {
+            var arrayObjToAdd = getArrayOfDataValuesForRowAddingEditing(randomId, phoneNumber, statusOrder, phoneStatus, phoneType, phoneSource, enableClickToDial, lastCalled);
+            
+            tempTable.row.add( arrayObjToAdd );
+            tempTable.draw();
+        }
+        function getArrayOfDataValuesForRowAddingEditing(randomId, phoneNumber, statusOrder, phoneStatus, phoneType, phoneSource, enableClickToDial, lastCalled) {
+            if(phoneStatus && phoneStatus.length > 0) {
+                var phStChr = phoneStatus.substring(0,1).toUpperCase();
+                if(phStChr == 'S' || phStChr == 'T' || phStChr == 'H' || phStChr == 'N') {
+                    enableClickToDial = 'false';
+                }
+            }
+            if (lastCalled == undefined || lastCalled == null || lastCalled == '') {
+                lastCalled = '';
+            } else {
+                lastCalled = new Date(lastCalled).toLocaleString();
+            }
+
+            /*if(phoneStatus && phoneStatus.length > 0) {
+                var phStChr = phoneStatus.substring(0,1).toUpperCase();
+                if(phStChr == 'S' || phStChr == 'T' || phStChr == 'H' || phStChr == 'N' || phoneDnc) {
+                    enableClickToDial = 'false';
+                }
+            }*/
+
+            var tmpPhone = buildCtiAnchorString(phoneNumber, phoneType, MOBILE_PHONE_IMG_URL, enableClickToDial, faidFromController, '{!Financial_Account__c.Financial_Account_Number__c}');
+            return ['<a href="#" class="editButtonHref" randomId="' + randomId + '" />', 
+                                tmpPhone, 
+                                '<span><span class="hiddenOrderStatusSpanForOrdering" style="display:none;">' + statusOrder + '</span><span class="mainPhoneStatus">' + phoneStatus + '</span></span>',
+                                phoneType, 
+                                phoneSource, 
+                                lastCalled] ;
+        }
+        
+        
+        
+         /*
+        * __________________________ADDRESS FUNCTIONALITY________________________________
+        */
+        
+        function addNewAddyButtonClicked() {
+            $j("#addyFormErrorMessage").html( '' );
+            
+            lastAddyRowIndex = null;
+            lastAddyRowObj = null;
+            lastAddyRandomId = null;
+            lastSelectedAddyTrJQObj = null;
+            
+            setAddyPopupValsFromEditOrAddClick();
+            $j("#addyModalForm").dialog( "open" );
+        }
+        
+        var lastAddyRowIndex = null;
+        var lastAddyRowObj = null;
+        var lastAddyRandomId = null;
+        var lastSelectedAddyTrJQObj = null;
+        function setAddyDataRowPropertiesAndPushToPopup(editButtonThis) {
+            var tempTable = $j('#addressTable').DataTable();
+            
+            var randomId = editButtonThis.attr( "randomId" );
+            var tableData = tempTable.data();
+            
+            var buttonHtmlFromData = '';
+            for(var i = 0; i < tableData.length; i++) {
+                buttonHtmlFromData = tableData[i][0];
+                if(buttonHtmlFromData && buttonHtmlFromData.indexOf(randomId) > -1) {
+                    lastAddyRowIndex = i;
+                    lastAddyRowObj = tableData[i];
+                    lastAddyRandomId = randomId;
+                    lastSelectedAddyTrJQObj = editButtonThis.closest('tr');
+                } 
+            }
+            setAddyPopupValsFromEditOrAddClick();
+        }
+        function setAddyPopupValsFromEditOrAddClick() {
+            var valueParser = (lastAddyRowObj) ? lastAddyRowObj[1] : ''; 
+            valueParser = valueParser.replace(new RegExp('<br/>', 'g'), '\n');
+            $j("#addyFormTextArea").val(valueParser);
+            
+            //<span><span class="addressSrcSpan">System Notes</span><br /><span class="addressDateRangeSpan">123
+            valueParser = '';
+            var secondTabSpan;
+            if(lastAddyRowObj) {
+                secondTabSpan = lastAddyRowObj[2];
+                valueParser = $j(secondTabSpan).children(".addressSrcSpan").html();
+            }
+            $j("#addyFormSourceSelect").val(valueParser);
+            
+            valueParser = '';
+            if(secondTabSpan) {
+                valueParser = $j(secondTabSpan).children(".addressDateRangeSpan").html();
+            }
+            $j("#addyFormDateRange").val(valueParser);
+        }
+        
+        function handleAddyModalDeleteClick() {
+            $j("#addyFormErrorMessage").html( '' );
+            
+            var requestObj = getAddyRequestObj();
+            
+            if(requestObj.randomId) {
+                var requestString = JSON.stringify(requestObj) ;
+                $j(".saveAddyJsonRequest").val( requestString ) ;
+                disableEnablePhonePopupButtons(true);
+                
+                cacheResponseCount();
+                deleteAddress();
+            }else{
+                $j("#addyModalForm").dialog( "close" );
+            }
+        }
+        
+        function handleDeleteAddressResponse() {
+            if( parsedResponseCount == responseCount || responseCount == 0 || parsedResponseCount > responseCount ) {
+                showNetworkConnectivityAlert();
+                return;
+            }
+            
+            disableEnablePhonePopupButtons(false);
+            
+            var jsonString = $j("#hiddenAddyResponseForPsuedoVFRemote").html();
+            var jsonResponseObj;
+            var errorString = '';
+            if(jsonString && jsonString.length > 0) {
+                jsonResponseObj = JSON.parse( jsonString );
+            }
+            
+            if(jsonResponseObj) {
+                if(jsonResponseObj.saveSuccess && jsonResponseObj.saveSuccess == "true") {
+                    
+                    var rowDT = $j('#addressTable').DataTable().row(lastSelectedAddyTrJQObj);
+                    rowDT.remove();
+                    //THIS WORKS SOMETIMES -- addressTableVariable.fnDeleteRow(lastAddyRowIndex);
+                    $j('#addressTable').DataTable().draw();
+                }else{
+                    if(jsonResponseObj.saveErrorMessage && jsonResponseObj.saveErrorMessage.length > 0) {
+                        errorString = jsonResponseObj.saveErrorMessage;
+                    }else{
+                        errorString = 'Save Error.  Cancel and try again.';
+                    }
+                }
+            }else{
+                errorString = 'TFSC Error 10021 - contact support.';
+            }
+            
+            
+            if(errorString && errorString.length > 0) {
+                $j("#addyFormErrorMessage").html( errorString );
+            }else{
+                $j("#addyModalForm").dialog( "close" );
+            }
+        }
+        
+        function handleAddyModalSaveClick() {
+            $j("#addyFormErrorMessage").html( '' );
+            
+            var requestObj = getAddyRequestObj();
+            var requestString = JSON.stringify(requestObj) ;
+            $j(".saveAddyJsonRequest").val( requestString ) ;
+            disableEnablePhonePopupButtons(true);
+            
+            cacheResponseCount();
+            saveAddress();
+        }
+        function handleSaveAddressResponse() {
+            
+            if( parsedResponseCount == responseCount || responseCount == 0 || parsedResponseCount > responseCount ) {
+                showNetworkConnectivityAlert();
+                return;
+            }
+            
+            disableEnablePhonePopupButtons(false);
+            
+            var jsonString = $j("#hiddenAddyResponseForPsuedoVFRemote").html();
+            var jsonResponseObj;
+            var errorString = '';
+            if(jsonString && jsonString.length > 0) {
+                jsonResponseObj = JSON.parse( jsonString );
+            }
+            
+            if(jsonResponseObj) {
+                //var tempTable = $j('#addressTable').DataTable();
+                if(jsonResponseObj.saveSuccess && jsonResponseObj.saveSuccess == "true") {
+                    var addyToUse = jsonResponseObj.addressHtml;
+                    addyToUse = addyToUse.replace(new RegExp('\n', 'g'), '<br/>'); 
+                    if(lastAddyRandomId == null) {
+                        addAddressObjectToTable( $j('#addressTable').DataTable(),
+                                                    jsonResponseObj.randomId,
+                                                    addyToUse,
+                                                    jsonResponseObj.source,
+                                                    jsonResponseObj.dateRange );
+                    }else{
+                        updateSelectedAddyRowAFterSave(  jsonResponseObj.randomId,
+                                                            addyToUse, 
+                                                            jsonResponseObj.source, 
+                                                            jsonResponseObj.dateRange);
+                    }
+                    
+                    //addressTableVariable.fnDraw();
+                    $j('#addressTable').DataTable().draw();
+                    setupEditButtonsInPhoneGrid();
+                }else{
+                    if(jsonResponseObj.saveErrorMessage && jsonResponseObj.saveErrorMessage.length > 0) {
+                        errorString = jsonResponseObj.saveErrorMessage;
+                    }else{
+                        errorString = 'Save Error.  Cancel and try again.';
+                    }
+                }
+            }else{
+                errorString = 'TFSC Error 13056 - contact support.';
+            }
+            
+            
+            if(errorString && errorString.length > 0) {
+                $j("#addyFormErrorMessage").html( errorString );
+            }else{
+                $j("#addyModalForm").dialog( "close" );
+            }
+        }
+        
+        function updateSelectedAddyRowAFterSave( randomId, addyHtml, source, dateRange) {
+            var newObjRow = getArrayOFDataValsForAddyRecord(randomId, addyHtml, source, dateRange);
+            
+            //var rows = $j('#addressTable').find('tr');
+            //var row = rows[lastAddyRowIndex + 1];
+            var rowDT = $j('#addressTable').DataTable().row( lastSelectedAddyTrJQObj );
+            rowDT.data( newObjRow ).draw();
+            
+            //addressTableVariable.fnUpdate(newObjRow, lastAddyRowIndex);
+        }
+        
+        function getAddyRequestObj() {
+            var objToReturn = {};
+            
+            var valParser = $j("#addyFormTextArea").val();
+            objToReturn.address = valParser;
+            objToReturn.address = objToReturn.address.replace(new RegExp('\<\b\r\/\>', 'g'), '\n');
+            
+            valParser = $j("#addyFormSourceSelect").val();
+            objToReturn.source = valParser;
+            
+            valParser = $j("#addyFormDateRange").val();
+            objToReturn.dateRange = valParser;
+            
+            if(lastAddyRandomId) {
+                objToReturn.randomId = lastAddyRandomId;
+            }
+            
+            return objToReturn;
+        }
+        
+        /*
+        * __________________________END ADDRESS FUNCTIONALITY_____________________________
+        */
+        
+        
+        
+        
+        /*
+        * __________________________PHONE FUNCTIONALITY________________________________
+        */
+        var lastSelectedPhoneRowIndex;
+        var lastSelectedPhoneRowObject;
+        var lastSelectedRandomId;
+        var lastSelectedTrJQObj;
+    
+        // when entering the phone number, we want to inform the user if invalid but still enable them to submit it if they want. 
+        var phoneNumberDirty = false;
+        var phoneNumberErrorShownFlag = false;
+        
+        function addNewPhoneButtonClicked() {
+            $j("#modalFormErrorMsg").html( '' );
+            
+            lastSelectedPhoneRowIndex = null;
+            lastSelectedPhoneRowObject = null;
+            lastSelectedRandomId = null;
+            lastSelectedTrJQObj = null;
+            
+            setDataRowPropertiesAndPushToPopupAfterLastTrSet();
+            $j("#modalForm").dialog( "open" );
+            
+            phoneNumberErrorShownFlag = false;
+            $j("#editFormPhoneNumberText").on("change", function() {
+                phoneNumberDirty = true;
+                $j("#modalFormErrorMsg").html( '' );
+            });
+        }
+        
+        function setDataRowPropertiesAndPushToPopupAfterLastTrSet() {
+            var valueParser = (lastSelectedPhoneRowObject) ? lastSelectedPhoneRowObject[1] : ''; //lastSelectedPhoneRowTr.find(".phoneSpan").html();
+            
+            if(valueParser.length > 0) {
+                var anchorObj = $j(valueParser);
+                //valueParser = anchorObj.attr('cleanedNum');
+                valueParser = anchorObj.attr('keyedPhoneNum');
+            }
+            
+            $j("#editFormPhoneNumberText").val(valueParser);
+            
+            valueParser = (lastSelectedPhoneRowObject) ? $j(lastSelectedPhoneRowObject[2]).children(".mainPhoneStatus").html() : '{!phoneStatusSelectOptions[0].value}';
+            $j("#editFormPhoneStatusCombobox").val(valueParser);
+            
+            valueParser = (lastSelectedPhoneRowObject) ? lastSelectedPhoneRowObject[3] : ''; //lastSelectedPhoneRowTr.find(".phoneTypeSelect").val();
+            $j("#editFormPhoneTypeCombobox").val(valueParser);
+            
+            valueParser = (lastSelectedPhoneRowObject) ? lastSelectedPhoneRowObject[4] : ''; //lastSelectedPhoneRowTr.find(".phoneSourceSelect").val() ;
+            $j("#editFormPhoneSourceCombobox").val(valueParser);
+        }
+        function setDataRowPropertiesAndPushToPopup(editButtonThis) {
+            
+            var tempTable = $j('#phoneNumTable').DataTable();
+            
+            var randomId = editButtonThis.attr( "randomId" );
+            
+            var tableData = tempTable.data();
+            
+            var buttonHtmlFromData = '';
+            for(var i = 0; i < tableData.length; i++) {
+                buttonHtmlFromData = tableData[i][0];
+                if(buttonHtmlFromData && buttonHtmlFromData.indexOf(randomId) > -1) {
+                    lastSelectedPhoneRowIndex = i;
+                    lastSelectedPhoneRowObject = tableData[i];
+                    lastSelectedRandomId = randomId;
+                    lastSelectedTrJQObj = editButtonThis.closest('tr');
+                } 
+            }
+            
+            //var temp3 = tempTable.row(editButtonThis);
+            //var temp4 = temp3.index();
+            //var temp5 = temp3.data();
+            
+            
+            setDataRowPropertiesAndPushToPopupAfterLastTrSet();
+        }
+        
+        
+        
+        function disableEnablePhonePopupButtons(disableBoolean) {
+            var disableString = 'enable';
+            if(disableBoolean) {
+                disableString = 'disable';
+            }
+            $j(".ui-dialog-buttonpane button:contains('Delete')").button(disableString);
+            $j(".ui-dialog-buttonpane button:contains('Cancel')").button(disableString);
+            $j(".ui-dialog-buttonpane button:contains('Save')").button(disableString);
+        }
+        
+        var parsedResponseCount = 0;
+        function cacheResponseCount() {
+            if(responseCount === null || isNaN(responseCount)) {
+                responseCount = 0;
+            }
+            parsedResponseCount = responseCount;
+        }
+        function showNetworkConnectivityAlert() {
+            alert( 'A network connectivity issue has occurred.  To avoid losing all phone and address skip trace data, refresh this page.  WARNING: Hitting SAVE ALL at the top, or SAVE on the individual popup will cause loss of data.' );
+        }
+        
+        function handleModalSaveClick(thisModalDialog) {
+            $j("#modalFormErrorMsg").html( '' );
+            
+            var requestObj = getRequestObjFromEditFormAndTr();
+            var requestString = JSON.stringify(requestObj) ;
+            $j(".jsonRequestInput").val( requestString ) ;
+            disableEnablePhonePopupButtons(true);
+            
+            if( phoneFormFieldsValid() ) {
+                cacheResponseCount();
+                savePhoneLineItem();
+            }else{
+                disableEnablePhonePopupButtons(false);
+            } 
+        }
+        function phoneFormFieldsValid() {
+            var errorString = '';
+            var phoneNumVal1 = $j("#editFormPhoneNumberText").val();
+            var phoneNumVal2 = cleanPhoneNumberOfNonNumericCharacters(phoneNumVal1);
+            if(phoneNumVal1.length != 10 || phoneNumVal2.length != 10) {
+                errorString += 'Phone Number must be exactly 10 digits long. ';
+                phoneNumberErrorShownFlag = false;
+            }
+            
+            
+            // list of invalid area codes.
+            var invalidAreaCode = [
+                '011','144','177','199','200','204','211','226','242','244','246','250','264','268',
+                '277','284','289','299','300','306','311','340','343','344','345','377','399','400',
+                '403','411','416','418','438','441','450','456','473','477','499','500','514','519',
+                '544','555','577','581','587','599','600','604','611','613','644','647','649','664',
+                '670','671','677','684','699','700','705','709','710','711','744','758','767','778',
+                '780','784','787','799','807','809','811','819','822','829','833','844','867','868',
+                '869','876','880','881','882','899','900','902','905','911','939','944','977'
+            ];
+            if(errorString.length > 0) {
+                if (phoneNumberDirty) {
+                    phoneNumberErrorShownFlag = false;
+                    phoneNumberDirty = false;
+                }
+                if (phoneNumberErrorShownFlag) {
+                    phoneNumberErrorShownFlag = false;
+                } else {
+                    $j("#modalFormErrorMsg").html( errorString );
+                    phoneNumberErrorShownFlag = true;
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        function handleSaveResponse() {
+            
+            if( parsedResponseCount == responseCount || responseCount == 0 || parsedResponseCount > responseCount ) {
+                showNetworkConnectivityAlert();
+                return;
+            }
+            
+            disableEnablePhonePopupButtons(false);
+            
+            var jsonString = $j("#hiddenResponseForPsuedoVFRemote").html();
+            var jsonResponseObj;
+            var errorString = '';
+            if(jsonString && jsonString.length > 0) {
+                jsonResponseObj = JSON.parse( jsonString );
+            }
+            
+            
+            //saveErrorMessage; saveSuccess; randomId; phoneNumber; phoneStatus; phoneSource; phoneType; phoneTypeSingleChr; statusOrder;
+            if(jsonResponseObj) {
+                //var tempTable = $j('#phoneNumTable').DataTable();
+                
+                if(jsonResponseObj.alertMessage && jsonResponseObj.alertMessage.length > 0) {
+                    alert(jsonResponseObj.alertMessage);
+                }
+                
+                if(jsonResponseObj.saveSuccess && jsonResponseObj.saveSuccess == "true") {
+                    
+                    if(lastSelectedPhoneRowObject ==  null) {
+                        /*
+                        //lastSelectedPhoneRowTr.appendTo("#phoneNumTable");
+                        var tmpRowString = lastSelectedPhoneRowTr.html();
+                        tmpRowString = ' <tr class="phoneDataTr">' + tmpRowString + '</tr>';
+                        phoneNumTableVariable.fnAddTr( $j(tmpRowString)[0] ); 
+                        phoneNumTableVariable.fnDraw();
+                        booleanRefresh = true;
+                        */
+                        
+                        addRowToPhoneTable( $j('#phoneNumTable').DataTable(),
+                                      jsonResponseObj.randomId, 
+                                      jsonResponseObj.phoneNumber,  
+                                      jsonResponseObj.statusOrder,
+                                      jsonResponseObj.phoneStatus,
+                                      jsonResponseObj.phoneType, 
+                                      jsonResponseObj.phoneSource,
+                                      jsonResponseObj.enableClickToDial,
+                                      jsonResponseObj.lastCalled
+                                      );
+                        $j('.customPhoneAnchorTag').on('click', function() {
+                            if ($j(this).hasClass('phoneNumberClicked')) {
+                            } else {
+                                $j(this).addClass('phoneNumberClicked');
+                            }
+                        });
+                        
+                    }else{
+                        updateFieldValuesAfterSave( jsonResponseObj.randomId,
+                                                jsonResponseObj.phoneNumber, 
+                                                jsonResponseObj.phoneStatus, 
+                                                jsonResponseObj.phoneSource, 
+                                                jsonResponseObj.phoneType, 
+                                                jsonResponseObj.phoneTypeSingleChr, 
+                                                jsonResponseObj.statusOrder,
+                                                jsonResponseObj.enableClickToDial,
+                                                jsonResponseObj.lastCalled
+                                                );
+                    }
+                    
+                    
+                    //phoneNumTableVariable.fnDraw();
+                    $j('#phoneNumTable').DataTable().draw();
+                    setupEditButtonsInPhoneGrid();
+                    
+                }else{
+                    if(jsonResponseObj.saveErrorMessage && jsonResponseObj.saveErrorMessage.length > 0) {
+                        errorString = jsonResponseObj.saveErrorMessage;
+                    }else{
+                        errorString = 'The phone number you\'ve entered contains an invalid area code. Please confirm with customer. If confirmed with customer, save to continue.';
+                    }
+                    phoneNumberErrorShownFlag = true;
+                }
+            }else{
+                errorString = 'TFSC Error 10055 - contact support.';
+            }
+            
+            
+            if(errorString && errorString.length > 0) {
+                $j("#modalFormErrorMsg").html( errorString );
+            }else{
+                $j("#modalForm").dialog( "close" );
+            }
+        }
+        
+        function getRequestObjFromEditFormAndTr() {
+            //randomId; phoneNumber; phoneStatus; phoneSource; phoneType;
+            var objToReturn = {};
+            objToReturn.phoneStatus = $j("#editFormPhoneStatusCombobox").val();
+            objToReturn.phoneSource = $j("#editFormPhoneSourceCombobox").val();
+            objToReturn.phoneType = $j("#editFormPhoneTypeCombobox").val();
+            objToReturn.phoneNumber = $j("#editFormPhoneNumberText").val();
+            if (phoneNumberDirty) {
+                phoneNumberErrorShownFlag = false;
+                phoneNumberDirty = false;
+            }
+            objToReturn.errorStringShownFlag = phoneNumberErrorShownFlag;
+            
+            if(lastSelectedRandomId) {
+                objToReturn.randomId = lastSelectedRandomId;
+            }
+            
+            return objToReturn;
+        }
+        
+        function updateFieldValuesAfterSave(randomId, phoneNumber, phoneStatus, phoneSource, phoneType, phoneTypeSingleChr, statusOrder, enableClickToDial, lastCalled) {
+            //.phoneDataTr
+            var valueParser;
+            var tmpObjDebugger;
+            if(lastSelectedPhoneRowObject != null) {
+                var objToInsert = getArrayOfDataValuesForRowAddingEditing(randomId, phoneNumber, statusOrder, phoneStatus, phoneType, phoneSource, enableClickToDial, lastCalled);
+                
+                var rowDT = $j('#phoneNumTable').DataTable().row( lastSelectedTrJQObj );
+                rowDT.data( objToInsert ).draw();
+                
+                //phoneNumTableVariable.fnUpdate(objToInsert, lastSelectedPhoneRowIndex);
+            }
+        }
+        function updateTimestampAfterSave(randomId, phoneNumber, phoneStatus, phoneSource, phoneType, phoneTypeSingleChar, statusOrder, enableClickToDial, lastCalled) {
+            var objToInsert = getArrayOfDataValuesForrowAddingEditing(randomId, phoneNumber, statusOrder, phoneStatus, phoneType, phoneSource, enableCickToDial, lastCalled);
+            //phoneNumTableVariable
+            $j('#phoneNumTable').DataTable()
+            var row;
+            var rows = $j('#phoneNumTable').find('tr'); 
+            rows.each(function(){
+                var tmpRowObj = $j(this);
+                if(tmpRowObj.find()) {
+                    row = this;
+                    console.log(row);
+                }
+            });
+            //var rowDT = $j('#phoneNumTable').DataTable().row();
+            //rowDT.data( objToInsert ).draw();
+        }
+        
+        function handleModalDeleteClick(thisModalDialog) {
+            $j("#modalFormErrorMsg").html( '' );
+            var requestObj = getRequestObjFromEditFormAndTr();
+            
+            if(requestObj.randomId) {
+                var requestString = JSON.stringify(requestObj) ;
+                $j(".jsonRequestInput").val( requestString ) ;
+                disableEnablePhonePopupButtons(true);
+                
+                cacheResponseCount();
+                deletePhoneLineItem();
+            }else{
+                $j("#modalForm").dialog( "close" );
+            }
+            
+                
+        }
+        function handleDeleteResponse() {
+        
+            if( parsedResponseCount == responseCount || responseCount == 0 || parsedResponseCount > responseCount ) {
+                showNetworkConnectivityAlert();
+                return;
+            }
+            
+            disableEnablePhonePopupButtons(false);
+            
+            var jsonString = $j("#hiddenResponseForPsuedoVFRemote").html();
+            var jsonResponseObj;
+            var errorString = '';
+            if(jsonString && jsonString.length > 0) {
+                jsonResponseObj = JSON.parse( jsonString );
+            }
+            
+            //saveErrorMessage; saveSuccess; randomId; phoneNumber; phoneStatus; phoneSource; phoneType; phoneTypeSingleChr; statusOrder;
+            if(jsonResponseObj) {
+                if(jsonResponseObj.saveSuccess && jsonResponseObj.saveSuccess == "true") {
+                    
+                    //phoneNumTableVariable
+                    //$j('#phoneNumTable').DataTable()
+                    //var row;
+                    //var rows = $j('#phoneNumTable').find('tr'); 
+                    //rows.each(function(){
+                    //    var tmpRowObj = $j(this);
+                    //    if(tmpRowObj.find())
+                    //    row = this;
+                    //});
+                    
+                    var rowDT = $j('#phoneNumTable').DataTable().row(lastSelectedTrJQObj);
+                    rowDT.remove();
+                    //THIS WORKS SOMETIMES -- phoneNumTableVariable.fnDeleteRow(lastSelectedPhoneRowIndex);
+                    $j('#phoneNumTable').DataTable().draw();
+                }else{
+                    if(jsonResponseObj.saveErrorMessage && jsonResponseObj.saveErrorMessage.length > 0) {
+                        errorString = jsonResponseObj.saveErrorMessage;
+                    }else{
+                        errorString = 'Save Error.  Cancel and try again.';
+                    }
+                }
+            }else{
+                errorString = 'TFSC Error 10055 - contact support.';
+            }
+            
+            
+            if(errorString && errorString.length > 0) {
+                $j("#modalFormErrorMsg").html( errorString );
+            }else{
+                $j("#modalForm").dialog( "close" );
+            }
+        }
+        
+        /*
+        * __________________________END PHONE FUNCTIONALITY________________________________
+        */
+        
+        
+        
+        function remoteToGetArticleText(newValue) {
+            
+            $j("#knowledgeTextDiv").html("");
+            
+            if(newValue) {
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.TFSC_SkipTraceController.generateArticleText}', 
+                    newValue,
+                    function tmpHandler(result, event){
+                        if(event.status && result !== null){
+                            $j("#knowledgeTextDiv").html(htmlDecode(result));
+                        }else{
+                            //not a big deal if this fails.
+                        }
+                    }
+                );
+            }
+            
+        }
+        
+        function htmlDecode(value){
+          return $j('<div/>').html(value).text();
+        }
+        
+        function handleUpdatedPassStrategy(newValue, newLabel) {
+            if(newLabel == null || newLabel.length < 4) {//Modified by Shashank Singhal for S-321636 on 06/29/2015
+                newLabel = '      ';
+            }
+            remoteToGetArticleText(newValue);
+            
+            var trimmedVal = newLabel.substring(0,6); //Modified by Shashank Singhal for S-321636 on 06/29/2015
+            
+            $j(".highlightSelector").each( function(index) {
+                $j(this).css("background-color","");
+            } );
+            //Modified by Shashank Singhal for S-321636 on 06/29/2015
+            /*if(trimmedVal == 'PASS1-') {
+                //Notes Reviewed Back To and Alternate Phone Numbers
+                $j("#notesReviewdBackToSpan").css("background-color","yellow");
+                $j("#alternatePhoneSpan").css("background-color","yellow");
+            }else if(trimmedVal == 'PASS2-') {
+                $j("#notesReviewdBackToSpan").css("background-color","yellow");
+                $j("#alternatePhoneSpan").css("background-color","yellow");
+            }else if(trimmedVal == 'PASS3-') {
+                $j("#multipleAccountsTd").css("background-color","yellow");
+            }else if(trimmedVal == 'PASS4-') {
+                $j("#dmsCreditAppTd").css("background-color","yellow");
+            }else if(trimmedVal == 'PASS5-') {
+                $j("#paymentReviewTd").css("background-color","yellow");
+                $j("#innovisTd").css("background-color","yellow");
+            }else if(trimmedVal == 'PASS6-') {
+                $j("#notesReviewdBackToSpan").css("background-color","yellow");
+                $j("#alternatePhoneSpan").css("background-color","yellow");
+            }else if(trimmedVal == 'PASS7-') {
+                $j("#fastDataTd").css("background-color","yellow");
+            }else if(trimmedVal == 'PASS8-') {
+                $j("#notesReviewdBackToSpan").css("background-color","yellow");
+                $j("#alternatePhoneSpan").css("background-color","yellow");
+            }else if(trimmedVal == 'PASS9-') {
+                $j("#accurintTd").css("background-color","yellow");
+            }else if(trimmedVal == 'PASS10') {
+                $j("#notesReviewdBackToSpan").css("background-color","yellow");
+                $j("#alternatePhoneSpan").css("background-color","yellow");
+            }else if(trimmedVal == 'PASS11') {
+            
+            }*/
+            
+            if(newLabel == 'MANL'){
+                $j("#notesReviewdBackToSpan").css("background-color","yellow");
+                $j("#alternatePhoneSpan").css("background-color","yellow");
+            }else if(newLabel == 'RES1'){
+                $j("#multipleAccountsTd").css("background-color","yellow");
+                $j("#dmsCreditAppTd").css("background-color","yellow");
+            }else if(newLabel == 'RES2'){
+                $j("#dmsTd").css("background-color","yellow");
+            }else if(newLabel == 'RES3'){
+                $j("#innovisTd").css("background-color","yellow");
+            }else if(newLabel == 'RES4'){
+                $j("#accurintTd").css("background-color","yellow");
+            }else if(newLabel == 'RES5'){
+                $j("#paymentReviewTd").css("background-color","yellow");
+            }else if(newLabel == 'MANL/RCVR'){
+            
+            }
+            //End of S-321636
+        }
+        
+        
+        function showSavingMessage() {
+            $j("#savingMessage").show();
+        }
+        function hideSavingMessage() {
+            $j("#savingMessage").hide();
+        }
+        
+        
+        //this function is called automatically from sfdc.  do not change name.
+        function setFocusOnLoad(){ 
+            var mainContentPanel = $j('.selectorForMainOutputPanel');
+            if(mainContentPanel != null) 
+            {
+                $j('.passStrategySelectListSelectorClass').focus();
+            }
+        }
+        
+        
+        function pushDataFromHiddenPicklistsToVisibleOnes() {
+            var i = 0;
+            var hiddenValsFast = $j(".actualValueForFastDataSearch").val();
+            var hiddenValsFastArray = [];
+            if(hiddenValsFast != null && hiddenValsFast.indexOf(",") > -1) {
+                hiddenValsFastArray = hiddenValsFast.split(",");
+                $j(".fastDataSearchMultiSelect").val(hiddenValsFastArray).multipleSelect('refresh');
+            }else{
+                $j(".fastDataSearchMultiSelect").val(hiddenValsFast).multipleSelect('refresh');
+            }
+            
+            var hiddenValsAccuint = $j(".actualValueForAccuint").val();
+            var hiddenValsAccuintArray = [];
+            if(hiddenValsAccuint != null && hiddenValsAccuint.indexOf(",") > -1) {
+                hiddenValsAccuintArray = hiddenValsAccuint.split(",");
+                $j(".accuintMultiSelectVisible").val(hiddenValsAccuintArray).multipleSelect('refresh');
+            }else{
+                $j(".accuintMultiSelectVisible").val(hiddenValsAccuint).multipleSelect('refresh');
+            }
+            
+        }
+        
+        function getDataFromVisiblePicklistsToHiddoneOnes() {
+            var visibleValsFastArray = $j(".fastDataSearchMultiSelect").val();
+            var visibleValsFast = '';
+            var i = 0;
+            var appendComma = false;
+            if(visibleValsFastArray != null && visibleValsFastArray.length > 0) {
+                for(i = 0; i < visibleValsFastArray.length; i++) {
+                    if(appendComma) {
+                        visibleValsFast += ',';
+                    }
+                    visibleValsFast += visibleValsFastArray[i];
+                    appendComma = true;
+                } 
+            }
+            $j(".actualValueForFastDataSearch").val(visibleValsFast);
+            
+            
+            var visibleValsAccuintArray = $j(".accuintMultiSelectVisible").val();
+            var visibleValsAccuint = '';
+            if(visibleValsAccuintArray != null && visibleValsAccuintArray.length > 0) {
+                for(i = 0; i < visibleValsAccuintArray.length; i++) {
+                    if(appendComma) {
+                        visibleValsAccuint += ',';
+                    }
+                    visibleValsAccuint += visibleValsAccuintArray[i];
+                    appendComma = true;
+                } 
+            }
+            $j(".actualValueForAccuint").val(visibleValsAccuint);
+        }
+        
+        
+        
+        function saveWrapper() {
+            
+            getDataFromVisiblePicklistsToHiddoneOnes();
+            
+            apexSaveChanges();
+        }
+        
+        
+        
+        /**
+        *   
+        *   @campaignTabManagerObject
+        *      @relatedSoftPhoneData
+        *      @relatedParentSoftPhoneData
+        *      @interactionId
+        *      @faId
+        *   
+        */
+        var campaignTabManagerObject;
+        if(sforce.console.isInConsole()) {
+            sforce.console.addEventListener( CTI_PUSH_TAB_OBJECT_FROM_MANAGER, onScreenPopHandler );
+        }
+        function onScreenPopHandler(result) {
+            var obj = deStringifyObjectFromEventMessageString(result.message);
+            if(obj && obj.faId && obj.faId.length >= 15 && obj.faId.slice(0,15) == faidFromController.slice(0,15)) {
+                campaignTabManagerObject = obj;
+                updateSelectedCampaignFac();
+            }
+        }
+        
+        function updateSelectedCampaignFac() {
+            var shouldUpdate = false;
+            var controllerPhoneNumber;
+            var phoneNumberComponent = $j(".hiddenDialedNumber");
+            var coBorrowerPoppedBoolComponent = $j(".hiddenCoBorrowerPopped");
+            if(phoneNumberComponent) {
+                controllerPhoneNumber = phoneNumberComponent.val();
+            }
+            if(phoneNumberComponent && campaignTabManagerObject.relatedSoftPhoneData && campaignTabManagerObject.relatedSoftPhoneData.KVP_CONTACT_INFO && campaignTabManagerObject.relatedSoftPhoneData.KVP_CONTACT_INFO.length > 0) {
+                var lastDialedPhoneNumberForThisTab = campaignTabManagerObject.relatedSoftPhoneData.KVP_CONTACT_INFO ;
+                if(controllerPhoneNumber === undefined || 
+                         controllerPhoneNumber === null || 
+                         controllerPhoneNumber == '' ||
+                         lastDialedPhoneNumberForThisTab.indexOf(controllerPhoneNumber) == -1) 
+                {
+                    $j(".hiddenDialedNumber").val(lastDialedPhoneNumberForThisTab);
+                    shouldUpdate = true;
+                }
+            }
+            
+            if(coBorrowerPoppedBoolComponent && 
+                campaignTabManagerObject.relatedSoftPhoneData && 
+                campaignTabManagerObject.relatedSoftPhoneData.KVP_PHONETYPE &&
+                ( campaignTabManagerObject.relatedSoftPhoneData.KVP_PHONETYPE == 3
+                   || campaignTabManagerObject.relatedSoftPhoneData.KVP_PHONETYPE == 4
+                   || campaignTabManagerObject.relatedSoftPhoneData.KVP_PHONETYPE == "3"
+                   || campaignTabManagerObject.relatedSoftPhoneData.KVP_PHONETYPE == "4") )
+            {
+                coBorrowerPoppedBoolComponent.val( 'true' );
+                shouldUpdate = true;
+            }else{
+                coBorrowerPoppedBoolComponent.val( 'false' );
+            }
+            
+            if(shouldUpdate) {
+                updateAltBorrower();
+            }
+        }
+        
+        
+        function dispatchCaseUpdatedEvent() {
+            console.log('Hi');
+            console.log(sforce.console.isInConsole());
+            if(sforce.console.isInConsole()) {
+                var serializedJson = $j("#hiddenResponseForSkipTraceNote").html();
+                var datesDetails = $j("#hiddenSkipNoteDetailsToAppendAboutDates").html();
+                //Modified by Shashank Singhal for S-330388
+                var previousPass = $j("#hiddenPreviousPass").html();
+                var accType = $j("#hiddenfAcctype").html();
+                var tempSkipTrace = $j("#hiddenSkipTarceJSON").html();
+                //End of S-330388
+                console.log(serializedJson);
+                if(serializedJson !== null && serializedJson.length > 0) {
+                    var passStratObjFromJson = deStringifyObjectFromEventMessageString(serializedJson);
+                    var eventType = CONSOLE_EVENT_SKIP_TRACE_SAVED_AND_OPEN_CASE_EDITED;
+                    var eventObj = {};
+                        eventObj.faId = faidFromController.slice(0,15);
+                        eventObj.passStratObj = serializedJson;
+                        eventObj.datesDetails = datesDetails;
+                        //Modified by Shashank Singhal for S-330388
+                        //Modified by Shashank Singhal for I-172096
+                        var initialPass = '{!passStratLabel}';
+                        var n = initialPass.indexOf(' Recommended');
+                        if(n != -1){
+                            initialPass = initialPass.substring(0, n);
+                        }
+                        if(initialPass != passStratObjFromJson.RES__c){
+                            if(passStratObjFromJson.RES__c == 'RES1'){
+                                previousPass = 1;
+                            }
+                            if(passStratObjFromJson.RES__c == 'RES2'){
+                                previousPass = 2;    
+                            }
+                            if(passStratObjFromJson.RES__c == 'RES3'){
+                                if(accType == 'General')
+                                    previousPass = 4;  
+                                if(accType == 'FPD-EPD')
+                                    previousPass = 3;  
+                                if(accType == 'MA')
+                                    previousPass = 4;    
+                            }
+                            if(passStratObjFromJson.RES__c == 'RES4'){
+                                if(accType == 'General')
+                                    previousPass = 6;  
+                                if(accType == 'FPD-EPD')
+                                    previousPass = 5;  
+                                if(accType == 'MA')
+                                    previousPass = 6;  
+                            }
+                            if(passStratObjFromJson.RES__c == 'RES5'){
+                                if(accType == 'General')
+                                    previousPass = 8;  
+                                if(accType == 'FPD-EPD')
+                                    previousPass = 6;  
+                                if(accType == 'MA')
+                                    previousPass = 8;   
+                            }
+                            if(passStratObjFromJson.RES__c == 'MANL/RCVR'){
+                                if(accType == 'General')
+                                    previousPass = 9;  
+                                if(accType == 'FPD-EPD')
+                                    previousPass = 7;  
+                                if(accType == 'MA')
+                                    previousPass = 9;   
+                            }
+                        
+                        }
+                        //End of I-172096
+                        eventObj.previousPass = previousPass;
+                        eventObj.fAccType = accType;
+                        eventObj.tempSkipTrace = tempSkipTrace;
+                        //End of S-330388
+                    var eventMessage = stringifyObjectForEventMessage(eventObj);
+                    console.log(eventMessage);
+                    sforce.console.fireEvent( eventType, eventMessage ) ;
+                }
+            }
+            
+        }
+    
+        function updateLastCalledTimeStamp(phoneNbr) {
+            var requestObj = {};
+            requestObj.phoneNumber = phoneNbr;
+            var requestString = JSON.stringify(requestObj) ;
+            $j(".jsonRequestInput").val( requestString ) ;
+            
+            cacheResponseCount();
+            updateTimestamp();
+        }
+        function handleUpdateTimestamp() {
+            var jsonString = $j("#hiddenResponseForPsuedoVFRemote").html();
+            var jsonResponseObj;
+            var errorString = '';
+            if(jsonString && jsonString.length > 0) {
+                jsonResponseObj = JSON.parse( jsonString );
+            }
+            if (jsonResponseObj) {
+                if (jsonResponseObj.saveSuccess && jsonResponseObj.saveSuccess == "true") {
+                    updateTimestampAfterSave( jsonResponseObj.randomId,
+                                                jsonResponseObj.phoneNumber, 
+                                                jsonResponseObj.phoneStatus, 
+                                                jsonResponseObj.phoneSource, 
+                                                jsonResponseObj.phoneType, 
+                                                jsonResponseObj.phoneTypeSingleChr, 
+                                                jsonResponseObj.statusOrder,
+                                                jsonResponseObj.enableClickToDial,
+                                                jsonResponseObj.lastCalled
+                                                );
+                } else {
+                    if (jsonResponseObj.saveErrorMessage && jsonResponseObj.saveErrorMessage.length > 0) {
+                    } else {
+                    }
+                }
+            } else {
+            }
+        }
+        
+    </script>
+    
+    <style>
+        #savingMessage{
+            background-color:rgba(0, 14, 44, 0.5);
+            width:100%;
+            height:100%;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            z-index: 1000;
+            rgba(0, 0, 0, 0.71);
+            cursor: wait;
+        }
+        .dateTd {
+            width:70px;
+        }
+        
+        .divFloatLeft {
+            float:left;
+        }
+        .parentRowDiv {
+            width="100%";
+            padding-top:8px;
+            clear: both;
+        }
+        .labelTd {
+            text-align:right;
+            color:#767676 ;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        .greyLabel  {
+            color:#767676 ;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        .dataPicker {
+            border: 1px solid #ACADB9;
+            border-radius: 3px;
+            height: 98%;
+            padding: 3px 17px 1px 1px;
+            width: 100px;
+            background: white url('/img/func_icons/util/datePicker16.gif') right no-repeat;
+        }
+        .dateFormat {
+            display:none; /* default sfdc style -- hiding anchor date for today's date. */
+        }
+        #saveButton {
+            vertical-align: bottom;
+            background: none repeat scroll 0 0 #F8D949 !important;
+        }
+        #initializeButton {
+            vertical-align: bottom;
+            background: none repeat scroll 0 0 #F8D949 !important;
+        }
+        .ms-choice {  /* default style for multiselect */
+            height:18px;
+            line-height:18px;
+        }
+        body{
+            width:100%;
+        }
+        #checkboxesTable td {
+            vertical-align: middle;
+        }
+        table.dataTable tr:odd { background-color:  white; }
+        table.dataTable tr:even { background-color: lightgrey;}
+        
+        a.editButtonHref {
+            height: 20px;
+            width: 20px;
+            display:block;
+            background-repeat: no-repeat;
+            background-image: url('/img/func_icons/util/customize20.gif');
+            background-position: 0px 0px;
+        }
+        a.editButtonHref:active {
+            background-position: -22px 0px;
+        }
+        a.editAddressBtn {
+            height: 20px;
+            width: 20px;
+            display:block;
+            background-repeat: no-repeat;
+            background-image: url('/img/func_icons/util/customize20.gif');
+            background-position: 0px 0px;
+        }
+        a.editAddressBtn:active {
+            background-position: -22px 0px;
+        }
+        
+        
+        #addyModalForm {
+            display: none;
+            max-width: 450px;
+        }
+        
+        #modalForm {
+            display: none;
+            max-width: 450px;
+        }
+        #modalForm .tdLabel {
+            max-width: 120px;
+            text-align: right;
+        }
+        #modalForm .tableLableForModalForm {
+            max-width: 120px;
+            text-align: right;
+        }
+        
+        
+        .ui-dialog-titlebar-close {
+          visibility: hidden;
+        }
+        
+        #phoneNumTable tr td {
+            font-size: 10px;
+        }
+        
+        .phoneNumberClicked {
+            font-style: italic;
+        }
+        
+        .dataTables_scrollBody {
+            max-height: 255px;
+            padding-bottom: 18px;
+        }
+        
+        
+    </style>
+    
+    
+    <apex:form id="psuedoJsonForm">
+        
+        <apex:actionFunction name="savePhoneLineItem" action="{!savePhoneLineItem}" 
+                             rerender="panelForJSRerender"
+                             oncomplete="handleSaveResponse();" />
+                             
+        <apex:actionFunction name="deletePhoneLineItem" action="{!deletePhoneLineItem}" 
+                             rerender="panelForJSRerender"
+                             oncomplete="handleDeleteResponse();" />
+        
+        <apex:actionFunction name="saveAddress" action="{!saveAddress}" 
+                             rerender="panelForJSRerender"
+                             oncomplete="handleSaveAddressResponse();" />
+                             
+        <apex:actionFunction name="deleteAddress" action="{!deleteAddress}" 
+                             rerender="panelForJSRerender"
+                             oncomplete="handleDeleteAddressResponse();" />
+        
+        <apex:actionFunction name="updateTimestamp" action="{!updateTimestamp}"
+                             rerender="panelForJSRerender"
+                             oncomplete="handleUpdateTimestamp();" />
+        
+        <apex:outputPanel id="panelForJSRerender" style="display:none;">
+            <apex:outputPanel id="childPanelForStrangeReRenderIssue" style="display:none;">
+                
+                <apex:outputField value="{!Financial_Account__c.Id}" rendered="false"/>
+                <apex:outputField value="{!Financial_Account__c.Collection_List_Number_1__c}" rendered="false"/>
+                <apex:outputField value="{!Financial_Account__c.History_Counter_Days_Past_Due__c}" rendered="false"/>
+                <apex:outputField value="{!Financial_Account__c.Risk_Strategy_Code_3__c}" rendered="false"/>
+                <apex:outputField value="{!Financial_Account__c.Finance_Account_Status__c}" rendered="false"/>
+                <apex:outputField value="{!Financial_Account__c.Collection_List_Status_1__c}" rendered="false"/>
+                <apex:outputField value="{!Financial_Account__c.History_Counter_Days_Past_Due__c}" rendered="false"/>
+                <apex:outputField value="{!Financial_Account__c.History_Counter_Payments_Made__c}" rendered="false"/>
+                <apex:outputField value="{!Financial_Account__c.RecordType.Name}" rendered="false"/>
+                
+                <apex:inputText styleClass="jsonRequestInput" value="{!saveJsonRequest}" style="display:none;"/>
+                <span id="hiddenResponseForPsuedoVFRemote" style="display:none;">{!saveResponse}</span>
+                
+                <apex:inputText styleClass="saveAddyJsonRequest" value="{!saveAddyJsonRequest}" style="display:none;"/>
+                <span id="hiddenAddyResponseForPsuedoVFRemote" style="display:none;">{!saveAddyResponse}</span>
+                
+                
+                <span id="hiddenResponseForSkipTraceNote" style="display:none;">{!selectedPassStratJsoneResponse}</span>
+                <span id="hiddenSkipNoteDetailsToAppendAboutDates" style="display:none;">{!skipNoteDetailsToAppendAboutDates}</span>
+                <!-- Modified by Shashank Singhal for S-330388 -->
+                <span id="hiddenPreviousPass" style="display:none;">{!previousPass}</span>
+                <span id="hiddenfAcctype" style="display:none;">{!fAccType}</span>
+                <span id="hiddenSkipTarceJSON" style="display:none;">{!skipTracePhoneJSONResponse}</span>
+                <!-- End of S-330388 -->
+                <script>
+                    
+                    /**
+                    *  responseCount is a mechanism put in place to evaluate an issue where session state seems to change in the console.
+                    *  The purpose is three-fold
+                    *   1) to evaluate whether or not the re-render has occured (and has successfully incremented the responseCount).
+                    *   2) to evaluate if a timeout or network failure has occured on the actionFunction call.
+                    *   3) to evaluate if, for some reason, some variables were reset/refreshed for an unknown reason (controller re-initialization [re-hitting the constructor] that has been seen in the console).
+                    *  For more details, search for 'parsedResponseCount'
+                    */
+                    var responseCount = {!responseCount};
+                    
+                    /**
+                    *   doing this here instead of a vfRemoting call so that all of my validations can still be in a PageRef function on the apex side, and the [UI Table] and [apex vars] are synced.
+                    */
+                    
+                    function addDataToPhoneTable(tempTable) {
+                        <apex:variable value="{!URLFOR($Resource.TFSCAssets, 'img/mobilePhoneIcon.png')}" var="phoneIconImg" />
+                        <apex:repeat value="{!phoneNumList}" var="phoneNumObj">
+                        addRowToPhoneTable( tempTable,
+                                              '{!phoneNumObj.randomId}', 
+                                              '{!phoneNumObj.phoneNumber}',  
+                                              '{!phoneNumObj.statusOrder}',
+                                              '{!phoneNumObj.phoneStatus}',
+                                              '{!phoneNumObj.phoneType}',
+                                              '{!phoneNumObj.phoneSource}',
+                                              '{!phoneNumObj.enableClickToDial}',
+                                              '{!phoneNumObj.lastCalled}'
+                                              );
+                        </apex:repeat>
+                    }
+                    
+                    function addDataToAddressTable(tmpAddyTable) {
+                        <apex:repeat value="{!addressHistory}" var="addressObj">
+                        addAddressObjectToTable( tmpAddyTable,
+                                           '{!addressObj.randomId}',
+                                           '{!addressObj.addressHtml}',
+                                           '{!addressObj.source}',
+                                           '{!addressObj.dateRange}' );
+                        </apex:repeat>
+                    }
+                </script>
+                
+            </apex:outputPanel>
+        </apex:outputPanel>
+        
+    </apex:form>
+    
+    <div id="savingMessage" style="display:none">
+      Saving
+    </div>
+    
+    
+    <div id="addyModalForm" title="Address Details">
+        <table>
+            <tr>
+                <td class="tdLabel">Address:</td>
+                <td>
+                    <textarea id="addyFormTextArea" style="width:160px; height:50px;" />
+                </td>
+            </tr>
+            <tr>
+                <td class="tdLabel">Source:</td>
+                <td>
+                    <select id="addyFormSourceSelect" >
+                        <option value=""> </option>
+                        <apex:repeat value="{!addressSourceSelectOptions}" var="soption">
+                               <option value="{!soption.value}">{!soption.label}</option>
+                        </apex:repeat>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="tdLabel">Date Range:</td>
+                <td>
+                    <input id="addyFormDateRange" type="text" style="width:160px;" />
+                </td>
+            </tr>
+        </table>
+        
+        <div width="100%" id="addyFormErrorMessage" style="color:red; font-weight:bold; max-height:100px; overflow-y:auto;" />
+        
+    </div>
+    
+    
+    <div id="modalForm" title="Skip Trace Phone Details">
+        
+        <table>
+            <tr>
+                <td class="tableLableForModalForm">Number</td>
+                <td>
+                    <input id="editFormPhoneNumberText" type="text" style="width:160px;" />
+                </td>
+            </tr>
+            <tr>
+                <td class="tableLableForModalForm">Status</td>
+                <td>
+                    <select id="editFormPhoneStatusCombobox" style="width:41px;">
+                        <apex:repeat value="{!phoneStatusSelectOptions}" var="soption">
+                               <option value="{!soption.value}">{!soption.label}</option>
+                        </apex:repeat>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="tableLableForModalForm">Type</td>
+                <td>
+                    <select id="editFormPhoneTypeCombobox" style="width:88px;">
+                        <option value=""> </option>
+                        <apex:repeat value="{!phoneTypeSelectOptions}" var="soption">
+                           <option value="{!soption.value}">{!soption.label}</option>
+                        </apex:repeat>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="tableLableForModalForm">Source</td>
+                <td>
+                    <select id="editFormPhoneSourceCombobox" style="width:160px;">
+                        <option value=""> </option>
+                        <apex:repeat value="{!phoneSourceSelectOptions}" var="soption">
+                            <option value="{!soption.value}">{!soption.label}</option>
+                        </apex:repeat>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        
+        <div width="100%" id="modalFormErrorMsg" style="color:red; font-weight:bold; max-height:100px; overflow-y:auto;" />
+        
+    </div>
+    
+    <apex:form id="mainForm" style="width:100%; overflow:auto;">
+        <apex:actionFunction name="doSaveForInitializedRecord" 
+                             action="{!initializeNewSkipTraceRecordAndPopulateData}"
+                             rerender="mainForm,apexMessagePanel,panelForJSRerender"
+                             oncomplete="bindListenersAndSetupPhoneAddys();" />
+        
+        <!-- <apex:actionFunction name="populatePhonesAndAddresses" 
+                             action="{!populatePhonesAndAddresses}"
+                             rerender="panelForJSRerender,apexMessagePanel"
+                             oncomplete=""
+                             immediate="true" />
+         -->
+
+        <apex:actionFunction name="apexSaveChanges" action="{!saveAfterFieldValueChange}" 
+                             rerender="panelForJSRerender,mainForm,apexMessagePanel"
+                             status="processingStatus"
+                             oncomplete="bindListenersAndSetupPhoneAddys(); dispatchCaseUpdatedEvent();" />
+        
+        <apex:actionFunction name="updateAltBorrower" action="{!updateAltBorrower}" 
+                             rerender="mainForm,apexMessagePanel"
+                             oncomplete="bindListenersAndSetupPhoneAddys();" />
+        
+        
+        
+        
+        <apex:actionStatus id="processingStatus" onStart="showSavingMessage();" onstop="hideSavingMessage();" />
+        
+        <apex:messages style="color=red;" id="apexMessagePanel" />
+        
+        <apex:outputPanel rendered="{!contextSkipTrace == null}">
+            <button onclick="doSaveForInitializedRecord()" type="button" id="initializeButton">Initialize Skip Trace Record</button>
+        </apex:outputPanel>
+        
+        
+        <apex:outputPanel rendered="{!contextSkipTrace != null}" styleClass="selectorForMainOutputPanel" style="width:100%;">
+            
+            <table><!-- adding table for quick resolution to my 'clear:both' -->
+               <tr style="vertical-align:top">
+                 <td style="min-width:750px;">
+                 <!-- MAIN CONTENT MINUS KNOWLEDGE ARTICLE PANE -->
+                       <apex:inputText value="{!borrowerPhoneFromJS}" styleClass="hiddenDialedNumber" style="display:none;" />
+                       <apex:inputText value="{!coBorrowerWasPoppedBooleanStringFromJS}" styleClass="hiddenCoBorrowerPopped" style="display:none;" />
+                    <div>
+                    
+                        <span class="greyLabel" style="padding-right:2px;">{!passStratLabel}:</span>
+                        <apex:selectList value="{!selectedPassStrategy}" multiselect="false" 
+                                         size="1"
+                                         styleClass="passStrategySelectListSelectorClass">
+                            <apex:selectOptions value="{!passStrategySelectOptions}"/>
+                        </apex:selectList>
+                        
+                        <span id="notesReviewdBackToSpan" class="greyLabel highlightSelector" style="padding-left:4px;padding-right:2px;">Notes Reviewed Back To:</span>
+                        <apex:inputField styleClass="dataPicker" value="{!contextSkipTrace.Notes_Reviewed_Back_To_Date__c}" />
+                        
+                        
+                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" style="padding-left:6px;padding-right:5px;">
+                            <apex:param value="{!contextSkipTrace.Notes_Reviewed_Back_To_Date__c}" /> 
+                        </apex:outputText>
+                        
+                        <button onclick="saveWrapper()" type="button" id="saveButton">Save All</button>
+                    </div>
+                    
+                    
+                    <div class="parentRowDiv">
+                        <div class="divFloatLeft" style="min-width:172px">
+                            <span class="greyLabel" style="font-size:12px;">Alt Borrower Info</span><br />
+                            <c:FACPhoneNumberTable fac="{!contextFac}" financialAcctNum="{!Financial_Account__c.Financial_Account_Number__c}" enableHomeNumber="{!listDisplayContextFACNumbers[0]}" enableMobileNumber="{!listDisplayContextFACNumbers[1]}" enableWorkNumber="{!listDisplayContextFACNumbers[2]}"/>
+                        </div>
+                        
+                        <div class="divFloatLeft" style="padding-left:7px; min-width:500px;">
+                            <table id="checkboxesTable">
+                                <tr>
+                                    <td id="multipleAccountsTd" class="labelTd highlightSelector">Multiple Accounts:</td>
+                                    <td><apex:inputCheckbox value="{!contextSkipTrace.Multiple_Accounts_Checkbox__c}" styleClass="checkboxClassForChangeWatcher" /></td>
+                                    <td class="dateTd">
+                                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                            <apex:param value="{!contextSkipTrace.Multiple_Accounts_Date__c}" /> 
+                                        </apex:outputText>
+                                    </td>
+                                    <td id="innovisTd" class="labelTd highlightSelector">Innovis:</td>
+                                    <td>
+                                        <apex:inputCheckbox value="{!contextSkipTrace.Innovis_Checkbox__c}" styleClass="checkboxClassForChangeWatcher" />
+                                    </td>
+                                    <td class="dateTd">
+                                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                            <apex:param value="{!contextSkipTrace.Innovis_Date__c}" />
+                                        </apex:outputText>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td id="dmsCreditAppTd" class="labelTd highlightSelector">Credit App:</td>
+                                    <td><apex:inputCheckbox value="{!contextSkipTrace.DMS_Credit_App_Checkbox__c}" styleClass="checkboxClassForChangeWatcher" /></td>
+                                    <td>
+                                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                            <apex:param value="{!contextSkipTrace.DMS_Credit_App_Date__c}" />
+                                        </apex:outputText>
+                                    </td>
+                                    <td id="accurintTd" class="labelTd highlightSelector">Accurint:</td>
+                                    <td>
+                                        <apex:inputCheckbox value="{!contextSkipTrace.Accurint_Checkbox__c}" styleClass="checkboxClassForChangeWatcher" />
+                                    </td>
+                                    <td>
+                                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                            <apex:param value="{!contextSkipTrace.Accurint_Date__c}" />
+                                        </apex:outputText>
+                                    </td>
+                                    <td>
+                                        
+                                        <apex:selectList multiselect="true"
+                                                         size="1"
+                                                         styleClass="multiSelectEnabled2 accuintMultiSelectVisible" >
+                                            <apex:selectOptions value="{!accuintSelectOptions}" />
+                                        </apex:selectList>
+                                        
+                                        
+                                        <apex:inputText styleClass="actualValueForAccuint" 
+                                                         style="display:none;"
+                                                         value="{!contextSkipTrace.Accurint_Search_Method__c}" />
+                                        
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <!-- Modified by Shashank Singhal for S-321636 on 06/29/2015 -->
+                                    <td id="dmsTd" class="labelTd highlightSelector">DMS:</td>
+                                    <td><apex:inputCheckbox value="{!contextSkipTrace.DMS_Checkbox__c}" styleClass="checkboxClassForChangeWatcher" /></td>
+                                    <td>
+                                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                            <apex:param value="{!contextSkipTrace.DMS_Date__c}" />
+                                        </apex:outputText>
+                                    </td>
+                                    <!-- End of S-321636 -->
+                                    <td id="paymentReviewTd" class="labelTd highlightSelector">Payment Review:</td>
+                                    <td>
+                                        <apex:inputCheckbox value="{!contextSkipTrace.Payment_Review_Checkbox__c}" styleClass="checkboxClassForChangeWatcher" />
+                                    </td>
+                                    <td>
+                                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                            <apex:param value="{!contextSkipTrace.Payment_Review_Date__c}" />
+                                        </apex:outputText>
+                                    </td>
+                                    <!-- Modified by Shashank Singhal for S-321636 on 06/29/2015 -->
+                                    <!-- <td id="fastDataTd" class="labelTd highlightSelector">Fast Data:</td>
+                                    <td>
+                                        <apex:inputCheckbox value="{!contextSkipTrace.Fast_Data_Checkbox__c}" styleClass="checkboxClassForChangeWatcher" />
+                                    </td>
+                                    <td>
+                                        <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                            <apex:param value="{!contextSkipTrace.Fast_Data_Date__c}" />
+                                        </apex:outputText>
+                                    </td>
+                                    <td>
+                                        
+                                        <apex:inputText styleClass="actualValueForFastDataSearch" 
+                                                         style="display:none;"
+                                                         value="{!contextSkipTrace.Fast_Data_Search_Method__c}" />
+                                        
+                                        <apex:selectList multiselect="true"
+                                                         size="1"
+                                                         styleClass="multiSelectEnabled fastDataSearchMultiSelect" >
+                                            <apex:selectOptions value="{!fastDataSearchSelectOptions}" />
+                                        </apex:selectList>
+                                        
+                                    </td> -->
+                                    <!-- End of S-321636 -->
+                                </tr>
+                            </table>
+                            
+                        </div>
+                           
+                    </div> <!-- end parentRowDiv -->
+                    
+                    <div class="parentRowDiv">
+                       
+                       <div id="phoneListDiv" class="divFloatLeft" style="width:420px;display:none;">
+                           <span id="alternatePhoneSpan" class="greyLabel highlightSelector" 
+                                   style="font-size:12px;">Alternate Phone Numbers</span>
+                           <button onclick="addNewPhoneButtonClicked()" type="button" id="newPhoneButton">Add New Phone</button>        
+                           
+                           <apex:outputText style="display:none" value="newly rendered" styleClass="textNewlyRendered" />
+                                   
+                                   <br />
+                           <table id="phoneNumTable" class="stripe">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Number</th>
+                                        <th>Status</th>
+                                        <th>Type</th>
+                                        <th>Source</th>
+                                        <th>Last Called</th>
+                                    </tr>
+                                </thead>
+                                
+                            </table>
+                       </div>
+                       
+                       <div id="addyListDiv" class="divFloatLeft" style="padding-top:27px; padding-left:5px; overflow-x:auto; max-width:290px;display:none;">
+                            <span class="greyLabel" style="font-size:12px;">Miscellaneous Notes</span><br />
+                            <apex:inputTextarea rows="4" cols="43" value="{!contextSkipTrace.Miscellaneous_Notes__c}"
+                                                style="margin-bottom:7px;" />
+                            <br />
+                            <span class="greyLabel" style="font-size:12px;">Alternate Address Info</span>
+                            <button onclick="addNewAddyButtonClicked()" type="button" id="newAddyButton">Add New Address</button>
+                            <br />
+                            <table id="addressTable" class="stripe">
+                               <thead>
+                               <tr>
+                                   <th></th>
+                                   <th>Address</th>
+                                   <th>Src / Date</th>
+                               </tr>
+                               </thead>
+                            </table>
+                            
+                        </div>
+                    </div>
+                    
+                    <!-- END --  MAIN CONTENT MINUS KNOWLEDGE ARTICLE PANE -->
+                 </td>
+                 
+                 <td style="vertical-align:top; min-width:515px;">
+                    <div id="knowledgeTextDiv" 
+                         style="height:100%; overflow-y:auto; min-height:445px; max-height:445px; min-width:500px; border:1px solid; border-radius: 5px; margin-right:7px; padding:2px;" />
+                 </td>
+                 
+               </tr>
+            </table>
+            
+                    
+         </apex:outputPanel>
+            
+    
+    </apex:form>
+     
+     
+             
+     
+     
+    
+    
+</apex:page>

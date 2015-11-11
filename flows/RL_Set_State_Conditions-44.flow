@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Associate the repo and case with the financial account, determine state of jurisdiction and form rule to apply, and set initial values such as required notice date/time and required service level date on repo and case</description>
+    <label>RL Set State Conditions</label>
+    <processType>AutoLaunchedFlow</processType>
+</Flow>

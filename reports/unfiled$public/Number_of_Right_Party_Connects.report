@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Activity.Collection_Activity_Promise_Amount_1__c:SUM + Activity.Collection_Activity_Promise_Amount_2__c:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <description>Total Promise Amount</description>
+        <developerName>FORMULA1</developerName>
+        <downGroupingContext>GRAND_SUMMARY</downGroupingContext>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Total Promise Amount</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_76411579</developerName>
+        <masterLabel>Right Party Connect</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>SUBJECT</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>CMNP - PHONED CS M#, NO PROMISE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>TBNP - PHONED BUS, NO PROMISE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>TBPE - PHONED B#, EBPP PROMISE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>TBPW - PHONED B#, PHONE PAY PROMISE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>TRNP - PHONED RES, NO PROMISE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>TRPE - PHONED R#, EBPP PROMISE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>TRPQ - PHONED R#, QUICK COLL PROMISE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>TRPW - PHONED R#, PHONE PAY PROMISE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>XBNP - PHONED CX BUS, NO PROMISE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>XRNP - PHONED CX RES, NO PROMISE</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>XRPE - PHONED CX R#, EBPP PROMISE</sourceValue>
+            </sourceValues>
+            <value>RPC</value>
+        </values>
+    </buckets>
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <axisBinding>y</axisBinding>
+            <column>RowCount</column>
+        </chartSummaries>
+        <chartType>VerticalColumn</chartType>
+        <enableHoverLabels>true</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>ASSIGNED</groupingColumn>
+        <location>CHART_TOP</location>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>true</showValues>
+        <size>Huge</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <title># of RPCs today</title>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Activity.Collection_Activity_Promise_Amount_1__c</field>
+    </columns>
+    <columns>
+        <field>Activity.Financial_Account_Number__c</field>
+    </columns>
+    <columns>
+        <field>Activity.Collection_Activity_Promise_Date_1__c</field>
+    </columns>
+    <columns>
+        <field>Activity.Collection_Activity_DateTime__c</field>
+    </columns>
+    <columns>
+        <field>Activity.Collection_Activity_Review_Date__c</field>
+    </columns>
+    <columns>
+        <field>Activity.Collection_Activity_Promise_Date_2__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Activity.Collection_Activity_Promise_Amount_2__c</field>
+    </columns>
+    <columns>
+        <field>DUE_DATE</field>
+    </columns>
+    <columns>
+        <field>TASK</field>
+    </columns>
+    <columns>
+        <field>FULL_DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>Activity.Collection_Activity_Balance__c</field>
+    </columns>
+    <description>Daily Number of Right Party Connects</description>
+    <filter>
+        <criteriaItems>
+            <column>BucketField_76411579</column>
+            <operator>equals</operator>
+            <value>RPC</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <aggregateType>RowCount</aggregateType>
+        <dateGranularity>Day</dateGranularity>
+        <field>ASSIGNED</field>
+        <sortByName>RowCount</sortByName>
+        <sortOrder>Desc</sortOrder>
+        <sortType>Aggregate</sortType>
+    </groupingsDown>
+    <name>Daily Number of Right Party Connects</name>
+    <params>
+        <name>closed</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>type</name>
+        <value>te</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Activity</reportType>
+    <roleHierarchyFilter>Operations</roleHierarchyFilter>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <sortColumn>DUE_DATE</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>DUE_DATE</dateColumn>
+        <interval>INTERVAL_TODAY</interval>
+    </timeFrameFilter>
+</Report>

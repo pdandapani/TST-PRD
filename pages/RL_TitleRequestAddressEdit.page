@@ -1,0 +1,152 @@
+<apex:page standardController="Repossession__c" extensions="RL_TitleRequestAddressEditController">
+    
+    <apex:includeScript value="/support/console/31.0/integration.js"/>
+    
+<!--     Pick list on top. (address override -- names of auction houses [account of 'auction' record type]) -->
+<!--     Present address as read-only fields.  -->
+    
+    
+    <style>
+        .formLabel{
+            color:#4a4a56; 
+            width:160px;
+            text-align:right;
+            vertical-align:top;
+            font-weight:bold;
+            font-size: 91%;
+            padding-top:5px;
+            padding-bottom:3px;
+            
+        }
+        
+        .valueCell{
+            padding-left:10px;
+            padding-bottom:5px;
+            vertial-align:top;
+            width:350px;
+        }
+    </style>
+    
+    
+    <script>
+        
+        //Modified by Shashank Singhal for S-311648 on 6/1/2015 
+        function doRefreshForStandardPage() {
+            var isCopy = document.getElementById(isCopyId).value;
+            if(!sforce.console.isInConsole()) {
+                parent.location.href = "/{!Repossession__c.Id}";
+            }else{
+                console.log(isCopy);
+                if(isCopy != 'false'){
+                    currentTabRefresh();
+                }
+            }
+            
+        }
+        
+        function currentTabRefresh() {
+
+            sforce.console.getEnclosingTabId(refreshSubtab);
+
+        }
+
+        var refreshSubtab = function refreshSubtab(result){
+
+            var subTabId = result.id;
+    
+            console.log(result);
+    
+            sforce.console.refreshSubtabById(subTabId, true, refreshSuccess );         
+
+        }
+
+ 
+
+        var refreshSuccess = function refreshSuccess(result) {
+    
+            console.log(result);
+    
+            if (result.success == true) {
+    
+                console.log('Subtab refreshed successfully');
+    
+            } else {
+    
+                console.log('Subtab did not refresh');
+    
+            }
+    
+        };
+        //End of S-311648
+        
+    </script>
+    
+    
+<!--     border-bottom:1px solid #e3deb8 -->
+    
+    <apex:Form style="width:100%">
+        
+        <apex:actionFunction name="saveNewAccountValues" action="{!saveNewAccountValues}" 
+                             reRender="pageBlock,titleRequestMessagePanel"
+                             onComplete="doRefreshForStandardPage();"  />
+        
+        <apex:pageMessages id="titleRequestMessagePanel" />
+        
+        <apex:outputPanel id="pageBlock" style="width:100%">
+                <!-- Modified by Shashank Singhal for S-311648 on 6/1/2015 -->
+                <apex:inputHidden id="isCopy" value="{!isCopy}"/>
+                <script>
+                    var isCopyId = '{!$Component.isCopy}'; 
+                </script>
+                <!--End of S-311648-->
+                <table>
+                    <tr>
+                        <td class="formLabel">
+                            Auction Account
+                        </td>
+                        <td class="valueCell">
+                            <apex:outputPanel >
+                                <apex:selectList multiselect="false" size="1" 
+                                                 style="width:180px;"
+                                                 value="{!selectedAuctionAcct}">
+                                    <apex:selectOptions value="{!auctionAcctsSelectOptions}"/>
+                                </apex:selectList>
+                                <button type="button" onclick="saveNewAccountValues();">Update</button>
+                            </apex:outputPanel>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="formLabel" style="border-bottom:0px">
+                            Current Address
+                        </td>
+                        <td class="valueCell" style="padding-top:5px;border-bottom:0px">
+                            <apex:outputText value="{!formattedTitleAddress}" escape="false"/>
+                        </td>
+                    </tr>
+            <tr>
+                        <td class="formLabel" style="border-bottom:0px">
+                            Phone Number
+                        </td>
+                        <td class="valueCell" style="padding-top:5px;border-bottom:0px">
+                            <apex:outputText value="{!strPhoneNumber}" escape="false"/>
+                        </td>
+                    </tr>
+                    <!-- Modified by Shashank Singhal for S-311648 on 6/1/2015 -->
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <apex:commandbutton value="Copy Info to 'Additional Vendor Info' section" action="{!copyVendorInformation}" rendered="{!Repossession__c.Title_Override__c}" reRender="pageBlock,titleRequestMessagePanel" oncomplete="doRefreshForStandardPage();"/>
+                        </td>
+                    </tr>
+                    <!-- End of S-311648 -->
+                </table>
+                
+            
+        </apex:outputPanel>
+        
+    </apex:Form>
+    
+    
+</apex:page>

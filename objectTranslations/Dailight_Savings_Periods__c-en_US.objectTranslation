@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Dailight Savings Periods</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Dailight Savings Periods</value>
+    </caseValues>
+    <fields>
+        <label><!-- Dailight Savings In Effect --></label>
+        <name>Dailight_Savings_In_Effect__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Date --></label>
+        <name>End_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Start Date --></label>
+        <name>Start_Date__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

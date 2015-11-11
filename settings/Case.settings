@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CaseSettings xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseCommentNotificationTemplate>Customer_Service_Automated/Dynamic_Support_Request_Comment</caseCommentNotificationTemplate>
+    <caseFeedItemSettings>
+        <characterLimit>400</characterLimit>
+        <collapseThread>false</collapseThread>
+        <displayFormat>Default</displayFormat>
+        <feedItemType>EmailMessageEvent</feedItemType>
+    </caseFeedItemSettings>
+    <closeCaseThroughStatusChange>true</closeCaseThroughStatusChange>
+    <defaultCaseOwner>Support_Request_Queue</defaultCaseOwner>
+    <defaultCaseOwnerType>Queue</defaultCaseOwnerType>
+    <defaultCaseUser>srv_sfdc_eai@tfs.toyota.com</defaultCaseUser>
+    <emailToCase>
+        <enableEmailToCase>true</enableEmailToCase>
+        <enableHtmlEmail>true</enableHtmlEmail>
+        <enableOnDemandEmailToCase>true</enableOnDemandEmailToCase>
+        <enableThreadIDInBody>true</enableThreadIDInBody>
+        <enableThreadIDInSubject>true</enableThreadIDInSubject>
+        <notifyOwnerOnNewCaseEmail>false</notifyOwnerOnNewCaseEmail>
+        <overEmailLimitAction>Requeue</overEmailLimitAction>
+        <preQuoteSignature>false</preQuoteSignature>
+        <unauthorizedSenderAction>Discard</unauthorizedSenderAction>
+    </emailToCase>
+    <enableCaseFeed>true</enableCaseFeed>
+    <enableDraftEmails>false</enableDraftEmails>
+    <enableEarlyEscalationRuleTriggers>false</enableEarlyEscalationRuleTriggers>
+    <enableEmailActionDefaultsHandler>false</enableEmailActionDefaultsHandler>
+    <enableSuggestedArticlesApplication>false</enableSuggestedArticlesApplication>
+    <enableSuggestedArticlesCustomerPortal>false</enableSuggestedArticlesCustomerPortal>
+    <enableSuggestedArticlesPartnerPortal>false</enableSuggestedArticlesPartnerPortal>
+    <enableSuggestedSolutions>false</enableSuggestedSolutions>
+    <keepRecordTypeOnAssignmentRule>true</keepRecordTypeOnAssignmentRule>
+    <notifyContactOnCaseComment>true</notifyContactOnCaseComment>
+    <notifyDefaultCaseOwner>false</notifyDefaultCaseOwner>
+    <notifyOwnerOnCaseComment>true</notifyOwnerOnCaseComment>
+    <notifyOwnerOnCaseOwnerChange>false</notifyOwnerOnCaseOwnerChange>
+    <showFewerCloseActions>true</showFewerCloseActions>
+    <useSystemEmailAddress>true</useSystemEmailAddress>
+    <webToCase>
+        <caseOrigin>Web Form</caseOrigin>
+        <defaultResponseTemplate>Customer_Service_Automated/TFS_Contact_Us_General_Unauthenticated</defaultResponseTemplate>
+        <enableWebToCase>true</enableWebToCase>
+    </webToCase>
+</CaseSettings>

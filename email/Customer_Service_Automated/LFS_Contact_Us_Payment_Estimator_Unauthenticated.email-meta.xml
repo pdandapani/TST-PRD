@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>LFS Contact Us - Web-to-Case - Payment Estimator Auto-response</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>LFS: Contact Us - Payment Estimator (Unauthenticated)</name>
+    <style>none</style>
+    <subject>Lexus Financial Services - Contact Us Confirmation</subject>
+    <textOnly>Dear {!Case.SuppliedName}:
+
+Thank you for contacting Lexus Financial Services via the &apos;Contact Us&apos; link at www.LexusFinancial.com.
+
+Messages sent through this channel are unsecure.  As we value your privacy, we will not provide credit-specific information through this unsecured channel.
+
+The Lexus Financial Services Payment Estimator is designed to help you estimate monthly finance and lease payments. You may use it to estimate payments on all new Lexus vehicles.
+
+Please note not all terms are available in all areas, and terms may vary based on credit worthiness. Estimated monthly payments exclude applicable taxes, title and licensing fees, and will vary depending upon the final price and terms agreed upon between you and your dealer.
+
+Please see your participating Lexus dealer for details and available terms and conditions.
+
+We appreciate your interest and hope to have the opportunity to work with you.  Thank you for visiting us at www.LexusFinancial.com.
+
+Sincerely,
+Lexus Financial Services Customer Support
+
+
+
+This is a no reply email notification. Replies initiated from this email will neither be delivered nor answered. If you have additional questions, please log in to the Support Center for further assistance.</textOnly>
+    <type>custom</type>
+</EmailTemplate>

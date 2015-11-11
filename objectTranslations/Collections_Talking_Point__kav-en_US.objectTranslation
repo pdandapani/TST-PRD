@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Collections Talking Point</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Collections Talking Points</value>
+    </caseValues>
+    <fields>
+        <label><!-- Add to Standard Note --></label>
+        <name>Add_to_Standard_Note__c</name>
+    </fields>
+    <fields>
+        <help><!-- These are the talking points an agent reads or references during a call --></help>
+        <label><!-- Details --></label>
+        <name>Details__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sort --></label>
+        <name>Sort__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

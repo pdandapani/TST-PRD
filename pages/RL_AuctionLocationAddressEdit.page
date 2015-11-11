@@ -1,0 +1,90 @@
+<apex:page standardController="Case" extensions="RL_AuctionLocationAddressController">
+    
+    <apex:includeScript value="/support/console/31.0/integration.js"/>
+    
+<!--     Pick-list on top. (address override -- names of auction houses [account of 'auction' record type]) -->
+<!--     Present address as read-only fields.  -->
+    
+    
+    <style>
+        .formLabel{
+            color:#4a4a56; 
+            width:160px;
+            text-align:right;
+            vertical-align:top;
+            font-weight:bold;
+            font-size: 91%;
+            padding-top:5px;
+            padding-bottom:3px;
+            
+        }
+        
+        .valueCell{
+            padding-left:10px;
+            padding-bottom:5px;
+            vertial-align:top;
+            width:350px;
+        }
+    </style>
+    
+    
+    <script>
+        
+        
+        function doRefreshForStandardPage() {
+            
+            if(!sforce.console.isInConsole()) {
+                //parent.location.href = "/{!Case.Id}";
+            }
+            
+        }
+        
+    </script>
+    
+    
+<!--     border-bottom:1px solid #e3deb8 -->
+    
+    <apex:Form style="width:100%">
+        
+        <apex:actionFunction name="saveNewAuctionLocationAddress" action="{!saveNewAuctionLocationAddress}" 
+                             reRender="pageBlock,pageMessagesPanel"
+                             onComplete="doRefreshForStandardPage();"  />
+        
+        <apex:pageMessages id="pageMessagesPanel" />
+        
+		<apex:outputPanel id="pageBlock" style="width:100%">
+                
+                <table>
+                    <tr>
+                        <td class="formLabel">
+                            Auction Account
+                        </td>
+                        <td class="valueCell">
+                            <apex:outputPanel >
+		                        <apex:selectList multiselect="false" size="1" 
+		                        				 style="width:180px;"
+		                        				 value="{!selectedAuctionAcct}">
+		                            <apex:selectOptions value="{!auctionAcctsSelectOptions}"/>
+		                        </apex:selectList>
+		                        <button type="button" onclick="saveNewAuctionLocationAddress();">Update</button>
+		                    </apex:outputPanel>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="formLabel" style="border-bottom:0px">
+                            Current Auction Location
+                        </td>
+                        <td class="valueCell" style="padding-top:5px;border-bottom:0px">
+                            <apex:outputText value="{!formattedAuctionLocationAddy}" escape="false"/>
+                        </td>
+                    </tr>
+                </table>
+                
+		    
+		</apex:outputPanel>
+		
+    </apex:Form>
+    
+    
+</apex:page>

@@ -1,0 +1,7 @@
+The following Change Control Case request for approval has been rejected. 
+Case Number: {!Case.CaseNumber}
+Case Link: {!Case.Link}
+
+Rejected by: {!Case.OwnerFullName}
+
+Parent Case: {!Case.Parent}

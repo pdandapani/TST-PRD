@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>AUP Assign Permissions Next Gen</description>
+    <masterLabel>AUP Assign Permissions Next Gen</masterLabel>
+</FlowDefinition>

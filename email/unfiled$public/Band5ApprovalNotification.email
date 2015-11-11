@@ -1,0 +1,4 @@
+Case Number: {!Case.CaseNumber}
+Case Subject: {!Case.KM_Parent_Case_Subject__c}
+Parent Case Contact: {!Case.KM_Parent_Case_Owner__c}
+Link to Case: {!Case.Link}

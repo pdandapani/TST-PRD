@@ -1,0 +1,1547 @@
+<apex:component controller="ngForceControllerMin">
+ 
+   <apex:attribute name="faid" description="Finance Account ID" type="String" required="true"/>
+   <apex:attribute name="q" description="Query String" type="String" required="false"/>
+ 
+
+<html lang="en" ng-app='TFSCNotesApp' >
+<head>
+   <meta charset="UTF-8"/>
+   
+    <apex:includeScript value="{!$Resource.jquery}"/>
+   
+    <apex:styleSheet value="{!URLFOR($Resource.jqueryui1_10_4All, 'css/ui-lightness/jquery-ui-1.10.4.min.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.jqueryui1_10_4All, 'js/jquery-ui-1.10.4.min.js')}"/>
+    
+    <apex:includeScript value="{!URLFOR($Resource.datatables1_10_1, 'media/js/jquery.dataTables.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.datatables1_10_1, 'colreorder.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.datatables1_10_1, 'dataTables.fixedHeader.js')}"/>
+    <apex:styleSheet value="{!URLFOR($Resource.datatables1_10_1, 'media/css/jquery.dataTables.css')}"/>
+   
+    <apex:includeScript value="{!$Resource.angular_min_1_2_18}"/>
+   
+    <apex:includeScript value="{!$Resource.angular_resource_min_1_0_8}"/>
+   
+    <apex:styleSheet value="{!URLFOR($Resource.bootstrap_3_1_1,  'bootstrap-3.1.1-dist/css/bootstrap.min.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.bootstrap_3_1_1,  'bootstrap-3.1.1-dist/js/bootstrap.min.js')}"/>
+   
+   
+    <apex:includeScript value="{!$Resource.safeApply}"/>
+    <apex:includeScript value="{!$Resource.underscore_min_1_6_0_js}"/>
+    
+    <apex:includeScript value="{!$Resource.ui_bootstrap_tpls_0_10_0_js}" />
+    
+    
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+      
+<style>  
+  div.container2 {
+  font-size:11px;
+  
+ }
+ 
+ body {
+     padding: 0px;
+     margin: 0px;
+ }
+ 
+ .gridStyle {
+     
+}
+
+ 
+
+.ngColMenu2 {
+  left: 0px;
+  padding: 0px;
+  top: -25px;
+   
+   
+  background-color: white;
+  position: absolute;
+  
+  z-index: 0;
+  display:block;
+  width:260px;
+}
+
+.ngColMenu > div > input2 {
+    width:320px;
+    display:none;
+     
+  
+}
+.cellToolTip2 {
+  text-overflow: ellipsis;
+  overflow: visible;
+  width:500px;
+}
+
+.cellToolTip {
+  overflow: visible;
+  width:200px;
+ 
+}
+
+.cellLink {
+
+}
+
+.tooltip {
+   top:0 !important;
+}
+
+.ttip {
+  
+}
+
+.tooltip-inner {
+    max-width: 400px;
+    /*background-color:yellow;*/
+}
+
+.ngHeaderButton{
+ display:none;
+
+}
+.ngHeaderButtonArrow {
+    position: absolute;
+    top: -20px;
+    left: -1430px;
+}
+
+#saveSearch {
+
+ 
+}
+
+.popup {
+    width:300px;
+    
+    border:2px solid #99ccff;
+    border-radius:10px;
+    z-index:30;
+    position: absolute;
+    top: 50px;
+    left: 90px;
+    background:#fff;
+    padding:10px;
+    margin:10px;
+}
+
+
+.ngCellText {
+    white-space: nowrap;
+    padding: 1px;
+     
+}
+
+/*  bootstrap specific */
+
+.left-inner-addon {
+    position: relative;
+}
+.left-inner-addon input {
+    padding-left: 30px;    
+}
+.left-inner-addon i {
+    position: absolute;
+    padding: 10px 12px;
+    pointer-events: none;
+}
+
+.right-inner-addon {
+    position: relative;
+}
+.right-inner-addon input {
+    padding-right: 30px;    
+}
+.right-inner-addon i {
+    position: absolute;
+    right: 0px;
+    padding: 2px 12px;
+    pointer-events: none;
+}
+.dropdown-menu {
+    width: 250px;
+}
+
+input {
+  border-radius:4px;
+}
+
+#notesDatagrid {
+    font-size:11px;
+}
+
+table.dataTable td{
+    max-height: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+#notesDatagrid tr {
+    max-height: 14px;
+}
+.maxWidthSpan {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block
+}
+
+
+</style>
+   
+ <script>
+var LIMIT = ' ';
+
+var MIN_LEN = 2;
+var DATE_FMT = "Date:'MM/dd/yyyy @ h:mma''";
+var TIMEOUT_VAL = 250;
+var PHONE_COL_WIDTH = 150;
+var HEIGHT_DIFF_FOR_TABLE_RESIZE = 40;
+
+
+var getUrlParam = function(name) {
+    var windowLocale = window.location.href;
+    var results = (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null]);
+    return results[1] || 0;
+}
+
+var outerScope;
+
+function outerShowVal(val, event) {
+    if(outerScope) {
+        outerScope.showVal(val, event);
+    }
+}
+
+//----------- serveLink
+
+function serveLink(e) {
+    e.preventDefault();
+    var id = e.target.innerText || e.target.textContent;
+    //console.log(id);
+
+    sforce.console.getEnclosingPrimaryTabId(function(result) {
+        console.log('PrimaryTabdId', result.id);
+        sforce.console.openSubtab(result.id, '/' + id, true, 'Case/Task - ' + id, null, function(r) {
+            console.log('RESULT:', result);
+        }, 'CN-Case/Task');
+
+    });
+}
+
+
+var totalWidth;
+
+function sfdcID15to18(id) {
+    var s = "";
+    if (id.length == 15) {
+
+        for (var i = 0; i < 3; i++) {
+            var f = 0;
+            for (var j = 0; j < 5; j++) {
+                var c = id.charAt(i * 5 + j);
+                if (c >= "A" && c <= "Z") f += 1 << j;
+            }
+            s += "ABCDEFGHIJKLMNOPQRSTUVWXYZ012345".charAt(f);
+        }
+    }
+
+    return id + s;
+
+}
+
+function phoneFormatter(val) {
+
+    var numbers = val.match(/[( ]*\d{3}[)\. -]*\d{3}[- \.]*\d{4}/g);
+    //console.log("PHONE", val, numbers);
+    if (numbers == null) return '';
+    val = '';
+    for (var i = 0; i < numbers.length; i++) {
+        val += numbers[i].replace(/\D/g, '') + ', '
+    }
+    return val;
+
+}
+
+//------- date sorter
+function sortByDate(a, b) {
+    if (a == '' || a == undefined || b == '' || b == undefined) {
+        return -1;
+    }
+    var dta = new Date(a['Source_Created_Date__c']);
+    var dtb = new Date(b['Source_Created_Date__c']);
+
+    if (dta == 'Invalid Date' || dtb == 'Invalid Date') {
+        return -1;
+    }
+
+    //console.log(dta,dtb);
+
+    return ((dta < dtb) ? -1 : (dta > dtb) ? 1 : 0);
+}
+
+function sortByDateDesc(a, b) {
+        return sortByDate(b, a);
+    }
+    //----------
+
+
+
+
+var app;
+
+//function initNotesApp() {
+    
+        
+    angular.module('ngForce', ['Scope.safeApply'], function($provide) {
+        $provide.factory('vfr', function($q, $rootScope) {
+    
+            //console.log('inside the factory: vfr');
+            var vfRemote = {};
+    
+    
+            handleResult = function(result, callback, error, nullok, deferred) {
+                if (result) {
+                    result = JSON.parse(result);
+                    if (Object.prototype.toString.call(result) === '[object Array]' && result[0].message && result[0].errorCode) {
+                        if (typeof error === 'function') {
+                            error(result);
+                        }
+                        deferred.reject(result);
+                        $rootScope.$safeApply();
+                    } else {
+                        if (typeof callback === 'function') {
+                            callback(result);
+                        }
+                        deferred.resolve(result);
+                        $rootScope.$safeApply();
+                    }
+                } else if (typeof nullok !== 'undefined' && nullok) {
+                    if (typeof callback === 'function') {
+                        callback();
+                    }
+                    deferred.resolve();
+                    $rootScope.$safeApply();
+                } else {
+                    var errorResult = [{
+                        message: "Null return from action method",
+                        "errorCode": "NULL_RETURN"
+                    }];
+                    if (typeof error === 'function') {
+                        error(errorResult);
+                    }
+                    deferred.reject(errorResult);
+                    $rootScope.$safeApply();
+                }
+    
+            };
+    
+    
+            /*
+             * Executes the specified SOQL query.
+             * @param soql a string containing the query to execute - e.g. "SELECT Id,
+             *             Name from Account ORDER BY Name LIMIT 20"
+             * @param callback function to which response will be passed
+             * @param [error=null] function to which jqXHR will be passed in case of error
+             */
+            vfRemote.query = function(soql, callback, error) {
+    
+                //console.log('inside vfRemote.query');
+                var deferred = $q.defer();
+                var timeoutVal = 2; // -- the only query running this, now, is the saved-searches query.
+                var urlParam = getUrlParam('q2');
+                if (urlParam && (urlParam == 1 || urlParam == '1')) {
+                    timeoutVal = urlParam;
+                }
+                window.setTimeout(function() {
+                    Visualforce.remoting.Manager.invokeAction('ngForceControllerMin.query', soql, function(result) {
+                        handleResult(result, callback, error, false, deferred);
+                    }, {
+                        escape: false
+                    });
+                }, timeoutVal);
+    
+                return deferred.promise;
+            };
+    
+            return vfRemote;
+    
+    
+        });
+    
+    });
+    //----------
+    
+    app = angular.module('TFSCNotesApp', ['ui.bootstrap', 'ngForce']);
+    
+    app.controller('myCtrl', function($scope, $element, vfr, $location) {
+
+        outerScope = $scope;
+    
+        $scope.config = {};
+    
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.ngForceControllerMin.getSavedSearches}',
+    
+            function(result, event) {
+                $scope.savedSearches = result;
+                //console.log($scope.savedSearches);
+            });
+    
+    
+        $scope.$storage = localStorage;
+    
+    
+        $scope.id = sfdcID15to18("{!faid}");
+        $scope.q = "{!q}"
+    
+    
+        $scope.cleanCaseAndTaskData = function(data) {
+    
+            var mapOfColumnToConfigObj = $scope.getColumnPopertyHashByFieldName();
+            $.each(data, function(index, value) {
+    
+                $.each(value, function(k, v) {
+                    var rowObj = mapOfColumnToConfigObj[k];
+                    if (k == 'Collection_Activity_Code__c' && v != null) {
+                        //On Task, when Collection_Activity_Code__c is not null, use it instead of Service_Request_Type__c for Activity Code/SR Type.
+                        value['Service_Request_Type__c'] = v;
+    
+                        //console.log(k,v);
+                    } else if (k == 'LastModifiedBy') {
+                        value['LastModifiedBy'] = v.Name;
+                    } else if (k == 'Description' && v != undefined && v.length > 0) {
+                        value.phonesDesc = phoneFormatter(v) || ' ';
+                        value.phonesDesc = $scope.getTemplateWithSpan(value.phonesDesc, PHONE_COL_WIDTH);
+                        value.Description = $scope.getTemplateWithToolTip(v, rowObj.width);
+                    } else if (k == 'LastModifiedDate' && v != undefined && v > 0) {
+    
+                        var dt = new Date(v);
+                        value['LastModifiedDate'] = dt.toLocaleDateString() + ' ' + dt.toLocaleTimeString();
+    
+                    } else if (k == 'Source_Created_Date__c' && v != undefined && v > 0) {
+                        var dt = new Date(v);
+                        //value['Source_Created_Date__c'] = dt.toLocaleDateString() + ' ' + dt.toLocaleTimeString();
+                        value['Source_Created_Date__c'] = $.datepicker.formatDate('mm/dd/yy ', dt) + dt.toLocaleTimeString();
+    
+                    } else if (k == 'Id' && v != undefined && v.length > 0) {
+                        value.Id = $scope.getTemplateWithConsoleLink(v, rowObj.width);
+                    } else {
+                        if (rowObj && v) {
+                            value[k] = $scope.getTemplateWithSpan(v, rowObj.width);
+                        }
+                    }
+    
+    
+                });
+            });
+        };
+    
+        $scope.attemptBuildingDataWhenAsyncFunctionsReturn = function() {
+    
+            //check if both responses have returned
+            if ($scope.cases !== undefined && $scope.tasks !== undefined) {
+                var combined = $.merge($scope.cases, $scope.tasks);
+                combined = combined.sort(sortByDateDesc);
+    
+                $scope.myData = combined; //$scope.combinedSorted;
+                //console.dir($scope.combinedSorted.length);
+    
+                $scope.showGrid = true; // IMPORTANT
+    
+                window.setTimeout(function() {
+                        $scope.$apply();
+                        //$scope.$safeApply();
+                    },
+                    100
+                );
+    
+                $scope.buildGrid();
+            }
+    
+        }; //end attemptBuildingDataWhenAsyncFunctionsReturn
+    
+    
+        $scope.$watch('config.showFilter', function() {
+            //console.log('inside config.showFilter...');
+    
+            var i;
+    
+    
+    
+            $scope.config.showMenu = true;
+    
+            if ($scope.config.showFilter) {
+                //for (i = 0; i < $scope.colDefs.length; i += 1) {
+                //  COLDEFS = ARRAY OF OBJECTS {DISPLAYNAME; FIELD; WIDTH}
+                //    $scope.colDefs[i].headerCellTemplate = filterTemplate;
+                //}
+    
+    
+                // As there is no way to set the headerRowHeight config after creating the grid
+                // we do the dirty here, just need these two as ngHeaderContainer has overflow hidden
+                // thus I'd highly recommend starting with the height including filter, so you dont have
+                // to manually increase all the children, cuz there is alot of them
+                $element.find('.ngTopPanel').css('height', '60px');
+                $element.find('.ngHeaderContainer').css('height', '60px');
+            } else {
+                //for (i = 0; i < $scope.colDefs.length; i += 1) {
+                //    delete $scope.colDefs[i].headerCellTemplate;
+                //}
+    
+                $element.find('.ngTopPanel').css('height', '25px');
+                $element.find('.ngHeaderContainer').css('height', '25px');
+            }
+        });
+    
+    
+        $scope.gripClick = function(event) {
+            $scope.resized = true;
+    
+        }
+    
+        $scope.showVal = function(val, event) {
+            $('#popupContentSpan').html(' ');
+            $scope.showPopup = !$scope.showPopup;
+            if(val && val.length > 0) {
+                $('#popupContentSpan').html(val);
+            }
+            
+            $scope.popupStyle = {
+                top: event.clientY + 'px',
+                left: (event.clientX - 300) + 'px'
+            };
+        }
+    
+        $scope.clearSearch = function() {
+            $scope.extSearch = '';
+            $scope.queryString = '';
+    
+            $(".headerColInput").each(function() {
+                $(this).val('');
+            });
+    
+            $scope.refreshDataWithFilterApplied($("#notesDatagrid").DataTable(), '');
+        }
+    
+    
+    
+    
+    
+            
+    
+        var templateWithLink = '<div fieldVal="{{fieldVal}}"> <a onclick="serveLink(event)" class="SRLink"  href="#">{{row.getProperty(col.field)}}</a> </div>';
+    
+    
+        $scope.getTemplateWithConsoleLink = function(fieldVal, width) {
+            if(fieldVal === undefined || fieldVal === null) {
+                fieldVal = '';
+            }
+            
+            if(fieldVal.toString !== undefined && fieldVal.toString !== null) {
+                fieldVal = fieldVal.toString();
+            }
+            
+            if (fieldVal.indexOf("'") > -1 || fieldVal.indexOf('"') > -1) {
+                fieldVal = fieldVal.replace(/'/g, '&quot;');
+                fieldVal = fieldVal.replace(/"/g, '&quot;');
+            }
+    
+            var strToReturn = templateWithLink;
+            strToReturn = strToReturn.replace('{{row.getProperty(col.field)}}', fieldVal);
+            strToReturn = strToReturn.replace('{{fieldVal}}', fieldVal);
+            return strToReturn;
+        }
+    
+        $scope.getTemplateWithToolTip = function(fieldVal, width) {
+            if(fieldVal === undefined || fieldVal === null) {
+                fieldVal = '';
+            }
+            
+            if(fieldVal.toString !== undefined && fieldVal.toString !== null) {
+                fieldVal = fieldVal.toString();
+            }
+            
+            fieldVal = fieldVal.replace(/\\$/g, '&#36;'); //saving to sfdc renders this differently on the client than seen here.
+            fieldVal = fieldVal.replace(/'/g, '&quot;');
+            fieldVal = fieldVal.replace(/"/g, '&quot;');
+            
+            var fieldValWithBRs = fieldVal.replace(/[\n\r]/g, '<br/>');
+            var fieldValWithSpaces = fieldVal.replace(/[\n\r]/g, ' ');
+    
+            var newWidth = width - 10; //padding is 5px in notes grid's TDs
+    
+            var strToReturn = '<a fieldVal="{{fieldVal}}" title="{{anchorTitle}}" onclick="outerShowVal({{methodArg1}}, event)" href="#" class="maxWidthSpan" style="width:{{width}}px;">' +
+            '{{anchorContent}}' +
+            '</a>';
+            
+            strToReturn = strToReturn.replace('{{anchorTitle}}', fieldValWithSpaces);
+            strToReturn = strToReturn.replace('{{width}}', newWidth);
+            strToReturn = strToReturn.replace('{{anchorContent}}', fieldVal);
+            strToReturn = strToReturn.replace('{{methodArg1}}', "'" + fieldValWithSpaces + "'");
+            return strToReturn;
+        }
+    
+        $scope.getTemplateWithSpan = function(fieldVal, width) {
+            if(fieldVal === undefined || fieldVal === null) {
+                fieldVal = '';
+            }
+            
+            if(fieldVal.toString !== undefined && fieldVal.toString !== null) {
+                fieldVal = fieldVal.toString();
+            }
+            
+            if (fieldVal.indexOf("'") > -1 || fieldVal.indexOf('"') > -1) {
+                fieldVal = fieldVal.replace(/'/g, '&quot;');
+                fieldVal = fieldVal.replace(/"/g, '&quot;');
+            }
+            var newWidth = width - 10;
+            var strToReturn = '<span fieldVal="' + fieldVal + '" class="maxWidthSpan" style="width:' + newWidth + 'px" >';
+            strToReturn += fieldVal;
+            strToReturn += '</span>';
+            return strToReturn;
+        }
+    
+    
+    
+    
+        //----------- reload
+    
+        $scope.reload = function() {
+            var q2Tmp = getUrlParam('q2');
+            var windowLocale = location.href;
+            if (!q2Tmp || q2Tmp == '') {
+                windowLocale += '&q2=1';
+            }
+            //location.reload();
+            location.href = windowLocale;
+        }
+    
+        $scope.refreshCachedLayout = function() {
+            delete $scope.$storage.colDefs2;
+            var q2Tmp = getUrlParam('q2');
+            var windowLocale = location.href;
+            if (!q2Tmp || q2Tmp == '') {
+                windowLocale += '&q2=1';
+            }
+            //location.reload();
+    
+            location.href = windowLocale;
+        }
+    
+    
+    
+        //----------- saveCurrentSearch
+    
+        $scope.saveCurrentSearch = function(e) {
+            //console.log($scope.searchString, $scope.searchName);
+            if ($scope.savedSearches == undefined) $scope.savedSearches = [];
+            var dup = false;
+            $scope.savedSearches.forEach(function(v, k) {
+                if ($scope.searchName.toUpperCase() === v.Name.toUpperCase()) {
+                    alert('Name: ' + $scope.searchName + ' : is already in saved list!');
+                    dup = true;
+                }
+            });
+    
+            if (dup) {
+                return;
+            }
+    
+            $scope.savedSearches.push({
+                Name: $scope.searchName,
+                Search_Criteria__c: $scope.extSearch || $scope.searchString,
+                Globally_Available__c: false
+            });
+    
+            //$scope.msg = 'Saving...';
+            //  $scope.$storage.setItem('savedSearches', JSON.stringify(savedSearchesL) );
+    
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.ngForceControllerMin.insertSearch}',
+                $scope.searchName, $scope.extSearch || $scope.searchString,
+                function(result, event) {
+                    if (event.status) {
+                        $scope.searchName = '';
+                        $("#searchNameInput").val('');
+                        $scope.msg = '';
+    
+                    } else if (event.type === 'exception') {
+                        console.log(result);
+                        $scope.msg = 'Problem: in saving search!';
+    
+                    } else {
+                        $scope.msg = 'Unexpected error!';
+                    }
+    
+                });
+    
+            //$scope.reload();
+    
+        };
+    
+    
+        //----------- Delete the given search
+    
+        $scope.delSearch = function(val) {
+            if (val.Id != undefined) {
+                var r = confirm("Want to delete the saved search - " + val.Name + "?");
+                if (r == true) {
+                    //console.log(val,$scope.savedSearches);
+                    var found = false;
+                    $scope.savedSearches.forEach(function(v, k) {
+                        //console.log('Names', val.Name, v.Name);
+                        if (!found && val.Name === v.Name) {
+                            //console.log('index to delete:' + k, val.Id);
+                            $scope.savedSearches.splice(k, 1);
+                            $scope.searchName = '';
+                            Visualforce.remoting.Manager.invokeAction(
+                                '{!$RemoteAction.ngForceControllerMin.deleteSearch}', val.Id,
+                                function(result, event) {
+                                    if (event.status) {
+                                        $scope.msg = '';
+    
+                                    } else if (event.type === 'exception') {
+                                        //console.log(result);
+                                        $scope.msg = 'Problem: in deleting the search!';
+    
+                                    } else {
+                                        $scope.msg = 'Unexpected error!';
+                                    }
+    
+                                });
+                        }
+    
+                    });
+    
+                }
+            }
+    
+    
+        };
+    
+    
+    
+        $scope.setSearchValues = function(val) {
+    
+            $scope.searchString = val.Search_Criteria__c;
+            //console.log('SEARCH:', $scope.searchString,val);
+    
+            if($scope.searchString.indexOf(';') != -1) {
+                $scope.extSearch = '';
+    
+                //EXAMPLE!!!!!!!!!!!: "Type: PBNK;Summary: BK Status:;"
+                var searchRecs = $scope.searchString.split(';');
+                var searchObj = {};
+    
+                angular.forEach(searchRecs, function(rec) {
+                    var nv = rec.split(': ');
+                    if (nv.length == 2) {
+                        searchObj[nv[0]] = nv[1];
+                    }
+                });
+    
+                //console.log("SEARCH OBJ", searchObj);
+                $(".headerColInput").each(function() {
+                    $(this).val('');
+                    var labelNameOnTextInput = $(this).attr('labelName');
+                    if (searchObj[labelNameOnTextInput]) {
+                        $(this).val(searchObj[labelNameOnTextInput]);
+                    }
+                });
+    
+            } else {
+                $scope.extSearch = $scope.searchString;
+                //console.log($scope.extSearch);
+    
+            }
+    
+            //RE-RUN FILTER!
+            $scope.refreshDataWithFilterApplied($("#notesDatagrid").DataTable(), $scope.extSearch);
+    
+        }
+    
+    
+        $scope.doSearch = function() {
+            $(".headerColInput").each(function() {
+                $(this).val('');
+            });
+    
+            $scope.refreshDataWithFilterApplied($("#notesDatagrid").DataTable(), $scope.extSearch);
+        }
+    
+        //$scope.doSearchCols = searchQuery += col.displayName + ": " + filterText;    $scope.searchString = searchQuery;
+    
+    
+        $scope.getColumnPopertyHashByFieldName = function() {
+            var objToReturn = {};
+            var columnsArray = $scope.getColumnsArray();
+            var colsArrayLen = columnsArray.length;
+    
+            var i;
+            for (i = 0; i < colsArrayLen; i++) {
+                var rowObj = columnsArray[i];
+                objToReturn[rowObj.fieldName] = rowObj;
+            }
+    
+            return objToReturn;
+        }
+    
+        $scope.getColumnsArray = function() {
+            var arrToReturn = [];
+    
+            //  COLDEFS = ARRAY OF OBJECTS {displayName; field; width}
+            if ($scope.$storage.getItem('colDefs2') != null) {
+                var tmpArr = JSON.parse($scope.$storage.getItem('colDefs2'));
+                if (tmpArr && tmpArr.length > 0 && !tmpArr[0].hasOwnProperty('displayName')) {
+                    //THIS: !tmpArr[0].hasOwnProperty('displayName') is to code around existing caches. 
+                    arrToReturn = tmpArr;
+                } else {
+                    delete $scope.$storage.colDefs2; //delete old ones from prior code-base.  temp.
+                }
+            }
+    
+    
+    
+            if (arrToReturn.length == 0) {
+                arrToReturn = [{
+                    width: 120,
+                    fieldName: 'Source_Created_Date__c',
+                    label: 'Created'
+                }, {
+                    width: 120,
+                    fieldName: 'Service_Request_User_Group__c',
+                    label: 'User Group'
+                }, {
+                    width: 120,
+                    fieldName: 'Service_Request_Type__c',
+                    label: 'Type'
+                }, {
+                    width: 320,
+                    fieldName: 'Description',
+                    label: 'Summary'
+                }, {
+                    width: PHONE_COL_WIDTH,
+                    fieldName: 'phonesDesc',
+                    label: 'Phones'
+                }, {
+                    width: 220,
+                    fieldName: 'Communication_Comments__c',
+                    label: 'Communication Comments'
+                }, {
+                    width: 100,
+                    fieldName: 'Id',
+                    label: 'SR#'
+                }, {
+                    width: 150,
+                    fieldName: 'Source_Created_By__c',
+                    label: 'Created By'
+                }, {
+                    width: 200,
+                    fieldName: 'Source_System_Created_By__c',
+                    label: 'Source'
+                }, {
+                    width: 200,
+                    fieldName: 'Service_Request_Category__c',
+                    label: 'SR Category'
+                }, {
+                    width: 200,
+                    fieldName: 'Service_Result__c',
+                    label: 'Service Result'
+                }, {
+                    width: 200,
+                    fieldName: 'Service_Type__c',
+                    label: 'Service Type'
+                }, {
+                    width: 200,
+                    fieldName: 'Current_Mileage__c',
+                    label: 'Current Mileage'
+                }, {
+                    width: 200,
+                    fieldName: 'Service_Recipient__c',
+                    label: 'Service Recipient'
+                }, {
+                    width: 100,
+                    fieldName: 'SR_Last_Name_Business_Name__c',
+                    label: 'Last Name'
+                }, {
+                    width: 200,
+                    fieldName: 'SR_First_Name__c',
+                    label: 'First Name'
+                }, {
+                    width: 200,
+                    fieldName: 'Status',
+                    label: 'Status'
+                }, {
+                    width: 150,
+                    fieldName: 'LastModifiedBy',
+                    label: 'Last Updated By'
+                }, {
+                    width: 200,
+                    fieldName: 'LastModifiedDate',
+                    label: 'Last Modified Date'
+                }, {
+                    width: 200,
+                    fieldName: 'TransferReason__c',
+                    label: 'Transfer Reason'
+                }, {
+                    width: 100,
+                    fieldName: 'Dealer__c',
+                    label: 'Dealer'
+                }]
+            }
+    
+            return arrToReturn;
+        }
+        
+        $scope.setColumnWidth = function(newWidth, colIndex) {
+            
+            var xyz = $('#notesDatagrid').DataTable().row(0).column(colIndex);
+            //xyz.css("width", newWidth + "px");
+            //var tmp1 = tableObj.row(0).column(n);
+            
+        }
+        
+        $scope.onColDragStop = function(event, ui) {
+            
+            var colIndx = $(this).attr('idx');
+            
+            var columnsArray = $scope.getColumnsArray();
+            var colsArrayLen = columnsArray.length; 
+            
+            var leftDifferent = ui.offset.left - ui.originalPosition.left ;
+            var rowObj;
+            for (i = 0; i < colsArrayLen; i++) {
+                if(i == colIndx) {
+                    rowObj = columnsArray[i];
+                    rowObj.width = parseInt(rowObj.width) + parseInt(leftDifferent);
+                    
+                    //var nextRowObj = columnsArray[i + 1];
+                    //nextRowObj.width -= +leftDifferent;   
+                }
+                
+                
+            }
+            
+            $scope.redLine.remove();
+            
+            $scope.$storage.setItem('colDefs2', JSON.stringify(columnsArray));
+            
+            //$scope.setColumnWidth(rowObj.width, colIndx);
+            $scope.reload();
+        }
+        
+        
+        $scope.onColDrag = function(event, ui){
+            
+            var leftPos = ui.position.left;
+            var originalLeftPos = ui.originalPosition.left;
+            
+            if($scope.redLineLeftPos != originalLeftPos) {
+                $scope.redLine.css("width", "3px");
+                $scope.redLine.css("top", "62px");
+                var newHeight = lastSetNotesGridHeight - 4;
+                var newHeightStr = newHeight + "px";
+                $scope.redLine.css("height", newHeightStr);
+                $scope.redLine.appendTo('body');
+                
+                $scope.redLineLeftPos = originalLeftPos;
+            }
+            
+            
+            var originalTopPos = ui.originalPosition.top;
+            var maxLeft = originalLeftPos ;
+                maxLeft += +$(this).attr("nextColWidth");
+                maxLeft -= 25;
+            var minLeft = +$(this).attr("prevColPosition") ;
+                minLeft += 25;
+            
+            if(leftPos < minLeft)
+                leftPos = minLeft;
+            
+            if(leftPos > maxLeft)
+                leftPos = maxLeft;
+           
+            var imgLeftPos = leftPos + 5;
+            var leftPosString = imgLeftPos + "px";
+            $scope.redLine.css("left", leftPosString);
+            
+            ui.position = { 'top': originalTopPos, 'left': leftPos };
+        }
+        
+        $scope.redLineLeftPos = 0;
+        $scope.redLine = $( '<img src="/img/samples/color_red.gif" style="position:absolute;" />' );
+        
+        
+        //these are used to place the small triangles for custom resize-column code.
+        $scope.divForResize = null;
+        $scope.setDivForResizeProperties = function(tableObj) {
+            
+            if ($scope.myData && $scope.myData.length > 0) {
+                
+                var appendToBody = false;
+                if($scope.divForResize === null) {
+                    //Updated top value for Story S-310163. By Paras Dhingra 6/2/2015
+                    $scope.divForResize = $('<div style="position:absolute; top:80px; left:0px; padding:0px;margin:0px;" />');
+                    appendToBody = true;
+                }
+                
+                var htmlContent = '';
+                var totalWidth = 0;
+                var xyz = tableObj.row(0).columns()[0];
+                var xyzLen = xyz.length;
+                
+                //before changing this for loop, check the variable nextColWidth
+                for(var n = 0; n < xyzLen - 1; n++) {
+                    //n < xyzLen - 1 ---- ONLY LOOPING THROUGH TO THE 2nd TO LAST COLUMN
+                    var tmp1 = tableObj.row(0).column(n);
+                    var tmp2 = tmp1.header();
+                    var colWidth = tmp2.clientWidth;
+                    
+                    if(n == 0) {
+                        colWidth -= 7;
+                        //colWidth -= 42;
+                    }
+                    
+                    var nextColWidth = tableObj.row(0).column(n + 1).header().clientWidth; //will fail if loop changes back to [n < xyzLen]
+                    oldWidth = totalWidth;
+                    totalWidth += colWidth;
+                    
+                    htmlContent += ' <img style="position:absolute; top:0;left:' + totalWidth + 'px;"';
+                    htmlContent += ' class="downHandle" idx="' + n + '" style="cursor:handle;"';
+                    htmlContent += ' src="/img/arrowDown.gif" nextColWidth="'
+                    htmlContent += (nextColWidth) ? nextColWidth : '' ;
+                    htmlContent += '" prevColPosition="' + oldWidth + '"';
+                    htmlContent +=  ' />';
+                }
+                
+                
+                $scope.divForResize.html(htmlContent);
+                
+                if(appendToBody) {
+                    $scope.divForResize.appendTo('body');
+                }
+                
+                
+                $(".downHandle").draggable({
+                    drag : $scope.onColDrag,
+                    stop : $scope.onColDragStop,
+                    revert: false
+                });
+                
+                
+            }
+                
+        }
+        
+        
+        $scope.buildGrid = function() {
+    
+            var columnsArray = $scope.getColumnsArray();
+            var colsArrayLen = columnsArray.length;
+            var dataTableCols = [];
+            var header = $('<thead />');
+            var headerRow = $('<tr />').css('white-space', 'nowrap');
+    
+            //add th and tds to table;
+            var i;
+            var n;
+            var width = 0;
+            var sortOrderCol = 0;
+            for (i = 0; i < colsArrayLen; i++) {
+                var rowObj = columnsArray[i];
+                var inputWidth = rowObj.width - 23;
+                var colIdx = i + 1;
+                var htmlText = '<span class="labelSpan" style="font-size:10px;" sfdcColName="' + rowObj.fieldName + '">' + rowObj.label + '</span><br /> ';
+                htmlText += '<input type="text" placeholder="Filter ' + rowObj.label + '" style="width:' + inputWidth + 'px; height:18px;" ';
+                htmlText += 'class="headerColInput" labelName="' + rowObj.label + '" sfdcColName="' + rowObj.fieldName + '" + colIdx="' + colIdx + '" />';
+                var headerCell = $('<th width="' + rowObj.width + '" style="padding-top:1px; padding-bottom:1px; width:' + rowObj.width + 'px;" />').html(htmlText);
+                headerRow.append(headerCell);
+                var configProp = {};
+                configProp.width = rowObj.width + 'px';
+                configProp.sWidth = rowObj.width + 'px';
+                configProp.data = rowObj.fieldName;
+                width += rowObj.width;
+                dataTableCols.push(configProp);
+    
+                if (rowObj.fieldName == 'Source_Created_Date__c') {
+                    sortOrderCol = i;
+                }
+            }
+            header.html(headerRow);
+            $('#notesDatagrid').html(header);
+    
+    
+            var arrayOfArray = []; //req'd for datatables dynamic data adding
+            if ($scope.myData && $scope.myData.length > 0) {
+                var dataLen = $scope.myData.length;
+                for (n = 0; n < dataLen; n++) {
+                    var myDataRowObj = $scope.myData[n];
+                    var arrayData = [];
+                    for (i = 0; i < colsArrayLen; i++) {
+                        var colArrayObj = columnsArray[i];
+                        var fieldName = colArrayObj.fieldName;
+                        if (myDataRowObj[fieldName]) {
+                            arrayData.push(myDataRowObj[fieldName]);
+                        } else {
+                            arrayData.push("");
+                        }
+    
+                    }
+                    arrayOfArray.push(arrayData);
+                }
+            }
+    
+            //var wString = width + 'px';
+            //$('#notesDatagrid').css('width', wString);
+    
+            //"scrollY"       :"222px",
+            //"scrollCollapse": true,
+            var newHeight = $("#gridDivWrapper").height() - HEIGHT_DIFF_FOR_TABLE_RESIZE;
+            lastSetNotesGridHeight = newHeight;
+            var heightStringForTable = newHeight + 'px';
+            var tableObj = $('#notesDatagrid').DataTable({
+                "paging": false,
+                "bInfo": false,
+                "bFilter": false,
+                "autoWidth": false,
+                "bautoWidth": false,
+                deferRender: true,
+                "order": [
+                    [sortOrderCol, "desc"]
+                ],
+                "scrollY": heightStringForTable,
+                "sDom": 'R<"top"i>rt<"bottom"><"clear">',
+                "columnDefs": dataTableCols
+            });
+    
+            //new $.fn.dataTable.ColReorder( '#notesDatagrid', [4,5,3,1,2] );
+            //new $.fn.dataTable.FixedHeader( tableObj );
+    
+            tableObj.rows.add(arrayOfArray).draw();
+    
+            $scope.setupBindingForHeaderCol(tableObj);
+            
+            $scope.setupBindingForKeyDownInSearch();
+            
+            $scope.setDivForResizeProperties(tableObj);
+        }
+    
+    
+        //$(window).bind('resize', function () {
+        //  $(".dataTables_scrollBody").height($(document).height() - 260);
+        //  myTable.fnDraw();
+        //});
+    
+    
+    
+        //doing this in case user is tabbing through (triggering re-draws)
+        var lastEnterTabCount = 0;
+        $scope.delayFilterApply = function(contextEnterTabCt) {
+            if (lastEnterTabCount == contextEnterTabCt) {
+                $scope.refreshDataWithFilterApplied($("#notesDatagrid").DataTable(), '');
+            }
+        }
+        
+        
+        $scope.setupBindingForKeyDownInSearch = function() {
+            //for some reason, the invisible button in chrome wasn't firing on enter.
+            //this seems like a quick fix as i am unable to reproduce.
+            $("#extSearchInput").keydown(function(evt) {
+                if(evt.keyCode == 13) {
+                    $scope.doSearch();
+                }
+            });
+        }
+    
+        $scope.setupBindingForHeaderCol = function(tableObj) {
+    
+            $scope.checkDivSizeAndResizeGrid();
+            
+            //headerColInput classname is also used in col resize library code.
+            $(".headerColInput").click(function(evt) {
+                if (evt.stopPropagation) {
+                    evt.stopPropagation();
+                } else {
+                    evt.cancelBubble = true;
+                }
+            });
+    
+            $('.headerColInput').keydown(function(evt) {
+                var that = $(this);
+    
+                var keyCode = evt.keyCode || evt.which;
+                if (keyCode == 13 || keyCode == 9) {
+                    //enter and tab
+    
+                    if (keyCode == 13) {
+                        evt.preventDefault(); //order-by in col header was triggered on enter.
+                        $scope.delayFilterApply(lastEnterTabCount);
+                    } else {
+                        var tmpTabCt = lastEnterTabCount + 1;
+                        window.setTimeout(function() {
+                            $scope.delayFilterApply(tmpTabCt)
+                        }, 1500);
+                        lastEnterTabCount++;
+                    }
+    
+    
+    
+                }
+            });
+    
+    
+            tableObj.on("column-reorder", function(settings, eventProps) {
+                var aoColumns = eventProps.aoColumns;
+                var colsLength = aoColumns.length
+                var newArrayOfPropObjs = [];
+                var mapOfColumnToConfigObj = $scope.getColumnPopertyHashByFieldName();
+    
+                for (var i = 0; i < colsLength; i++) {
+                    var rowObj = aoColumns[i];
+                    var htmlContent = rowObj.sTitle;
+                    var currentWidthSansPx = (rowObj.sWidth || rowObj.sWidthOrig).replace('px', '');
+                    var labelVal = $(htmlContent).closest(".labelSpan").attr("sfdcColName");
+                    var configObjForColOrder = mapOfColumnToConfigObj[labelVal];
+                    configObjForColOrder.width = currentWidthSansPx;
+    
+                    newArrayOfPropObjs.push(configObjForColOrder);
+    
+                }
+    
+                if (newArrayOfPropObjs.length > 0) {
+                    $scope.$storage.setItem('colDefs2', JSON.stringify(newArrayOfPropObjs));
+                }
+                
+                $scope.setDivForResizeProperties( $('#notesDatagrid').DataTable() );
+    
+            });
+    
+        }
+    
+        var lastSetNotesGridHeight = 0;
+    
+        $scope.checkDivSizeAndResizeGrid = function() {
+            window.setTimeout(function() {
+                    var height = $("#gridDivWrapper").height();
+    
+                    if (lastSetNotesGridHeight != height - HEIGHT_DIFF_FOR_TABLE_RESIZE) {
+                        lastSetNotesGridHeight = height - HEIGHT_DIFF_FOR_TABLE_RESIZE;
+                        $(".dataTables_scrollBody").height(lastSetNotesGridHeight);
+                        //$("#notesDatagrid").DataTable().draw();
+                    }
+                    $scope.checkDivSizeAndResizeGrid();
+                },
+                10000
+            );
+        }
+    
+    
+    
+    
+        $scope.refreshDataWithFilterApplied = function(tableObj, globalFilter) {
+            var arrayOfArray = []; //req'd for datatables dynamic data adding
+            var columnsArray = $scope.getColumnsArray();
+            var colsArrayLen = columnsArray.length;
+            var hashOfFilters = {};
+            var filterCount = 0;
+            var globalFilterPopulated = false;
+            $scope.searchString = '';
+            if (globalFilter === null || globalFilter === undefined || globalFilter.length == 0) {
+                $('.headerColInput').each(function() {
+                    var value = $(this).val();
+                    var colName = $(this).attr("sfdcColName");
+                    var colLabel = $(this).attr("labelName");
+                    if (value && value.length > 0) {
+                        hashOfFilters[colName] = value.toUpperCase();
+                        filterCount++;
+                        $scope.searchString += colLabel + ': ' + value + ';'; //EXAMPLE!: "Type: PBNK;Summary: BK Status:;"
+                    }
+                });
+            } else {
+                globalFilterPopulated = true;
+            }
+    
+    
+            if ($scope.myData && $scope.myData.length > 0) {
+                var dataLen = $scope.myData.length;
+                for (n = 0; n < dataLen; n++) {
+                    var myDataRowObj = $scope.myData[n];
+                    var arrayData = [];
+                    if ((filterCount == 0 && !globalFilterPopulated) || $scope.filterMatchesRow(myDataRowObj, hashOfFilters, globalFilter)) {
+    
+                        for (i = 0; i < colsArrayLen; i++) {
+                            var colArrayObj = columnsArray[i];
+                            var fieldName = colArrayObj.fieldName;
+                            if (myDataRowObj[fieldName]) {
+                                arrayData.push(myDataRowObj[fieldName]);
+                            } else {
+                                arrayData.push("");
+                            }
+    
+                        }
+                        arrayOfArray.push(arrayData);
+    
+                    }
+                }
+            }
+    
+            tableObj.clear();
+            tableObj.rows.add(arrayOfArray).draw();
+        }
+    
+        $scope.filterMatchesRow = function(dataObj, hashOfFilters, globalFilter) {
+    
+            var boolToReturn = true;
+            if (globalFilter && globalFilter.length > 0) 
+            {
+                globalFilter = globalFilter.toUpperCase();
+                for (var dataColumn in dataObj) 
+                {
+                    if (dataObj.hasOwnProperty(dataColumn))
+                     {
+                        var dataVal = dataObj[dataColumn];
+                        if (dataVal && dataVal.length > 0 && dataVal.toUpperCase().indexOf(globalFilter) > -1)
+                         {
+                            return true; //jump out; a column matches.
+                        }
+                    }
+                }
+                //jump out --- no columns match.
+                return false;
+            } 
+            else 
+            {
+                for (var colName in hashOfFilters) 
+                {
+                    if (!dataObj.hasOwnProperty(colName))
+                     {
+                        boolToReturn = false;
+                     }
+                      else if (hashOfFilters.hasOwnProperty(colName))
+                       {
+                        var filterText = hashOfFilters[colName];
+                        var dataValText = dataObj[colName];
+                        var numberin = dataValText.indexOf("{{fieldVal}}");
+                        //alert(numberin);
+                        
+                        if(numberin > 0)
+                        {
+                            var resm = dataValText.split(">");
+                            var resm2 =resm[1].split("<");
+                            var retm= resm2[0];
+                            var dataValText= dataValText.replace("{{fieldVal}}", retm);
+                        }
+                      
+                        if (dataValText === null || dataValText === undefined)
+                        {
+                            boolToReturn = false; //filterText will always be populated
+                        } 
+                        else if (dataValText && dataValText.toUpperCase().indexOf('<SPAN') > -1 || dataValText.toUpperCase().indexOf('<A') > -1) {
+                            var htmlObj = $(dataValText);
+                            var val = htmlObj.attr('fieldVal');
+                            
+                            if (val && val.length > 0) 
+                            {
+                                val = val.toUpperCase();
+                                if (val.indexOf(filterText) == -1)
+                                {
+                                    boolToReturn = false;
+                                }
+                            }
+                             else 
+                            {
+                                boolToReturn = false;
+                            }
+                        } 
+                        else if (dataValText && dataValText.indexOf(filterText) == -1) 
+                        {
+                            boolToReturn = false;
+                        }
+                    }
+                }
+            }
+    
+    
+            return boolToReturn;
+        }
+    
+    
+        //MAIN QUERIES
+    
+        $scope.queryTasks = function() {
+            var timeoutVal = TIMEOUT_VAL;
+            var urlParam = getUrlParam('q2');
+            if (urlParam && (urlParam == 1 || urlParam == '1')) {
+                timeoutVal = urlParam;
+            }
+            var callbackHandlerTasks = function(result) {
+                $scope.tasks = result;
+                $scope.cleanCaseAndTaskData($scope.tasks);
+    
+                $scope.attemptBuildingDataWhenAsyncFunctionsReturn();
+            }
+    
+            window.setTimeout(function() {
+                Visualforce.remoting.Manager.invokeAction('ngForceControllerMin.queryTasks',
+                    $scope.id,
+                    function(result) {
+                        callbackHandlerTasks(result);
+                    }, {
+                        escape: false
+                    });
+            }, timeoutVal);
+        };
+    
+        $scope.queryCases = function() {
+            var timeoutVal = TIMEOUT_VAL;
+            var urlParam = getUrlParam('q2');
+            if (urlParam && (urlParam == 1 || urlParam == '1')) {
+                timeoutVal = urlParam;
+            }
+            var callbackHandlerCases = function(result) {
+                $scope.cases = result;
+                $scope.cleanCaseAndTaskData($scope.cases);
+    
+                $scope.attemptBuildingDataWhenAsyncFunctionsReturn();
+            }
+    
+            window.setTimeout(function() {
+                Visualforce.remoting.Manager.invokeAction('ngForceControllerMin.queryCases',
+                    $scope.id,
+                    function(result) {
+                        callbackHandlerCases(result);
+                    }, {
+                        escape: false
+                    });
+            }, timeoutVal);
+        };
+    
+        $scope.queryCases();
+        $scope.queryTasks();
+    
+    
+    }); //end app.controller
+    
+    
+//}//end initNotesApp
+
+
+
+var eventName = 'ConsolidatedNotesUpdateEvent';
+
+$(document).ready(function() {
+    
+    //initNotesApp();
+    var timeoutVal = TIMEOUT_VAL;
+    var urlParam = getUrlParam('q2');
+    if (urlParam && (urlParam == 1 || urlParam == '1')) {
+        timeoutVal = urlParam;
+    }
+    window.setTimeout(function() {
+        displayContent();
+    }, timeoutVal);
+    
+    sforce.console.addEventListener(eventName, function(result) {
+        console.log('Handling the event: ' + eventName);
+        location.reload();
+    });
+
+});
+
+function displayContent() {
+    $(".container2").show();
+}
+
+
+</script>
+
+</head>
+
+
+<div class='container2' style="display:none;">
+  
+  <div  ng-controller="myCtrl">
+  
+  
+   
+   <form style="display:inline;">
+     <span class='right-inner-addon'>
+      <i class="glyphicon glyphicon-search" style="padding-bottom:2px;"></i>
+      <input id="extSearchInput" size="20" title='Search by entering a word and click enter...' ng-model='extSearch' placeholder='Search all fields' style="width:140px;" /><!--Updated width to shorten the width of Search Fields: by Paras Dhingra for StoryS-310163 -->
+    </span>
+<!--     <button style='display:none;' ng-click='doSearch()' ng-disabled2='!extSearch'>Search</button> -->
+   </form>
+   <button ng-click='clearSearch()' class="btn btn-default" ng-show='extSearch || searchString' title='Clear search and filters'>
+            <span  class="glyphicon glyphicon-remove" style="vertical-align:middle"></span >
+   </button>
+       
+   <button class='btn2 btn-primary dropdown-toggle' style='display:none;' id='toggleSearch'>Search </button>
+       
+   <input size="12" id="searchNameInput" style='margin-left:10px;width:80px;' placeholder='Search Name'   ng-model='searchName'/><!--Updated width to shorten the width of Search Fields: by Paras Dhingra for StoryS-310163 -->
+   <button style='margin-left:10px;' class='btn2 btn-success' ng-click='saveCurrentSearch();'  
+       ng-disabled='!searchName' id='saveSearch' >
+        <span id="saveSearchBtn" class="glyphicon glyphicon-floppy-disk" style="vertical-align:middle"></span>
+        Save Search 
+   </button> 
+      
+   <div class="btn-group" dropdown='dropdown' is-open="status.isopen" >
+                  <button type="button" class="btn2 btn-primary dropdown-toggle"> 
+                             Saved Searches <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" title='globally-saved searches'>
+                  
+                           <li ng-repeat='sr in savedSearches | filter:{ Globally_Available__c: true }' >
+                                   <i  class='glyphicon glyphicon-globe' style='padding-right:10px;padding-left:10px;' title='Global'  ></i>
+                                   <span ng-click='setSearchValues(sr)' >&nbsp; 
+                                   <a title='Click to run this global search' href=''>{{sr.Name}}</a> &nbsp;</span>
+                            </li>
+                            <li class="divider" title='Your Searches'></li>
+                            <li ng-repeat='sr in savedSearches | filter:{ Globally_Available__c: false}' >
+                            
+                                   <i ng-click='delSearch(sr);' ng-show="sr.Id"  title='Click to delete' class='glyphicon glyphicon-trash' 
+                                      style='padding-right:10px;padding-left:10px;'  ></i>
+                                  
+                                   <i  ng-show="!sr.Id" style='padding-right:10px;padding-left:10px;'>&nbsp;</i>
+                                   <span ng-click='setSearchValues(sr)' >&nbsp;
+                                     <a title='Click to run this search' href=''>{{sr.Name}}</a> &nbsp;</span>
+                            </li>
+     
+                 </ul>
+    </div>
+    <span>{{msg}}</span>
+    
+    
+    
+    <button style='float:right;height:20px;width:40px;' ng-click='reload()' class='btn2 btn-primary' title='Click to Refresh Consolidated Notes Data'>
+      <span  class="glyphicon glyphicon-repeat" style="vertical-align:middle"></span >
+    </button>
+    
+    <button style='float:right;height:20px;width:40px;' ng-click='refreshCachedLayout()' class='btn2 btn-primary' title='Click to Reset Your Column Layout AND Refresh Data'>
+      <span  class="glyphicon glyphicon-refresh" style="vertical-align:middle"></span >
+    </button>
+    <div id="gridDivWrapper" ng-switch="showGrid" style="top:50px;bottom:0;position:absolute;"><!--Top value updated for Story S-310163 6/2/2015-->
+        
+        <table id="notesDatagrid"
+               class="cell-border nowrap compact stripe"
+                />
+         
+    </div>
+    
+    <div  ng-dblclick="showPopup=!showPopup" ng-show='showPopup' class='popup' ng-style="popupStyle"> <span id="popupContentSpan"/> </div>
+    
+    <span ng-hide="myData.length > 0" style="width:500px;">Loading...</span>
+<!--     <span ng-show="myData.length > 0">Loaded: {{myData.length}} items</span> -->
+<!--    <p>{{searchString || extSearch}}</p> -->
+  
+  </div>
+   
+  
+</div>
+</html>
+
+
+</apex:component>

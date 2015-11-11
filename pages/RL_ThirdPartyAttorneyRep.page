@@ -1,0 +1,16 @@
+<apex:page standardController="Third_Party__c" extensions="RL_ThirdPartyAttorneyRepController" showHeader="false">
+	<!-- Establish one row table of two columns to represent label and picklist -->
+    <table style="width:100%;margin:-3px;">
+        <td style="width:36%;text-align:right;padding-right:13px;font-weight:bold;font-family:Arial,Helvetica,sans-serif;font-size:86%;color:#4a4a56;">
+	        <apex:outputLabel value="Attorney Representing Borrower"/>
+        </td>
+        <td style="width:64%;">
+            <apex:form >
+                <apex:selectList multiselect="false" size="1" value="{!representing}">
+                    <apex:selectOptions value="{!FACs}"/>
+                    <apex:actionSupport action="{!saveRepresenting}" event="onchange"/>
+                </apex:selectList>
+            </apex:form>
+        </td>
+    </table>
+</apex:page>

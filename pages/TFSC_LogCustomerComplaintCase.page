@@ -1,0 +1,7 @@
+<apex:page standardController="Financial_Account__c" showHeader="false" sidebar="false">
+    
+    <flow:interview name="Create_Customer_Complaint_Case" finishLocation="{!$Page.TFSC_CloseTab}">
+        <apex:param name="FinancialAccountNumber" value="{!Financial_Account__c.Id}"/>
+    </flow:interview>
+    
+</apex:page>

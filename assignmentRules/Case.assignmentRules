@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssignmentRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignmentRule>
+        <fullName>Customer Service Assignments</fullName>
+        <active>true</active>
+        <ruleEntry>
+            <assignedTo>Support_Request_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Due Date Change Request,Support Request</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Status</field>
+                <operation>equals</operation>
+                <value>New</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Due Date Change Request,Support Request</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Status</field>
+                <operation>notEqual</operation>
+                <value>New</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>WebToCase_Contact_Us_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Web-To-Case</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Status</field>
+                <operation>notEqual</operation>
+                <value>Resolved</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Planning_and_Ops_Support</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Change Control</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Status</field>
+                <operation>equals</operation>
+                <value>New</value>
+            </criteriaItems>
+            <template>unfiled$public/SUPPORTNewassignmentnotificationSAMPLE</template>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Rights_Letters</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>RL Notice of Sale,RL Notice of Sale-Salvage,Rights Letter</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>RL_Quality_Review</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>RL Quality Review</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>KM</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Article Feedback</value>
+            </criteriaItems>
+            <template>unfiled$public/SUPPORTNewassignmentnotificationSAMPLE</template>
+        </ruleEntry>
+    </assignmentRule>
+</AssignmentRules>

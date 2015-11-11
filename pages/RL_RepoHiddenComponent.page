@@ -1,0 +1,132 @@
+<apex:page standardController="Repossession__c" extensions="RL_RepoHiddenComponentController">
+    
+    <apex:includeScript value="/support/console/31.0/integration.js"/>
+    <apex:includeScript value="{!$Resource.jquery}"/>
+    
+    <script>
+        
+        $j = jQuery.noConflict();
+        $j(document).ready(function() {
+            
+            checkIfNeedToUpdateProposedNoticeDate();
+            
+        });
+        
+        
+        //sforce.console.addEventListener( "refreshRepoTab", onRefreshRequested );
+        //function onRefreshRequested(result) {
+        //    
+        //}
+        
+        
+        /*
+        function testUrlStuff() {
+            if(sforce.console.isInConsole()) {
+                getEnclosingPrimaryTabId();
+            }
+        }
+        
+        var getTabIdAttemptCount = 0;
+        var getEnclosingPrimaryTabId = function getEnclosingPrimaryTabId() {
+            getTabIdAttemptCount++;
+            if(getTabIdAttemptCount < 5) {
+                sforce.console.getEnclosingPrimaryTabId(getTabLink);
+            }
+        }
+        var getTabLink = function getTabLink(result) {
+            if(result.id && result.id != "null") {
+                sforce.console.getTabLink(sforce.console.TabLink.TAB_ONLY, result.id, showTabLink);
+            }else{
+                getEnclosingPrimaryTabId();
+            }
+        }
+        var showTabLink = function showTabLink(result) {
+            var link = result.tabLink;
+            var link2 = decodeURIComponent(result.tabLink);
+            
+        };
+        */
+        
+        
+        
+        function checkIfNeedToUpdateProposedNoticeDate() {
+            
+            //var errStr = $j('#errorMsgDiv').html();
+            //var errStr2 = $j('#errorMsgDiv').text();
+            
+            var needToSetProposedNoticeDate = $j('.needToSetProposedNoticeDate').prop('checked');
+            
+            if(needToSetProposedNoticeDate) {
+                updateProposedStartDate();
+            }
+            
+        }
+        
+        function onUpdateComplete() {
+            doRefreshIfAllowed();
+        }
+        
+        function doRefreshIfAllowed() {
+            
+            var refreshAllowed = $j('.allowRefreshAfterAttemptedUpdate').prop('checked');
+            //var deleteMe = $j('.needToSetProposedNoticeDate').prop('checked');
+            //var errStr = $j('#errorMsgDiv').html();
+            //var errStr2 = $j('#errorMsgDiv').text();
+            //var deleteMe2 = $j('#crap').html();
+            
+            if(!refreshAllowed) {
+                //STOP TO KEEP FROM PAGE_REFRESH LOOP.
+                return;
+            }
+        
+            if(sforce.console.isInConsole()) {
+                sforce.console.getFocusedSubtabId(onFocusedSubTabResultHandler);
+            }else{
+                parent.location.href = "/{!Repossession__c.Id}";
+            }
+        }
+        
+        function onFocusedSubTabResultHandler(result) {
+            if(result && result.id && result.id.length > 0) {
+                sforce.console.refreshSubtabById(result.id);
+            }
+        };
+        
+        
+    </script>
+    
+    
+    <apex:form id="myform">
+        
+        <apex:pageBlock title="no render" id="pageBlock">
+            
+            <div id="crap">
+            <apex:pageMessages />
+            </div>
+            
+	        <div style="display:none;">{!Repossession__c.Proposed_Notice_Date__c}"</div>
+	        <div style="display:none;">{!Repossession__c.Proposed_Notice_Date_Override__c}"</div>
+	        <div style="display:none;">{!Repossession__c.Case__r.RL_System_Required_Notice_Date_Time__c}"</div>
+	        <div id="errorMsgDiv" style="display:none;">{!errorStringOnUpdate}</div>
+	        <div style="display:none;">{!Repossession__c.Financial_Account__r.RecordType.Name}</div>
+	        <div style="display:none;">{!Repossession__c.Case__c}</div>
+	        <div style="display:none;">{!Repossession__c.Case__r.BusinessHoursId}</div>
+	        <div style="display:none;">{!Repossession__c.State_of_Jurisdiction__c}</div>
+	        <div style="display:none;">{!Repossession__c.Case__r.Form_Rule__r.Certified__c}</div>
+	        <div style="display:none;">{!Repossession__c.Case__r.Form_Rule__c}</div>
+	        <apex:inputCheckbox styleClass="needToSetProposedNoticeDate" value="{!needToSetProposedNoticeDate}" style="display:none;"/>
+	        <apex:inputCheckbox styleClass="allowRefreshAfterAttemptedUpdate" value="{!allowRefreshAfterAttemptedUpdate}" style="display:none;"/>
+        
+        </apex:pageBlock>
+        
+        
+        
+        <apex:actionFunction action="{!updateProposedStartDate}" name="updateProposedStartDate" 
+                             rerender="pageBlock"
+                             oncomplete="onUpdateComplete();" />
+        
+        
+        
+    </apex:form>
+    
+</apex:page>

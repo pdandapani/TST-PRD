@@ -1,0 +1,239 @@
+<apex:page controller="RL_ConsoleMessengerController" action="{!initVars}">
+	<apex:includeScript value="/support/console/31.0/integration.js"/>
+    <apex:includeScript value="{!URLFOR($Resource.cometd, 'cometd.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.cometd, 'jquery-1.5.1.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.cometd, 'json2.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.cometd, 'jquery.cometd.js')}"/>
+    
+    <style>
+    	#messageTable tr:nth-child(even) {
+		    background-color: #BBBBBB;
+		}
+		#messageTable tr:nth-child(odd) {
+		    background-color: #DDDDDD;
+		}
+    </style>
+    
+	<script>
+	
+		(function($){
+			$(document).ready(function() {
+        		//CONNECT to the CometD endpoint
+				$.cometd.init({
+					url: window.location.protocol+'//'+window.location.hostname+'/cometd/23.0/',
+					requestHeaders: { Authorization: 'OAuth {!$Api.Session_ID}'}
+				});
+				
+				/*
+				//________________ I'm not sure if this is necessary___________________
+				//________________ https://stackoverflow.com/questions/18278194/salesforce-streaming-api-recconnect-to-cometd-after-session-expires
+				$.cometd.addListener('/meta/disconnect', function(message) {
+				    $.cometd.handshake(); 
+				});
+				//_____________________________________________________________________
+				*/
+	
+				// Subscribe to a topic. JSON-encoded update will be returned in the callback
+				$.cometd.subscribe('{!topicString}', function(message) {
+					handlePushTopicMessage(message);
+				});
+				
+				appendRecentMsgs();
+				
+				sforce.console.getEnclosingPrimaryTabId(setPrimaryTabId);
+				
+			});
+		})(jQuery);
+		
+		var primaryTabId;
+		var attempts = 0;  //saw this defect in previous project when attempting getEnclosingPrimaryTabId on doc.ready.
+		function setPrimaryTabId(result) {
+			attempts++ 
+			if(attempts >= 3) {
+				return;
+			}
+			
+			if(result == null || result.id == null || result.id == '') {
+				// _____________TRY AGAIN_____________
+				//saw this defect in previous project when attempting getEnclosingPrimaryTabId on doc.ready, it would fail one in 20ish times
+				sforce.console.getEnclosingPrimaryTabId(setPrimaryTabId);
+				return;
+			}
+			
+			primaryTabId = result.id
+		}
+		
+		function handlePushTopicMessage(message) {
+			//message.data.event.type == 'created'
+			
+			//var tmp = JSON.stringify(message.data.sobject.Title__c) ;
+			//window.alert(tmp);
+			appendMessageTrToTable(message.data.sobject.Title__c, message.data.sobject.Type__c, message.data.sobject.Id, message.data.sobject.Notify_User__c);
+		}
+		
+		function getTrString(title, type, recordId) {
+			var str = '<tr><td style="width:40px;padding:3px;margin:0px;vertical-align:top;">';
+			var imgName = mapOfMsgTypeToImageName[type];
+			str += '<img src="/img/msg_icons/';
+			if(imgName != null && imgName != '') {
+				str += imgName;
+			}else{
+				str += 'error32'; //img/msg_icons/error32
+			}
+			str += '.png" /></td><td style="padding-top:4px;">';
+			str += '<a href="#" onClick="return onMessageTitleClick(\'' + recordId + '\');">';
+			str += '<span style="font-weight:bold;font-size:14px;">';
+			str += title;
+			str += '</span></a></br>'
+			
+			str += '<div id="plusIcon_' + recordId + '"  style="left:0;right:0;text-align:right;padding:5px;">'
+			str += '<span style="font-weight:bold;"><a href="#" onClick="return onMessageTitleClick(\'' + recordId + '\');">[+]</a></span>';
+			str += '</div>'
+			
+			str += '<div id="outterContainerDiv_' + recordId + '"  style="display:none;padding:5px;left:0;right:0;" >'
+			str += '<div id="innerMessageTextDiv_' + recordId + '" style="width:100%" />'
+			
+			str += '<div style="width:100%;text-align:right;">'
+			str += '<span style="font-weight:bold;"><a href="#" onClick="return onMessageTitleClick(\'' + recordId + '\');">[<span style="font-size:18px;">-</span>]</a></span>';
+			str += '</div>'
+			
+			str += '</div>';
+			str += '</td></tr>';
+			
+			return str;
+		}
+		
+		function appendMessageTrToTable(title, type, recordId, notifyUser) {
+			var trString = getTrString(title, type, recordId);
+			$('#messageTable').append(trString);
+			if(notifyUser != null && notifyUser == true) { 
+				openThisComponentInTheConsole();
+			}
+		}
+		
+		function openThisComponentInTheConsole() {
+			if(sforce.console.isInConsole()) {
+				sforce.console.setCustomConsoleComponentWindowVisible(true, onVisibilitySetToTrue);
+			}
+		}
+        function onVisibilitySetToTrue(result) {
+          //to-do, remove this.
+        }
+		
+		function onMessageTitleClick(recordId) {
+			var divForText = '#innerMessageTextDiv_' + recordId;
+			var divToHideId = '#outterContainerDiv_' + recordId;
+			var plusIconId = '#plusIcon_' + recordId;
+			var msgTxt = $(divForText).html();
+			
+			if($(divToHideId).is(":visible")) {
+				$(divToHideId).hide();
+				$(plusIconId).show();
+			}else{
+				$(divToHideId).show();
+				$(plusIconId).hide();
+				if(msgTxt == null || msgTxt == '') {
+					getMessageText(recordId);
+				}
+			}
+			
+				
+			return false;
+		}
+		
+		
+		function onMessageTextRetrieved() {
+			var messageHtml = $('.msgTxt').val();
+			var messageDivId = '#innerMessageTextDiv_' + $('.msgId').html();
+			
+			if(messageHtml != null) {
+				var findStr = '\n';
+				var regx = new RegExp(findStr, 'g');
+				
+				if(messageHtml.length > 150) {
+					messageHtml = messageHtml.substring(0,150);
+					messageHtml += '....\n(see administrator for more details.)' 
+				}
+				
+				messageHtml = messageHtml.replace(regx, '<br/>');
+				//messageHtml = messageHtml.replace(/\n/g, '<br/>');
+			}
+			
+			$(messageDivId).html(messageHtml);
+		}
+		
+		function reloadImgClicked() {
+			location.reload();
+		}
+		
+		
+		var mapOfMsgTypeToImageName = {
+			'Informational' : 'info32',
+			'Notification' : 'confirm32',
+			'Unhandled Error' : 'error32',
+			'Handled Error' : 'error32',
+			'' : 'error32'
+		}; //'Handled Error' : 'warning32'
+		
+		
+	</script>
+	
+	
+	
+	<div id="dialog" />
+	
+	<script>
+	
+	function appendRecentMsgs() {
+		<apex:repeat value="{!recentMessages}" var="recentMsg">
+			
+			appendMessageTrToTable('<apex:outputText value="{!recentMsg.Title__c}" escape="true" />',
+									'<apex:outputText value="{!recentMsg.Type__c}" escape="true" />',
+									'<apex:outputText value="{!recentMsg.Id}" escape="true" />',
+									false );
+		</apex:repeat>
+	}
+	</script>
+	
+	<div style="width:100%;height:400px;padding-top:4px;overflow-y:scroll;">
+	<apex:form >
+		
+		<apex:actionFunction name="getMessageText" action="{!getMessageText}"
+                             oncomplete="onMessageTextRetrieved();"
+                             reRender="jsVarsPanel" >
+			<apex:param name="param" value="" id="y" assignTo="{!selectedMessageId}" />
+		</apex:actionFunction>
+		
+		
+		<apex:outputPanel id="jsVarsPanel">
+			<apex:inputTextArea styleClass="msgTxt" value="{!selectedMessageText}" style="display:none;" />
+			<apex:outputText styleClass="msgId" value="{!selectedMessageId}" style="display:none;" />
+		</apex:outputPanel>
+		
+		<apex:outputPanel id="mainPanel" style="padding:0px;">
+			
+			<table id="messageTable" style="width:100%;border-spacing:0px;border-collapse:separate;border:solid black 1px;border-radius:6px;">
+				<tr>
+					<th style="padding-left:5px;padding-top:5px;">
+						<a href="#" onclick="reloadImgClicked()" >
+						<div style="width:20px;height:20px;padding:0px;background:url('/img/alohaSkin/sync.png') 0 0;"/>
+						</a>
+					</th>
+					<th style="text-align:center;font-weight:bold;font-size:16px;display:block;">
+						<span style="height:20px; padding:0px;">
+							Console Messages&nbsp;&nbsp;&nbsp;
+						</span>
+					</th>
+				</tr>
+			</table>
+			
+			
+		</apex:outputPanel>
+		
+		
+		
+	</apex:form>
+	</div>
+	
+	
+</apex:page>

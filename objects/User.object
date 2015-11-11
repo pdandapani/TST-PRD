@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>CallHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>DeletePhotoAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EditUserAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>EmailHighlightAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>FreezeUserAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>LinkToSetupUserDetailAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ManagePermSetsAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>PasswordUnlockAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ResetPasswordAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>UpdatePhotoAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>UserActivationAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>ViewPhotoAction</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <enableFeeds>true</enableFeeds>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>AUP_Business_Unit__c</fullName>
+        <description>Business Unit received via. SAML JIT user provisioning gets persisted in user record. This is to assign appropriate permission sets and groups to the user at the time of login .</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select or set appropriate business unit.</inlineHelpText>
+        <label>Business Unit</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Collections</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Service</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rights Letters</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Change Control</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Universal Console</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>AUP_Change_Permissions__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Flag that indicates login flow to trigger a Apex code that will assign necessary permission sets to user and also assign user to appropriate public groups.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check when user permissions need to be reset.</inlineHelpText>
+        <label>Change Permissions</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>AUP_User_Function__c</fullName>
+        <description>Picklist created for stamping the business function of a user as indicated at the time of user registration
+This attribute will be used to assign appropriate permissions to user along with profiles and roles.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Custom attribute that indicate business function performed by user</inlineHelpText>
+        <label>User Function</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Agent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Team Lead</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manager</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Admin</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>General</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Reporting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Associate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quality Reviewer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Coll_Racf_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Coll Racf Id</label>
+        <length>30</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Collection_User_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Collection User ID</label>
+        <length>10</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Genesys_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Genesys Id</label>
+        <length>30</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lan_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Lan Id</label>
+        <length>30</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ManagerId</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <type>Hierarchy</type>
+    </fields>
+    <fields>
+        <fullName>Service_Request_Service_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Service Request Service Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Account Review</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Action Request</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Auto Comment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Branch Transfer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Correspondence</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dealer Daily</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Direct Mail</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inbound Call</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Internet E-mail</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Internet Email</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Internet Incoming</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lexus Term Report</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mobile Text</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No Contact Letter</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Outbound Call</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Payment Related Inquiry</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Phone</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Survey</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>System Generated</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Toyota Term Report</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Web Inbound</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Web Outbound</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Service_Request_User_Group__c</fullName>
+        <externalId>false</externalId>
+        <label>Service Request User Group</label>
+        <picklist>
+            <picklistValues>
+                <fullName>ADM COE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Administration</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Asset Protection</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BTS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Business Solution Group</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>C2P System</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CDS System</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Central Recovery</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Central Recovery System</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CO COE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Collections</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Collections System</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Commercial Finance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Corporate CRM Administration</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Corporate Customer Service</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Corporate Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CR COE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Credit Dispute</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CS COE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Loyalty</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Service</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dealer Daily System</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DMS System</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Document Control Clerk</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DSSO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EBPP System</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Email Management System</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EPAY System</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Field Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FOCUS General</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FOCUS Note Pad System</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FOCUS System</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fraud Investigation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Host Branch Transfer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insurance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insurance System</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inventory Control</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ITS System</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IVR System</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lease End Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Legal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lockbox</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Office of Privacy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>OFSC System</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Performance Excellence</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Privacy System</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TFSC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Treasury</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Virtual Agent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Workforce Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CO MLS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Teleset_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Teleset ID</label>
+        <length>30</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WebLogin_Username__c</fullName>
+        <externalId>false</externalId>
+        <label>WebLogin Username</label>
+        <length>20</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <listViews>
+        <fullName>ActiveUsers</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <columns>CORE.USERS.EMAIL</columns>
+        <columns>CORE.USERS.SAML_SUBJECT</columns>
+        <columns>Lan_Id__c</columns>
+        <columns>CORE.USERS.USERNAME</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>CORE.USERS.LAST_LOGIN</columns>
+        <columns>CORE.USER_ROLE.NAME</columns>
+        <columns>CORE.PROFILE.NAME</columns>
+        <columns>CORE.USERS.ACTIVE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CORE.USERS.ACTIVE</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>Active Users</label>
+    </listViews>
+    <listViews>
+        <fullName>AdminUsers</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <columns>CORE.USERS.USERNAME</columns>
+        <columns>CORE.USERS.EMAIL</columns>
+        <columns>CORE.USERS.LAST_LOGIN</columns>
+        <columns>CORE.USER_ROLE.NAME</columns>
+        <columns>CORE.PROFILE.NAME</columns>
+        <columns>CORE.USERS.ACTIVE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CORE.PROFILE.NAME</field>
+            <operation>equals</operation>
+            <value>System Administrator,System Administrator Clone</value>
+        </filters>
+        <filters>
+            <field>CORE.USERS.ACTIVE</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>Admin Users</label>
+    </listViews>
+    <listViews>
+        <fullName>AllUsers</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <columns>CORE.USERS.USERNAME</columns>
+        <columns>CORE.USERS.LAST_LOGIN</columns>
+        <columns>CORE.USER_ROLE.NAME</columns>
+        <columns>CORE.USERS.ACTIVE</columns>
+        <columns>CORE.PROFILE.NAME</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All Users</label>
+    </listViews>
+    <listViews>
+        <fullName>InActiveUsers</fullName>
+        <columns>FULL_NAME</columns>
+        <columns>CORE.USERS.ALIAS</columns>
+        <columns>CORE.USERS.SAML_SUBJECT</columns>
+        <columns>CORE.USERS.USERNAME</columns>
+        <columns>CORE.USERS.LAST_LOGIN</columns>
+        <columns>CORE.USER_ROLE.NAME</columns>
+        <columns>CORE.PROFILE.NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CORE.USERS.ACTIVE</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <label>In Active Users</label>
+    </listViews>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>FULL_NAME</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CORE.USER_ROLE.NAME</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>FULL_NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CORE.USER_ROLE.NAME</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CORE.USERS.PHONE</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CORE.USERS.EXTENSION</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CORE.USERS.CELL</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>FULL_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.TITLE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.PHONE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.EMAIL</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USER_ROLE.NAME</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Read</sharingModel>
+    <validationRules>
+        <fullName>Reqd_LANID_and_RACFID_for_Collections</fullName>
+        <active>true</active>
+        <description>Users in Collections Profile must have Lan Id or Coll Racf Id field values</description>
+        <errorConditionFormula>AND(
+  BEGINS( Profile.Name , &quot;Collections&quot;),
+  OR(
+    ISBLANK(Coll_Racf_Id__c),
+    ISBLANK(Lan_Id__c)
+  )
+)</errorConditionFormula>
+        <errorMessage>Users in Collections Profile must have Lan Id or Coll Racf Id field values</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Require_LANID_and_RACFID_for_Collections</fullName>
+        <active>true</active>
+        <description>Users in Collections roles must have Lan Id and Coll Racf Id field values</description>
+        <errorConditionFormula>AND(
+  BEGINS(UserRole.Name, &quot;Collections&quot;),
+  OR(
+    ISBLANK(Coll_Racf_Id__c),
+    ISBLANK(Lan_Id__c)
+  )
+)</errorConditionFormula>
+        <errorMessage>Users in Collections roles must have Lan Id and Coll Racf Id field values</errorMessage>
+    </validationRules>
+</CustomObject>

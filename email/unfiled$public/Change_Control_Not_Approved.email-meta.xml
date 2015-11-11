@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Change Control - Email to SOPS team that the Case for Change Control has not approved and it&apos;s past Case Approval Target date</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Change Control Not Approved</name>
+    <style>none</style>
+    <subject>Change Control case has been not approved and is past target approval date</subject>
+    <type>text</type>
+</EmailTemplate>

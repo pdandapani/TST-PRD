@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>All_Except_TFS_Associates</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <label>All Except TFS Associates</label>
+        <sharedTo>
+            <roleAndSubordinates>Operations</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>ZZZ</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+</SharingRules>

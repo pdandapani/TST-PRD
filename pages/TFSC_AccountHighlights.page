@@ -1,0 +1,825 @@
+<apex:page controller="TFSC_AccountHighlightsController" >
+    
+    <apex:includeScript value="{!$Resource.jquery}"/>
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    <apex:includeScript value="{!$Resource.ctiEvents}"/>
+    <script>
+        
+        var $j = jQuery.noConflict();
+       
+        (function($j){
+            $j(document).ready(function() {
+                setPrimaryTabId();
+                setPrimaryTabObjIdAndKickOffAutoOpen(true);
+                dispatchNewTabOpenedEvent();
+            });
+        })(jQuery) ;
+        
+        var focusedObjectIdFromConsoleTab;
+        var primaryTabId;
+        var controllerObjId = '<apex:outputText value="{!contextFinancialAccount.Id}" escape="true"/>';
+
+        function dispatchNewTabOpenedEvent() {
+            var faId = controllerObjId;
+            var faAcctNum = '<apex:outputText value="{!contextFinancialAccount.Financial_Account_Number__c}" escape="true"/>' ;
+            
+            var eventMessage = buildConsoleEventString( faId, faAcctNum );
+            sforce.console.fireEvent( CONSOLE_EVENT_NEW_FA_OPENED, eventMessage ) ;
+        }
+        
+        sforce.console.addEventListener( CTI_EVENT_CONSOLE_MANAGER_READY, onConsoleManagerOpenedAfterTabs );
+        function onConsoleManagerOpenedAfterTabs(result) {
+            dispatchNewTabOpenedEvent();
+        }
+        
+        function setPrimaryTabId() {
+            sforce.console.getFocusedPrimaryTabId(
+                function(result) {
+                    if(result.success) 
+                    {
+                        primaryTabId = result.id;
+                        sforce.console.addEventListener(sforce.console.ConsoleEvent.CLOSE_TAB, sfdcCloseTabEventHandler, {tabId : result.id});
+                    }
+                }
+            ) ;
+        }
+        
+        function sfdcCloseTabEventHandler(result) {
+            if(result.id) {
+                var objForMessage = {};
+                    objForMessage.faid = controllerObjId;
+                    objForMessage.tabId = result.id;
+                var msgString = stringifyObjectForEventMessage(objForMessage);
+                sforce.console.fireEvent( CONSOLE_EVENT_FA_TAB_CLOSED, msgString ) ;
+            }
+        }
+        
+        $j('.phoneTd').click(function(event){
+            //var phone = this.attr('phone');
+            //var fac = this.attr('fac');
+            //fireEventFromClickToDial(phone, fac);
+        });
+        
+        function setPrimaryTabObjIdAndKickOffAutoOpen(openCollections) {
+            
+            sforce.console.getFocusedPrimaryTabObjectId(
+                function(result) {
+                    if(result.success) {
+                        focusedObjectIdFromConsoleTab = result.id;
+                        if( !stringIsNullOrEmpty(controllerObjId) && 
+                            !stringIsNullOrEmpty(focusedObjectIdFromConsoleTab) && 
+                            focusedObjectIdFromConsoleTab.slice(0,15) == controllerObjId.slice(0,15))  
+                        {
+                            openTopSectionFacAsSubTab();
+                            if(openCollections == true) {
+                                openFACsInCollections();
+                            }
+                        }
+                    }
+                }
+            );
+        }
+        
+        
+        //sforce.console.openSubtab(primaryTabId:String, url:URL, active:Boolean, tabLabel:String, id:String, (optional)callback:Function, (optional)name:String)
+        function openSubTabAfterValidations(url, tabLabel, setFocus) {
+            if(setFocus) {
+                sforce.console.openSubtab(primaryTabId, url, setFocus, tabLabel, null, 
+                    function(result) {
+                        if(result.success == false) {
+                            setFocusToSubTab(url);
+                        }
+                    },
+                    url
+                );
+            }else{
+                sforce.console.openSubtab(primaryTabId, url, setFocus, tabLabel, null, null, url);
+            }
+        }
+        
+        function openPrimaryTabAfterValidations(url, tabLabel, setFocus) {
+            sforce.console.openPrimaryTab(null, url, setFocus, tabLabel, null);
+        }
+        
+        function setFocusToSubTab(optionalName) {
+            sforce.console.focusSubtabByNameAndPrimaryTabId(optionalName, primaryTabId);
+        }
+        
+        
+        
+        
+        
+        function stringIsNullOrEmpty(str) {
+            if(str === null || str === undefined || str == 'null' || str == 'undefined' || str == '') {
+                return true;
+            }
+            return false;
+        }
+        
+        
+        //Financial accounts that are currently in collections and related to the borrower 
+        //that is being contacted are automatically opened as subtabs
+        function openFACsInCollections() {
+            //doing delimited string because string list was being set as [a03S00000030y4aIAA, a03S0000003RVeFIAW], and the Id's were undefined vars
+            var facCommaDelimitedString = '{!borrowersFinancialAccountsUnderCollectionsCommaDelimited}' ;
+            if(facCommaDelimitedString !== null && facCommaDelimitedString.length > 0) {
+                var facArray = facCommaDelimitedString.split(",");
+                for(var i = 0; i < facArray.length; i++) {
+                    var wholeString = facArray[i];
+                    var recordId = wholeString.slice(0,15);
+                    var pipeIndex = wholeString.indexOf('|');
+                    var recordName = '';
+                    if(pipeIndex + 1 != wholeString.length) {
+                        recordName = wholeString.slice(pipeIndex + 1, wholeString.length);
+                    }
+                    openPrimaryTabAfterValidations('/' + recordId, 'Collections ' + recordName, false);
+                }
+            }
+        }
+        
+        
+        
+        function openFAInPrimaryTab(faId, faAccountNumber){
+            if(sforce.console.isInConsole()){
+                openPrimaryTabAfterValidations('/' + faId, faAccountNumber, true);
+            }else{
+                window.open('/' + faId);
+            }
+        }
+        
+        function openFacSubTab(facObjectId, acctName) {
+            if(acctName === null || acctName === undefined || acctName == 'null' || acctName == 'undefined' || acctName == '') {
+                acctName = 'Financial Account Contact';
+            }
+            
+            //acctName = acctName.replace(new RegExp('\'', 'g'), '');
+           
+            if(sforce.console.isInConsole()) {
+                openSubTabAfterValidations( '/' + facObjectId, acctName, true );
+            }else{
+                window.open('/' + facObjectId); //for my own testing.
+            }
+            
+            return false; //to override default browser behavior.
+        }
+        
+        
+        
+        function openPrimaryContactDemographicPage() {
+            var acctId = '{!topSectionFAC.Id}' ;
+            var acctName = '<apex:outputText value="{!JSENCODE(topSectionFAC.Account__r.Name)}" escape="true"/>';
+            if(!stringIsNullOrEmpty(acctId)) {
+                openFacSubTab(acctId, acctName);
+            }
+        }
+        
+        
+        /**
+        *   
+        *   @campaignTabManagerObject
+        *      @relatedSoftPhoneData -- should always be populated with softPhone getAllAttachedData KVPs.
+        *      @relatedParentSoftPhoneData -- not used yet, and not sure direction here.
+        *      @interactionId -- always populated
+        *      @faId -- always populated
+        *   
+        */
+        var campaignTabManagerObject;
+        sforce.console.addEventListener( CTI_PUSH_TAB_OBJECT_FROM_MANAGER, onScreenPopHandler );
+        function onScreenPopHandler(result) {
+            var obj = deStringifyObjectFromEventMessageString(result.message);
+            if(obj && obj.faId && obj.faId.length >= 15 && obj.faId.slice(0,15) == controllerObjId.slice(0,15)) {
+                campaignTabManagerObject = obj;
+                updateTopFacIfNecessary();
+            }
+        }
+        
+        /**
+        *   @lastInteractionObj
+        *     @faId - will be populated
+        *     @interactionId  - will be populated
+        *     @phoneDialed - will be populated
+        *     @campaignId -- campaignid may be null
+        */
+        var lastInteractionObj;
+        sforce.console.addEventListener( CTI_PUSH_LAST_INTERACTION_OBJECT_FROM_MANAGER, syncLastInteractionObject );
+        function syncLastInteractionObject(result) {
+            var obj = deStringifyObjectFromEventMessageString(result.message);
+            if(obj && obj.faId && obj.faId.length >= 15 && obj.faId.slice(0,15) == controllerObjId.slice(0,15)) {
+                lastInteractionObj = obj;
+            }
+        }
+        
+        
+        function updateTopFacIfNecessary() {
+            var shouldUpdate = false;
+            var controllerPhoneNumber;
+            var phoneNumberComponent = $j(".hiddenDialedNumber");
+            var coBorrowerPoppedBoolComponent = $j(".hiddenCoBorrowerPopped");
+            if(phoneNumberComponent) {
+                controllerPhoneNumber = phoneNumberComponent.val();
+            }
+            if(phoneNumberComponent && campaignTabManagerObject.relatedSoftPhoneData && campaignTabManagerObject.relatedSoftPhoneData.KVP_CONTACT_INFO && campaignTabManagerObject.relatedSoftPhoneData.KVP_CONTACT_INFO.length > 0) {
+                var lastDialedPhoneNumberForThisTab = campaignTabManagerObject.relatedSoftPhoneData.KVP_CONTACT_INFO ;
+                if(controllerPhoneNumber === undefined || 
+                         controllerPhoneNumber === null || 
+                         controllerPhoneNumber == '' ||
+                         lastDialedPhoneNumberForThisTab.indexOf(controllerPhoneNumber) == -1) 
+                {
+                    $j(".hiddenDialedNumber").val(lastDialedPhoneNumberForThisTab);
+                    shouldUpdate = true;
+                }
+            }
+            
+            if(coBorrowerPoppedBoolComponent && 
+                campaignTabManagerObject.relatedSoftPhoneData && 
+                campaignTabManagerObject.relatedSoftPhoneData.KVP_PHONETYPE &&
+                ( campaignTabManagerObject.relatedSoftPhoneData.KVP_PHONETYPE == 3
+                   || campaignTabManagerObject.relatedSoftPhoneData.KVP_PHONETYPE == 4
+                   || campaignTabManagerObject.relatedSoftPhoneData.KVP_PHONETYPE == "3"
+                   || campaignTabManagerObject.relatedSoftPhoneData.KVP_PHONETYPE == "4") )
+            {
+                coBorrowerPoppedBoolComponent.val( 'true' );
+                shouldUpdate = true;
+            }else{
+                coBorrowerPoppedBoolComponent.val( 'false' );
+            }
+            
+            if(shouldUpdate) {
+                updateTopFacInApex();
+            }
+        }
+        
+        
+        
+        
+        
+        
+    </script>
+    
+    
+    <style>
+        .hasMotif {margin: 0px 3px;} 
+        
+        .alignRightFormAlign {
+            text-align: right;
+            padding-right: 3px;
+        }
+        .centerTextAlign {
+            text-align: center;
+        }
+        table.pastDueTable {
+            border-spacing: 0px;
+        }
+        table.pastDueTable td{
+            padding: 0px;
+            margin: 0px;
+        }
+        table.blackBorderTable {
+            border-collapse: collapse;
+            border: 1px solid black;
+            margin-left:17px;
+        }
+        table.blackBorderTable td {
+            text-align: center;
+            border: 1px solid black;
+            padding-left: 8px ;
+            padding-right: 8px ;
+        }
+        table.blackBorderTable th {
+            color:#767676 ;
+            text-align: center;
+            border: 1px solid black;
+            padding-left: 12px ;
+            padding-right: 8px ;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .centerTextAlign {
+            text-align: center;
+        }
+        
+        div.acctDiv {
+            width: 100%;
+            margin: 0px;
+            padding-top: 2px;
+            padding-bottom: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        #totalAmntDueSpan {
+            background-color: #d4fb79 ; 
+            color: #ff2601 ; 
+            font-weight: bold;
+            font-size: 14px;
+        }
+        a {
+            color: #0066dd; 
+        }
+        hr {
+            border: none;
+            height: 1px;
+            color: #767676;
+            background-color: #767676;
+            margin-top: 12px;
+            margin-bottom: 12px;
+        }
+        .clearedRow {
+            display: block;
+        }
+        .greyLabel  {
+            color:#767676 ;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        .greyLabelInTable  {
+            color:#767676 ;
+            font-size: 10px;
+            font-weight: bold ;
+            padding-right:2px ;
+        }
+        .disableClickToDial:after {
+            content: url("/img/btn_nodial_inline.gif");
+            padding-right: 4px;
+        }
+        .customPopup {
+            background-color: #E4F9FD;
+            color: black;
+            border-style: solid;
+            border-width: 1px;
+            left: 20%;
+            padding: 10px;
+            position: absolute;
+            z-index: 9999;
+            width: 210px;
+            top: 25%;
+        }
+    </style>
+    
+    
+    
+    <apex:messages />
+    
+    
+    <apex:form id="mainFormForRerender" >
+        
+        <script>
+            
+            var topLevelEscapedAcctName = '<apex:outputText value="{!JSENCODE(topSectionFAC.Account__r.Name)}" />' ;
+            var bottomLevelEscapedAcctName = '<apex:outputText value="{!JSENCODE(bottomSectionFAC.Account__r.Name)}" escape="true" />';
+            
+            function openTopSectionFacAsSubTab() {
+            
+                var facObjId = '{!topSectionFAC.Id}';
+                if(!stringIsNullOrEmpty(facObjId)) {
+                    var acctName = topLevelEscapedAcctName;
+                    if(stringIsNullOrEmpty(acctName)) {
+                        acctName = 'Financial Account Contact' ;
+                    }
+                    //acctName += ' ' + facObjId;
+                    openSubTabAfterValidations( '/' + facObjId, acctName, false );
+                }
+                
+            }
+        </script>
+        
+        <apex:actionFunction name="updateTopFacInApex" action="{!updateTopFac}" 
+                             rerender="mainFormForRerender"
+                             oncomplete="setPrimaryTabObjIdAndKickOffAutoOpen(false);" />
+        
+        <apex:inputText value="{!borrowerPhoneFromJS}" styleClass="hiddenDialedNumber" style="display:none;" />
+        <apex:inputText value="{!coBorrowerWasPoppedBooleanStringFromJS}" styleClass="hiddenCoBorrowerPopped" style="display:none;" />
+        
+        
+        <div class="acctDiv">
+            
+            <script>
+                <!--  put here for rerender  -->
+                function openTopSectionSubTab() {
+                    var id = "{!topSectionFAC.Id}";
+                    var acctName = '<apex:outputText value="{!JSENCODE(topSectionFAC.Account__r.Name)}" />' ;
+                    openFacSubTab(id, acctName);
+                }
+            </script>
+            
+            <a href="#" 
+               style="font-size:16px; display:block; padding-top:9px;"
+               onclick="openTopSectionSubTab();return false;">{!topSectionFAC.Account__r.Name}</a>
+            
+            <span class="clearedRow">
+                <span style="font-weight:bold; font-weight:bold; color:#767676; display:block;">
+                    <apex:variable rendered="{!topSectionFAC.Borrower_Position__c == 'Primary'}" value="1" var="tempOuter">
+                        Primary Borrower
+                    </apex:variable>
+                    <apex:variable rendered="{!topSectionFAC.Borrower_Position__c != 'Primary'}" value="1" var="tempOuter">
+                        Co-Borrower
+                    </apex:variable>
+                </span>
+            </span>
+            
+            
+<!--             <span class="clearedRow" style="padding-top:3px;"> -->
+<!--                 <span class="greyLabel">AKA:</span> -->
+<!--                 <span>{!topSectionFAC.Account__r.AKA__c}</span> -->
+<!--             </span> -->
+            
+            
+            <span class="clearedRow">
+                <span class="greyLabel">SSN/TIN:</span>
+                <span>
+                    <apex:variable rendered="{!topSectionFAC.Account__r.isPersonAccount}" value="1" var="tempOuter">
+                        {!topSectionFAC.Account__r.Social_Security_Number__pc}
+                    </apex:variable>
+                    <apex:variable rendered="true" value="1" var="tempOuter">
+                        {!topSectionFAC.Account__r.Tax_Identification_Number__c}
+                    </apex:variable>
+                </span>
+            </span>
+            
+            <span class="clearedRow">
+                <span class="greyLabel">Language:</span>
+                <span>{!topSectionFAC.Election_Language_Preference__c}</span>
+            </span>
+            
+            <span class="clearedRow">
+                <span class="greyLabel">Timezone:</span>
+                <span>
+                    {!timeZoneMapping.topFacTimeZone}
+                </span>
+            </span>
+            
+            <span class="clearedRow">
+                <span class="greyLabel">Other Accounts:</span>
+                <span>
+                    <apex:outputText rendered="{!enableTopSectionRelatedFALink}">
+                        <a href="#" onClick="openTopPopup()">
+                             {!topSectionOpenOtherAccountCount} / {!topSectionClosedOtherAccountCount}
+                        </a>
+                    </apex:outputText> 
+                    <apex:outputText rendered="{!!enableTopSectionRelatedFALink}">
+                        {!topSectionOpenOtherAccountCount} / {!topSectionClosedOtherAccountCount}
+                    </apex:outputText> 
+                </span>
+            </span>
+        </div>
+        
+        <apex:outputPanel layout="none" >
+        <div class="acctDiv" style="padding-top:12px;">
+                <span class="clearedRow">
+                    {!contextFinancialAccount.Collateral__r.Model_Year__c}
+                    {!contextFinancialAccount.Collateral__r.Make__c}
+                    {!contextFinancialAccount.Collateral__r.Model_Name__c}
+                </span>
+        </div>
+        </apex:outputPanel>
+        
+        
+        <div class="acctDiv" style="padding-top:12px;">
+        <table>
+            <tr style="vertical-align:top;">
+                <td class="greyLabel" style="height:17px; font-size:10px;">Home:</td>
+                <td style="font-size:10px;" class="phoneTd" phone="{!topSectionFAC.Home_Phone_Garage__c}" fac="{!topSectionFAC.Id}">
+                    <support:clickToDial id="phone1" 
+                                         number="{!topSectionFAC.Home_Phone_Garage__c}" 
+                                         entityId="{!topSectionFAC.Id}" 
+                                         rendered="{!listDisplayTopSectionFACNumbers[0]}"/>
+                    <apex:outputText styleClass="disableClickToDial" rendered="{!!listDisplayTopSectionFACNumbers[0]}" value="{!topSectionFAC.Home_Phone_Garage__c}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!topSectionFAC.Home_Phone_No_Call_Reason_Code_Garage__c}"/>
+                </td>
+                <td>
+                    <apex:image url="{!URLFOR($Resource.TFSCAssets, 'img/mobilePhoneIcon.png')}" rendered="{!topSectionFAC.Flag_Home_Phone_IsMobile_Garage__c}"/>
+                </td>
+            </tr>
+            <tr style="vertical-align:top;">
+                <td class="greyLabel" style="height:17px; font-size:10px;">Mobile:</td>
+                <td style="font-size:10px;" class="phoneTd" phone="{!topSectionFAC.Mobile_Phone__c}" fac="{!topSectionFAC.Id}">
+                    <support:clickToDial number="{!topSectionFAC.Mobile_Phone__c}" entityId="{!topSectionFAC.Id}" rendered="{!listDisplayTopSectionFACNumbers[1]}"/>
+                    <apex:outputText styleClass="disableClickToDial" rendered="{!!listDisplayTopSectionFACNumbers[1]}" value="{!topSectionFAC.Mobile_Phone__c}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!topSectionFAC.Mobile_Phone_No_Call_Reason_Code__c}"/>
+                </td>
+                <td>
+                    <apex:image url="{!URLFOR($Resource.TFSCAssets, 'img/mobilePhoneIcon.png')}" />
+                </td>
+            </tr>
+            
+            <tr style="vertical-align:top;">
+                <td class="greyLabel" style="height:17px; font-size:10px;">Work:</td>
+                <td style="font-size:10px;">
+                    <support:clickToDial number="{!topSectionFAC.Work_Phone_Garage__c}" entityId="{!topSectionFAC.Id}" rendered="{!listDisplayTopSectionFACNumbers[2]}"/>
+                    <apex:outputText styleClass="disableClickToDial" rendered="{!!listDisplayTopSectionFACNumbers[2]}" value="{!topSectionFAC.Work_Phone_Garage__c}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!topSectionFAC.Work_Phone_NoCall_Reason_Code_Garage__c}"/>
+                </td>
+                <td>
+                    <apex:image url="{!URLFOR($Resource.TFSCAssets, 'img/mobilePhoneIcon.png')}" rendered="{!topSectionFAC.Flag_Work_Phone_IsMobile_Garage__c}}"/>
+                </td>
+            </tr>
+            
+        </table>
+        </div>
+        
+        
+        <div class="acctDiv" style="padding-top:10px;">
+            <span class="clearedRow">
+                <span class="greyLabel">Garage</span>
+            </span>
+            
+            <span class="clearedRow">
+                {!topSectionFAC.Mailing_Street_Garage__c}
+            </span>
+            <span class="clearedRow">
+                {!topSectionFAC.Mailing_City_Garage__c}, 
+                {!topSectionFAC.Mailing_State_Garage__c} {!topSectionFAC.Mailing_Postal_Code_Garage__c}
+            </span>
+          
+        </div>
+        
+        
+        <apex:outputPanel layout="none" rendered="{!bottomSectionFAC != null}">
+        <div class="acctDiv">
+          
+            <span class="clearedRow" style="padding-top:12px;">
+                <span class="greyLabel">
+                    <apex:variable rendered="{!bottomSectionFAC.Borrower_Position__c == 'Primary'}" value="1" var="tempOuter">
+                        Primary Borrower
+                    </apex:variable>
+                    <apex:variable rendered="{!bottomSectionFAC.Borrower_Position__c != 'Primary'}" value="1" var="tempOuter">
+                        Co-Borrower
+                    </apex:variable>
+                </span>
+            </span>
+            
+            <span class="clearedRow">
+                <a href="#"
+                   onclick='return openFacSubTab("{!bottomSectionFAC.Id}", "{!JSENCODE(bottomSectionFAC.Account__r.Name)}")'>{!bottomSectionFAC.Account__r.Name}</a>
+            </span>
+            
+<!--             <span class="clearedRow"> -->
+<!--                 <span class="greyLabel">AKA:</span> -->
+<!--                 {!bottomSectionFAC.Account__r.AKA__c} -->
+<!--             </span> -->
+			
+			<span class="clearedRow">
+                <span class="greyLabel">SSN/TIN:</span>
+                <span>
+                    <apex:variable rendered="{!bottomSectionFAC.Account__r.isPersonAccount}" value="1" var="tempOuter">
+                        {!bottomSectionFAC.Account__r.Social_Security_Number__pc}
+                    </apex:variable>
+                    <apex:variable rendered="true" value="1" var="tempOuter">
+                        {!bottomSectionFAC.Account__r.Tax_Identification_Number__c}
+                    </apex:variable>
+                </span>
+            </span>
+            
+            <span class="clearedRow">
+                <span class="greyLabel">Timezone:</span>
+                <span>
+                    {!timeZoneMapping.bottomFacTimeZone}
+                </span>
+            </span>
+			
+            
+            <span class="clearedRow">
+                <span class="greyLabel">Other Accounts:</span>
+                <span>
+                    <apex:outputText rendered="{!enableBottomSectionRelatedFALink}">
+                        <a href="#" onClick="openBottomPopup()">
+                             {!bottomSectionOpenOtherAccountCount} / {!bottomSectionClosedOtherAccountCount}
+                        </a>
+                    </apex:outputText> 
+                    <apex:outputText rendered="{!!enableBottomSectionRelatedFALink}">
+                        {!bottomSectionOpenOtherAccountCount} / {!bottomSectionClosedOtherAccountCount}
+                    </apex:outputText>
+                </span>
+            </span>
+        </div>
+        </apex:outputPanel>
+        
+        
+        <hr />
+        
+        
+        <span class="clearedRow">
+            <span class="greyLabel" style="font-size:12px;">Total Amt Due: </span>
+            <span id="totalAmntDueSpan">
+                <apex:outputText value="{0, number,$###,###,##0.00}">
+                    <apex:param value="{!contextFinancialAccount.Total_Amount_Due__c}" />
+                </apex:outputText>
+            </span>
+        </span>
+        
+        <div class="acctDiv" style="padding-top:8px;">
+        <table class="pastDueTable">
+            <tr>
+                <td class="alignRightFormAlign">
+                    <span class="greyLabelInTable">Past Due + Charges:</span>
+                </td>
+                <td>
+                    <apex:outputText value="{0, number,$###,###,##0.00}">
+                        <apex:param value="{!IF(contextFinancialAccount.Past_Due_Charges__c == null, 0, contextFinancialAccount.Past_Due_Charges__c)}" />
+                    </apex:outputText>
+                </td>
+            </tr>
+            <tr>
+                <td class="alignRightFormAlign">
+                    <span class="greyLabelInTable">Past Due Amt:</span>
+                </td>
+                <td>
+                    <apex:outputText value="{0, number,$###,###,##0.00}">
+                        <apex:param value="{!IF(contextFinancialAccount.Payment_Amount_Past_Due__c == null, 0, contextFinancialAccount.Payment_Amount_Past_Due__c)}" />
+                    </apex:outputText>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td class="alignRightFormAlign">
+                    <span class="greyLabelInTable">Late Charges:</span>
+                </td>
+                <td>
+                    <apex:outputText value="{0, number,$###,###,##0.00}">
+                        <apex:param value="{!IF(contextFinancialAccount.Charges_Late__c == null, 0, contextFinancialAccount.Charges_Late__c)}" />
+                    </apex:outputText>
+                </td>
+            </tr>
+            <tr>
+                <td class="alignRightFormAlign">
+                    <span class="greyLabelInTable">Misc Charges:</span>
+                </td>
+                <td>
+                    <apex:outputText value="{0, number,$###,###,##0.00}">
+                        <apex:param value="{!IF(contextFinancialAccount.Charges_Miscellaneous__c == null, 0, contextFinancialAccount.Charges_Miscellaneous__c)}" />
+                    </apex:outputText>
+                </td>
+            </tr>
+            <tr>
+                <td class="alignRightFormAlign">
+                    <span class="greyLabelInTable">Payment Amt:</span>
+                </td>
+                <td>
+                    <apex:outputText value="{0, number,$###,###,##0.00}">
+                        <apex:param value="{!IF(contextFinancialAccount.Payment_Amount_Scheduled__c == null, 0, contextFinancialAccount.Payment_Amount_Scheduled__c)}" />
+                    </apex:outputText>
+                </td>
+            </tr>
+            <tr>
+                <td class="alignRightFormAlign">
+                    <span class="greyLabelInTable">Partial Pmt Option:</span>
+                </td>
+                <td>
+                    <apex:variable rendered="{!contextFinancialAccount.Partial_Payment_Option__c == 0}" value="1" var="tempOuter">
+                        N/A
+                    </apex:variable>
+                    <apex:outputText value="{0, number,$###,###,##0.00}" rendered="{!contextFinancialAccount.Partial_Payment_Option__c != 0}" >
+                        <apex:param value="{!contextFinancialAccount.Partial_Payment_Option__c}" />
+                    </apex:outputText>
+                </td>
+            </tr>
+        </table>
+        </div>
+        
+        
+        <hr />
+    
+    
+        <div class="acctDiv">
+        <table class="pastDueTable">
+            <tr>
+                <td class="alignRightFormAlign">
+                    <span class="greyLabelInTable">Days Past Due:</span>
+                </td>
+                <td>
+                    <apex:variable rendered="{!contextFinancialAccount.History_Counter_Days_Past_Due__c == null}" value="1" var="tempOuter">
+                        0
+                    </apex:variable>
+                    <apex:variable rendered="{!contextFinancialAccount.History_Counter_Days_Past_Due__c != null}" value="1" var="tempOuter">
+                        {!contextFinancialAccount.History_Counter_Days_Past_Due__c}
+                    </apex:variable>
+                </td>
+            </tr>
+            <tr>
+                <td class="alignRightFormAlign">
+                    <span class="greyLabelInTable"># Pmts Past Due:</span>
+                </td>
+                <td>
+                    <apex:variable rendered="{!contextFinancialAccount.Coll_Num_Months_Past_Due__c == null}" value="1" var="tempOuter">
+                        0
+                    </apex:variable>
+                    <apex:variable rendered="{!contextFinancialAccount.Coll_Num_Months_Past_Due__c != null}" value="1" var="tempOuter">
+                        {!contextFinancialAccount.Coll_Num_Months_Past_Due__c}
+                    </apex:variable>
+                </td>
+            </tr>
+            <tr>
+                <td class="alignRightFormAlign">
+                    <span class="greyLabelInTable">Past Due Date:</span>
+                </td>
+                <td>
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                        <apex:param value="{!contextFinancialAccount.Payment_Date_Past_Due__c}" /> 
+                    </apex:outputText>
+                </td>
+            </tr>
+        </table>
+        </div>
+        
+        
+        <div class="acctDiv" style="padding-top:5px;">
+        <table class="blackBorderTable">
+            <tr style="background-color: #DDDDDD;">
+<!--                15-day delinquency marker count is not displayed for lease accounts -->
+                <apex:outputPanel layout="none" rendered="{!contextFinancialAccount.RecordType.Name != 'Lease'}">
+                    <td>15</td>
+                </apex:outputPanel>
+                <td>30</td>
+                <td>60</td>
+                <td>90</td>
+            </tr>
+            <tr class="centerTextAlign">
+                <apex:outputPanel layout="none" rendered="{!contextFinancialAccount.RecordType.Name != 'Lease'}">
+                    <td>{!contextFinancialAccount.History_Counter_Fifteen_Days_Past_Due__c}</td>
+                </apex:outputPanel>
+                <td>{!contextFinancialAccount.History_Counter_Thirty_Days_PastDue__c}</td>
+                <td>{!contextFinancialAccount.History_Counter_SixtyDaysPastDue__c}</td>
+                <td>{!contextFinancialAccount.History_Counter_Ninety_Days_Past_Due__c} &nbsp;</td>
+            </tr>
+        </table>
+        </div>
+        
+        
+        <div class="acctDiv">
+        <table class="pastDueTable">
+            <tr>
+                <td class="alignRightFormAlign">
+                    <span class="greyLabelInTable">Last Payment Date:</span>
+                </td>
+                <td>
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                        <apex:param value="{!contextFinancialAccount.Payment_Date_Last__c}" /> 
+                    </apex:outputText>
+                </td>
+            </tr>
+            <tr>
+                <td class="alignRightFormAlign">
+                    <span class="greyLabelInTable">Last Payment Amt:</span>
+                </td>
+                <td>
+                    <apex:outputText value="{0, number,$###,###,##0.00}" rendered="{!contextFinancialAccount.Payment_Amount_Last__c != 0}" >
+                        <apex:param value="{!contextFinancialAccount.Payment_Amount_Last__c}" />
+                    </apex:outputText>
+                </td>
+            </tr>
+            <tr>
+                <td class="alignRightFormAlign">
+                    <span class="greyLabelInTable">Reversed Pmts:</span>
+                </td>
+                <td>
+                    <apex:variable rendered="{!contextFinancialAccount.History_Counter_Non_Sufficient_Funds__c == null}" value="1" var="tempOuter">
+                        0
+                    </apex:variable>
+                    <apex:variable rendered="{!contextFinancialAccount.History_Counter_Non_Sufficient_Funds__c != null}" value="1" var="tempOuter">
+                        {!contextFinancialAccount.History_Counter_Non_Sufficient_Funds__c}
+                    </apex:variable>
+                </td>
+            </tr>
+        </table>
+        
+<!--        <a href="#"  -->
+<!--           onclick="openSubTabAfterValidations('https://sptest264.speedpay.com/','Speed Pay');"  -->
+<!--           style="display:none;">invisible anchor</a> -->
+        
+        </div>
+        <apex:actionFunction name="openTopPopup" action="{!showTopPopup}" reRender="popup"/>
+        <apex:actionFunction name="openBottomPopup" action="{!showBottomPopup}" reRender="popup"/>
+        <apex:outputPanel id="popup">
+            <apex:outputPanel id="popupRelatedFinancialAccounts" styleClass="customPopup" layout="block" rendered="{!displayRelatedFAsPopup}">
+                <table>
+                    <thead>
+                            <tr> 
+                                <th></th>
+                                <th>Status</th>
+                                <th>Vehicle</th> 
+                            </tr>
+                            
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!listOfSectionRelatedFAs}"  var="fa">
+                            <tr> 
+                                <td><a href="#" onClick="openFAInPrimaryTab('{!fa.recordId}', '{!fa.Financial_Account_Number}')">{!fa.Financial_Account_Number}</a></td>
+                                <td>{!fa.Finance_Account_Status}</td>
+                                <td>
+                                    {!fa.Collateral_Model_Year + ' ' + fa.Collateral_Make + ' ' + fa.Collateral_Model_Name}
+                                </td>
+                            </tr>
+                        </apex:repeat>
+                    </tbody>
+                </table>
+                <apex:commandButton value="Close" action="{!closePopup}"  rerender="popup"/>
+            </apex:outputPanel>
+        </apex:outputPanel>
+    </apex:form>
+    
+</apex:page>

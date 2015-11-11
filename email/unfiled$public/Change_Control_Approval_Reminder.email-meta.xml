@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Change Control - This email template is used when an email is sent to an approver to remind them of an upcoming &apos;Approval Target Date&apos;</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Change Control Approval Reminder</name>
+    <style>none</style>
+    <subject>***URGENT*** Change control approval needed by {!Case.KM_Approval_Target_Date__c}.</subject>
+    <type>text</type>
+</EmailTemplate>

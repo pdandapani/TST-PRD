@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Auto-response confirmation Support Request New - General (Authenticated)</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>TFS: New Support Request - General (Authenticated)</name>
+    <style>none</style>
+    <subject>Toyota Financial Services Support Request Confirmation</subject>
+    <textOnly>Dear {!Case.Contact}:
+
+Thank you for contacting Toyota Financial Services. We have received your message in our secure Support Center and we will respond within 2 business days.  You will receive an email notification when a response has been posted.  
+
+We value your business and look forward to serving your needs. Thank you for visiting us at www.ToyotaFinancial.com.
+
+Sincerely,
+Toyota Financial Services Customer Support
+
+
+This is a no reply email notification. Replies initiated from this email will neither be delivered nor answered. If you have additional questions, please log in to the Support Center for further assistance.</textOnly>
+    <type>custom</type>
+</EmailTemplate>

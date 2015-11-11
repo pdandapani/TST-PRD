@@ -1,0 +1,9 @@
+Please Review Change Control Case: {!Case.CaseNumber} 
+
+To view the Change Request details, see the Parent Case. 
+Select Case status "Closed - Approve" to approve the request or "Closed - Declined" to decline the request.
+
+Contact Name: {!Case.KM_Parent_Case_Owner__c}
+Subject: {!Case.KM_Parent_Case_Subject__c}
+
+Click on this link to see the Case record and approve it: {!Case.Link}

@@ -1,0 +1,6 @@
+Following Case has not been approved/declined by the target approval date of {!Case.KM_Approval_Target_Date__c}
+
+Contact Name / Queue: {!Case.OwnerFullName}
+Case Number: {!Case.CaseNumber}
+Case Subject: {!Case.KM_Parent_Case_Subject__c}
+Case Link: {!Case.Link}

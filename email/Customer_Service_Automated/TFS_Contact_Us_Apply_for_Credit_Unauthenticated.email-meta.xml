@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>TFS Contact Us - Web-to-Case - Apply for Credit Auto-response</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>TFS: Contact Us - Apply for Credit (Unauthenticated)</name>
+    <style>none</style>
+    <subject>Toyota Financial Services - Contact Us Confirmation</subject>
+    <textOnly>Dear {!Case.SuppliedName}:
+
+Thank you for contacting Toyota Financial Services via the &apos;Contact Us&apos; link at www.ToyotaFinancial.com.
+
+Messages sent through this channel are unsecure.  As we value your privacy, we will not provide credit-specific information through this unsecured channel.
+
+If you have already applied for credit online please allow up to one business day to receive a credit decision. If you do not receive an approval notice within one business day, the dealer you selected will contact you with details on the status of your application. You should receive a final credit decision within seven business days.
+
+For any additional questions please contact the finance manager at the Toyota dealership you chose during the application process for further information.
+
+We appreciate your interest and hope to have the opportunity to work with you.  Thank you for visiting us at www.ToyotaFinancial.com.
+
+Sincerely,
+Toyota Financial Services Customer Support
+
+
+
+This is a no reply email notification. Replies initiated from this email will neither be delivered nor answered. If you have additional questions, please log in to the Support Center for further assistance.</textOnly>
+    <type>custom</type>
+</EmailTemplate>

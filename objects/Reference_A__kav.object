@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <articleTypeChannelDisplay>
+        <articleTypeTemplates>
+            <channel>App</channel>
+            <template>Toc</template>
+        </articleTypeTemplates>
+        <articleTypeTemplates>
+            <channel>Prm</channel>
+            <template>Tab</template>
+        </articleTypeTemplates>
+        <articleTypeTemplates>
+            <channel>Csp</channel>
+            <template>Tab</template>
+        </articleTypeTemplates>
+        <articleTypeTemplates>
+            <channel>Pkb</channel>
+            <template>Toc</template>
+        </articleTypeTemplates>
+    </articleTypeChannelDisplay>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <fields>
+        <fullName>Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <picklist>
+            <picklistValues>
+                <fullName>United States</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Canada</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mexico</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>DM_Forms__c</fullName>
+        <externalId>false</externalId>
+        <label>DM Form #</label>
+        <length>32768</length>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Desk_Guide_Pack__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Desk Guide Pack</label>
+        <referenceTo>Desk_Guide_Pack__c</referenceTo>
+        <relationshipName>Reference_v1_1</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Details__c</fullName>
+        <externalId>false</externalId>
+        <label>Details</label>
+        <length>131072</length>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Escalation_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Escalation Notes</label>
+        <length>32768</length>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Expiration_Date__c</fullName>
+        <defaultValue>Today() + 365</defaultValue>
+        <externalId>false</externalId>
+        <label>Expiration Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>FOPP_Text__c</fullName>
+        <description>Used for Print function to add rtf value of FOPP field as text int his field which is used by Print function.</description>
+        <externalId>false</externalId>
+        <label>FOPP Text</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FOPP__c</fullName>
+        <externalId>false</externalId>
+        <label>FOPP #</label>
+        <length>2500</length>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Geography_Keywords__c</fullName>
+        <description>Country and state values converted via workflow to a searchable text field</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Country and state values converted via workflow to a searchable text field</inlineHelpText>
+        <label>Geography Keywords</label>
+        <length>32768</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Internal_Notes__c</fullName>
+        <description>This field will be used internally to describe if any RM functionality is dependent on this Article Type.</description>
+        <externalId>false</externalId>
+        <label>Internal Notes</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Job_Function__c</fullName>
+        <externalId>false</externalId>
+        <label>Job Function</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Knowledge_Container__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Knowledge Container</label>
+        <referenceTo>KnowledgeContainer__c</referenceTo>
+        <relationshipName>reference_v1_1</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>See_Also__c</fullName>
+        <externalId>false</externalId>
+        <label>See Also</label>
+        <length>32768</length>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>States_Provinces__c</fullName>
+        <description>States and provinces used to restrict the information to specific areas of the selected Country</description>
+        <externalId>false</externalId>
+        <inlineHelpText>States and provinces used to restrict the information to specific areas of the selected Country</inlineHelpText>
+        <label>States and Provinces</label>
+        <picklist>
+            <controllingField>Country__c</controllingField>
+            <picklistValues>
+                <fullName>Alabama</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Alaska</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Arizona</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Arkansas</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>California</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Colorado</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Connecticut</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Delaware</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>District of Columbia</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Florida</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Georgia</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hawaii</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Idaho</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Illinois</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Indiana</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Iowa</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Kansas</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Kentucky</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Louisiana</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maine</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Maryland</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Massachusetts</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Michigan</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Minnesota</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mississippi</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Missouri</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Montana</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nebraska</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nevada</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New Hampshire</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New Jersey</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New Mexico</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New York</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>North Carolina</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>North Dakota</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ohio</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Oklahoma</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Oregon</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pennsylvania</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Puerto Rico</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rhode Island</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>South Carolina</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>South Dakota</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tennessee</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Texas</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Utah</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vermont</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Virgin Islands</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Virginia</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Washington</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>West Virginia</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wisconsin</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wyoming</fullName>
+                <controllingFieldValues>United States</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ontario</fullName>
+                <controllingFieldValues>Canada</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quebec</fullName>
+                <controllingFieldValues>Canada</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>British Columbia</fullName>
+                <controllingFieldValues>Canada</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Alberta</fullName>
+                <controllingFieldValues>Canada</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Manitoba</fullName>
+                <controllingFieldValues>Canada</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Saskatchewan</fullName>
+                <controllingFieldValues>Canada</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nova Scotia</fullName>
+                <controllingFieldValues>Canada</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New Brunswick</fullName>
+                <controllingFieldValues>Canada</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Newfoundland and Labrador</fullName>
+                <controllingFieldValues>Canada</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Prince Edward Island</fullName>
+                <controllingFieldValues>Canada</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Northwest Territories</fullName>
+                <controllingFieldValues>Canada</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yukon</fullName>
+                <controllingFieldValues>Canada</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nunavut</fullName>
+                <controllingFieldValues>Canada</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Federal District</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mexico State</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nuevo León</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jalisco</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Campeche</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Veracruz</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tabasco</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Guanajuato</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Puebla</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Coahuila</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tamaulipas</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Chihuahua</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sonora</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Baja California</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Michoacán</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sinaloa</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Chiapas</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Querétaro</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>San Luis Potosí</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hidalgo</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Oaxaca</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Guerrero</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quintana Roo</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yucatan</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Durango</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Morelos</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Aguascalientes</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Zacatecas</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nayarit</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Colima</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Baja California Sur</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tlaxcala</fullName>
+                <controllingFieldValues>Mexico</controllingFieldValues>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>MultiselectPicklist</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <label>Reference</label>
+    <pluralLabel>References</pluralLabel>
+</CustomObject>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>KnowledgeArticle$Title</field>
+    </columns>
+    <columns>
+        <field>KnowledgeArticle$ArticleNumber</field>
+    </columns>
+    <columns>
+        <field>KnowledgeArticle$ArticleType</field>
+    </columns>
+    <columns>
+        <field>KnowledgeArticle.ViewStats$ViewCount</field>
+    </columns>
+    <dataCategoryFilters>
+        <dataCategory>All</dataCategory>
+        <dataCategoryGroup>Function</dataCategoryGroup>
+        <operator>below</operator>
+    </dataCategoryFilters>
+    <format>Summary</format>
+    <name>Article Usage by Function</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Knowledge_Article_with_Article_Views__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <sortColumn>KnowledgeArticle.ViewStats$ViewCount</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>KnowledgeArticle$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

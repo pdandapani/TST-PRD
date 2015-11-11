@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Change Control - This template is used when email is sent to Case owner, FOPP, Technology and KM Queue about a Case Implementation Status change</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Implementation Status Set to On Hold, Closed - Withdrawn or Closed - Deleted</name>
+    <style>none</style>
+    <subject>Case {!Case.CaseNumber} implementation status has been modified to On Hold, Closed - Withdrawn or Closed - Deleted</subject>
+    <type>text</type>
+</EmailTemplate>

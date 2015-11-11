@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <flexiPageRegions>
+        <componentInstances>
+            <componentInstanceProperties>
+                <name>entityName</name>
+                <value>Case</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>filterName</name>
+                <value>Administration_Case</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>pageSize</name>
+                <value>3</value>
+            </componentInstanceProperties>
+            <componentName>flexipage:filterListCard</componentName>
+        </componentInstances>
+        <name>region1</name>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <componentInstances>
+            <componentInstanceProperties>
+                <name>reportName</name>
+                <value>All_Tasks</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
+                <name>showRefreshButton</name>
+                <value>false</value>
+            </componentInstanceProperties>
+            <componentName>flexipage:reportChart</componentName>
+        </componentInstances>
+        <name>region2</name>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <componentInstances>
+            <componentName>flexipage:richText</componentName>
+        </componentInstances>
+        <name>region3</name>
+    </flexiPageRegions>
+    <masterLabel>Test Lightning App</masterLabel>
+    <pageTemplate>flexipage:appHomeTemplateTwoColumnsStacked</pageTemplate>
+    <type>AppPage</type>
+</FlexiPage>

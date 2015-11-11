@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>All_Except_TFS_Associates</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Provide everyone in operations read-only visibility to all financial accounts except those held by TFS associates</description>
+        <label>All Except TFS Associates</label>
+        <sharedTo>
+            <roleAndSubordinates>Operations</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>Collection_List_Number_1__c</field>
+            <operation>notEqual</operation>
+            <value>1008</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Collection_List1008</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Collection_List1008</label>
+        <sharedTo>
+            <group>Collections_Managers</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Collection_List_Number_1__c</field>
+            <operation>equals</operation>
+            <value>1008</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>TFS_Associates</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>TFS Associates</label>
+        <sharedTo>
+            <role>Collections</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Collection_List_Number_1__c</field>
+            <operation>equals</operation>
+            <value>1008</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+</SharingRules>

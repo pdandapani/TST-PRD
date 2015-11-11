@@ -1,0 +1,6 @@
+Dear {!Case.SuppliedName}, 
+
+Thank you for submitting your Change Control Request to us. Case #{!Case.CaseNumber}: "{!Case.Subject}" has been created and a {!Organization.Name} Service Operations Planning and Support representative will respond to you if any additional information is required.
+
+Thank you, 
+{!Organization.Name} Service Operations Planning and Support

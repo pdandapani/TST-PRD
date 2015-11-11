@@ -1,0 +1,185 @@
+<apex:page standardController="Case" extensions="TFSC_SupportAttachmentController" showHeader="false">
+	<apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+            <apex:includeScript value="{!URLFOR($Resource.EasyXDM, 'jquery.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.EasyXDM, 'moment.min.js')}"/>
+            <!--apex:sectionHeader title="Attachments" subtitle="{!Case.CaseNumber}"/-->
+            <apex:form id="uploadForm" enctype="multipart/form-data" >
+            	<apex:pageBlock title="{!$Label.Add_Attachment}" mode="edit">
+            		<apex:pageBlockButtons location="bottom">
+            			<apex:commandButton id="submit" onclick="SFDC.ValidateForm('{!$Component.uploadForm}', SFDC.UploadFile);return false;" value=" {!$Label.Submit} "/>
+            			<apex:commandButton action="{!URLFOR($Page.TFSC_SupportRequest, null, [id=Case.Id])}" onclick="abortXhr();" value=" {!$Label.Cancel} " immediate="true"/>
+            		</apex:pageBlockButtons>
+            		<apex:pageBlockSection columns="1">
+            			<apex:pageBlockSectionItem >
+            				<apex:outputLabel for="fileinput" value="{!$Label.Attachment}"/>
+            				<apex:outputPanel styleClass="requiredInput" layout="block">
+			   					<apex:outputPanel styleClass="requiredBlock" layout="block"/>
+            					<apex:inputFile id="fileinput" value=""/>
+            				</apex:outputPanel>
+            			</apex:pageBlockSectionItem>
+            			<apex:pageBlockSectionItem >
+            				<apex:outputLabel value="{!$Label.Progress}"/>
+            				<apex:outputPanel >
+            					<progress id="fileprogress" style="display:none;width:100%;"></progress><br/>
+            					<apex:outputText id="progressinfo" value=""/>
+            				</apex:outputPanel>
+            			</apex:pageBlockSectionItem>
+            		</apex:pageBlockSection>
+            	</apex:pageBlock>
+            	<script type="text/javascript">
+
+            		var _xhr;
+
+            		moment.locale('en', {
+            			relativeTime : {
+            				s:  '%d seconds'
+            			}
+            		});
+
+            		function abortXhr() {
+            			if (_xhr && _xhr.readystate != 4){
+            				_xhr.abort();
+            			}
+            		}
+
+            		(function($){
+            			$(function() {
+
+            				$.extend(true, window, {
+							    SFDC: {
+							      UploadFile: uploadFile
+							    }
+							});
+            				
+							var tsBegin = 0,
+								$progress = $('#fileprogress'),
+								$submit = $('input[id$=":submit"]'),
+								$fileInput = $('input[id$=":fileinput"]'),
+								$uploadForm = $('form[id$=":uploadForm"]'),
+								$progressinfo = $('span[id$=":progressinfo"]');
+
+							function uploadFile() {
+								
+								$submit.attr("disabled", "disabled"); //disable button
+
+								//pull name of file
+								var fullPath = $fileInput.val(),
+									filename = 'Support Request Attachment';
+								if (fullPath) {
+									var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+									filename = fullPath.substring(startIndex);
+									if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+										filename = filename.substring(1);
+									}
+								}
+
+								//chatter api expects the form in a specific manner
+								var formData = new FormData();
+								formData.append('feedItemFileUpload', $fileInput[0].files[0]);
+								formData.append('fileName', filename);
+								formData.append('desc', 'Support Request Attachment');
+								formData.append('text', 'Support Request Attachment');
+
+								var postUrl = "{!LEFT($Api.Partner_Server_URL_260, FIND( '/services', $Api.Partner_Server_URL_260))}" +
+											  'services/data/v26.0/connect/communities/{!ChatterNetworkId}/' +
+											  'chatter/feeds/record/{!Case.Id}/feed-items';
+
+								_xhr = $.ajax({
+							        url: postUrl,  //server script to process data
+							        type: 'POST',
+						    		contentType: false,
+						    		accepts: {
+						        		json: "application/json"
+						    		},
+							        xhr: xhrHandler,
+							        //Ajax events
+							        success: completeHandler,
+							        error: errorHandler,
+						        	beforeSend: beforeSendHandler,
+							        // Form data
+							        data: formData,
+							        //Options to tell JQuery not to process data or worry about content-type
+							        cache: false,
+							        processData: false
+							    });
+							}
+
+							function xhrHandler() {
+								var myXhr = $.ajaxSettings.xhr();
+					            if(myXhr.upload){ // check if upload property exists
+					                myXhr.upload.addEventListener('progress', progressHandler, false);
+					            }
+					            return myXhr;
+							}
+
+							function progressHandler(e) {
+								if(e.lengthComputable){
+									$progress.attr({
+										value: e.loaded,
+										max: e.total
+									}); // progress of the upload
+
+									var tsNow = (new Date()).getTime(), //now
+										tsElapsed = tsNow - tsBegin, //time elapsed since begin
+										fsLeft = e.total - e.loaded, //how much is left
+										bytessec = e.loaded / tsElapsed, //bytes/second so far
+										remaining = fsLeft / bytessec; //estimated time remaining
+
+									$progressinfo.text(
+										formatFileSize(e.loaded, 2) + '/' + 
+										formatFileSize(e.total, 2) + '  ' +
+										'about ' + moment.duration(remaining, 'milliseconds').humanize() + ' remaining'
+									);
+								}
+								else {
+									$progressinfo.text('uploading...');
+								}
+							}
+
+							function beforeSendHandler(xhr) {
+								xhr.setRequestHeader("Authorization", "OAuth {!$Api.Session_ID}");
+								$progress.show();
+								tsBegin = (new Date()).getTime();
+							}
+
+							function completeHandler(e) {
+								//return to Case detail
+								window.location.href = '{!URLFOR($Page.TFSC_SupportRequest, null, [id=Case.Id])}';
+							}
+
+							function errorHandler(xhr, status, error) {
+								$submit.removeAttr("disabled");
+								completeHandler();
+								//console.log(error);
+							}
+
+							var sizeKB = 1024,
+								sizeMB = 1024*1024,
+								sizeGB = 1024*1024*1024;
+
+							function formatFileSize(size, places) {
+								places = places || 0;
+								var retSize = '';
+								if (size < sizeKB) { 
+					                retSize = size + ' Byte(s)';
+					            } 
+					            else if (size < sizeMB) {
+					                retSize = (size / sizeKB).toFixed(places) + ' KB';
+					            } 
+					            else if (size < sizeGB) {
+					                retSize = (size / sizeMB).toFixed(places) + ' MB';
+					            } 
+					            else {
+					                retSize = (size / sizeGB).toFixed(places) + ' GB';
+					            } 
+					            return retSize;
+							}
+
+            			});
+            		})(jQuery.noConflict());
+            	</script>
+            </apex:form>
+        </apex:define>
+    </apex:composition>
+</apex:page>
