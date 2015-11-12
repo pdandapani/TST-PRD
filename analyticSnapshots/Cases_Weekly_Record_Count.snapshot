@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AnalyticSnapshot xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Weekly snapshot of cases with record type and record count.</description>
+    <groupColumn>Case.Service_Type__c</groupColumn>
+    <mappings>
+        <sourceField>JobName</sourceField>
+        <sourceType>snapshot</sourceType>
+        <targetField>Data_Growth__c.Object__c</targetField>
+    </mappings>
+    <mappings>
+        <sourceField>RowCount</sourceField>
+        <sourceType>summary</sourceType>
+        <targetField>Data_Growth__c.Record_Count__c</targetField>
+    </mappings>
+    <mappings>
+        <sourceField>Case.Record_Type__c</sourceField>
+        <sourceType>tabular</sourceType>
+        <targetField>Data_Growth__c.Record_Type__c</targetField>
+    </mappings>
+    <mappings>
+        <sourceField>ExecutionTime</sourceField>
+        <sourceType>snapshot</sourceType>
+        <targetField>Data_Growth__c.Snapshot_Date__c</targetField>
+    </mappings>
+    <mappings>
+        <sourceField>Case.Service_Type__c</sourceField>
+        <sourceType>tabular</sourceType>
+        <targetField>Data_Growth__c.Service_Type__c</targetField>
+    </mappings>
+    <name>Cases Weekly Record Count</name>
+    <runningUser>hilsera@tfs.toyota.com</runningUser>
+    <sourceReport>unfiled$public/Source_Data_Weekly_Cases</sourceReport>
+    <targetObject>Data_Growth__c</targetObject>
+</AnalyticSnapshot>

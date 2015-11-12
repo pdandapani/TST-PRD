@@ -93,43 +93,6 @@
         <label><!-- To Date --></label>
         <name>To_Date__c</name>
     </fields>
-    <layouts>
-        <layout>Binder Print Function 1</layout>
-        <sections>
-            <label><!-- Criteria --></label>
-            <section>Criteria</section>
-        </sections>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Binder Print Function 1 Debug</layout>
-        <sections>
-            <label><!-- Criteria --></label>
-            <section>Criteria</section>
-        </sections>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Debug --></label>
-            <section>Debug</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Binder Print Function 2</layout>
-        <sections>
-            <label><!-- Criteria --></label>
-            <section>Criteria</section>
-        </sections>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <recordTypes>
         <label><!-- Print Function 1 --></label>
         <name>Print_Function_1</name>

@@ -936,6 +936,7 @@
         <dataType>String</dataType>
         <expression>&quot;placeholder&quot;</expression>
     </formulas>
+    <interviewLabel>Repo - Recovery Questionnaire {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Repo - Recovery Questionnaire</label>
     <processType>Flow</processType>
     <recordCreates>
@@ -1195,6 +1196,7 @@
         <locationY>442</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <connector>
             <targetReference>Create_Note</targetReference>
         </connector>
@@ -1215,6 +1217,7 @@
         <locationY>935</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <fields>
             <name>Error2Header</name>
             <fieldText>{!Error_Generic}</fieldText>
@@ -1233,6 +1236,7 @@
         <locationY>855</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <fields>
             <name>Error1Header</name>
             <fieldText>{!Error_Generic}</fieldText>
@@ -1251,6 +1255,7 @@
         <locationY>975</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <fields>
             <name>Error8Header</name>
             <fieldText>{!Error_Generic}</fieldText>
@@ -1269,6 +1274,7 @@
         <locationY>976</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <fields>
             <name>Error12Header</name>
             <fieldText>{!Error_Generic}</fieldText>
@@ -1287,6 +1293,7 @@
         <locationY>772</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <fields>
             <name>Error4Header</name>
             <fieldText>{!Error_Generic}</fieldText>
@@ -1305,6 +1312,7 @@
         <locationY>888</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <fields>
             <name>Error6Header</name>
             <fieldText>{!Error_Generic}</fieldText>
@@ -1323,6 +1331,7 @@
         <locationY>1061</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <fields>
             <name>Error11Header</name>
             <fieldText>{!Error_Generic}</fieldText>
@@ -1341,6 +1350,7 @@
         <locationY>1169</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <fields>
             <name>Error10Header</name>
             <fieldText>{!Error_Generic}</fieldText>
@@ -1359,6 +1369,7 @@
         <locationY>780</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <fields>
             <name>Error3Header</name>
             <fieldText>{!Error_Generic}</fieldText>
@@ -1377,6 +1388,7 @@
         <locationY>1059</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <fields>
             <name>Error9Header</name>
             <fieldText>{!Error_Generic}</fieldText>
@@ -1395,6 +1407,7 @@
         <locationY>860</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <fields>
             <name>Error2Header_0</name>
             <fieldText>{!Error_Generic}</fieldText>
@@ -1413,6 +1426,7 @@
         <locationY>881</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <fields>
             <name>Error7Header</name>
             <fieldText>{!Error_Generic}</fieldText>
@@ -1439,6 +1453,7 @@ Is there a dispute about balance owed (Contract Dispute, misapplied pmts, resche
         <locationY>439</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <connector>
             <targetReference>Involuntary_Note_Variables</targetReference>
         </connector>
@@ -1614,6 +1629,7 @@ Is there a dispute about balance owed (Contract Dispute, misapplied pmts, resche
         <locationY>267</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <connector>
             <targetReference>Involuntary_Note_Variable_DPD</targetReference>
         </connector>
@@ -1794,6 +1810,7 @@ Is there a dispute about balance owed (Contract Dispute, misapplied pmts, resche
         <locationY>867</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <fields>
             <name>SpecialtyError</name>
             <fieldText>Please use Collections Host to RCVR a specialty account (Impound, Total Loss, Probate, Discharged BK, Mature Lease Services, Military or BSG).</fieldText>
@@ -1807,6 +1824,7 @@ Is there a dispute about balance owed (Contract Dispute, misapplied pmts, resche
         <locationY>500</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <connector>
             <targetReference>Round_1_Validations</targetReference>
         </connector>
@@ -1836,6 +1854,7 @@ Is there a dispute about balance owed (Contract Dispute, misapplied pmts, resche
         <locationY>375</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <connector>
             <targetReference>Round_1_Validations</targetReference>
         </connector>
@@ -1878,6 +1897,7 @@ Is there a dispute about balance owed (Contract Dispute, misapplied pmts, resche
         <locationY>649</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <connector>
             <targetReference>Round_1_Validations</targetReference>
         </connector>
@@ -1933,6 +1953,7 @@ Is there a dispute about balance owed (Contract Dispute, misapplied pmts, resche
         <locationY>238</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <connector>
             <targetReference>Round_1_Validations</targetReference>
         </connector>
@@ -1977,6 +1998,7 @@ Is the Driver/Payer Contracted?</description>
         <locationY>594</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
         <connector>
             <targetReference>Voluntary_Note_Variables</targetReference>
         </connector>

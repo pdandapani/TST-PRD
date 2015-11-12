@@ -1,0 +1,18 @@
+<apex:component controller="agf.ADM_SprintNavigationController">
+    <apex:attribute name="currentSprint" type="agf__ADM_Sprint__c" description="The current sprint being viewed" assignTo="{!CurrentSprint}"/>
+
+<div class="sprintNameBlock">
+    <span class="sprintLabel" style="padding-left:40px">Sprint | </span>  <a href="{!ListViewLink}" class="listViewLink">  List View</a> <br/>
+    <div style="position:relative; top:-10px;background:red;">
+        <img src="{!$Resource.clockicon}" width="32px" height="32px" alt="Sprint"  class="pageTitleIcon" title="Sprint"  />
+     </div>   
+     <span class="sprintName" style="padding-left:2px;"> 
+         {!currentSprint.Name}
+    </span>
+   
+    <apex:outputLink rendered="{!ThePreviousSprint != null}" value="/{!ThePreviousSprint}"><img title="Previous Sprint" src="{!$Resource.leftPlay}" /></apex:outputLink>&nbsp;&nbsp;
+    <apex:outputLink rendered="{!TheNextSprint != null}" value="/{!TheNextSprint}"><img title="Next Sprint" src="{!$Resource.rightPlay}" /></apex:outputLink>
+</div>
+
+<div style="clear:both;" />
+</apex:component>

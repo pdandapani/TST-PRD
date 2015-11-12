@@ -29,6 +29,7 @@
         </feedFilters>
         <fullWidthFeed>false</fullWidthFeed>
         <hideSidebar>true</hideSidebar>
+        <highlightExternalFeedItems>false</highlightExternalFeedItems>
         <rightComponents>
             <componentType>HelpAndToolLinks</componentType>
         </rightComponents>
@@ -81,6 +82,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>KM_Parent_Case_Owner__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Last_Comment_Date__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

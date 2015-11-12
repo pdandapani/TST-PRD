@@ -874,20 +874,6 @@
         <label><!-- Water Mark Text --></label>
         <name>WaterMarkText__c</name>
     </fields>
-    <layouts>
-        <layout>Document Request Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Notice of Sale Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <recordTypes>
         <label><!-- Notice of Sale --></label>
         <name>Notice_of_Sale</name>

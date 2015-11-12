@@ -59,7 +59,7 @@ private class TFSC_SkipTraceControllerTest {
         tempJsonRequest = JSON.serialize(request);
         controller.saveJsonRequest = tempJsonRequest;
         controller.updateTimestamp();
-        
+    	
     }
     
     
@@ -185,12 +185,10 @@ private class TFSC_SkipTraceControllerTest {
         controllerExt.contextSkipTrace.Innovis_Checkbox__c = true;
         controllerExt.contextSkipTrace.Accurint_Checkbox__c = true;
         controllerExt.contextSkipTrace.Fast_Data_Checkbox__c = true;
-        controllerExt.contextSkipTrace.Innovis_Date__c  = Date.today() - 1;
-        controllerExt.contextSkipTrace.Accurint_Date__c = Date.today() - 1;
-        controllerExt.contextSkipTrace.Notes_Reviewed_Back_To_Date__c = Date.today();
+        
         controllerExt.saveAfterFieldValueChange();
+        
         System.assert( (controllerExt.contextSkipTrace.Multiple_Accounts_Date__c != null) );
-
     }
     
     
@@ -364,11 +362,7 @@ private class TFSC_SkipTraceControllerTest {
         
         ApexPages.StandardController standardController = new ApexPages.StandardController(financialAccount);
         TFSC_SkipTraceController controllerExt = new TFSC_SkipTraceController(standardController);
-        controllerExt.selectedPassStrategy = articleNum;
-        controllerExt.initializeNewSkipTraceRecordAndPopulateData();
-        controllerExt.populatePhonesAndAddresses();
-        testAndValidateCheckboxes(controllerExt);
-        System.assert( (controllerExt.isRes34FlagEnabled == 'true') );
+        
     }
     
 }

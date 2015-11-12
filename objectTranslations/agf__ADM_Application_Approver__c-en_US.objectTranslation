@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Application --></label>
+        <name>agf__Application__c</name>
+        <relationshipLabel><!-- Application Approvers --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Inform Only - -  will receive all notifications; 
+May Approve - -  may approve the request;
+Must Approve - -  must approve all requests; 
+Notify When Approved - -  will be notified only when the request has been Approved. --></help>
+        <label><!-- Approval Context --></label>
+        <name>agf__Approval_Context__c</name>
+        <picklistValues>
+            <masterLabel>Inform Only</masterLabel>
+            <translation><!-- Inform Only --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>May Approve</masterLabel>
+            <translation><!-- May Approve --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Must Approve</masterLabel>
+            <translation><!-- Must Approve --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Notify When Approved</masterLabel>
+            <translation><!-- Notify When Approved --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Select the type of approvals in which this Approver participates. --></help>
+        <label><!-- Approval Type --></label>
+        <name>agf__Approval_Type__c</name>
+        <picklistValues>
+            <masterLabel>Releases</masterLabel>
+            <translation><!-- Releases --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>eReleases</masterLabel>
+            <translation><!-- eReleases --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Email of Approver. If Approver is specified, may be blank or must match Approver&apos;s User email. If Approver is not specified, this field may be set to a distribution list. --></help>
+        <label><!-- Approver Email --></label>
+        <name>agf__Approver_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approver Role --></label>
+        <name>agf__Approver_Role__c</name>
+        <picklistValues>
+            <masterLabel>Development Manager</masterLabel>
+            <translation><!-- Development Manager --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Distribution List</masterLabel>
+            <translation><!-- Distribution List --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>QE Manager</masterLabel>
+            <translation><!-- QE Manager --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Release Engineer</masterLabel>
+            <translation><!-- Release Engineer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Release Manager</masterLabel>
+            <translation><!-- Release Manager --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>TechOps Manager</masterLabel>
+            <translation><!-- TechOps Manager --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Approver. Must be blank if Approver Email is a distribution list. --></help>
+        <label><!-- Approver --></label>
+        <name>agf__Approver__c</name>
+        <relationshipLabel><!-- Application Approvers --></relationshipLabel>
+    </fields>
+    <validationRules>
+        <errorMessage><!-- The Approval Context must be specified. --></errorMessage>
+        <name>agf__Approval_Conext_Must_Be_Specified</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- When an Approver is specified, Approver Email must be blank or match the user&apos;s system-defined email. --></errorMessage>
+        <name>agf__Approver_Email_must_match_users_email</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The Approver Role must be specified. --></errorMessage>
+        <name>agf__Approver_Role_Must_Be_Specified</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Approval Type must be specified. --></errorMessage>
+        <name>agf__Approver_Type_is_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You must specify either an Approver or an Email. --></errorMessage>
+        <name>agf__Approver_or_Email_must_be_specified</name>
+    </validationRules>
+</CustomObjectTranslation>

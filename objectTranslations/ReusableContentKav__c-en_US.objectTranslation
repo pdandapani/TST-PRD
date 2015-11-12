@@ -69,12 +69,5 @@
         <label><!-- Knowledge Article --></label>
         <name>kavUrl__c</name>
     </fields>
-    <layouts>
-        <layout>Reusable Content Article Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

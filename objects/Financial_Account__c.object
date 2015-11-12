@@ -44,6 +44,7 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Loan and lease products purchased by customers to finance vehicle acquisition. The financial
@@ -112,22 +113,6 @@ operations.</description>
         <externalId>false</externalId>
         <label>ACH Routing Number</label>
         <length>9</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Account_Segmentation_Code__c</fullName>
-        <description>SRC: Salesforce
-INT: N
-Trans: Y
-BU: Field Service, Charge Off Accounts Servicing, IVR 
-FD: This code will be utilized by the IVR to categorize accounts for routing purposes. At this time, this code is used to identify charged off accounts.</description>
-        <externalId>false</externalId>
-        <formula>if (NOT ISBLANK( Charge_Of_Finance_Account_Number__c ),&apos;CHG&apos;,&apos;&apos;)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>Account Segmentation Code</label>
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Text</type>
@@ -268,21 +253,6 @@ Contains the CO Host formatted account number.</description>
         <externalId>false</externalId>
         <label>CO Host Account Number</label>
         <length>80</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>ChargeOff_Agency_Code__c</fullName>
-        <description>SRC: RMS
-INT: Y
-Trans: N
-BU: Field Service,Charge Off Accounts Servicing, IVR 
-FD: The agency code associated with the RMS agency that is servicing the account.</description>
-        <externalId>false</externalId>
-        <label>ChargeOff Agency Code</label>
-        <length>4</length>
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Text</type>
@@ -487,91 +457,83 @@ FD: Fees assessed to the customer that are classified differently from other mis
         <fullName>Collection_Notifications__c</fullName>
         <externalId>false</externalId>
         <formula>IF( 
-	AND( 
-	Collection_List_Number_1__c = &quot;1863&quot;, 
 	OR( 
-	Collection_List_Status_1__c = &quot;A&quot;, 
-	Collection_List_Status_1__c = &quot;P&quot; 
-	)), 
-	IMAGE(&quot;/servlet/servlet.ImageServer?id=01518000000JnUs&amp;oid=00D180000001P5o&quot;, &quot;Late Stage Skip&quot;) &amp; &quot; &quot;, 
-	&quot;&quot; 
-) 
-&amp; 
-IF( 
-	OR( 
-	AND( 
-	Collection_List_Number_1__c != &quot;1706&quot;, 
-	Collection_List_Number_1__c != null, 
-	Collection_List_Status_1__c != &quot;C&quot;, 
-	NOT(ISPICKVAL(Finance_Account_Status__c, &quot;Close&quot;)), 
-	VALUE(History_Counter_Days_Past_Due__c) &gt; 0, 
-	OR( 
-	RecordType.Name = &quot;Retail&quot; &amp;&amp; History_Counter_Payments_Made__c = 0, 
-	RecordType.Name = &quot;Lease&quot; &amp;&amp; History_Counter_Payments_Made__c &lt;= 1 
-	) 
+		AND( 
+			Collection_List_Number_1__c != &quot;1706&quot;, 
+			Collection_List_Number_1__c != null, 
+			Collection_List_Status_1__c != &quot;C&quot;, 
+			NOT(ISPICKVAL(Finance_Account_Status__c, &quot;Close&quot;)), 
+			VALUE(History_Counter_Days_Past_Due__c) &gt; 0, 
+			OR( 
+				RecordType.Name = &quot;Retail&quot; &amp;&amp; History_Counter_Payments_Made__c = 0, 
+				RecordType.Name = &quot;Lease&quot; &amp;&amp; History_Counter_Payments_Made__c &lt;= 1 
+			) 
+		), 
+		AND( 
+			OR( 
+				Collection_List_Number_1__c = &quot;1704&quot;, 
+				Collection_List_Number_1__c = &quot;1705&quot; 
+			), 
+			Collection_List_Status_1__c != &quot;C&quot; 
+		) 
 	), 
-	AND( 
-	OR( 
-	Collection_List_Number_1__c = &quot;1704&quot;, 
-	Collection_List_Number_1__c = &quot;1705&quot; 
-	), 
-	Collection_List_Status_1__c != &quot;C&quot; 
-	) 
-	), 
-	IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002D6rE&amp;oid=00D180000001Rpv&quot;, &quot;First Payment Default&quot;) &amp; &quot; &quot;, 
+	IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002D6rE&amp;oid=00D1b000000CnQW&quot;, &quot;First Payment Default&quot;) &amp; &quot; &quot;, 
 	&quot;&quot; 
 ) 
 &amp; 
 IF( 
 	Collection_List_Number_1__c = &quot;1860&quot;||Collection_List_Number_1__c = &quot;1861&quot;||Collection_List_Number_1__c = &quot;1862&quot;||Primary_Garage_State__c=&quot;MA&quot;, 
-	IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002D7f9&amp;oid=00D180000001Rpv&quot;, &quot;MA Use Unique ID&quot;) &amp; &quot; &quot;, 
+	IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002D7f9&amp;oid=00D1b000000CnQW&quot;, &quot;MA Use Unique ID&quot;) &amp; &quot; &quot;, 
 	&quot;&quot; 
 ) 
 &amp; 
 IF( 
 	OR( 
-	Collection_List_Number_1__c = null, 
-	Collection_List_Status_1__c = &quot;C&quot; 
+		Collection_List_Number_1__c = null, 
+		Collection_List_Status_1__c = &quot;C&quot; 
 	), 
-	IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002DB8x&amp;oid=00D180000001Rpv&quot;, &quot;Current Acct Document Stars&quot;) &amp; &quot; &quot;, 
+	IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002DB8x&amp;oid=00D1b000000CnQW&quot;, &quot;Current Acct Document Stars&quot;) &amp; &quot; &quot;, 
 	&quot;&quot; 
-) 
+)
+&amp;
+IF(
+	OR(
+		AND(
+			Risk_Strategy_Code_3__c &lt;&gt; &apos;NOR&apos;,
+			OR(
+				AND(
+					MOD( TODAY() - DATE(1900, 1, 1), 7) = 0,
+					VALUE(History_Counter_Days_Past_Due__c) &gt;= 73
+				),
+				VALUE(History_Counter_Days_Past_Due__c) &gt;= 75
+			),
+			Collection_List_Number_1__c &lt;&gt; null,
+			Collection_List_Status_1__c &lt;&gt; &apos;C&apos;
+		),
+		AND(
+			Risk_Strategy_Code_3__c = &apos;NOR&apos;,
+			OR(
+				AND(
+					MOD( TODAY() - DATE(1900, 1, 1), 7) = 0,
+					VALUE(History_Counter_Days_Past_Due__c) &gt;= 81
+				),
+				VALUE(History_Counter_Days_Past_Due__c) &gt;= 83
+			),
+			Collection_List_Number_1__c &lt;&gt; null,
+			Collection_List_Status_1__c &lt;&gt; &apos;C&apos;
+		)
+	),
+	IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002EDDj&amp;oid=00D1b000000CnQW&quot;, &quot;Eligible for Repossession&quot;) &amp; &quot; &quot;, 
+	&quot;&quot;
+)
+
 &amp; 
 IF( 
-	OR( 
-	AND( 
-	Risk_Strategy_Code_3__c &lt;&gt; &apos;NOR&apos;, 
-	OR( 
-	AND( 
-	MOD( TODAY() - DATE(1900, 1, 1), 7) = 0, 
-	VALUE(History_Counter_Days_Past_Due__c) &gt;= 73 
-	), 
-	VALUE(History_Counter_Days_Past_Due__c) &gt;= 75 
-	), 
-	Collection_List_Number_1__c &lt;&gt; null, 
-	Collection_List_Status_1__c &lt;&gt; &apos;C&apos; 
-	), 
-	AND( 
-	Risk_Strategy_Code_3__c = &apos;NOR&apos;, 
-	OR( 
-	AND( 
-	MOD( TODAY() - DATE(1900, 1, 1), 7) = 0, 
-	VALUE(History_Counter_Days_Past_Due__c) &gt;= 81 
-	), 
-	VALUE(History_Counter_Days_Past_Due__c) &gt;= 83 
-	), 
-	Collection_List_Number_1__c &lt;&gt; null, 
-	Collection_List_Status_1__c &lt;&gt; &apos;C&apos; 
-	) 
-	), 
-	IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002EDDj&amp;oid=00D180000001Rpv&quot;, &quot;Eligible for Repossession&quot;) &amp; &quot; &quot;, 
-	&quot;&quot; 
-) 
-&amp; 
-IF( 
+
 Primary_Garage_State__c = &quot;NH&quot;, 
-IMAGE(&quot;/servlet/servlet.ImageServer?id=015180000000zsy&amp;oid=00D180000001Rpv&quot;, &quot;New Hampshire Collections Notification&quot;) &amp; &quot; &quot;, 
+IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002EpmO&amp;oid=00D1b000000CnQW&quot;, &quot;New Hampshire Collections Notification&quot;) &amp; &quot; &quot;, 
 &quot;&quot; 
+
 )</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Collection Notifications</label>
@@ -1859,15 +1821,6 @@ Contains the most recent cure note text.</description>
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Number_of_FAC__c</fullName>
-        <externalId>false</externalId>
-        <label>Number of FAC</label>
-        <summaryForeignKey>Financial_Account_Customer__c.Financial_Account__c</summaryForeignKey>
-        <summaryOperation>count</summaryOperation>
-        <trackTrending>false</trackTrending>
-        <type>Summary</type>
-    </fields>
-    <fields>
         <fullName>Numeric_Days_Past_Due__c</fullName>
         <description>SRC: Salesforce
 INT: 
@@ -3121,17 +3074,6 @@ Contains the iVault formatted account number.</description>
         <type>TextArea</type>
     </fields>
     <label>Financial Account</label>
-    <listViews>
-        <fullName>All</fullName>
-        <columns>NAME</columns>
-        <columns>RECORDTYPE</columns>
-        <columns>Collateral__c</columns>
-        <columns>Loan_Original_Term__c</columns>
-        <columns>Contract_Date__c</columns>
-        <columns>CREATED_DATE</columns>
-        <filterScope>Everything</filterScope>
-        <label>All</label>
-    </listViews>
     <listViews>
         <fullName>Recently_Loaded</fullName>
         <columns>NAME</columns>

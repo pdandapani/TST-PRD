@@ -879,11 +879,11 @@ private class TFSC_InteractionEntryPanelControllerTest {
         list<Reason_For_Delinquency__c> listReasonForDelinquency = new List<Reason_For_Delinquency__c>();
         Reason_For_Delinquency__c joblessReason = new Reason_For_Delinquency__c(
                 Name = 'JOBLESS',
-                Sort_Order__c = 1
+            	Sort_Order__c = 1
         );
         Reason_For_Delinquency__c divorceReason = new Reason_For_Delinquency__c(
                 Name = 'DIVORCE',
-                Sort_Order__c = 2
+            	Sort_Order__c = 2
         );
         listReasonForDelinquency.add(joblessReason);
         listReasonForDelinquency.add(divorceReason);

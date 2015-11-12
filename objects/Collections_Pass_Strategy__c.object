@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <customSettingsType>List</customSettingsType>
-    <customSettingsVisibility>Public</customSettingsVisibility>
     <description>Some code in the SkipTraceController is dependent upon there being records in this CustomSetting with Sort = 3, 4, 6 and 8.  It is best to simply have values for 1-11.  Before changing, check the code for the TFSC_SkipTrace page.</description>
     <enableFeeds>false</enableFeeds>
     <fields>
@@ -62,4 +61,5 @@
         <type>TextArea</type>
     </fields>
     <label>Collections Pass Strategy</label>
+    <visibility>Public</visibility>
 </CustomObject>

@@ -24,8 +24,28 @@
             <translation><!-- Business --></translation>
         </picklistValues>
         <picklistValues>
+            <masterLabel>Contact Card</masterLabel>
+            <translation><!-- Contact Card --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>Person</masterLabel>
             <translation><!-- Person --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Phone</masterLabel>
+            <translation><!-- Phone --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Professional License</masterLabel>
+            <translation><!-- Professional License --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Real-Estate</masterLabel>
+            <translation><!-- Real-Estate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Vehicle Registration</masterLabel>
+            <translation><!-- Vehicle Registration --></translation>
         </picklistValues>
     </fields>
     <fields>
@@ -1825,16 +1845,5 @@
         <label><!-- Phone9 --></label>
         <name>Phone9__c</name>
     </fields>
-    <layouts>
-        <layout>Skip Trace Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Notes --></label>
-            <section>Notes</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

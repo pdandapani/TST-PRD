@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>text</bucketType>
+        <developerName>BucketField_48279001</developerName>
+        <masterLabel>FOPP Indicator</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <otherBucketLabel>Other</otherBucketLabel>
+        <sourceColumnName>ArticlePDF__c.FOPP__c</sourceColumnName>
+        <useOther>true</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Procedure 001 - Approval Authority Exhibit 001M - Late Charges</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Procedure 001 - Approval Authority  Exhibit 001M - Late Charges</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Procedure 002 - Customer Complaints Test3</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Procedure 316 - Bankruptcy 		Procedure 316, Exhibit A - Bankruptcy Codes 		Terminology (Bankruptcy)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Procedure 316 - BankruptcyProcedure 316, Exhibit A - Bankruptcy Codes</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Procedure 318 - Notification of Customer&amp;#39;s Death  	 </sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Procedure 438 - Retail Paid-In-Full Processing  	 </sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Procedure 505 - Lockbox Processing of Remittances-Check Copy Requirements (Lockbox locations and field locations they service)</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Procedure 607 - Full Term Lease Processing</sourceValue>
+            </sourceValues>
+            <value>Procedure</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>123</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>333</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>4548</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>444</sourceValue>
+            </sourceValues>
+            <value>Number</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>DM Form 3043 - Authorization for Third Party Payoff</sourceValue>
+            </sourceValues>
+            <value>DM</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>FOPP 427 - Retail Repossessions</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FOPP 427 - Retail RepossessionsFOPP 627 - Lease Repossessions</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>FOPP 427 - Retail RepossessionsProcedure 627- Lease Repossessions</sourceValue>
+            </sourceValues>
+            <value>FOPP</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>ArticlePDF__c.ArticleType__c</field>
+    </columns>
+    <columns>
+        <field>ArticlePDF__c.FOPP__c</field>
+    </columns>
+    <columns>
+        <field>ArticlePDF__c.Article_Number__c</field>
+    </columns>
+    <columns>
+        <field>ArticlePDF__c.Title__c</field>
+    </columns>
+    <columns>
+        <field>ArticlePDF__c.VersionNumber__c</field>
+    </columns>
+    <columns>
+        <field>ArticlePDF__c.Expiration_Date__c</field>
+    </columns>
+    <description>Articles by FOPP and Expiration Date Grouped by FOPP</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_48279001</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>FOPP Grouped Articles</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$ArticlePDF__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>ArticlePDF__c.Expiration_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

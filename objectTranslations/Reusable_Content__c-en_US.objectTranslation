@@ -44,17 +44,6 @@
         <label><!-- # of Online/Draft References --></label>
         <name>numOnlineDraft__c</name>
     </fields>
-    <layouts>
-        <layout>Reusable Content Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Details --></label>
-            <section>Details</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
     <webLinks>
         <label><!-- ReIndex_articles_associated_with_this_Content_Tag --></label>

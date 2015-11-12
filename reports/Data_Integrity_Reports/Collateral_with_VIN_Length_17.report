@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>number</bucketType>
+        <developerName>BucketField_65324036</developerName>
+        <masterLabel>VIN Validation</masterLabel>
+        <nullTreatment>z</nullTreatment>
+        <sourceColumnName>Collateral__c$VIN_Length__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <to>16</to>
+            </sourceValues>
+            <value>Too Short</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>16</from>
+                <to>17</to>
+            </sourceValues>
+            <value>Correct Size</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>17</from>
+            </sourceValues>
+            <value>Too Long</value>
+        </values>
+    </buckets>
+    <description>Collateral with Financial Accounts and VIN Length &lt;&gt; 17 Characters</description>
+    <filter>
+        <criteriaItems>
+            <column>Collateral__c.Financial_Accounts__r$cbCollectionsFA__c</column>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>BucketField_65324036</column>
+            <operator>equals</operator>
+            <value>Too Short,Too Long</value>
+        </criteriaItems>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Month</dateGranularity>
+        <field>Collateral__c$CreatedDate</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Collateral__c.Financial_Accounts__r$Collection_List_Status_1__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_65324036</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Collateral with VIN Length &lt;&gt; 17</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Collateral_with_Financial_Accounts__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>Collateral__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

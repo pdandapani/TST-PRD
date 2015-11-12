@@ -1,0 +1,4 @@
+Following Case's FOPP publication date has been modified. 
+Case Number: {!Case.CaseNumber}
+Case Subject: {!Case.Subject}
+Case Link: {!Case.Link}

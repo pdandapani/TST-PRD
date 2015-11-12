@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>number</bucketType>
+        <developerName>BucketField_94327567</developerName>
+        <masterLabel>Child Case Age Buckets</masterLabel>
+        <nullTreatment>z</nullTreatment>
+        <sourceColumnName>AGE</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <to>1</to>
+            </sourceValues>
+            <value>Less than One Day</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>1</from>
+                <to>5</to>
+            </sourceValues>
+            <value>One to Five Days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>5</from>
+                <to>10</to>
+            </sourceValues>
+            <value>Five to Ten Days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>10</from>
+            </sourceValues>
+            <value>Greater than Ten Days</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>OWNER</field>
+    </columns>
+    <columns>
+        <field>Case.KM_Parent_Case_Owner__c</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>CLOSED_DATE</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Average</aggregateTypes>
+        <field>AGE</field>
+    </columns>
+    <description>Indicates Age of Child Cases set to Closed Approved or Closed Declined</description>
+    <filter>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <operator>equals</operator>
+            <value>Case.Change_Control_Approval</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STATUS</column>
+            <operator>equals</operator>
+            <value>Closed - Approved,Closed - Declined</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_94327567</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Child Case Time to Close - App/Decl</name>
+    <params>
+        <name>units</name>
+        <value>d</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CaseList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATEONLY</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>number</bucketType>
+        <developerName>BucketField_3308358</developerName>
+        <masterLabel>RL Score Description</masterLabel>
+        <nullTreatment>z</nullTreatment>
+        <sourceColumnName>Case$RL_Score__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <to>800</to>
+            </sourceValues>
+            <value>Within Complanice</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>800</from>
+                <to>950</to>
+            </sourceValues>
+            <value>Out of Complanice</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>950</from>
+            </sourceValues>
+            <value>Test</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>Case$Form_Rule__c.Name</field>
+    </columns>
+    <columns>
+        <field>Case$CaseNumber</field>
+    </columns>
+    <columns>
+        <field>Case$RL_State_of_Jurisdiction__c</field>
+    </columns>
+    <columns>
+        <field>Case$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>Case$RL_Score__c</field>
+    </columns>
+    <columns>
+        <field>Case$Status</field>
+    </columns>
+    <columns>
+        <field>Case$Owner</field>
+    </columns>
+    <description>Daily Complanice info</description>
+    <filter>
+        <criteriaItems>
+            <column>Case$RecordType</column>
+            <operator>equals</operator>
+            <value>Case.Rights_Letter_on_case</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case$Status</column>
+            <operator>equals</operator>
+            <value>Closed - Cancelled,Cancelled,Closed,New,In Process,In Progress</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case$RL_Score__c</column>
+            <operator>equals</operator>
+            <value>900,950</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_3308358</field>
+        <sortOrder>Desc</sortOrder>
+    </groupingsDown>
+    <name>QA Complanice Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Rights_Letters__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <sortColumn>Case$Status</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Case$CreatedDate</dateColumn>
+        <endDate>2015-04-24</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2015-04-24</startDate>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,472 @@
+<apex:page standardController="copado__Deployment_Flow__c" extensions="copado.Settings" id="thePage" showHeader="false" sidebar="false" docType="html-5.0">
+    <c:GAnalytics />
+    <script type="text/javascript" src="{!URLFOR($Resource.Statics,'js/libs/jquery.min.1.10.2.js')}"></script>
+    <link rel="stylesheet" href="{!URLFOR($Resource.Statics,'css/jquery-ui.css')}" />
+    <link rel="stylesheet" href="{!URLFOR($Resource.CopadoChangeManagement,'Assets/css/deploymentFlowConnections.css')}" />
+    <script type="text/javascript" src="{!URLFOR($Resource.Statics,'js/libs/jquery-ui.min.js')}"></script>
+    <script type="text/javascript" src="{!URLFOR($Resource.CopadoChangeManagement, 'Assets/js/jquery.svg.min.js')}"></script>
+    <script type="text/javascript" src="{!URLFOR($Resource.CopadoChangeManagement, 'Assets/js/jquery.connectingLine.js')}"></script>
+    
+    <apex:outputField value="{!copado__Deployment_Flow__c.copado__Flow_Step_Coordinates__c}" rendered="false"/>
+
+    <script type="text/javascript" id="scriptInit">
+        var __sfdcSessionId = '{!GETSESSIONID()}';
+        var $copado = jQuery.noConflict();
+        var __coordinates__ = '{!copado__Deployment_Flow__c.copado__Flow_Step_Coordinates__c}';
+        var orgConnections = [];
+        var orgs = [];
+    </script>
+    
+    <script src="/soap/ajax/32.0/connection.js" type="text/javascript"></script>    
+    
+    <body>
+        <div style="position:absolute; width:300px;">
+            <apex:pageBlock >
+                <apex:pageBlockSection columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.copado__ADD_AN_ENVIRONMENT}" />
+                        <input type="text" id="orgAutoComplete" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </div>
+        <div id="boxCanvas"> </div>
+        
+        <script type="text/javascript">
+            //CREATE NAMESPACE
+            var copadoApp = {
+                ns: '{!namespace}',
+                AUTOCOMPLETE_MIN_LENGTH: 2,
+                searchbox: $copado('.jsOrgAutoComplete'),
+                canvas: $copado('#boxCanvas').connectSVG(),
+                orgBoxes: $copado('.jsOrgBoxWrapper'),
+
+                getFlowStepCoordinates: function(){
+                    var result = sforce.connection.query("SELECT Id, "+copadoApp.ns+"Flow_Step_Coordinates__c FROM "+copadoApp.ns+"Deployment_Flow__c WHERE Id ='{!copado__Deployment_Flow__c.Id}'");
+                    var records = result.getArray("records");
+                    __coordinates__ = records[0][copadoApp.ns+'Flow_Step_Coordinates__c'];
+                    return __coordinates__;
+                },
+                getsetCoordinates: function(){
+                    console.log('Setting coordinates...');
+                    var __coordinates__ = copadoApp.getFlowStepCoordinates();
+                    if(__coordinates__ && __coordinates__.length != 0){
+                        var tmp = copadoApp.splitCoordinates(__coordinates__);
+                        for(var i=0; i<tmp.length; i++){
+                            var tmp2 = tmp[i].split('-');
+                            var box = document.getElementById(tmp2[0]);
+                            if(box != null){
+                                box.style.left = tmp2[1];
+                                box.style.top = tmp2[2];
+                            }
+                        }
+                    }
+                    copadoApp.drawOrgConnections();
+                },
+                reinitiateCanvas: function(){
+                    console.log('Reinitiating canvas...');
+                    $copado('#boxCanvas canvas').remove();
+                    copadoApp.canvas = $copado('#boxCanvas').connectSVG();
+                    copadoApp.getsetCoordinates();
+                    copadoApp.drawOrgConnections();
+                },
+                initialiseDraggable: function(){
+                    console.log('Initialising draggable...');
+                    if(orgConnections.length>0){
+                        $copado('.jsOrgBoxWrapper').draggable({
+                            drag: function(event, ui){
+                                copadoApp.canvas.redrawLines();
+                            },
+                            stop: function( event, ui ) {
+                                copadoApp.getsetLocations(ui.helper.attr('id'), ui.position.left,ui.position.top); 
+                            }
+                        });
+                    }
+                    else{
+                        console.log('orgConnections array is empty!');
+                        $copado('.jsOrgBoxWrapper').draggable({
+                            stop: function( event, ui ) {
+                                copadoApp.getsetLocations(ui.helper.attr('id'), ui.position.left,ui.position.top); 
+                            }
+                        }); 
+                    }
+                },
+                drawSVGlines: function(leftNode, rightNode, destinationNode){
+                    console.log('Drawing SVG lines...');
+                    copadoApp.canvas.drawLine({
+                        left_node: leftNode,
+                        right_node: rightNode,
+                        destinationNode: destinationNode,
+                        horizantal_gap:25,
+                        error:true,
+                        style:'solid',
+                        color:'light-blue',
+                        width:2
+                    });
+                },
+                drawOrgConnections: function(){
+                    console.log('Drawing org connections...');
+                    for (i=0; i<orgConnections.length; i++) {
+                        copadoApp.drawOrgConnection(orgConnections[i].fromOrgId, orgConnections[i].toOrgId);
+                    }
+                },
+                drawOrgConnection: function(fromOrgId, toOrgId){
+                    console.log('Draw connection: '+fromOrgId+' '+toOrgId);
+                    copadoApp.setDestinatonOrgName(fromOrgId, toOrgId);
+                    var fromOrgBox = '#wrapper_'+fromOrgId;
+                    var toOrgBox = '#wrapper_'+toOrgId;
+                    copadoApp.drawSVGlines(fromOrgBox, toOrgBox, toOrgBox);
+                },
+                drawOrgBoxes: function(){
+                    console.log('Drawing Environment Boxes...');
+                    for (i=0; i<orgs.length; i++) { 
+                        copadoApp.addOrgBox(null, orgs[i].orgName, orgs[i].orgId, orgs[i].flowStepId);
+                    }
+                    copadoApp.getsetCoordinates();
+                    copadoApp.initialiseDraggable();
+                },
+                initialiseAutoComplete: function(orgId){
+                    console.log('Initialising Auto Complete...');
+                    if(orgId==null){
+                        $copado("#orgAutoComplete").autocomplete({
+                            source : function(request, callback){
+                                var searchParam  = request.term;
+                                callback(copadoApp.doSearch(searchParam));
+                            },
+                            select: function(event, ui){
+                                copadoApp.addOrgBox(null, ui.item.label, ui.item.value, null);
+                                copadoApp.initialiseDraggable();
+                                $copado(this).val('');
+                                return false;
+                            },
+                            minLength: copadoApp.AUTOCOMPLETE_MIN_LENGTH
+                        });
+                    }
+                    else{
+                        $copado(".jsOrgAutoComplete").autocomplete({
+                            source : function(request, callback){
+                                var searchParam  = request.term;
+                                callback(copadoApp.doSearch(searchParam));
+                            },
+                            select: function(event, ui){
+                                var orgBox = document.getElementById('box_'+orgId);                         
+                                if(orgBox != null){
+                                    if(orgId!=null){
+                                        if(ui.item.value==orgId){
+                                            alert('You cannot create a flow where the source environment equals destination environment.');
+                                            return;
+                                        }
+                                        var actionToTake = ($copado('#box_'+orgId+' #hdn_DestOrgId').val()==ui.item.value)?'none':'update';
+                                        actionToTake = ($copado('#box_'+orgId+' #hdn_DestOrgId').val() == '' && actionToTake=='update')?'insert':'update';
+                                        if(actionToTake=='insert'){
+                                            var flowStepId = copadoApp.insertFlowStep(orgId, ui.item.value);
+                                            copadoApp.addOrgBox(orgId, ui.item.label, ui.item.value, flowStepId);
+                                            copadoApp.setOrgValues(orgId, ui.item.label, ui.item.value, flowStepId);
+                                            copadoApp.reinitiateCanvas();
+                                            copadoApp.initialiseDraggable();
+                                        }
+                                        if(actionToTake=='update'){
+                                            var flowStepId = $copado('#wrapper_'+orgId).attr('data-flowStepId');
+                                            var destOrgId = $copado('#box_'+orgId+' #hdn_DestOrgId').val()
+                                            if(copadoApp.hasOtherOrgConnections(destOrgId)){
+                                                copadoApp.removeOrg(destOrgId);
+                                            }
+                                            copadoApp.updateFlowStep(flowStepId, orgId, ui.item.value);
+                                            copadoApp.setOrgValues(orgId, ui.item.label, ui.item.value, flowStepId);
+                                            copadoApp.reinitiateCanvas();
+                                            copadoApp.initialiseDraggable();
+                                        }
+                                        if(actionToTake!='none'){
+                                            copadoApp.drawOrgConnection(orgId, ui.item.value);
+                                        }
+                                    }
+                                }
+                            },
+                            minLength: copadoApp.AUTOCOMPLETE_MIN_LENGTH
+                        });
+                    }
+                    $copado(".jsOrgAutoComplete").attr('placeholder','Type to search');
+                    $copado("#orgAutoComplete").attr('placeholder','Type to search');
+                },
+                editOrg: function(orgId){
+                    console.log('Edit Environment');
+                    $copado('#detailMode_'+orgId).hide();
+                    $copado('#editMode_'+orgId+' input').val('');
+                    $copado('#editMode_'+orgId).show();
+                    $copado('#editMode_'+orgId+' input').focus();
+                    copadoApp.initialiseAutoComplete(orgId);
+                },
+                setDestinatonOrgName: function(fromOrgId, toOrgId){
+                    console.log('Setting Destination Org Name...');
+                    var toOrgName = $copado('#'+toOrgId+'_title').text();
+                    $copado('#nextDestOrgBody_'+fromOrgId).text(toOrgName);
+                    if(toOrgName.length>0)$copado('#detailModeBody_'+fromOrgId).show();
+                    $copado('#box_'+fromOrgId+' #hdn_DestOrgName').val(toOrgName);
+                    $copado('#box_'+fromOrgId+' #hdn_DestOrgId').val(toOrgId);
+                },
+                clearDestinationOrgValues: function(orgId){
+                    console.log('Clearing Destination Org values');
+                    $copado('#detailModeBody_'+orgId).hide();
+                    $copado('#nextDestOrgBody_'+orgId).text('');
+                    $copado('#wrapper_'+orgId).attr('data-flowStepId', '');
+                    $copado('#box_'+orgId+' #hdn_DestOrgName').val('');
+                    $copado('#box_'+orgId+' #hdn_DestOrgId').val('');   
+                },
+                setOrgValues: function(orgId, destOrgName, destOrgId, flowStepId){
+                    console.log('Setting Environment values...');
+                    copadoApp.setDestinatonOrgName(orgId, destOrgId);
+                    $copado('#wrapper_'+orgId).attr('data-flowStepId', flowStepId);
+                    $copado("#editMode_"+orgId).hide();
+                    $copado('#detailMode_'+orgId).show();
+                },
+                cancelOrgEdit: function(orgId){
+                    console.log('Cancel Environment Edit');
+                    $copado('#editMode_'+orgId).hide();
+                    $copado('#detailMode'+orgId).val($copado('#box_'+orgId+' #hdn_DestOrgName').val());
+                    $copado('#detailMode_'+orgId).show();
+                    $copado('#editMode_'+orgId+' input').val('');
+                    copadoApp.drawOrgConnections();
+                },
+                removeOrg: function(orgId){
+                    console.log('Removing org '+orgId);
+                    var flowStepId = $copado('#wrapper_'+orgId).attr('data-flowStepId');
+                    var deletionIds = [];
+                    if(flowStepId){
+                        deletionIds.push(flowStepId);
+                        var sourceOrgIds = [];
+                        for(var i=0; i<orgConnections.length; i++){
+                            if(orgId == orgConnections[i].toOrgId){
+                                sourceOrgIds.push(orgConnections[i].fromOrgId);
+                            }
+                        }
+                        for(var i=0; i<orgConnections.length; i++){
+                            if(orgConnections[i].flowStepId == flowStepId){
+                                orgConnections.splice(i, 1);
+                            }
+                        }
+                        copadoApp.deleteFlowStep(null, deletionIds);
+                        for(var i=0; i<sourceOrgIds.length; i++){
+                            copadoApp.clearDestinationOrgValues(sourceOrgIds[i]);   
+                        }
+                    }
+                
+                    copadoApp.reinitiateCanvas();
+                    copadoApp.initialiseDraggable();
+                    
+                    $copado('#wrapper_'+orgId).remove();
+                },
+                buildOrgBox: function(orgName, orgId, style){
+                    console.log('Building Environment Box: '+orgId);
+                    style = (style=='' || style==null || typeof style == 'undefined')?'top:20px;left:500px;':style;
+                    var s = "<div style='"+style+"'class='jsOrgBoxWrapper' id='wrapper_"+orgId+"' data-flowStepId=''>"+
+                                "<div id='box_"+orgId+"' class='orgBox'>"+
+                                    "<h3 class='clearfix'>"+
+                                        "<a onclick='javascript:return false;' id='"+orgId+"_title' class='title' target='_blank'>"+orgName+"</a>"+
+                                    "</h3>"+
+                                    "<div class='orgContent'>"+
+                                        "<ol class='rowItems'>"+
+                                            "<li>"+
+                                                "<div id='detailMode_"+orgId+"' style='display:block;'>"+
+                                                    "<div id='detailModeBody_"+orgId+"' style='display:none;'>"+
+                                                        "<span id='nextDestOrgHeader_"+orgId+"' style='font-weight:bolder'>Next Environment: </span><span id='nextDestOrgBody_"+orgId+"'></span><hr />"+
+                                                    "</div>"+
+                                                    "<a onclick='copadoApp.editOrg(\""+orgId+"\");return;'>Set Destination Environment</a><br /><a id='lnkRemoveDestOrg_"+orgId+"' onclick='copadoApp.removeOrg(\""+orgId+"\");return;'>Remove Environment</a></div>"+
+                                                "<div id='editMode_"+orgId+"' style='display:none;'><input type='text' class='jsOrgAutoComplete' /><hr /><a onclick='copadoApp.cancelOrgEdit(\""+orgId+"\");return;'>Cancel</a></div>"+
+                                            "</li>"+
+                                        "</ol>"+
+                                    "</div>"+
+                                    "<input type='hidden' id='hdn_DestOrgId' value=''>"+
+                                    "<input type='hidden' id='hdn_DestOrgName' value=''>"+
+                                "</div>"+
+                            "</div>";
+                    return s;
+                },
+                orgboxOnCanvas: function(orgId){
+                    if($copado('#box_'+orgId).length)return true;
+                    return false;
+                },
+                addOrgBox: function(fromOrgId, orgName, orgId, flowStepId){
+                    console.log('Adding Environment Box...');
+                    var style = '';
+                    if(typeof fromOrgId != 'undefined' && fromOrgId!=null){
+                        $copado('#wrapper_'+orgId).attr('data-flowStepId', flowStepId);
+                        var top = $copado('#wrapper_'+fromOrgId).css('top');
+                        var left = $copado('#wrapper_'+fromOrgId).css('left');
+                        var width = $copado('#wrapper_'+fromOrgId).width();
+                        style = 'top:'+top+'; left:'+ (parseInt(left)+width+50)+'px;';
+                    }
+                    if(copadoApp.orgboxOnCanvas(orgId)==false){
+                        $copado("#boxCanvas").append(copadoApp.buildOrgBox(orgName, orgId, style));
+                        $copado('#wrapper_'+orgId).attr('data-flowStepId', flowStepId);
+                        if($copado('#box_'+orgId+' #hdn_DestOrgName').val() != ''){
+                            $copado('#nextDestOrgBody_'+orgId).val($copado('#box_'+orgId+' #hdn_DestOrgName').val());
+                            $copado('#detailModeBody_'+orgId).show();
+                            $copado('#lnkRemoveDestOrg_'+orgId).show();
+                        }
+                    }
+                },
+                doSearch: function(query){
+                    console.log('Searching...');
+                    var result = sforce.connection.query("SELECT Id, "+copadoApp.ns+"Org_ID__c, Name FROM "+copadoApp.ns+"Environment__c WHERE Name LIKE '%"+query+"%' order by Name ASC limit 9");
+                    var records = result.getArray("records");
+                    var response = [ ];
+                    console.log('Results found: ', records);
+                    for(i=0; i<records.length; i++){
+                        response.push({label: records[i].Name, value: records[i].Id});
+                    }
+                    return response;
+                },
+                splitCoordinates: function(s){
+                    var data = s.split(',');
+                    return data;
+                },
+                doUpdate: function(coordinates){
+                    console.log('Updating Flow...');
+                    if(coordinates.substring(0, 1)==','){
+                        coordinates = coordinates.substring(1);
+                    }
+                    var records = [];
+                    var r = new sforce.SObject(copadoApp.ns+"Deployment_Flow__c");
+                    r.Id = '{!copado__Deployment_Flow__c.Id}';
+                    r[copadoApp.ns+'Flow_Step_Coordinates__c'] = coordinates;
+                    records[0] = r;
+                    var result = sforce.connection.update(records);
+                    console.log(result);
+                    __coordinates__ = coordinates;
+                },
+                queryFlowSteps: function(){
+                    console.log('Query Flow Steps...');
+                    orgConnections = [];
+                    var result = sforce.connection.query("SELECT Id, "+copadoApp.ns+"Deployment_Flow__c, "+copadoApp.ns+"Destination_Environment__c, "+copadoApp.ns+"Destination_Environment__r.Name, "+copadoApp.ns+"Source_Environment__c, "+copadoApp.ns+"Source_Environment__r.Name FROM "+copadoApp.ns+"Deployment_Flow_Step__c WHERE "+copadoApp.ns+"Deployment_Flow__c = '{!copado__Deployment_Flow__c.Id}' order by "+copadoApp.ns+"Source_Environment__c ASC");
+                    var records = result.getArray("records");
+                    for(var i=0; i<records.length; i++){
+                        orgConnections.push({flowStepId:records[i].Id, fromOrgId:records[i][copadoApp.ns+'Source_Environment__c'], fromOrgName:records[i][copadoApp.ns+'Source_Environment__r'].Name, toOrgId:records[i][copadoApp.ns+'Destination_Environment__c'], toOrgName:records[i][copadoApp.ns+'Destination_Environment__r'].Name});
+                    }
+                    console.log('Flows Steps found: ',records);
+                },
+                getFlowSteps: function(){
+                    console.log('Get Flow Steps...');
+                    copadoApp.queryFlowSteps();
+                    orgs = copadoApp.createOrgsArray(orgConnections);
+                },
+                insertFlowStep: function(fromOrgId, toOrgId){
+                    console.log('Inserting Flow Step...');
+                    var r = new sforce.SObject(copadoApp.ns+"Deployment_Flow_Step__c");
+                    r[copadoApp.ns+'Deployment_Flow__c'] = '{!copado__Deployment_Flow__c.Id}';
+                    r[copadoApp.ns+'Source_Environment__c'] = fromOrgId;
+                    r[copadoApp.ns+'Destination_Environment__c'] = toOrgId;
+                    var result = sforce.connection.create([r]);
+                    if(result[0].getBoolean('success')){
+                        console.log('Insert Success',result);
+                        copadoApp.queryFlowSteps();
+                        return result[0].id;
+                    }
+                    else{
+                        copadoApp.sforceFailure(result[0]);
+                    }
+                },
+                updateFlowStep: function(flowStepId, fromOrgId, toOrgId){
+                    console.log('Updating flow Step...');
+                    var records = [];
+                    var r = new sforce.SObject(copadoApp.ns+"Deployment_Flow_Step__c");
+                    r.Id = flowStepId;
+                    r[copadoApp.ns+'Source_Environment__c'] = fromOrgId;
+                    r[copadoApp.ns+'Destination_Environment__c'] = toOrgId;
+                    records[0] = r;
+                    
+                    var result = sforce.connection.update([r]);
+                    if(result[0].getBoolean('success')){
+                        console.log('Update Success' +result); 
+                        copadoApp.queryFlowSteps(); 
+                    }
+                    else{
+                        copadoApp.sforceFailure(result[0]);
+                    }
+                },
+                deleteFlowStep: function(id, ids){
+                    console.log('Deleting Flow Step(s)...', id, ids);
+                    var records = [];
+                    var count = 0;
+                    if(typeof ids !='undefined' && ids!=null){
+                        for(var i=0; i<ids.length; i++){
+                            records[i] = ids[i];
+                        }
+                        count = ids.length;
+                    }
+                    if(typeof id !='undefined' && id!=null){
+                        records[count+1] = id;
+                    }
+                    if(records.length>0){
+                        var result = sforce.connection.deleteIds([records]);
+                        if(result[0].getBoolean('success')){
+                            console.log('Delete Success:',result); 
+                            setTimeout(function(){copadoApp.queryFlowSteps();},200);
+                        }
+                        else{
+                            copadoApp.sforceFailure(result[0]);
+                        }
+                    }
+                },
+                sforceFailure: function(error){
+                    console.error('An error has occured with the Salesforce Ajax Toolkit: ',error);
+                },
+                getsetLocations: function(id, top, left){
+                    var orgBoxes = $copado('.jsOrgBoxWrapper');
+                    var new_data = [''];
+                    for(var i = 0; i<orgBoxes.length; i++) {
+                        new_data[i] = orgBoxes[i].getAttribute('id')+'-'+orgBoxes[i].style.left+'-'+orgBoxes[i].style.top;
+                        if(orgBoxes[i].getAttribute('Id') == id){
+                            new_data[i] = id+'-'+top+'px-'+left+'px';
+                        }
+                    }
+                    copadoApp.doUpdate(new_data.toString());
+                },
+                hasOtherOrgConnections: function(orgId){
+                    if(orgId == null || orgId.length==0)return false;
+                    var count = 0;
+                    for (var i=0; i<orgConnections.length; i++){
+                        if(orgConnections[i].fromOrgId == orgId)count++;
+                        if(orgConnections[i].toOrgId == orgId)count++;
+                    }
+                    if(count > 2)return true;
+                    return false;
+                },
+                createOrgsArray: function(orgConnections){
+                    var map = new Object();
+                    orgs = [];
+                    for(var i=0; i<orgConnections.length; i++){
+                        var tmpFrom = [{orgName:orgConnections[i].fromOrgName, orgId:orgConnections[i].fromOrgId, flowStepId:orgConnections[i].flowStepId}];
+                        var tmpTo = [];
+                        if(tmpFrom[0].toOrgId!=null || tmpFrom[0].toOrgId!=''){
+                            tmpTo = [{orgName:orgConnections[i].toOrgName, orgId:orgConnections[i].toOrgId, flowStepId:orgConnections[i].flowStepId}];
+                            map[orgConnections[i].toOrgId] = tmpTo[0];
+                        }
+                        map[orgConnections[i].fromOrgId] = tmpFrom[0];
+                    }
+                    for(var v in map){
+                        orgs.push({orgName: map[v].orgName, orgId:map[v].orgId, flowStepId:map[v].flowStepId});
+                    }
+                    return orgs;
+                },
+                loadPage: function(){
+                    console.log('Loading Page function...');
+                    copadoApp.getFlowStepCoordinates();
+                    copadoApp.getFlowSteps();
+                    copadoApp.drawOrgBoxes();   
+                }
+            }
+        </script>
+        <script id="myMethods" type="text/javascript">
+            copadoApp.loadPage();                   
+            $copado(document).ready(function() {
+                copadoApp.initialiseAutoComplete(null);
+            });         
+        </script>
+    </body>
+    <script>
+        ga('send', 'pageview', {
+          'page': '/DeploymentFlowConnections',
+          'title': 'Deployment Flow Connections'
+        });
+    </script>
+</apex:page>

@@ -55,12 +55,5 @@ IF this is a 1:many, then instead of dot notation, use a pipe &apos;|&apos; afte
         <label><!-- WS_Sequence --></label>
         <name>WS_Sequence__c</name>
     </fields>
-    <layouts>
-        <layout>Form Field Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

@@ -29,6 +29,7 @@
         </feedFilters>
         <fullWidthFeed>false</fullWidthFeed>
         <hideSidebar>true</hideSidebar>
+        <highlightExternalFeedItems>false</highlightExternalFeedItems>
         <rightComponents>
             <componentType>HelpAndToolLinks</componentType>
         </rightComponents>
@@ -81,6 +82,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Subject</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Last_Comment_Date__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -210,6 +215,10 @@
                 <behavior>Edit</behavior>
                 <field>Current_Mobile_Number_INVALID__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Current_Mobile_Number_MOBILE__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -282,6 +291,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>New_Mobile_Number_INVALID__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>New_Mobile_Number_MOBILE__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -559,7 +572,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00hS0000000M8jg</masterLabel>
+        <masterLabel>00h700000029AZe</masterLabel>
         <sizeX>3</sizeX>
         <sizeY>4</sizeY>
         <summaryLayoutItems>

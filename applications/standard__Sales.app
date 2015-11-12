@@ -13,7 +13,5 @@
     <tab>standard-Dashboard</tab>
     <tab>standard-Product2</tab>
     <tab>standard-Forecasting3</tab>
-    <tab>Repossession__c</tab>
-    <tab>Document_Request__c</tab>
-    <tab>TFS_AUP_User_Permission__c</tab>
+    <tab>Form_Validation__c</tab>
 </CustomApplication>

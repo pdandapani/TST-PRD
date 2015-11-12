@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>number</bucketType>
+        <developerName>BucketField_610393</developerName>
+        <masterLabel>Past Due Range</masterLabel>
+        <nullTreatment>z</nullTreatment>
+        <sourceColumnName>Financial_Account__c$Past_Due_Charges__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <to>200</to>
+            </sourceValues>
+            <value>Low</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>200</from>
+                <to>750</to>
+            </sourceValues>
+            <value>Medium</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>750</from>
+            </sourceValues>
+            <value>High</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>Financial_Account__c$Name</field>
+    </columns>
+    <description>Distribution of Financial Accounts Created Prior FQ</description>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>Financial_Account__c$Collection_List_Status_1__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_610393</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Week</dateGranularity>
+        <field>Financial_Account__c$CreatedDate</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Financial_Account__c$Finance_Account_Product_Type__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Distribution of FAs Created Prior FQ</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Financial_Accounts__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <timeFrameFilter>
+        <dateColumn>Financial_Account__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
+</Report>

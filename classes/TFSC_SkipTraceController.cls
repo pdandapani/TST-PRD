@@ -790,10 +790,10 @@ global with sharing class TFSC_SkipTraceController {
             //try {
                 system.debug('%%%'+selectedPassStrategy);
                 if(selectedPassStrategy != null) {
-                    system.debug('%%%'+mapOfArticleNumStringToPassStrat);
-                    system.debug('%%%'+mapOfArticleNumStringToPassStrat.get(selectedPassStrategy));
-                    
-                    Collections_Pass_Strategy__c obj = mapOfArticleNumStringToPassStrat.get(selectedPassStrategy);
+                	system.debug('%%%'+mapOfArticleNumStringToPassStrat);
+                	system.debug('%%%'+mapOfArticleNumStringToPassStrat.get(selectedPassStrategy));
+                	
+                	Collections_Pass_Strategy__c obj = mapOfArticleNumStringToPassStrat.get(selectedPassStrategy);
                     system.debug('%%%'+contextSkipTrace+'%%%'+obj);
                     obj.NotesReviewedTo__c = contextSkipTrace.Notes_Reviewed_Back_To_Date__c;
                     selectedPassStratJsoneResponse = JSON.serialize(obj);

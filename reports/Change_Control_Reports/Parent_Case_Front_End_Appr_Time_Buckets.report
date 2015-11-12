@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>number</bucketType>
+        <developerName>BucketField_66899945</developerName>
+        <masterLabel>Time to Complete Front End Buckets</masterLabel>
+        <nullTreatment>z</nullTreatment>
+        <sourceColumnName>Case.Time_to_Complete_Front_End_Approval__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <to>1</to>
+            </sourceValues>
+            <value>Less than One Day</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>1</from>
+                <to>5</to>
+            </sourceValues>
+            <value>One to Five Days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>5</from>
+                <to>10</to>
+            </sourceValues>
+            <value>Five to Ten Days</value>
+        </values>
+        <values>
+            <sourceValues>
+                <from>10</from>
+            </sourceValues>
+            <value>Greater than Ten Days</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>SUBJECT</field>
+    </columns>
+    <columns>
+        <field>ORIGIN</field>
+    </columns>
+    <columns>
+        <field>STATUS</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>AGE</field>
+    </columns>
+    <columns>
+        <field>Case.Front_End_Approval_Process_Start__c</field>
+    </columns>
+    <columns>
+        <field>Case.Front_End_Approval_Process_End__c</field>
+    </columns>
+    <columns>
+        <field>Case.Time_to_Complete_Front_End_Approval__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <operator>equals</operator>
+            <value>Case.Change_Control</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.Time_to_Complete_Front_End_Approval__c</column>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_66899945</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Parent Case Front End Appr Time Buckets</name>
+    <params>
+        <name>units</name>
+        <value>d</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CaseList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>Case.KM_Implementation_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

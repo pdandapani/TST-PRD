@@ -23,10 +23,6 @@
                 <behavior>Edit</behavior>
                 <field>Body_Style__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>VIN_QR_Code__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

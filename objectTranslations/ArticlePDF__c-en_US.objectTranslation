@@ -242,29 +242,6 @@
             <translation><!-- States and Provinces --></translation>
         </picklistValues>
     </fields>
-    <layouts>
-        <layout>Articles Depot Layout</layout>
-        <sections>
-            <label><!-- Article Details --></label>
-            <section>Article Details</section>
-        </sections>
-        <sections>
-            <label><!-- Article HTML --></label>
-            <section>Article HTML</section>
-        </sections>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Date &amp; Time --></label>
-            <section>Date &amp; Time</section>
-        </sections>
-        <sections>
-            <label><!-- Properties --></label>
-            <section>Properties</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
     <webLinks>
         <label><!-- Copy_Knowledge_Articles_to_Article_Depot --></label>

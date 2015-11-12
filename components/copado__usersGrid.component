@@ -1,0 +1,318 @@
+<apex:component controller="copado.usersStepController">
+    
+    <apex:attribute name="orgId" type="String" description="Organization Id" />
+    <apex:attribute name="dummy2" type="String" description="Organization Id" />
+
+    <div id="loading">
+        <center>
+            <img src="/img/loading.gif" /> <i>{!$Label.LOADING}<span id="retry-label"></span></i>
+        </center>
+    </div>
+
+    <div id="componentContainer" style="display: none;"><apex:pageBlock id="pb_users" mode="edit">
+        <apex:pageBlockSection columns="1">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$Label.copado__FROM_SUFFIX}" for="fromSuffix" />
+                <apex:inputText value="{!dummy2}" id="fromSuffix"
+                    styleClass="fromSuffix" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$Label.copado__TO_SUFFIX}" for="toSuffix" />
+                <apex:inputText value="{!dummy2}" id="toSuffix"
+                    styleClass="toSuffix" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$Label.copado__ACTIVATE_USERS}" for="actives" />
+                <apex:inputCheckbox value="{!dummy2}" id="actives"
+                    styleClass="actives" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="d-useTerritories">
+                <apex:outputLabel value="{!$Label.copado__USER_TERRITORIES}"
+                    for="useTerritories" />
+                <apex:inputCheckbox value="{!dummy2}" id="useTerritories"
+                    styleClass="useTerritories" />
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+
+        <apex:pageblockButtons id="removeCacheContainer">
+            <apex:commandLink value="{!$Label.copado__CACHE_REFRESHED_NOW}"
+                style="display:none;" onclick="return dw.user.removeCached();"
+                rerender="opDummy" id="removeCache" />
+        </apex:pageblockButtons>
+
+        <apex:pageBlockSection columns="1">
+            <div id="jqxgrid"></div>
+        </apex:pageBlockSection>
+    </apex:pageBlock> 
+   
+    <apex:stylesheet value="{!URLFOR($Resource.copado__jqx,'jqwidgets/styles/jqx.base.css')}" /> 
+    <apex:includeScript value="{!URLFOR($Resource.copado__jqx,'jqwidgets/jqx-all.js')}" /></div>
+
+    <script>
+        //helpers 
+        //TODO: remove & unify utilities
+  
+        //namespace
+        var dw = dw || {};
+        dw.user = {
+
+            createCacheDeleteButton : function(date){
+                if(!date){
+                    $copado('[id*=removeCacheContainer]').hide();
+                }else{
+                    var $btn = $copado('[id$=removeCache]');
+                    $btn.html($btn.html().replace('__DATE__',date)).show();
+                }    
+            },
+        
+            removeCached : function(){
+                //hide
+                $copado('#loading').show();   
+                $copado('#jqxgrid').html(''); 
+                this.ui.$main.hide();     
+                //reload
+                init(true);
+            
+                return false;
+            },
+      
+            start: function(data, saved){
+                var me = this;
+          
+                me.ui = {
+                    $main : $copado('#componentContainer'),
+                    $toSuffix: $copado('.toSuffix'),
+                    $fromSuffix: $copado('.fromSuffix'),
+                    $actives: $copado('.actives'),
+                    $useTerritories: $copado('.useTerritories')
+                };
+                
+                
+                //rebuild saved data
+                if(saved){
+                    me.ui.$toSuffix.val(saved.toSuffix);
+                    me.ui.$fromSuffix.val(saved.fromSuffix);
+                    me.ui.$actives.attr('checked',saved.active);
+                    me.ui.$useTerritories.attr('checked',saved.userTerritories);
+                    
+                    //console.log('saved',saved)
+                }
+                me.ui.$useTerritories.closest('tr').hide();
+                me.hasTerritories = false;
+                me.startGrid(data, saved);
+                
+                me.ui.$main.fadeIn();
+          
+            },//end start
+      
+            startGrid : function (data, saved) {
+               
+                //normalize data
+                var me = this,
+                
+                len = data.length;
+
+                while(len--){
+                    data[len].s = data[len].s || false;
+                    data[len].c = data[len].c || '--';
+                    if(data[len].t ){me.hasTerritories = 1;}
+                }
+        
+                var theme = 'base',
+                source = {
+                    localdata: data,
+                    datafields: [
+                        { name: 's', type: 'bool' },
+                        { name: 'u', type: 'string' },
+                        { name: 't', type: 'string' },
+                        { name: 'e', type: 'string' },
+                        { name: 'r', type: 'string' },
+                        { name: 'c', type: 'string' },
+                        { name: 'p', type: 'string' },
+                        { name: 'n', type: 'string' },
+                        { name: 'i', type: 'string' },
+                        { name: 'a', type: 'string' }
+                    ],
+                    datatype: "array",
+                    
+                    updaterow: function (rowid, rowdata, commit) {
+                        commit(true);
+                        data[rowid] = rowdata;
+                    }
+                },
+    
+                //adapter wrapper
+                dataAdapter = new $copado.jqx.dataAdapter(source),
+                
+                //keep jquery pointer for performance query
+                $grid = $copado('<div />');
+                $copado("#jqxgrid").html($grid);
+                
+                rock.datasource = source;
+                
+                try{
+                
+                    var columns = [
+                          {text: '{!SUBSTITUTE($Label.copado__SELECTED,"'","\'")}', columntype: 'checkbox', filtertype: 'bool', datafield: 's', width: 60 },
+                          {text: '{!SUBSTITUTE($Label.copado__NAME,"'","\'")}', filtertype: 'textbox', filtercondition: 'contains' ,editable:false , datafield: 'n'},
+                          {text: '{!SUBSTITUTE($ObjectType.User.Fields.Country.Label,"'","\'")}', datafield: 'c', filtertype: 'checkedlist',editable:false ,  columntype: 'textbox' , width: 70},
+                          {text: '{!SUBSTITUTE($ObjectType.User.Fields.ProfileId.Label,"'","\'")}', datafield: 'p', filtertype: 'checkedlist',editable:false ,  columntype: 'textbox' },
+                          {text: '{!SUBSTITUTE($ObjectType.User.Fields.UserRoleId.Label,"'","\'")}', filtertype: 'textbox', filtercondition: 'contains' ,editable:false , datafield: 'r'},
+                          {text: '{!SUBSTITUTE($ObjectType.User.Fields.Username.Label,"'","\'")}', filtertype: 'textbox', filtercondition: 'contains' ,editable:false , datafield: 'u'},
+                          {text: '{!SUBSTITUTE($ObjectType.User.Fields.IsActive.Label,"'","\'")}', datafield: 'a', filtertype: 'checkedlist',editable:false ,  columntype: 'textbox' }
+                        ];
+                        
+                    if(me.hasTerritories){
+                        columns.push( {text: 'Territory', filtertype: 'textbox', filtercondition: 'contains' ,editable:false , datafield: 't'});
+                        me.ui.$useTerritories.closest('tr').show();
+                        me.ui.$useTerritories.attr('checked',saved ? saved.useTerritories: true);
+                    }
+                    
+                    $grid.jqxGrid({
+                        width: '100%',
+                        source: dataAdapter,
+                        showfilterrow: true,
+                        filterable: true,
+                        theme: theme,
+                        editable: true, 
+                        selectionmode: 'none',
+                        enablebrowserselection: true,
+                        pageable: true,
+                        pagesizeoptions: ['10', '20', '50'],
+                        pagesize: 20,
+                        columnsresize: true,
+                        sortable: true,
+                        localization: localizationobj,
+                        columns: columns
+                    });
+                    
+                    setTimeout(function(){$grid.jqxGrid('refreshData');},500);
+                    
+                }catch(e){
+                   console.error('grid building error',e)
+                }
+                
+                $copado('#loading').hide();    
+                
+                var selectAll = function(sel){
+                    $grid.jqxGrid('beginupdate');
+                    /*for (var i = 0, l = $grid.jqxGrid('getdatainformation').rowscount; i < l; i++) {
+                           var item = $grid.jqxGrid('getrowdata', i),
+                           index = item.dataindex || i;
+                    
+                           rock.datasource.localdata[ index ].s = sel;
+                    }*/
+                    var list = $grid.jqxGrid('getrows');
+                    for(var i in list){
+                        rock.datasource.localdata[ list[i].dataindex || i ].s = sel;
+                    }
+                    $grid.jqxGrid('endupdate');
+                    setTimeout(function(){$grid.jqxGrid('updatebounddata','cells');},222);
+                },
+                    
+                $unselectAll = $copado('<button>{!$Label.copado__UNSELECT_ALL}</button>').
+                    on('click',function(e){
+                        e.preventDefault();
+                        selectAll(false);
+                }),
+                    
+                $selectAll = $copado('<button>{!$Label.copado__SELECT_ALL}</button>').
+                    on('click',function(e){
+                        e.preventDefault();
+                        selectAll(true);
+                    });
+               
+                $copado('.jqx-grid-pager > div')
+                    .prepend($unselectAll)
+                    .prepend($selectAll);
+            },
+         
+            getUserIds: function(){
+            
+               var data = rock.datasource.localdata, 
+               len = data.length,
+               res = [];
+               
+               while(len--){
+                   data[len].s && res.push(data[len].i);
+               }
+               
+               return res;
+            },
+            
+            normalizeSuffix: function(val){
+                return val.replace(' ','').substring(0,10);
+            },
+         
+            isValid: function(){
+                var me = this,
+                            
+                //makes object
+                obj = {
+                   userIds: me.getUserIds(),
+                   fromSuffix: me.normalizeSuffix(me.ui.$fromSuffix.val()),
+                   toSuffix: me.normalizeSuffix(me.ui.$toSuffix.val()),
+                   active: me.ui.$actives.is(':checked'),
+                   userTerritories:me.ui.$useTerritories.is(':checked')
+                };
+                
+                //validation
+                if(!obj.userIds.length){
+                    alert('{!SUBSTITUTE($Label.copado__FIRST_SELECT_A_USER,"'","\'")}');
+                    return false;
+                }
+              
+                return obj;
+            },
+         
+            //get data from dom, makes the json
+            //and save it as an attach
+            saveUsersStep: function(stepId){
+                
+                 var obj = this.isValid();
+            
+                 //save attach
+                 obj && dw.u.upsertAttach(stepId,'Users', JSON.stringify(obj));
+             
+            },
+            mergeSavedMeta : function(res,dataStep){
+                 var len = res.length;
+                 while(len--){
+                     if(dataStep.userIds.indexOf(res[len].i)!==-1){
+                         res[len].s = true;
+                         
+                     }
+                 }
+                 return res;
+            }
+        }; 
+  
+  
+        function init(force){     
+            //start component
+            //console.log('starting')
+            dw.u.getCachedRemote({
+                url:rock.config.users_url,
+                name:'Users',
+                parentId: '{!orgId}',
+                force:force,
+                success:function(res,cachedDate){
+                    
+                    var dataStep = dw.u.getSavedStepData('Users'); 
+                    if(dataStep){
+                        res = dw.user.mergeSavedMeta(res,dataStep);
+                    }
+         
+                    dw.user.createCacheDeleteButton(cachedDate); 
+                    dw.user.start(res,dataStep);
+                    
+                },
+                error:function(e){
+                  //console.log('Error: ',e)
+                }
+            });
+        }
+        
+        init(false);  
+    </script>
+</apex:component>

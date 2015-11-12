@@ -474,28 +474,5 @@
             <translation><!-- Zacatecas --></translation>
         </picklistValues>
     </fields>
-    <layouts>
-        <layout>Tutorial v1.1 Layout</layout>
-        <sections>
-            <label><!-- Escalation Notes --></label>
-            <section>Escalation Notes</section>
-        </sections>
-        <sections>
-            <label><!-- Geography --></label>
-            <section>Geography</section>
-        </sections>
-        <sections>
-            <label><!-- Keywords --></label>
-            <section>Keywords</section>
-        </sections>
-        <sections>
-            <label><!-- Links --></label>
-            <section>Links</section>
-        </sections>
-        <sections>
-            <label><!-- Overview --></label>
-            <section>Overview</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

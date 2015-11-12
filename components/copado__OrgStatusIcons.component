@@ -1,0 +1,9 @@
+<apex:component controller="copado.OrgStatusIconsController">
+	<apex:attribute name="porg" assignTo="{!org}" type="copado__Org__c" description="org to draw"/>
+	<apex:attribute name="pdestination" assignTo="{!destination}" type="copado__Destination_Org__c" description="org to draw"/>
+
+	<img src="{!URLFOR($Resource.Statics,'img/icons/'&iconByStatus['Connection'][Validated_Status])}" title="Connection Status: {!Validated_Status}, Last Try: {!Validated_Date}" class="orgIcon" id="imgValidationStatus" />
+	<img src="{!URLFOR($Resource.Statics,'img/icons/'&iconByStatus['Tests'][Last_Apex_Tests_Status])}" title="Apex Test Status: {!Last_Apex_Tests_Status}, Last Try: {!Last_Apex_Tests_Datetime}" class="orgIcon" id="imgApexTestStatus" />
+	<img src="{!URLFOR($Resource.Statics,'img/icons/'&iconByStatus['Git'][Last_Git_Backup_Status])}" title="Git Backup Status: {!Last_Git_Backup_Status}, Last Try: {!Last_Git_Backup_Datetime}" class="orgIcon" id="imgGitBackupStatus" />
+
+</apex:component>

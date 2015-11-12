@@ -174,6 +174,23 @@ global class TFSC_WS_CreateUpdateDemographics {
                                                 limit 1];       
                             }
                             
+                            
+                           // Check to see if the Email is Valid    
+                        if(financialAccountCustomer.Marketing_Email__c != null)
+                        {
+                          string sEmail = financialAccountCustomer.Marketing_Email__c;
+                          if(checkEmail (sEmail))
+                          {
+                            //Use Email
+                          }
+                          else {
+                          
+                            financialAccountCustomer.Marketing_Email__c = null;
+                          }
+                        }      
+                            
+                            
+                            
                         if(existingFACList.size() == 0)
                             {
                                 System.debug('***** No existing FAC record found .. Adding record to insertFACList *****');
@@ -212,9 +229,9 @@ global class TFSC_WS_CreateUpdateDemographics {
                 }
 
                 if(upsertFAList.size() > 0) {
-                	System.debug('***** Number of FAs before de-dup - ' + upsertFAList.size() + ' *****'); 
-                	upsertFAList = deDuplicateFinancialAccountList(upsertFAList);
-                	System.debug('***** Number of FAs after de-dup - ' + upsertFAList.size() + ' *****');     
+                    System.debug('***** Number of FAs before de-dup - ' + upsertFAList.size() + ' *****'); 
+                    upsertFAList = deDuplicateFinancialAccountList(upsertFAList);
+                    System.debug('***** Number of FAs after de-dup - ' + upsertFAList.size() + ' *****');     
                     upsert upsertFAList Financial_Account_Number__c;
                     System.debug('***** Upserted Financial Accounts Successfully *****');   
                 }   
@@ -310,12 +327,12 @@ global class TFSC_WS_CreateUpdateDemographics {
     {
         Map<String, Collateral__c> collateralMap = new Map<String, Collateral__c>();            
         for(Collateral__c collateral : collateralList)
-        	{
-            	collateralMap.put(collateral.Vehicle_Identification_Number__c, collateral);
+            {
+                collateralMap.put(collateral.Vehicle_Identification_Number__c, collateral);
              }
 
-		List <Collateral__c> uniqueCollateralList = collateralMap.values(); 
-		return uniqueCollateralList;
+        List <Collateral__c> uniqueCollateralList = collateralMap.values(); 
+        return uniqueCollateralList;
     } 
     
     
@@ -323,13 +340,31 @@ global class TFSC_WS_CreateUpdateDemographics {
     {
         Map<String, Financial_Account__c> FAMap = new Map<String, Financial_Account__c>();            
         for(Financial_Account__c FA : FAList)
-        	{
-            	FAMap.put(FA.Financial_Account_Number__c, FA);
+            {
+                FAMap.put(FA.Financial_Account_Number__c, FA);
              }
 
-		List <Financial_Account__c> uniqueFAList = FAMap.values(); 
-		return uniqueFAList;
+        List <Financial_Account__c> uniqueFAList = FAMap.values(); 
+        return uniqueFAList;
     } 
+    
+    
+     public static Boolean  checkEmail(String semail)
+    {
+       String InputString = semail;
+       String emailRegex ='([a-zA-Z0-9_\\-\\.]+)@((\\[a-z]{1,3}\\.[a-z]{1,3}\\.[a-z]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})';
+       Pattern MyPattern = Pattern.compile(emailRegex);
+       Matcher MyMatcher =  MyPattern.matcher(InputString);
+       
+       if(!MyMatcher.matches())
+       {
+         return False;
+       }
+       else
+       {
+        return TRUE;
+       }
+    }// end checkEmail
     
     /*
     public static void testService(Id acctId)

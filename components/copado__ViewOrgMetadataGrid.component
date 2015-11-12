@@ -1,0 +1,72 @@
+<apex:component controller="copado.Settings" >
+    <apex:attribute name="orgId" type="String" description="Organization Id"/>
+    <apex:attribute name="metadataurl" type="String" description="Metadata URL"/>
+
+    <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/statusManager.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/utilsV2.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/Cometd.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/json2.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/jquery.cometd.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/copadoStreamingService.js')}" />
+
+    <!--c:TempJS /-->
+    
+
+    <apex:pageBlock >
+        <apex:pageblockButtons id="removeCacheContainer">
+            <apex:commandLink style="display:none;" value="{!$Label.copado__CACHE_REFRESHED_NOW}"  onclick="return refreshCache();" rerender="opDummy" id="removeCache"/>
+        </apex:pageblockButtons>
+        
+        <div id="jqxgrid"></div>
+    </apex:pageBlock>
+    <script>
+      var loadingHTML = '<center><img src="/img/loading.gif" /><i><span id="retry-label">{!$Label.copado__LOADING}</span></i></center>';
+      $copado('#jqxgrid').html(loadingHTML); 
+    </script>
+      
+    <apex:stylesheet value="{!URLFOR($Resource.copado__jqx,'jqwidgets/styles/jqx.base.css')}" />
+    <apex:includeScript value="{!URLFOR($Resource.copado__jqx,'jqwidgets/jqx-all.js')}" />
+
+    <script>
+          var metadataselector = {
+            orgId: '{!orgId}',
+            metadata_url: '{!metadataurl}&parentId={!orgId}'
+          };
+          
+          $copado( document ).ready(function() {
+              copadoStreamingService.ns = '{!namespace}';
+              copadoStreamingService.init();
+              statusManager.ns = '{!namespace}';
+              statusManager.herokuServer = '{!herokuServer}';
+              statusManager.urlParameters = '{!urlParameters}';
+              statusManager.sessionId = __sfdcSessionId;
+              statusManager.parentId = metadataselector.orgId;
+              statusManager.waitTimeout = 10000;
+              statusManager.initFunction = function(){ init(false); };
+
+              statusManager.successFunction = function(){ init(false); };
+              
+              //new multicallback method
+              /*statusManager.addCallback('MetadataRetriever',function(){
+                  init(false);
+              });*/
+
+              setTimeout(function(){
+                  statusManager.initialise();
+              },2000);
+              var body = document.getElementsByTagName('body')[0];
+              body.addEventListener("beforeunload", function(){
+                  copadoStreamingService.unload();
+              });
+          });
+      </script>
+     
+
+      <apex:outputText rendered="{!$CurrentPage.parameters.dev == ''}">
+      <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/orgMetadata.js')}" />
+      </apex:outputText>
+
+      <apex:outputText rendered="{!$CurrentPage.parameters.dev == '1'}">
+      <apex:includeScript value="https://mavens.local/copado%20dev/resource-bundles/Statics.resource/js/orgMetadata.js" />
+      </apex:outputText>
+</apex:component>

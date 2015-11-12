@@ -1,0 +1,116 @@
+<apex:page standardController="copado__Org__c" extensions="copado.EditOrg,copado.Settings" action="{!validate}" title="View {!$ObjectType.copado__Org__c.Label}" id="thePage">
+    <apex:form id="theForm">
+    <head>
+        <c:GAnalytics />
+        <c:WizardUtils />
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/libs/jquery.min.1.10.2.js')}" />
+        <script> var $copado = jQuery.noConflict(); </script>
+        <script type="text/javascript">
+            var __sfdcSessionId = '{!GETSESSIONID()}';
+        </script>
+        <script src="/soap/ajax/32.0/connection.js"></script>
+        
+        <style>
+            .col1commands {width:50px; }
+            .col2style {width:200px; font-color:inherit; font-weight:bold; font-style:inherit; text-align:right; }
+            .col3style {width:100px; font-color:inherit; font-weight:normal; font-style:inherit; text-align:right; }
+            .lookupHoverDetail{z-index:1000 !important;}
+        </style>
+    </head>
+    <c:ScreenLocker msg="{!$Label.copado__LOADING}" />
+    <apex:outputField value="{!copado__Org__c.copado__Metadata_Types__c}" rendered="false" />
+    <span style="display:none;">{!copado__Org__c.copado__Metadata_Types__c}</span>
+
+    <apex:sectionHeader title="{!$ObjectType.copado__Org__c.Label}" subtitle="{!org.Name}" id="sectionHeader"/>
+        <apex:pageMessages id="theMessages"/>
+        <apex:pageBlock id="pb_createOrg"  mode="view" helpUrl="http://www.copa.do/cms/documentation" helpTitle="{!$Label.copado__HELP_FOR_THIS_PAGE}">
+            <apex:pageblockButtons id="pbb">
+                <apex:commandButton value="{!$Label.site.edit}" action="{!edit}" id="btnEdit"/>
+                <apex:commandButton value="{!$Label.copado__DELETE}" action="{!delete}" id="btnDelete"/>
+                <apex:commandButton value="{!$Label.copado__ADD_OAUTH}" action="{!doOauth}" id="btnOAuth"/>
+                <apex:commandButton value="{!$Label.copado__ADD_USERPASS}" action="{!addUserPass}" rendered="false"/>
+                <apex:commandButton value="{!$Label.copado__RUN_ALL_TESTS}" action="{!runAllTest}" id="btnRunAllTests"/>
+                <apex:commandButton value="Apex Test Results Summary" onclick="window.open('/apex/{!namespace}OrgApexTestResultsSummary?id={!copado__Org__c.Id}');return false;" id="btnApexTestSummary"/>
+            </apex:pageblockButtons>
+            <apex:pageBlockSection columns="2" showHeader="true" title="{!$Label.copado__BASIC_INFORMATION}" id="pbsBasicInfo">
+                <apex:outputField value="{!copado__Org__c.Name}" id="ofName"/>
+                <apex:outputField value="{!copado__Org__c.copado__Environment__c}" id="ofEnvironment"/>
+                <apex:outputField value="{!copado__Org__c.copado__Username__c}" id="ofUserName"/>
+                
+                <apex:pageBlockSectionItem rendered="{!showUserPass}">
+                  <apex:outputLabel value="Password" />
+                  <apex:outputText value="{!dumypass}"/>
+                </apex:pageBlockSectionItem> 
+                
+                <apex:outputText value="{!copado__Org__c.copado__Token__c}" rendered="{!showUserPass}"/>
+                <apex:outputField value="{!copado__Org__c.copado__Org_Type__c}" id="ofOrgType"/>
+                <apex:outputField value="{!copado__Org__c.copado__Custom_Domain__c}" id="ofCustomDomain" rendered="{!copado__Org__c.copado__Org_Type__c = 'Custom Domain'}"/>
+                <apex:outputField value="{!copado__Org__c.copado__SFDC_Org_ID__c}" id="ofSFDCorgId"/>
+                <apex:outputField value="{!copado__Org__c.copado__Validated_Date__c}" id="ofValidatedDate"/>
+                <apex:outputField value="{!copado__Org__c.copado__Test_Frequency__c}" id="ofTestFrequency"/>
+                <apex:outputField value="{!copado__Org__c.CreatedById}" id="ofCreatedBy"/>
+                <apex:outputField value="{!copado__Org__c.copado__Error__c}" rendered="{!if(not(isblank(copado__Org__c.copado__Error__c)),true,false)}" id="ofError"/>
+                
+                <apex:outputField value="{!copado__Org__c.copado__Disable_Validation__c}" rendered="{!showUserPass}" id="ofDisableValidation"/>
+            </apex:pageBlockSection>
+
+
+            <apex:pageBlockSection title="{!$Label.copado__ADVANCED_METADATA_FILTERS}" 
+                    collapsible="true"
+                    showHeader="true"
+                    columns="1"
+                    id="typesSection">
+                    <apex:pageBlockTable id="pbt_FilteredMetadata" value="{!sel}" var="t" >
+                        <apex:column value="{!t}"> <apex:facet name="header">{!$ObjectType.copado__Org__c.fields.copado__Metadata_Types__c.Label}</apex:facet> </apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+                <script> 
+                    function twistSection(twisty, sectionId) {
+                        //twistSection code from salesforce.com
+                        var parentDiv = twisty;
+                        while (parentDiv.tagName != 'DIV') { parentDiv = parentDiv.parentNode; }
+                        var headerId = sectionId || (parentDiv.id.split('_'))[1];
+                        var div = parentDiv.nextSibling;
+                        var elemWasOn = false;
+                        if (div.style.display != 'none')
+                        {
+                        div.style.display = 'none';
+                        twisty.className ='showListButton';
+                        twisty.alt = twisty.title = 'Show Section - '+twisty.name;
+                        elemWasOn = true;
+                        }
+                        else
+                        {
+                        div.style.display = 'block';
+                        twisty.className ='showListButton';
+                        twisty.alt = twisty.title = 'Show Section - '+twisty.name;
+                        elemWasOn = false;
+                        }
+                    } 
+                    //if not is forced to be opened
+                    !location.href.split('_mtf')[1] &&
+                    //close the metadata filtes 
+                    twistSection( $copado('[id$="typesSection"]').find('img')[0]);
+                </script>
+                
+            <apex:outputPanel id="pbs_metadata" rendered="{!not(isblank(copado__Org__c.copado__Username__c))}">
+                   <c:ViewOrgMetadataGrid orgId="{!copado__Org__c.Id}" id="cmpViewOrgMetadataGrid" metadataurl="{!JSENCODE(metadata_url)}" />
+                   <script>
+                    ga('send', 'pageview', {
+                      'page': '/viewOrg',
+                      'title': 'View Org'
+                    });
+                    </script>
+            </apex:outputPanel>
+        </apex:pageBlock>
+        
+        <c:ApexTestResult id="ApexTestResults" orgId="{!copado__Org__c.Id}" attachmentId="{!resAttId}" minCodeCoverage="{!copado__Org__c.copado__Minimum_Apex_Test_Coverage__c}" />
+        <br />
+     </apex:form>
+     
+     <apex:relatedList title="Org Attachments" list="CombinedAttachments" rendered="false" />
+     <apex:relatedList list="Apex_Test_Results__r" id="relatedListApexResults"/>
+     
+     <apex:relatedList list="Git_Org_Commits__r" id="relatedListGitCommits"/>
+<c:CheckFeaturesComponent />
+</apex:page>

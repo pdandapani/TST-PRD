@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Approval Status --></label>
+        <name>agf__Approval_Status__c</name>
+        <picklistValues>
+            <masterLabel>Approved</masterLabel>
+            <translation><!-- Approved --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Submitted</masterLabel>
+            <translation><!-- Not Submitted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending</masterLabel>
+            <translation><!-- Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Link to the Coupa record for this product (for commercial products only). --></help>
+        <label><!-- Coupa Record --></label>
+        <name>agf__Coupa_Record__c</name>
+    </fields>
+    <fields>
+        <label><!-- External ID --></label>
+        <name>agf__External_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Jar Name --></label>
+        <name>agf__Jar_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- License URL --></label>
+        <name>agf__License_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Module --></label>
+        <name>agf__Module__c</name>
+        <picklistValues>
+            <masterLabel>apex-parser</masterLabel>
+            <translation><!-- apex-parser --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>platform</masterLabel>
+            <translation><!-- platform --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>resin</masterLabel>
+            <translation><!-- resin --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>sfdc</masterLabel>
+            <translation><!-- sfdc --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>sfdc-test/func</masterLabel>
+            <translation><!-- sfdc-test/func --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>sfdc-test/unit</masterLabel>
+            <translation><!-- sfdc-test/unit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>shared</masterLabel>
+            <translation><!-- shared --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>shared/endorsed</masterLabel>
+            <translation><!-- shared/endorsed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>udd</masterLabel>
+            <translation><!-- udd --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Describe how this third party software will be used: e.g. Does it stay on our server? Is it part of a client? Is it javascript pushed to a user&apos;s browser? --></help>
+        <label><!-- Use Cases/Notes --></label>
+        <name>agf__Notes__c</name>
+    </fields>
+    <fields>
+        <help><!-- Link to Perforce Path or Direct Download Link --></help>
+        <label><!-- Source Code Path --></label>
+        <name>agf__Perforce_Path__c</name>
+    </fields>
+    <fields>
+        <label><!-- Purpose --></label>
+        <name>agf__Purpose__c</name>
+    </fields>
+    <fields>
+        <label><!-- Scheduled Build --></label>
+        <name>agf__Scheduled_Build__c</name>
+        <relationshipLabel><!-- Third Party Software --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Scrum Team (Owner) --></label>
+        <name>agf__Scrum_Team__c</name>
+        <relationshipLabel><!-- Third Party Software --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Link to product information page. --></help>
+        <label><!-- URL --></label>
+        <name>agf__URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Used By --></label>
+        <name>agf__Used_By__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vendor --></label>
+        <name>agf__Vendor__c</name>
+    </fields>
+    <fields>
+        <label><!-- Version --></label>
+        <name>agf__Version__c</name>
+    </fields>
+</CustomObjectTranslation>

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SamlSsoConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <errorUrl>https://tmcc.force.com/tfs/apex/TFSC_TFS_ErrorPage</errorUrl>
     <identityLocation>SubjectNameId</identityLocation>
     <identityMapping>FederationId</identityMapping>
     <issuer>sf-sfprd-tfs-idp</issuer>
     <loginUrl>https://my.toyotafinancial.com/affwebservices/public/saml2sso</loginUrl>
     <name>TFSC_SSO</name>
-    <oauthTokenEndpoint>https://tfs--Dev7.cs23.my.salesforce.com/services/oauth2/token?so=00D180000001P5o</oauthTokenEndpoint>
+    <oauthTokenEndpoint>https://tfs--Dev4.cs25.my.salesforce.com/services/oauth2/token?so=00D1b000000CnQW</oauthTokenEndpoint>
     <redirectBinding>true</redirectBinding>
-    <salesforceLoginUrl>https://tfs--Dev7.cs23.my.salesforce.com?so=00D180000001P5o</salesforceLoginUrl>
+    <requestSignatureMethod>0</requestSignatureMethod>
+    <salesforceLoginUrl>https://tfs--Dev4.cs25.my.salesforce.com?so=00D1b000000CnQW</salesforceLoginUrl>
     <samlEntityId>https://tmcc.force.com/tfs</samlEntityId>
     <samlVersion>SAML2_0</samlVersion>
     <userProvisioning>true</userProvisioning>

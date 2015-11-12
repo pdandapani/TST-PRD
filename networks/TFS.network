@@ -26,8 +26,8 @@
     <enableReputation>false</enableReputation>
     <forgotPasswordTemplate>unfiled$public/CommunityForgotPasswordEmailTemplate</forgotPasswordTemplate>
     <networkMemberGroups>
-        <profile>Admin</profile>
-        <profile>TMCC Customer Community Login User</profile>
+        <profile>admin</profile>
+        <profile>tmcc customer community login user</profile>
     </networkMemberGroups>
     <picassoSite>TFS1</picassoSite>
     <selfRegistration>false</selfRegistration>

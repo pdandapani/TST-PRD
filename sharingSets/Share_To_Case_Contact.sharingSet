@@ -7,5 +7,5 @@
         <userField>Contact</userField>
     </accessMappings>
     <name>Share To Case Contact</name>
-    <profiles>TMCC Customer Community Login User</profiles>
+    <profiles>tmcc customer community login user</profiles>
 </SharingSet>

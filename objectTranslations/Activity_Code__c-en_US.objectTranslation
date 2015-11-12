@@ -400,28 +400,5 @@
             <translation><!-- TAGT --></translation>
         </picklistValues>
     </fields>
-    <layouts>
-        <layout>Activity Code Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Important for Host --></label>
-            <section>Important for Host</section>
-        </sections>
-        <sections>
-            <label><!-- More SFDC Config --></label>
-            <section>More SFDC Config</section>
-        </sections>
-        <sections>
-            <label><!-- Not Important --></label>
-            <section>Not Important</section>
-        </sections>
-        <sections>
-            <label><!-- Sort Order --></label>
-            <section>Sort Order</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

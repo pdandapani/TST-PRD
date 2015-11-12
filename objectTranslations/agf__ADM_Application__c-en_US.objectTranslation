@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Application Type --></label>
+        <name>agf__Application_Type__c</name>
+        <picklistValues>
+            <masterLabel>Core Salesforce Application</masterLabel>
+            <translation><!-- Core Salesforce Application --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Distributed Customer Facing Application</masterLabel>
+            <translation><!-- Distributed Customer Facing Application --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Documentation</masterLabel>
+            <translation><!-- Documentation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IT</masterLabel>
+            <translation><!-- IT --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Independent R&amp;D</masterLabel>
+            <translation><!-- Independent R&amp;D --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Infrastructure</masterLabel>
+            <translation><!-- Infrastructure --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Internal Monitoring &amp; Management</masterLabel>
+            <translation><!-- Internal Monitoring &amp; Management --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Moratorium</masterLabel>
+            <translation><!-- Moratorium --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Select &quot;Schedule&quot; if this Application object represents an activity that is to appear on the Release schedule (eg, Moratorium or Infrastructure), otherwise select the Application&apos;s life-cycle stage. --></help>
+        <label><!-- Category --></label>
+        <name>agf__Category__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation><!-- Active --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Preproduction</masterLabel>
+            <translation><!-- Preproduction --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Retired</masterLabel>
+            <translation><!-- Retired --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Schedule</masterLabel>
+            <translation><!-- Schedule --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Duplicate Application Name --></label>
+        <name>agf__Duplicate_Application_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Set this checkbox to enable notification emails for eRelease Requests. To avoid duplicate notifications, disable the corresponding eRelease Request notification workflow for this Application. --></help>
+        <label><!-- Enable ERR Notification Emails --></label>
+        <name>agf__Enable_ERR_Notification_Emails__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter the name of the Release Manager with primary responsibility for the releases of products supported by this Application. --></help>
+        <label><!-- Primary Release Manager --></label>
+        <name>agf__Primary_Release_Manager__c</name>
+        <relationshipLabel><!-- Applications (Primary Release Manager) --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Enter the secondary or backup Release Manager for this Application. --></help>
+        <label><!-- Secondary Release Manager --></label>
+        <name>agf__Secondary_Release_Manager__c</name>
+        <relationshipLabel><!-- Applications (Secondary Release Manager) --></relationshipLabel>
+    </fields>
+    <validationRules>
+        <errorMessage><!-- Application Type must be specified. --></errorMessage>
+        <name>agf__Specify_Application_Type</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The Application&apos;s Category must be specified. --></errorMessage>
+        <name>agf__Specify_Category</name>
+    </validationRules>
+</CustomObjectTranslation>

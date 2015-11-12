@@ -44,6 +44,7 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Extensions of snapshot data used to generate unique inputs for document processing in the Adobe Forms Service - used for fields that may be used many times as a child node in a single form generation.</description>

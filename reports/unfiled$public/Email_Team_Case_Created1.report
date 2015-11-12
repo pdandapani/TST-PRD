@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CASE_NUMBER</field>
+    </columns>
+    <columns>
+        <field>field_key</field>
+    </columns>
+    <columns>
+        <field>CASE_OWNER</field>
+    </columns>
+    <columns>
+        <field>CASE_CREATED_DATE</field>
+    </columns>
+    <description>DDC and Service Requests oNly</description>
+    <filter>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <operator>equals</operator>
+            <value>Case.Due_Date_Change_Request,Case.Support_Request</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>field_key</column>
+            <operator>equals</operator>
+            <value>Created.</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Email Team Case Created</name>
+    <params>
+        <name>units</name>
+        <value>h</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CaseAuditHistory</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <sortColumn>CASE_OWNER</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CASE_CREATED_DATEONLY</dateColumn>
+        <endDate>2015-10-16</endDate>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2015-10-10</startDate>
+    </timeFrameFilter>
+</Report>

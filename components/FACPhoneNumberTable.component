@@ -80,7 +80,7 @@
 		        <apex:outputText value="{!fac.Mobile_Phone_No_Call_Reason_Code__c}"/>
 		    </td>
 		    <td>
-		        <apex:image url="{!URLFOR($Resource.TFSCAssets, 'img/mobilePhoneIcon.png')}" />
+		        <apex:image url="{!URLFOR($Resource.TFSCAssets, 'img/mobilePhoneIcon.png')}" rendered="{!fac.Flag_Mobile_Phone_IsMobile__c}" />
 		    </td>
 		</tr>
 		

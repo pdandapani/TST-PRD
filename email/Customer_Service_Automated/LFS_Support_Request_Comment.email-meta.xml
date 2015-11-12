@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>LFS Support Request Comment Notification sent to customer</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>LFS: Support Request Comment</name>
+    <style>none</style>
+    <subject>Lexus Financial Services Comment - Support Request {!Case.CaseNumber}</subject>
+    <textOnly>Dear {!Case.Contact}:
+
+A response to your {!Case.Service_Request_Subject__c} Support Request has been posted to our Support Center. To access the message, please log in www.LexusFinancial.com.
+
+View Message
+
+Please follow these instructions to view your secure message:
+
+Login to www.LexusFinancial.com with your username and password
+Select Support Center Inbox link on the left side of the web page
+Click on Support Request {!Case.CaseNumber} to see the message
+
+
+We value your business and look forward to serving your needs. Thank you for visiting us at www.LexusFinancial.com.
+
+Sincerely,
+Lexus Financial Services Customer Support
+
+
+
+This is a no reply email notification. Replies initiated from this email will neither be delivered nor answered. If you have additional questions, please log in to the Support Center for further assistance.</textOnly>
+    <type>custom</type>
+</EmailTemplate>

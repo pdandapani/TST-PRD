@@ -4,6 +4,7 @@
     <customButtons>Validate</customButtons>
     <customButtons>Generate_Rights_Letter</customButtons>
     <customButtons>Clone</customButtons>
+    <excludeButtons>Clone</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>false</customLabel>

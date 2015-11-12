@@ -1,0 +1,6 @@
+<apex:page showHeader="false" sidebar="false">
+ 
+  
+  <apex:image url="{!URLFOR($Resource.SiteTFS, 'SiteTFS.png')}"/>
+  
+</apex:page>

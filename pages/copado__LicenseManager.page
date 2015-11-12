@@ -1,0 +1,94 @@
+<apex:page showHeader="true" sidebar="false" controller="copado.LicenseManagerController" id="thePage" >
+	<head>
+		<apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/libs/jquery.min.1.10.2.js')}" />
+		<apex:stylesheet value="{!URLFOR($Resource.copado__Statics,'css/wizard.css')}" />
+		<script> var $copado = jQuery.noConflict(); </script>
+	</head>
+
+	<c:ScreenLocker id="screenLocker" msg="{!$Label.copado__LOADING}" />
+
+	<apex:sectionHeader title="Copado" subtitle="{!$Label.copado__LICENSE_MANAGER}" />
+
+	<apex:form id="theForm">
+		<apex:pageMessage severity="INFO" strength="3" title="{!$Label.copado__LICENSE_MANAGER_DEACTIVATED}" summary="{!$Label.copado__LICENSE_MANAGER_INACTIVE_DESCRIPTON}" rendered="{!NOT(enableMultiLicenses)}"/>
+
+		<apex:actionStatus id="status" onstart="lockScreen();" onstop="unlockScreen();" />
+
+		<apex:outputPanel layout="block" styleClass="fixedMsg" id="msg">
+    		<apex:pageMessages id="theMessages" />
+    		<script>
+    			setTimeout(function(){$copado('.fixedMsg').fadeOut('slow');},10000);
+    		</script>
+		</apex:outputPanel>
+		
+
+		<apex:pageBlock id="pbInit" rendered="{!initRun==false}">
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandButton id="btnGetLicenseInfo" value="{!$Label.copado__GET_LICENSE_INFORMATION}" action="{!init}" status="status" reRender="theForm" />
+			</apex:pageBlockButtons>
+			{!$Label.copado__LICENSE_MANAGER_INTRODUCTION}
+		</apex:pageBlock>
+
+		<apex:outputPanel rendered="{!enableMultiLicenses}">
+			<apex:pageBlock id="pbMain" title="" mode="edit" rendered="{!initRun}">
+				<apex:pageBlockSection columns="1">
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel value="{!$Label.copado__COPADO_LICENSES_USED}" />
+						<apex:outputText id="txtCopadoLicenses" value="{!copadoLicensesUsed}/{!copadoLicensesAvailable}" />
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel value="{!$Label.copado__CCM_LICENSES_USED}" />
+						<apex:outputText id="txtCCMlicenses" value="{!CCMLicensesUsed}/{!CCMLicensesAvailable}" />
+					</apex:pageBlockSectionItem>
+				</apex:pageBlockSection>
+
+				<apex:pageBlockSection columns="1" title="{!$Label.copado__ADD_UPDATE_USER}" collapsible="false">
+					<apex:inputField value="{!dummyUser.ManagerId}"/>
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel value="{!$Label.copado__ASSIGN_COPADO_LICENSE}" />
+						<apex:inputCheckbox id="chkAssignCopado" value="{!assignCopado}" />
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem rendered="{!enableMultiLicenses}">
+						<apex:outputLabel value="{!$Label.copado__ASSIGN_CCM_LICENSE}" />
+						<apex:inputCheckbox id="chkAssignCCM" value="{!assignCCM}" />
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel value="" />
+						<apex:commandButton id="btnAddUser" value="{!$Label.copado__ADD_UPDATE_USER}" action="{!addUser}" reRender="theForm" status="status" />
+					</apex:pageBlockSectionItem>
+				</apex:pageBlockSection>
+			</apex:pageBlock>
+			<apex:pageBlock id="pbTables" title="{!$Label.copado__ASSIGNED_USERS}" mode="edit" rendered="{!initRun}">
+				<apex:pageBlockSection title="{!$Label.copado__COPADO_USERS}" columns="1" collapsible="false" id="pbsCopado">
+					<apex:pageBlockTable value="{!copadoUsage}" var="row" id="tblCopadoUsage">
+						<apex:column width="100">
+							<apex:facet name="header">{!$Label.copado__ACTION_COLUMN_HEADER}</apex:facet>
+							<apex:outputPanel >
+								<apex:commandLink id="lnkCopadoRemove" value="{!$Label.copado__REMOVE}" action="{!row.removeAssignment}"  reRender="theForm" status="status" />
+							</apex:outputPanel>
+						</apex:column>
+						<apex:column >
+							<apex:facet name="header">{!$Label.copado__NAME}</apex:facet>
+							<apex:outputText id="txtCopadoUserName" value="{!row.license.SetupOwner.Name}" />
+						</apex:column>
+					</apex:pageBlockTable>
+				</apex:pageBlockSection>
+
+				<apex:pageBlockSection title="{!$Label.copado__CCM_USERS}" columns="1" collapsible="false" id="pbsCCM">
+					<apex:pageBlockTable value="{!ccmUsage}" var="row" id="tblCCMUsage">
+						<apex:column width="100">
+							<apex:facet name="header">{!$Label.copado__ACTION_COLUMN_HEADER}</apex:facet>
+							<apex:outputPanel >
+								<apex:commandLink id="lnkCCMRemove" value="{!$Label.copado__REMOVE}" action="{!row.removeAssignment}" reRender="theForm" status="status" />
+							</apex:outputPanel>
+						</apex:column>
+						<apex:column >
+							<apex:facet name="header">{!$Label.copado__NAME}</apex:facet>
+							<apex:outputText id="txtCCMUserName" value="{!row.license.SetupOwner.Name}" />
+						</apex:column>
+					</apex:pageBlockTable>
+				</apex:pageBlockSection>
+			</apex:pageBlock>
+		</apex:outputPanel>
+	</apex:form>
+</apex:page>

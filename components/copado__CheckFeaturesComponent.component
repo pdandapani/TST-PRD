@@ -1,0 +1,44 @@
+<apex:component controller="copado.CheckFeaturesController" >
+	<div class="fixedSetupMsg" style="display:none;" id="setupMsg">
+    	<apex:pageMessage title="{!$Label.copado__WARNING}" summary="{!$Label.copado__SETUP_PROCESS_NOT_COMPLETED}" detail="{!$Label.copado__SETUP_ACTION_REQUIRED_MSG}" escape="false" severity="warning" strength="3" id="js-msg-SETUP" />
+	</div>
+
+	<script type="text/javascript">
+		try{
+			$copado(function(){
+				var _ns = '{!namespace}';
+				var core = _ns ? window[_ns.split('__')[0]] : window;
+				//call asyn this remote method to improve the performance. 
+				setTimeout(function(){
+					(core).CheckFeaturesController.checkSetup(function(r,e){
+						console.log('setup checked', r);
+						if(!r){
+							var url ='{!URLFOR($Page.CopadoSetup)}',
+							$m = $copado('[id*="js-msg-SETUP"].messageText');
+							$m.html($m.html().replace('__URL__',url));
+							$copado('.fixedSetupMsg').fadeIn('slow');
+						}
+					});
+				},333);
+
+				setTimeout(function(){
+					(core).CheckFeaturesController.checkFeatures(function(){console.log('features checked')});
+				},666);
+			});
+		}catch(e){
+			console.log('mute remote checkFeatures error:',e);
+		}
+
+	</script>
+	
+
+	<style type="text/css">
+		.fixedSetupMsg{
+			position: fixed; 
+			top: 10px;
+			left:30%;
+			z-index:9999;
+		}
+
+	</style>
+</apex:component>

@@ -1471,7 +1471,7 @@ function displayContent() {
    <form style="display:inline;">
      <span class='right-inner-addon'>
       <i class="glyphicon glyphicon-search" style="padding-bottom:2px;"></i>
-      <input id="extSearchInput" size="20" title='Search by entering a word and click enter...' ng-model='extSearch' placeholder='Search all fields' style="width:140px;" /><!--Updated width to shorten the width of Search Fields: by Paras Dhingra for StoryS-310163 -->
+       <input id="extSearchInput" size="20" title='Search by entering a word and click enter...' ng-model='extSearch' placeholder='Search all fields' style="width:140px;" /><!--Updated width to shorten the width of Search Fields: by Paras Dhingra for StoryS-310163 -->
     </span>
 <!--     <button style='display:none;' ng-click='doSearch()' ng-disabled2='!extSearch'>Search</button> -->
    </form>
@@ -1481,7 +1481,7 @@ function displayContent() {
        
    <button class='btn2 btn-primary dropdown-toggle' style='display:none;' id='toggleSearch'>Search </button>
        
-   <input size="12" id="searchNameInput" style='margin-left:10px;width:80px;' placeholder='Search Name'   ng-model='searchName'/><!--Updated width to shorten the width of Search Fields: by Paras Dhingra for StoryS-310163 -->
+    <input size="12" id="searchNameInput" style='margin-left:10px;width:80px;' placeholder='Search Name'   ng-model='searchName'/><!--Updated width to shorten the width of Search Fields: by Paras Dhingra for StoryS-310163 -->
    <button style='margin-left:10px;' class='btn2 btn-success' ng-click='saveCurrentSearch();'  
        ng-disabled='!searchName' id='saveSearch' >
         <span id="saveSearchBtn" class="glyphicon glyphicon-floppy-disk" style="vertical-align:middle"></span>

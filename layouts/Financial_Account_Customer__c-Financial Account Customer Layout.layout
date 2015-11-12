@@ -144,6 +144,10 @@
                 <behavior>Edit</behavior>
                 <field>Flag_Mobile_Phone_Invalid__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Flag_Mobile_Phone_IsMobile__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>

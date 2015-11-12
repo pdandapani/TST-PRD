@@ -50,6 +50,7 @@
         </feedFilters>
         <fullWidthFeed>false</fullWidthFeed>
         <hideSidebar>true</hideSidebar>
+        <highlightExternalFeedItems>false</highlightExternalFeedItems>
         <rightComponents>
             <componentType>HelpAndToolLinks</componentType>
         </rightComponents>
@@ -98,6 +99,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>KM_approval_Count__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Last_Comment_Date__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

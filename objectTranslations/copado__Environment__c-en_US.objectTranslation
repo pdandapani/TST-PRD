@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <help><!-- Set the Minimum Apex Test Coverage here which will be used for Apex Test Results on the Org Credential detail page. --></help>
+        <label><!-- Minimum Apex Test Coverage --></label>
+        <name>copado__Minimum_Apex_Test_Coverage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Org ID --></label>
+        <name>copado__Org_ID__c</name>
+    </fields>
+    <fields>
+        <help><!-- If selected, &quot;Run all tests&quot; will be enforced when deploying to this environment. --></help>
+        <label><!-- Run all tests --></label>
+        <name>copado__Run_all_tests__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>copado__Type__c</name>
+        <picklistValues>
+            <masterLabel>Production/Developer</masterLabel>
+            <translation><!-- Production/Developer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sandbox</masterLabel>
+            <translation><!-- Sandbox --></translation>
+        </picklistValues>
+    </fields>
+</CustomObjectTranslation>

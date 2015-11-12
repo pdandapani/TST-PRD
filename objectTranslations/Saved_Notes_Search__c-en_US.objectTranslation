@@ -34,16 +34,5 @@
         <label><!-- Search Criteria --></label>
         <name>Search_Criteria__c</name>
     </fields>
-    <layouts>
-        <layout>Saved Notes Search Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Search Criteria --></label>
-            <section>Search Criteria</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

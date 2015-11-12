@@ -1,0 +1,439 @@
+<apex:page showHeader="true" sidebar="false" standardController="copado__Deployment__c" extensions="copado.DeploymentExt,copado.Settings" docType="html-5.0" id="thePage">
+    
+    <head>
+        <c:GAnalytics />
+        <!--link href="{!URLFOR($Resource.copadobootstrap, 'bootstrap/css/bootstrap.min.css')}" rel="stylesheet" media="screen"/-->
+        <!--apex:includeScript value="{!URLFOR($Resource.copadobootstrap, 'bootstrap/js/bootstrap.min.js')}"/-->
+
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/libs/jquery.min.1.10.2.js')}" />
+        <!--apex:includeScript value="{!URLFOR($Resource.Statics,'js/libs/jquery.hashchange.min.js')}" /-->
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/libs/jquery.easytabs.min.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/libs/jquery-sortable.0.9.12.min.js')}" />
+        
+        
+        <script> var $copado = jQuery.noConflict(); </script>
+
+        <script type="text/javascript">
+            var __sfdcSessionId = '{!GETSESSIONID()}';
+        </script>
+        <script src="/soap/ajax/32.0/connection.js"></script>
+        <script type="text/javascript">
+            delete Array.prototype.remove;
+        </script>
+
+        <c:WizardUtils />
+        <apex:stylesheet value="{!URLFOR($Resource.copado__jqx,'jqwidgets/styles/jqx.base.css')}" />
+        <apex:includeScript value="{!URLFOR($Resource.copado__jqx,'jqwidgets/jqx-all.js')}" />
+
+
+        <apex:outputText rendered="{!$CurrentPage.parameters.dev == ''}">
+        <!-- todo: move this to external compressed style -->
+        <apex:stylesheet value="{!URLFOR($Resource.copado__Statics,'css/wizard.css')}" />
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/deployment.js')}" />
+        </apex:outputText>
+
+        <apex:outputText rendered="{!$CurrentPage.parameters.dev == '1'}">
+        <!-- todo: move this to external compressed style -->
+        <apex:stylesheet value="https://mavens.local/copado%20dev/resource-bundles/Statics.resource/css/wizard.css" />
+        <apex:includeScript value="https://mavens.local/copado%20dev/resource-bundles/Statics.resource/js/deployment.js" />
+        </apex:outputText>
+
+<script type="text/javascript">
+    
+   
+    
+
+</script>
+
+    </head>
+
+<div id="screenLocker" ><p><img src="/img/loading.gif" />  {!$Label.LOADING}</p></div>
+
+
+
+
+
+<div class="fixedMsg" tyle="display:none;" id="msg">
+    
+</div>
+
+<div style="display:none;">
+    <apex:pageMessage title="{!$Label.copado__WARNING}" summary="__MSG__" severity="warning" strength="3" id="js-msg-WARNING" />
+    <apex:pageMessage title="{!$Label.copado__SUCCESS}" summary="__MSG__" severity="confirm" strength="3" id="js-msg-CONFIRM" />
+    <apex:pageMessage title="{!$Label.copado__ERROR}" summary="__MSG__" severity="error" strength="3" id="js-msg-ERROR" />
+</div>
+
+
+ <apex:outputPanel style="display:none;" id="pJSConfig">
+ <script language="javascript">
+    //TODO: move this to unique object
+    var rock = rock || {};
+    rock.config = {
+        sobjects_url : '{!JSENCODE(sobjects_url)}',
+        metadata_url : '{!JSENCODE(metadata_url)}',
+        testquery_url : '{!JSENCODE(testquery_url)}',
+        users_url : '{!JSENCODE(users_url)}',
+        describe_url : '{!JSENCODE(describe_url)}',
+        cancel_url: '{!JSENCODE(cancel_url)}',
+        custom_settings_url: '{!JSENCODE(custom_settings_url)}',
+        quick_actions_url: '{!JSENCODE(quick_actions_url)}',
+        git_metadata_url: '{!JSENCODE(git_metadata_url)}'
+    };
+    rock.deploymentId = '{!dep.id}';
+    rock.org__c = '{!dep.copado__From_Org__c}'; 
+    rock.selectedNames = [];
+    copadoApp.data.dep = {!DepJson};
+    copadoApp.data.destinations = {!destinationsJson};
+    copadoApp.orgFiltered = {!orgFiltered};
+    copadoApp.fromValid = {!fromValid};
+    console.log('jsconfig , redirectToDeploy', copadoApp.redirectToDeploy)
+    copadoApp.redirectToDeploy && copadoApp.deploy() ;
+    copadoApp.starded && copadoApp.checkDeploymentStage();
+    copadoApp.ns = '{!namespace}';
+
+    //TODO move this to header
+    copadoApp.res = {
+        imgs: {
+            view: "{!URLFOR($Resource.copado__Statics,'img/icons/view.png')}",
+            save: "{!URLFOR($Resource.copado__Statics,'img/icons/save.png')}",
+        }
+    };
+</script>   
+ </apex:outputPanel>
+
+ 
+
+<div id="body">
+    <c:IframeLocker url="/apex/deploymentStatus?id={!dep.Id}" />
+                
+    <apex:sectionHeader id="sectionHeader" title="{!$ObjectType.copado__Deployment__c.Label} {!$Label.copado__EDIT}" subtitle="{!IF(ISBLANK(dep.Name),$Label.copado__NEW+' '+ $ObjectType.copado__Deployment__c.Label ,dep.Name)}" />
+        <!--a href="#" onClick="copadoApp.toggleChatter();" style="float:right;margin-top:-35px;    " >Chatter</a-->
+    
+
+    <apex:outputPanel id="chatter" layout="block">
+        <chatter:feedWithFollowers entityId="{!dep.id}" showHeader="true" />  
+    </apex:outputPanel>
+
+    <div id="form">
+        <apex:form id="theForm">
+
+
+        <div class="row">
+          <apex:panelGrid id="theGrid" columns="2" style="width:100%;" columnClasses="co-info-panel">
+                <apex:pageblock title="Information" id="pbInformation" >
+                        <apex:pageBlockButtons id="pbbInfo" location="top">
+                            <apex:commandButton id="btnDeploymentSave" value="{!$Label.site.save}"  onclick="copadoApp.dirty=false;" action="{!saveDeployment}" rerender="pbInformation,msg,pJSConfig" />
+                            <apex:commandButton id="btnDeploymentCancel" value="{!$Label.site.cancel}" action="{!cancel}" onclick="copadoApp.cancel();return false;"/>
+                             <apex:commandButton id="btnDeploymentDelete" action="{!delete}" value="{!$Label.copado__DELETE}" onclick="return confirm(copadoLabels.ARE_YOU_SURE);"/>
+                            <apex:commandButton id="btnDeploymentClone" action="{!URLFOR($Action.Deployment__c.Clone,dep.Id)}" value="{!$Label.copado__CLONE}" rerender="pbInformation" disabled="{!ISBLANK(dep.Id)}"/>
+                            <apex:commandButton id="btnDeploymentShare" action="{!URLFOR($Action.Deployment__c.Share,dep.Id)}" value="{!$Label.copado__SHARE}" disabled="{!ISBLANK(dep.Id)}"/>
+                        </apex:pageBlockButtons>
+                    <apex:pageBlockSection id="pbs_pbi1" columns="2">
+
+                        <apex:inputField value="{!dep.Name}" required="true" id="ifName"/>
+                        
+                        <apex:outputPanel />
+
+                        <apex:inputField value="{!copado__Deployment__c.copado__Send_Deployment_Complete_email__c}" id="ifSendDeploymentCompleteEmail" />
+
+                        <apex:outputPanel />
+
+                        <apex:inputField value="{!dep.copado__From_Org__c}" required="false" id="ifFrom" >
+                            <apex:actionSupport event="onchange" onsubmit="copadoApp.lock();copadoApp.dirty=false;" action="{!validateFromOrg}" 
+                                    rerender="pFromOrgStatus,pJSConfig,msg,pbInformation"  />
+                        </apex:inputField>
+                        
+                        <apex:outputPanel id="pFromOrgStatus">
+                            <div class="">
+                                <c:OrgStatusIcons id="cmpOrgStatusIconsFromOrg" rendered="{!!ISBLANK(fromOrg)}"
+                                    porg="{!fromOrg}"
+                                />
+                                <script type="text/javascript">copadoApp.unlock();</script>
+                            </div>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel />
+
+                    </apex:pageBlockSection>
+
+                    <apex:pageBlockSection columns="2" id="pbsDestinations">
+                        
+                        <apex:repeat id="rptDestOrgs" var="destination" value="{!destinations}" > 
+
+                            <apex:outputField id="ofToOrg" value="{!destination.copado__To_Org__c}" rendered="{!!ISBLANK(destination.Id)}" styleClass="js-destination"/>
+                            
+                            <apex:outputPanel id="pnlToWrapper" rendered="{!!ISBLANK(destination.Id)}">
+                                <div class="">
+                                    <c:OrgStatusIcons id="cmpOrgStatusIconsToOrg" pdestination="{!destination}" />
+                                    
+                                    <a href="#"  onclick="copadoApp.lock(); deleteDestOrg('{!destination.copado__To_Org__c}')"><span>{!$Label.copado__DELETE}</span></a>
+                                </div>
+                            </apex:outputPanel>
+
+                            <apex:inputField styleClass="js-new-destination" value="{!destination.copado__To_Org__c}" required="false" id="ifTo" rendered="{!ISBLANK(destination.Id) && !ISBLANK(dep.Id)}" >
+                                <apex:actionSupport event="onchange" onsubmit="copadoApp.lock();copadoApp.dirty=false;" action="{!saveDestination}" 
+                                    rerender="pbsDestinations,msg,pJSConfig"  />
+                            </apex:inputField>
+
+                            <apex:outputPanel rendered="{!ISBLANK(destination.Id)}" />
+
+                        </apex:repeat>
+
+
+                        <!--<apex:outputPanel layout="block" rendered="{!ISBLANK(dep.Id)}"><i> </i></apex:outputPanel>
+                        <apex:outputPanel layout="block" rendered="{!ISBLANK(dep.Id)}"><i> </i></apex:outputPanel>-->
+
+
+
+                       
+                        <apex:outputPanel id="pnlAddDestinationOrg" layout="block" rendered="{!!ISBLANK(dep.Id)}">
+                            <a id="lnkAddDestinationOrg" href="javascript:void(0);" onclick="copadoApp.checkOneNewDestination();return false;" ><span>{!$Label.ADD_DESTINATION_ORG}</span></a>   
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="block">
+                        <script type="text/javascript">
+                            copadoApp.mirrorBlockHeight();
+                            copadoApp.unlock();
+                        </script>
+                        </apex:outputPanel>
+
+                        
+
+                        <apex:actionRegion id="actionPbInformation">
+                            <apex:actionFunction action="{!addDestination}" name="addDestination" reRender="pbsDestinations,msg" />
+
+                            <apex:actionFunction action="{!saveDeployment}" name="saveDeployment" rerender="pbInformation,msg,pJSConfig" />
+
+                            
+
+                            <apex:actionFunction action="{!save}" name="save" reRender="pbInformation,msg" />
+                        
+                             <apex:actionFunction action="{!deleteDestOrg}" name="deleteDestOrg" reRender="msg,pbsDestinations">
+                                <apex:param name="selectedToOrg" assignTo="{!selectedToOrg}" value=""/>
+                            </apex:actionFunction>
+                        </apex:actionRegion>
+                        
+                    </apex:pageBlockSection>
+                    <apex:outputPanel id="pnlMsgSaveDeployment" layout="block" rendered="{!ISBLANK(dep.Id)}">
+                            <center><i class="empty-msg">{!$Label.copado__SAVE_DEPLOYMENT_TO_ADD_DESTINATION_ORGS}</i></center>
+                    </apex:outputPanel>
+
+                    <apex:pageBlockSection columns="1" title="{!$Label.copado__OTHER_INFORMATION}" rendered="{!showOtherInformation}">
+                      <apex:repeat value="{!$ObjectType.copado__Deployment__c.FieldSets.copado__CustomFields}" var="f"> 
+                          <apex:inputField value="{!copado__Deployment__c[f]}" required="{!OR(f.required, f.dbrequired)}"/>
+                      </apex:repeat>
+                    </apex:pageBlockSection>
+                        
+
+                    
+                </apex:pageblock>
+                
+                <apex:pageblock title="Status" id="pbStatus" >
+                    <apex:pageBlockButtons id="pbbStatus" location="top">
+                        <apex:commandButton value="{!$Label.copado__DEPLOY}" onclick="copadoApp.deploy();return false;" id="btnDeploy"/>
+                        <apex:commandButton value="{!$Label.copado__CANCEL_DEPLOYMENT}" onclick="copadoApp.cancelDeploy();return false;" id="btnCancelDeploy"/>
+                        <input id="btnViewStatus" type="button" class="btn" style="display:none" value="{!$Label.VIEW_DEPLOYMENT_STATUS}" onclick="openIframeBox()" />
+                    </apex:pageBlockButtons>
+                    
+                    <apex:pageBlockSection id="pbsPbStatus" columns="1">
+                        <apex:outputField id="ofStatus" value="{!dep.copado__Status__c}">
+                            <span class="orgIcon js-status-icon"><apex:outputText value="{!dep.copado__Flag_Status__c}" escape="false"/></span>
+                        </apex:outputField>
+                        <apex:outputField id="ofDate" value="{!dep.copado__Date__c}" />
+                        <apex:outputField id="ofCompleted" value="{!dep.copado__Completed__c}" />
+                        <apex:outputField id="ofPromotion" value="{!dep.copado__Promotion__c}" rendered="{!NOT(ISBLANK(copado__Deployment__c.copado__Promotion__c))}" />
+                        <apex:outputField id="ofBT" value="{!copado__Deployment__c.Build_Task__r.Name}" rendered="{!NOT(ISBLANK(copado__Deployment__c.copado__Build_Task__c))}" />
+                        <apex:outputField id="ofCI" value="{!copado__Deployment__c.Build_Task__r.copado__Continuous_Integration__c}" rendered="{!NOT(ISBLANK(copado__Deployment__c.copado__Build_Task__c))}" />
+                        <apex:outputField id="ofLastModifiedByID" value="{!dep.LastModifiedByID}" />
+                        <apex:outputField id="ofLastModifiedDate" value="{!dep.LastModifiedDate}" />
+                        <!--apex:inputField value="{!dep.Deployment_command_sent__c}" /-->
+                        
+                    </apex:pageBlockSection>
+                </apex:pageblock>
+            </apex:panelGrid>
+        </div>
+
+        </apex:form>
+
+        
+        <div class="row">
+            
+            <apex:pageblock title="Steps" id="pbSteps" >
+            <apex:form id="theForm2">
+                <div>
+                    <a id="js-action-AddStep" class="iconAction" href="javascript:void(0);">{!$Label.ADD_STEP}</a>
+                </div>
+
+                
+                <!--- STEP TABLE -->
+                <table class="list js-stepList" id="tSteps" style="margin-top:20px;" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <thead class="">
+                        <tr class="headerRow">
+                            <th class="headerRow" scope="col" colspan="1" >
+                                <div >{!$Label.ACTION_COLUMN_HEADER}</div>
+                            </th>
+                            <th class="headerRow" scope="col" colspan="1" >
+                                <div >{!$ObjectType.Step__c.fields.Name.Label}</div></th>
+                            <th class="headerRow" scope="col" colspan="1" >
+                                <div >{!$ObjectType.Step__c.fields.Type__c.Label}</div>
+                            </th>
+                            <th class="headerRow" scope="col" colspan="1" >
+                                <div >{!$ObjectType.Step__c.fields.CheckOnly__c.Label}</div>
+                            </th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody id="tSteps-tb">
+                        <tr class="dataRow js-row" style="display:none;">
+                            <td class="dataCell" colspan="1">
+                                <div class="js-col-actions">
+                                    <img id="imgDrag" class="orgIcon iconDrag" src="{!URLFOR($Resource.Statics,'img/icons/updown.png')}" title="{!$Label.DRAG_TO_REORDER_STEP}" />
+                                    <img id="imgView" class="orgIcon iconAction js-action-selectStep" title="{!$Label.CLICK_FOR_STEP_DETAILS}" src="{!URLFOR($Resource.Statics,'img/icons/view.png')}"/>
+                                    <img id="imgDelete" class="orgIcon iconAction" onclick="copadoApp.deleteStep( $copado(this))" src="{!URLFOR($Resource.Statics,'img/icons/remove.png')}" title="{!$Label.CLICK_TO_REMOVE_STEP}"/>
+                                </div>
+                            </td>
+                            <td class="dataCell  js-col-name" colspan="1">
+                                <input style="display:none" class="js-step-name"  maxlength="80" size="20" type="text" value="Step 1" />
+                                <span class="js-step-name">Step 1</span>
+                            </td>
+                            <td class="dataCell  js-col-type" colspan="1">
+                                <select class="js-step-type" data-stepid="" >
+                                    <option value="0" selected="selected">{!$Label.NONE_SELECTED}</option>
+                                    <option value="MetaData" >{!$Label.STEP_TYPE_METADATA}</option>
+                                    <option value="Full Profiles">{!$Label.STEP_TYPE_FULL_PROFILES}</option>
+                                    <option value="Full Permission Sets">{!$Label.STEP_TYPE_FULL_PERMISSION_SETS}</option>
+                                    <option value="Users">{!$Label.STEP_TYPE_USERS}</option>
+                                    <option value="Translations">{!$Label.STEP_TYPE_TRANSLATIONS}</option>
+                                    <option value="Data">{!$Label.STEP_TYPE_DATA}</option>
+                                    <option value="Bulk Data">{!$Label.STEP_TYPE_BULK_DATA}</option>
+                                    <option value="Delete MetaData">{!$Label.STEP_TYPE_DELETE_METADATA}</option>
+                                    <option value="Custom Settings">{!$Label.copado__STEP_TYPE_CUSTOM_SETTINGS}</option>
+                                    <option value="Apex">{!$Label.STEP_TYPE_APEX}</option>
+                                    <option value="Manual Task">{!$Label.STEP_TYPE_MANUAL_TASK}</option>
+                                    <option value="Git MetaData">{!$Label.STEP_TYPE_GIT_METADATA}</option>
+                                    <option value="Quick Actions">{!$Label.copado__STEP_TYPE_QUICK_ACTIONS}</option>
+
+                                    
+                                </select>
+                            </td>
+                            <td class="dataCell  js-col-check" colspan="1">
+                                <input class="js-step-check" type="checkbox" value="1" disabled="disabled" />
+                            </td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+                <!--- END STEP TABLE -->
+
+                
+            
+            
+        </apex:form>
+        <div class="row" >
+            <!--apex:pageblock title="Step Detail: " id="pbStepDetail" -->
+                <div id="tab-container" class="tab-container">
+                  <ul class='etabs'>
+                    <li class='tab'><a href="#stepDetail" id="tab-stepDetail">Details</a></li>
+                    <li class='tab'><a href="#stepResult" id="tab-stepResult">Result</a></li>
+                  </ul>
+                  <div class="panel-container"> 
+                      <div id="stepDetail">
+                        <apex:form id="theForm3">
+                             <c:StepEdition />
+                        </apex:form>
+                           
+                      </div>
+                      <div id="stepResult">
+                        <center><i class="empty-msg">{!$Label.CLICK_DEPLOYMENT_JOB_TO_VIEW_RESULTS}</i></center>
+                      </div>
+                    </div>  
+                </div>
+
+            <!--/apex:pageblock-->
+        </div>
+        
+        </apex:pageblock>
+        </div>
+        
+
+        <div class="row">
+            <apex:relatedList title="{!$Label.copado__DEPLOYMENT_HISTORY}" list="CombinedAttachments" />
+            <!--apex:pageblock title="Deployment History" id="pbHistory" >
+                
+
+            </apex:pageblock-->
+        </div>
+    </div>
+
+</div>
+
+    
+
+    <!--apex:detail  subject="{!dep.Id}" relatedList="false" title="false" /-->
+    
+    
+    <script type="text/javascript">
+        ga('send', 'event', 'Deployment', 'view','loading');
+        copadoApp.start({!DepJson},{!stepsJson});
+        ga('send', 'event', 'Deployment', 'view','loaded');
+    </script>
+
+    <apex:outputPanel id="msg"> 
+    <script type="text/javascript">
+    $copado(function(){
+        try{
+            var apexMessagesQueue = {!jsonMessagesQueue};
+            copadoApp&&copadoApp.consumeApexMessageQueue(apexMessagesQueue);
+            console.log('msg rerender from apex', apexMessagesQueue);
+            
+            if(copadoApp.data.dep){
+                if(copadoApp.data.dep[copadoApp.ns+'Status__c']!='' && copadoApp.data.dep[copadoApp.ns+'Status__c']!='Draft'){
+                    $copado('#btnViewStatus').show();
+                }
+                else{
+                    $copado('#btnViewStatus').hide();
+                }
+            }
+        }catch(e){console.error(e)}
+    });
+    </script>
+    <!-- preload and catch -->
+    <img src="{!URLFOR($Resource.Statics,'img/icons/view.png')}" style="display:none;" />
+    <img src="{!URLFOR($Resource.Statics,'img/icons/save.png')}" style="display:none;" />
+    <img src="{!URLFOR($Resource.Statics,'img/icons/remove.png')}" style="display:none;" />
+    <img src="{!URLFOR($Resource.Statics,'img/icons/updown.png')}" style="display:none;" />
+</apex:outputPanel> 
+
+<apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/Cometd.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/json2.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/jquery.cometd.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/copadoStreamingService.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/statusManager.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/utilsV2.js')}"/>
+    
+<!--c:ScreenLocker msg="{!$Label.LOADING}" /-->    
+
+<script type="text/javascript">
+    
+copadoApp.startStatusManager = function(cb){
+
+    if(copadoApp._statusManagerStarted)return;
+
+    copadoApp._statusManagerStarted = true;
+    copadoStreamingService.ns = '{!namespace}';
+    copadoStreamingService.init();
+    statusManager.ns = '{!namespace}';
+    statusManager.herokuServer = '{!herokuServer}';
+    statusManager.urlParameters = '{!urlParameters}';
+    statusManager.sessionId = __sfdcSessionId;
+   
+};
+</script>
+
+<c:CheckFeaturesComponent />
+    <script>
+        document.getElementById('copadoIframe').addEventListener('unload', function(){
+                    console.log('unloading iframe');
+                });
+    </script>
+</apex:page>

@@ -1,0 +1,273 @@
+<apex:page id="workTabPanelPage" standardController="agf__ADM_Work__c" extensions="agf.ADM_WorkTabPanelExtension">
+<apex:include pageName="agf__ADM_common_css"/>
+<script>
+
+<!-- this overides salesforce JS which forces focus on load as described here: https://developer.salesforce.com/forums/ForumsMain?id=906F0000000958cIAA -->
+function setFocusOnLoad() {}
+
+function togglePanelStack(){
+	if ($('.workOptionsSelector').hasClass('workOptionsStacked')) {
+		$('.workOptionsSelector').removeClass('workOptionsStacked');
+        ADM_WorkTabPanelExtension.setTabPanelViewPreference(false, function(result, event) { if (!event.status) { console.log('Error while saving tab panel view preference: ' + event.message) } });
+	} else {
+		$('.workOptionsSelector').addClass('workOptionsStacked');
+        ADM_WorkTabPanelExtension.setTabPanelViewPreference(true, function(result, event) { if (!event.status) { console.log('Error while saving tab panel view preference: ' + event.message) } });
+	}
+}
+</script>
+	<!-- Add in some Javascript to add a check-in questions link to the Chatter tab -->
+	<script>
+	$(document).ready(function() {
+
+		var title = '';
+		if({!agf__ADM_Work__c.RecordType.Name != 'Investigation'}){
+			title = '<span class="publisherattachtext publisherattachtextLongVersion">Check-In Questions</span>';
+		}
+	    else{
+			title = '<span class="publisherattachtext publisherattachtextLongVersion">Investigation Questions</span>'
+	    }
+		var insertedCode = '<li class="publisherFeedItemTypeChoice" label="CheckInPost"><a href="javascript:void(0);" title="Post" ' +
+			'class="publisherattach publisherattachTextPost"><img src="/s.gif" alt="" class="publishericon " title="" style="background-position: 0 -1042px;" />' + title +
+			'<span class="publisherattachtext publisherattachtextShortVersion" style="display:none;">Check-In ?\'s</span>' +
+			'<span class="pArrow"></span></a></li>';
+
+		$('ul.publisherFeedItemTypeChoices > li:first-child').after(insertedCode);
+		
+		$('ul.publisherFeedItemTypeChoices > li[label=ContentPost] a,ul.publisherFeedItemTypeChoices > li[label=LinkPost] a,ul.publisherFeedItemTypeChoices > li[label=PollPost] a').click(function() {
+			$('#publishereditablearea').css('height','48px');
+  		});
+  		
+		$('ul.publisherFeedItemTypeChoices > li[label=TextPost] a').click(function() {
+			$('#publishereditablearea');
+			$(this).closest('ul').find('a').removeClass('withArrowAttached');
+			$(this).addClass('withArrowAttached');
+			$('#publishereditablearea').css('height','48px');
+  		});
+  		
+  		$('ul.publisherFeedItemTypeChoices > li[label=CheckInPost] a').click(function() {
+			$('#publisherAttachTextPost').click();
+			$('#publishereditablearea').css('height','224px');
+			if({!agf__ADM_Work__c.RecordType.Name == 'Investigation'}){
+				addInvestigationQuestions('publishereditablearea');
+			}
+			else{
+				addCheckinQuestions('publishereditablearea', {Scheduled_Build__c: '{!NULLVALUE(ADM_Work__c.Scheduled_Build__r.Name, '')}' });
+			}
+			
+			$(this).closest('ul').find('a').removeClass('withArrowAttached');
+			$(this).addClass('withArrowAttached');
+			$('#publishereditablearea').focus();
+  		});
+	});
+	</script>
+
+    <div class="gusTabs workOptionsSelector {!IF(tabPanelViewPreference,'workOptionsStacked','')}" data-tabsetid="work-{!agf__ADM_Work__c.Id}">
+        <div class="workOptionsStyle" onClick="togglePanelStack();">
+	    	<div class="workOptionsStyleButton">
+		    	<div class="buttonPiece1"></div>
+		    	<div class="buttonPiece2"></div>
+		    	<div class="buttonPiece3"></div>
+	    	</div>
+    	</div>
+    	<ul class="workOptionsLeft">
+			<li data-tab="chatter" class="tabChatter"><div class="bgline"></div>Chatter</li>
+			<apex:outputPanel layout="none" rendered="{!oldCommentsTab}">
+            <li data-tab="comments" class="tabComments"><div class="bgline"></div>Comments</li>
+			</apex:outputPanel> 
+			<apex:outputPanel layout="none" rendered="{!agf__ADM_Work__c.RecordType.Name != 'Investigation'}">           
+            	<li data-tab="themes" class="tabThemes"><div class="bgline"></div><apex:outputPanel layout="block" rendered="{!relatedListRecordCount['themes'] != 0}" styleClass="count">{!relatedListRecordCount['themes']}</apex:outputPanel>Themes</li>
+            </apex:outputPanel>
+			<li data-tab="attachments" class="tabAttachments"><div class="bgline"></div><apex:outputPanel layout="block" rendered="{!relatedListRecordCount['attachments'] != 0}" styleClass="count">{!relatedListRecordCount['attachments']}</apex:outputPanel>Attachments</li>
+			<apex:outputPanel layout="none" rendered="{!agf__ADM_Work__c.RecordType.Name == 'Investigation'}">
+				<li data-tab="exceptionRequests" class="tabExceptionRequests"><div class="bgline"></div><apex:outputPanel layout="block" rendered="{!relatedListRecordCount['exceptionRequests'] != 0}" styleClass="count">{!relatedListRecordCount['exceptionRequests']}</apex:outputPanel>Exception Requests</li>
+			</apex:outputPanel>
+			<apex:outputPanel layout="none" rendered="{!agf__ADM_Work__c.RecordType.Name != 'Investigation'}">
+				<li data-tab="tasks" class="tabTasks"><div class="bgline"></div><apex:outputPanel layout="block" rendered="{!relatedListRecordCount['tasks'] != 0}" styleClass="count">{!relatedListRecordCount['tasks']}</apex:outputPanel>Tasks</li>
+			</apex:outputPanel>
+			<apex:outputPanel layout="none" rendered="{!agf__ADM_Work__c.RecordType.Name != 'Investigation'}">
+				<li data-tab="changeLists" class="tabChangeLists"><div class="bgline"></div><apex:outputPanel layout="block" rendered="{!relatedListRecordCount['workChangeLists'] != 0}" styleClass="count">{!relatedListRecordCount['workChangeLists']}</apex:outputPanel>Change Lists</li>
+			</apex:outputPanel>
+			<apex:outputPanel layout="none" rendered="{!NOT(packagedOrg) && agf__ADM_Work__c.RecordType.Name != 'Investigation'}">
+				<li data-tab="releaseStamps" class="tabReleaseStamps"><div class="bgline"></div><apex:outputPanel layout="block" rendered="{!relatedListRecordCount['workReleasedIn'] != 0}" styleClass="count">{!relatedListRecordCount['workReleasedIn']}</apex:outputPanel>Release Stamps</li>
+			</apex:outputPanel>
+			<apex:outputPanel layout="none" rendered="{!NOT(packagedOrg) && agf__ADM_Work__c.RecordType.Name != 'Investigation'}">
+				<li data-tab="eReleases" class="tabEreleases"><div class="bgline"></div><apex:outputPanel layout="block" rendered="{!relatedListRecordCount['eRelease_Requests'] != 0}" styleClass="count">{!relatedListRecordCount['eRelease_Requests']}</apex:outputPanel>eRelease Requests</li>
+			</apex:outputPanel>
+			<apex:outputPanel layout="none" rendered="{!agf__ADM_Work__c.RecordType.Name == 'User Story' || agf__ADM_Work__c.RecordType.Name == 'Bug'}">
+				<li data-tab="acceptanceCriteria" class="tabAcceptanceCriteria"><div class="bgline"></div><apex:outputPanel layout="block" rendered="{!relatedListRecordCount['acceptanceCriterion'] != 0}" styleClass="count">{!relatedListRecordCount['acceptanceCriterion']}</apex:outputPanel>Acceptance Criteria</li>
+			</apex:outputPanel>
+            <li data-tab="related" class="tabRelated"><div class="bgline"></div>
+
+            <apex:outputPanel layout="block" rendered="{!relatedListRecordCount['related'] != 0 && hasGrandChildren == true}" styleClass="count">{!relatedListRecordCount['related']}+</apex:outputPanel>
+
+            <apex:outputPanel layout="block" rendered="{!relatedListRecordCount['related'] != 0 && hasGrandChildren == false}" styleClass="count">{!relatedListRecordCount['related']}</apex:outputPanel>
+
+            Related</li>
+            <apex:outputPanel layout="none" rendered="{!agf__ADM_Work__c.RecordType.Name != 'Investigation'}">
+				<li data-tab="teamDependencies" class="tabTeamDependencies"><div class="bgline"></div><apex:outputPanel layout="block" rendered="{!relatedListRecordCount['teamDependencies'] != 0}" styleClass="count">{!relatedListRecordCount['teamDependencies']}</apex:outputPanel>Team Dependencies</li>
+			</apex:outputPanel>
+			<apex:outputPanel layout="none">
+				<li data-tab="62orgCases" class="tab62OrgCases"><div class="bgline"></div><apex:outputPanel layout="block" rendered="{!relatedListRecordCount['workAllCases'] != 0}" styleClass="count">{!relatedListRecordCount['workAllCases']}</apex:outputPanel>Cases</li>
+			</apex:outputPanel>
+    	</ul>
+    	<div class="workOptionsRight">
+			<div id="tab-chatter" class="gusTabPanelActive gusFieldset">
+				<div class="gusLegend">Chatter</div>
+				<topics:widget entity="{!agf__ADM_Work__c.Id}" />
+				<div id="tab-chatter-holder">
+					<div id="tab-chatter-column1"><chatter:feed entityId="{!agf__ADM_Work__c.Id}"/></div>
+					<div id="tab-chatter-column2"><c:ADM_ChatterFollowers entityId="{!agf__ADM_Work__c.Id}" /></div>
+				</div>
+			</div>
+
+			<apex:outputPanel layout="none" rendered="{!oldCommentsTab}">
+			<div id="tab-comments" class="gusTabPanelInactive gusFieldset">
+				<div class="gusLegend">Comments</div>
+                <div class="marginReducer">
+                	<apex:form >
+						<c:ADM_WorkComments workObject="{!agf__ADM_Work__c}" />
+                	</apex:form>
+                </div>
+			</div>
+			</apex:outputPanel>
+            <apex:outputPanel layout="none" rendered="{!agf__ADM_Work__c.RecordType.Name != 'Investigation'}">
+	            <div id="tab-themes" class="gusTabPanelInactive gusFieldset">
+	                <div class="gusLegend">Themes</div>
+	                <c:ADM_ThemeInput id="themeInput" workId="{!agf__ADM_Work__c.Id}" />
+	            </div>
+            </apex:outputPanel>
+
+			<div id="tab-attachments" class="gusTabPanelInactive gusFieldset">
+				<div class="gusLegend">Attachments</div>
+                <div class="marginReducer">
+				    <apex:relatedList list="NotesAndAttachments" pageSize="30" />
+                </div>
+			</div>
+
+			<apex:outputPanel layout="none" rendered="{!agf__ADM_Work__c.RecordType.Name == 'Investigation'}">
+				<div id="tab-exceptionRequests" class="gusTabPanelInactive gusFieldset">
+					<div class="gusLegend">Exception Requests</div>
+	                <div class="marginReducer">
+					    <apex:relatedList list="Investigation_Exceptions__r" pageSize="30" />
+	                </div>
+				</div>
+			</apex:outputPanel>
+
+			<apex:outputPanel layout="none" rendered="{!agf__ADM_Work__c.RecordType.Name != 'Investigation'}">
+				<div id="tab-tasks" class="gusTabPanelInactive gusFieldset">
+					<div class="gusLegend">Tasks</div>
+	                <div class="marginReducer" style="overflow:visible;">
+	                	<div style="background:#85C8DD;text-align:center;padding:5px;"><input type="button" class="btn" value="New Task" onClick="newTaskAction();" /></div>
+					    <c:ADM_Tasks object="{!agf__ADM_Work__c}" />
+	                </div>
+				</div>
+			</apex:outputPanel>
+
+            
+            <apex:outputPanel layout="none" rendered="{!agf__ADM_Work__c.RecordType.Name != 'Investigation'}">
+				<div id="tab-changeLists" class="gusTabPanelInactive gusFieldset">
+					<div class="gusLegend">Change Lists</div>
+	                <div class="marginReducer">
+					    <apex:relatedList list="WorkChangeLists__r" pageSize="30" />
+	                </div>
+				</div>
+			</apex:outputPanel>
+
+
+            <apex:outputPanel layout="none" rendered="{!agf__ADM_Work__c.RecordType.Name != 'Investigation'}">
+				<div id="tab-releaseStamps" class="gusTabPanelInactive gusFieldset">
+					<div class="gusLegend">Release Stamps</div>
+	                <div class="marginReducer">
+					    <apex:relatedList list="WorkReleasedIn__r" pageSize="30" />
+	                </div>
+				</div>
+			</apex:outputPanel>
+
+
+			<apex:outputPanel layout="none" rendered="{!agf__ADM_Work__c.RecordType.Name != 'Investigation'}">
+				<div id="tab-eReleases" class="gusTabPanelInactive gusFieldset">
+					<div class="gusLegend">eRelease Requests</div>
+	                <div class="marginReducer">
+					    <apex:relatedList list="eRelease_Requests__r" pageSize="30" />
+	                </div>
+				</div>
+			</apex:outputPanel>
+
+			<apex:outputPanel layout="none" rendered="{!agf__ADM_Work__c.RecordType.Name == 'User Story' || agf__ADM_Work__c.RecordType.Name == 'Bug'}">
+			<div id="tab-acceptanceCriteria" class="gusTabPanelInactive gusFieldset">
+				<div class="gusLegend">Acceptance Criteria</div>
+                <div class="marginReducer">
+					<apex:relatedList list="Acceptance_Criteria__r" pageSize="30" />
+                </div>
+			</div>
+			</apex:outputPanel>
+
+            <div id="tab-related" class="gusTabPanelInactive gusFieldset">
+                <apex:form id="workTabPanelRelatedForm">
+                    <script type="text/javascript">
+                      var relatedListWithOpenLookupID = '';
+                      
+                      //called by ADM_ParentWorkRelatedList and ADM_WorkTree to set the input
+                      function registerLookup(relatedListID) {
+                            relatedListWithOpenLookupID = relatedListID;
+                      }
+                      
+                      //called by the ADM_Overlay component when an item is selected
+                      function setLookupWorkID(workID) {
+                            $(document.getElementById(relatedListWithOpenLookupID)).val(workID);
+                      }
+                    </script>
+                    <c:ADM_Overlay id="workLookup" />   
+                    
+					<div class="gusLegend">Parent Records</div>
+                    <div class="marginReducer">
+                    	<c:ADM_ParentWorkRelatedList id="parentWorkRelatedList" aworkID="{!agf__ADM_Work__c.Id}" />
+                    </div>
+
+
+					<div style="display:block;position:relative;margin-top:60px;">
+						<div class="gusLegend" style="margin-left:-7px;">Child Records</div>
+	                    <div class="marginReducer" style="border-top-right-radius:0px;">
+		                    <c:ADM_WorkTree id="childWorkRelatedList" aworkID="{!agf__ADM_Work__c.Id}" />
+	                    </div>
+					</div>
+                </apex:form>
+            </div>
+        
+        <apex:outputPanel layout="none" rendered="{!agf__ADM_Work__c.RecordType.Name != 'Investigation'}">
+        <div id="tab-teamDependencies" class="gusTabPanelInactive gusFieldset">
+					<div class="gusLegend">Dependencies on this work</div>
+                    <div class="marginReducer">
+                    	<apex:relatedList list="Team_Dependencies_On_Story__r" pageSize="30" />
+                    </div>
+
+
+					<div style="display:block;position:relative;margin-top:60px;">
+						<div class="gusLegend" style="margin-left:-7px;">Dependencies needed for this work</div>
+	                    <div class="marginReducer" style="border-top-right-radius:0px;">
+		                    <apex:relatedList list="Team_Dependencies_For_Story__r" pageSize="30" />
+	                    </div>
+					</div>
+            </div>
+        </apex:outputPanel>
+        <apex:outputPanel layout="none">
+			<div id="tab-62orgCases" class="gusTabPanelInactive gusFieldset">
+				<div class="gusLegend">Cases</div>
+                <div class="marginReducer">
+				    <c:ADM_CaseRelatedList id="caseRelatedList" aworkID="{!agf__ADM_Work__c.Id}" aworkName="{!agf__ADM_Work__c.Name}" />
+                </div>
+                
+                <apex:outputPanel rendered="{!NOT(packagedOrg)}">
+                    <div style="display:block;position:relative;margin-top:60px;">
+                        <div class="gusLegend" style="margin-left:-7px;">62 Org Cases</div>
+                        <div class="marginReducer" style="border-top-right-radius:0px;">
+                            <apex:relatedList list="Work62OrgCases__r" pageSize="30" />
+                        </div>
+                    </div>
+                </apex:outputPanel>
+                
+			</div>
+        </apex:outputPanel>
+		</div>
+    </div>
+</apex:page>

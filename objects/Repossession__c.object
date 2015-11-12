@@ -44,6 +44,7 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Extension of Case object to initially support Rights Letters, but can be extended to other repossession-related processes.</description>
@@ -3559,7 +3560,7 @@ BU: RL
 FD: The zip code of the repossession agency as provided by iRepo.</description>
         <externalId>false</externalId>
         <label>Repo Agency Zip</label>
-        <length>5</length>
+        <length>10</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
@@ -3773,26 +3774,26 @@ CASE(MOD(DATE(YEAR(TODAY()),11,1) - DATE(1900,1,7),7),
 ) 
 ) || 
 Financial_Account__r.LastModifiedBy.FirstName &amp; Financial_Account__r.LastModifiedBy.LastName &lt;&gt; &quot;ETLUser&quot;, 
-IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002E3dT&amp;oid=00D180000001P5o&quot;, &quot;Verify Host Data&quot;) &amp; &quot; &quot;, &quot;&quot;) 
+IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002E3dT&amp;oid=00D1b000000CnQW&quot;, &quot;Verify Host Data&quot;) &amp; &quot; &quot;, &quot;&quot;) 
 
 &amp; 
 
-IF(Financial_Account__r.Collection_List_Number_1__c = &quot;1074&quot; || Financial_Account__r.Collection_List_Number_1__c = &quot;1075&quot; || Financial_Account__r.Collection_List_Number_1__c = &quot;1076&quot; || Financial_Account__r.Collection_List_Number_1__c = &quot;1077&quot;, IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002E3dQ&amp;oid=00D180000001P5o&quot;, &quot;Fraud&quot;) &amp; &quot; &quot;, &quot;&quot;) 
+IF(Financial_Account__r.Collection_List_Number_1__c = &quot;1074&quot; || Financial_Account__r.Collection_List_Number_1__c = &quot;1075&quot; || Financial_Account__r.Collection_List_Number_1__c = &quot;1076&quot; || Financial_Account__r.Collection_List_Number_1__c = &quot;1077&quot;, IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002E3dQ&amp;oid=00D1b000000CnQW&quot;, &quot;Fraud&quot;) &amp; &quot; &quot;, &quot;&quot;) 
 
 &amp; 
 
-IF(Financial_Account__r.Bankruptcy_Flag__c = &quot;A&quot; || Financial_Account__r.Bankruptcy_Flag__c = &quot;B&quot; || Financial_Account__r.Bankruptcy_Flag__c = &quot;C&quot; || Financial_Account__r.Bankruptcy_Flag__c = &quot;D&quot; || Financial_Account__r.Bankruptcy_Flag__c = &quot;T&quot;, IF(Voluntary_Surrender__c, IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002E3dN&amp;oid=00D180000001P5o&quot;, &quot;Active Bankruptcy&quot;), IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002E3dO&amp;oid=00D180000001P5o&quot;, &quot;Active Bankruptcy-Involuntary Surrender&quot;)) &amp; &quot; &quot;, &quot;&quot;) 
+IF(Financial_Account__r.Bankruptcy_Flag__c = &quot;A&quot; || Financial_Account__r.Bankruptcy_Flag__c = &quot;B&quot; || Financial_Account__r.Bankruptcy_Flag__c = &quot;C&quot; || Financial_Account__r.Bankruptcy_Flag__c = &quot;D&quot; || Financial_Account__r.Bankruptcy_Flag__c = &quot;T&quot;, IF(Voluntary_Surrender__c, IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002E3dN&amp;oid=00D1b000000CnQW&quot;, &quot;Active Bankruptcy&quot;), IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002E3dO&amp;oid=00D1b000000CnQW&quot;, &quot;Active Bankruptcy-Involuntary Surrender&quot;)) &amp; &quot; &quot;, &quot;&quot;) 
 
 &amp; 
 
-IF(Financial_Account__r.Bankruptcy_Flag__c = &quot;E&quot; || Financial_Account__r.Bankruptcy_Flag__c = &quot;F&quot; || Financial_Account__r.Bankruptcy_Flag__c = &quot;H&quot; || Financial_Account__r.Bankruptcy_Flag__c = &quot;G&quot;, IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002E3dP&amp;oid=00D180000001P5o&quot;, &quot;Discharged Bankruptcy&quot;) &amp; &quot; &quot;, &quot;&quot;) 
+IF(Financial_Account__r.Bankruptcy_Flag__c = &quot;E&quot; || Financial_Account__r.Bankruptcy_Flag__c = &quot;F&quot; || Financial_Account__r.Bankruptcy_Flag__c = &quot;H&quot; || Financial_Account__r.Bankruptcy_Flag__c = &quot;G&quot;, IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002E3dP&amp;oid=00D1b000000CnQW&quot;, &quot;Discharged Bankruptcy&quot;) &amp; &quot; &quot;, &quot;&quot;) 
 &amp; 
 
-IF($User.Id != Case__r.OwnerId, IMAGE( &quot;/servlet/servlet.ImageServer?id=01570000002E3dR&amp;oid=00D180000001P5o&quot;, &quot;You are not the owner of the case&quot;) &amp; &quot; &quot;, &quot;&quot;)
+IF($User.Id != Case__r.OwnerId, IMAGE( &quot;/servlet/servlet.ImageServer?id=01570000002E3dR&amp;oid=00D1b000000CnQW&quot;, &quot;You are not the owner of the case&quot;) &amp; &quot; &quot;, &quot;&quot;)
 
 &amp; 
 
-IF(TEXT(Financial_Account__r.Finance_Account_Status__c) = &quot;Close&quot;, IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002E3dS&amp;oid=00D180000001P5o&quot;, &quot;Financial account is closed&quot;) &amp; &quot; &quot;, &quot;&quot;)</formula>
+IF(TEXT(Financial_Account__r.Finance_Account_Status__c) = &quot;Close&quot;, IMAGE(&quot;/servlet/servlet.ImageServer?id=01570000002E3dS&amp;oid=00D1b000000CnQW&quot;, &quot;Financial account is closed&quot;) &amp; &quot; &quot;, &quot;&quot;)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Special Handling</label>
         <required>false</required>
@@ -4860,11 +4861,6 @@ FD: Vehicle identification number as stored in iRepo&apos;s system. Compared wit
         <unique>false</unique>
     </fields>
     <label>Repossession</label>
-    <listViews>
-        <fullName>All</fullName>
-        <filterScope>Everything</filterScope>
-        <label>All</label>
-    </listViews>
     <nameField>
         <displayFormat>RPO-{000000}</displayFormat>
         <label>Repossession ID</label>

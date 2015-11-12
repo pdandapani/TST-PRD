@@ -517,9 +517,7 @@ function setOutboundDataProperties(iid, dataObjectWithKeyValuePairs) {
             interactionId: iid,
             data: dataObjectWithKeyValuePairs
         },
-        //Sandeep: ConsoleLog added with extra output string "Data Vales" +dataObjectWithKeyValuePairs
-        function(){  consoleLog("***ConsoleManager setOutboundData SUCCESS. Data Vales" 
-                                +dataObjectWithKeyValuePairs.GSW_CALL_RESULT+" "+dataObjectWithKeyValuePairs.KVP_CALL_REASON);  },
+        function(){  consoleLog("***ConsoleManager setOutboundData SUCCESS.");  },
         function(error){  consoleLog('***ConsoleManager setOutboundData' + JSON.stringify(error, null, 2) );  },
         function(){  alert("System timeout when attempting to set Reason and Result. Try again.");  }
     );

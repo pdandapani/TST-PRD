@@ -44,6 +44,7 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Article Depot
@@ -259,7 +260,7 @@ HYPERLINK(ArticlePdfContentVersionId__c, &quot;View Knowledge Article &quot; + A
         <fullName>Cause_Solution__c</fullName>
         <externalId>false</externalId>
         <label>Cause &amp; Solution</label>
-        <length>32768</length>
+        <length>53768</length>
         <trackTrending>false</trackTrending>
         <type>Html</type>
         <visibleLines>25</visibleLines>
@@ -291,7 +292,7 @@ HYPERLINK(ArticlePdfContentVersionId__c, &quot;View Knowledge Article &quot; + A
         <fullName>DM_Forms__c</fullName>
         <externalId>false</externalId>
         <label>DM Form #</label>
-        <length>2500</length>
+        <length>32768</length>
         <trackTrending>false</trackTrending>
         <type>Html</type>
         <visibleLines>25</visibleLines>
@@ -330,7 +331,7 @@ HYPERLINK(ArticlePdfContentVersionId__c, &quot;View Knowledge Article &quot; + A
         <fullName>Details__c</fullName>
         <externalId>false</externalId>
         <label>Details</label>
-        <length>32768</length>
+        <length>131072</length>
         <trackTrending>false</trackTrending>
         <type>Html</type>
         <visibleLines>25</visibleLines>
@@ -393,11 +394,9 @@ HYPERLINK(ArticlePdfContentVersionId__c, &quot;View Knowledge Article &quot; + A
         <fullName>Internal_Notes__c</fullName>
         <externalId>false</externalId>
         <label>Internal Notes</label>
-        <length>255</length>
         <required>false</required>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
+        <type>TextArea</type>
     </fields>
     <fields>
         <fullName>Job_Function__c</fullName>
@@ -497,7 +496,7 @@ HYPERLINK(ArticlePdfContentVersionId__c, &quot;View Knowledge Article &quot; + A
         <fullName>Process_Steps__c</fullName>
         <externalId>false</externalId>
         <label>Process Steps</label>
-        <length>32768</length>
+        <length>65536</length>
         <trackTrending>false</trackTrending>
         <type>Html</type>
         <visibleLines>25</visibleLines>

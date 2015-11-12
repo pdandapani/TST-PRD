@@ -6,7 +6,4 @@
     <tab>standard-ContentSearch</tab>
     <tab>standard-ContentSubscriptions</tab>
     <tab>standard-ContentFavorites</tab>
-    <tab>Repossession__c</tab>
-    <tab>Document_Request__c</tab>
-    <tab>TFS_AUP_User_Permission__c</tab>
 </CustomApplication>

@@ -54,10 +54,6 @@
         <name>VIN_Length__c</name>
     </fields>
     <fields>
-        <label><!-- VIN QR Code --></label>
-        <name>VIN_QR_Code__c</name>
-    </fields>
-    <fields>
         <label><!-- Vehicle Identification Number Last 8 Ch --></label>
         <name>Vehicle_Identification_Number_Last_8_Ch__c</name>
     </fields>
@@ -72,12 +68,5 @@ e.g: abc123 will be 222123 --></help>
         <label><!-- Vehicle Identification Number --></label>
         <name>Vehicle_Identification_Number__c</name>
     </fields>
-    <layouts>
-        <layout>Collateral Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

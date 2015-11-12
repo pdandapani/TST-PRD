@@ -1,0 +1,11 @@
+*** NEW CASE ASSIGNMENT NOTIFICATION ***  
+
+The following case has been assigned to {!Case.OwnerFullName}. 
+
+Case Submitted by: {!Case.SuppliedName} 
+Case #:  {!Case.CaseNumber} 
+Subject:  {!Case.Subject} 
+Description: {!Case.Description}
+Impacted Departments: {!Case.KM_Department__c}
+
+Click on the link to access the case:  {!Case.Link}

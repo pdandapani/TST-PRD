@@ -69,20 +69,5 @@
             <translation><!-- Other Charges --></translation>
         </picklistValues>
     </fields>
-    <layouts>
-        <layout>Document Request Line Item Layout</layout>
-        <sections>
-            <label><!-- Co-Customer --></label>
-            <section>Co-Customer</section>
-        </sections>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Other Charges --></label>
-            <section>Other Charges</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

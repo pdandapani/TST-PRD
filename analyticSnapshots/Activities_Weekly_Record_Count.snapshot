@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AnalyticSnapshot xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Weekly snapshot of activities with record count</description>
+    <groupColumn>TASK_TYPE</groupColumn>
+    <mappings>
+        <sourceField>JobName</sourceField>
+        <sourceType>snapshot</sourceType>
+        <targetField>Data_Growth__c.Object__c</targetField>
+    </mappings>
+    <mappings>
+        <sourceField>RowCount</sourceField>
+        <sourceType>summary</sourceType>
+        <targetField>Data_Growth__c.Record_Count__c</targetField>
+    </mappings>
+    <mappings>
+        <sourceField>TASK_TYPE</sourceField>
+        <sourceType>tabular</sourceType>
+        <targetField>Data_Growth__c.Record_Type__c</targetField>
+    </mappings>
+    <mappings>
+        <sourceField>ExecutionTime</sourceField>
+        <sourceType>snapshot</sourceType>
+        <targetField>Data_Growth__c.Snapshot_Date__c</targetField>
+    </mappings>
+    <name>Activities Weekly Record Count</name>
+    <runningUser>hilsera@tfs.toyota.com</runningUser>
+    <sourceReport>unfiled$public/Source_Data_Weekly_Activities</sourceReport>
+    <targetObject>Data_Growth__c</targetObject>
+</AnalyticSnapshot>

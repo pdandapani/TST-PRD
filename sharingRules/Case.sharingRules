@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>All_Except_TFS_Associates</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>All Except TFS Associates</label>
+        <sharedTo>
+            <roleAndSubordinates>Operations</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>CaseNumber</field>
+            <operation>notEqual</operation>
+            <value>ZZZ</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>Web-To-Case</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Collection_case</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Collection case</label>
+        <sharedTo>
+            <group>Collections_All</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Collection</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Collections_for_non_TFS_Associates</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Collections for non-TFS Associates</label>
+        <sharedTo>
+            <roleAndSubordinates>Collections</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Collection</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Customer_Service</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Shares Customer Service Cases with public group Customer Service</description>
+        <label>Customer Service</label>
+        <sharedTo>
+            <group>Customer_Service</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Due Date Change Request,Support Request,Web-To-Case</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Customer_Service_Case_System_Admin</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Cases of record types &apos;Due Date Change Request&apos; ,&apos;Support Request&apos;,&apos;Web-To-Case&apos; are shared with System Administration role</description>
+        <label>Customer Service Case System Admin</label>
+        <sharedTo>
+            <role>System_Administration</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Due Date Change Request,Support Request,Web-To-Case</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Customer_Service_case</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Customer Service case</label>
+        <sharedTo>
+            <group>Customer_Service_All</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Due Date Change Request,Support Request,Web-To-Case</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RL_Quality_Review</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Provide quality reviewers in the rights letters department edit access to rights letters quality review cases</description>
+        <label>RL Quality Review</label>
+        <sharedTo>
+            <group>Rights_Letters_Quality_Reviewers</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>RL Quality Review</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Rights_Letters</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Provide everyone in the rights letters department edit access to rights letters cases</description>
+        <label>Rights Letters</label>
+        <sharedTo>
+            <group>Rights_Letters_Associates</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>RL Notice of Sale-Salvage,Rights Letter,RL Notice of Sale</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_Administration</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Shares cases where record type = &apos;Change Control&apos; with PG_Administration group</description>
+        <label>Share Change Control Cases with PG_Administration</label>
+        <sharedTo>
+            <group>PG_Administration</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_BTS</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Shares cases where record type = &apos;Change Control&apos; with PG_BTS group</description>
+        <label>Share Change Control Cases with PG_BTS</label>
+        <sharedTo>
+            <group>PG_BTS</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_Band5</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Share Change Control Cases with PG_Band5</label>
+        <sharedTo>
+            <group>PG_Band5</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_Collections</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Shares cases where record type = &apos;Change Control&apos; with PG_Collections group</description>
+        <label>Share Change Control Cases with PG_Collections</label>
+        <sharedTo>
+            <group>PG_Collections</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_Customer_Service</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Share Change Control Cases with PG_Customer Service</label>
+        <sharedTo>
+            <group>PG_Customer_Service</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_Enterprise_Compliance</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Share Change Control Cases with PG_Enterprise Compliance</label>
+        <sharedTo>
+            <group>PG_Enterprise_Compliance</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_FOPP</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share Change Control Cases with PG_FOPP</label>
+        <sharedTo>
+            <group>PG_FOPP</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_Field_Services</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Share Change Control Cases with PG_Field Services</label>
+        <sharedTo>
+            <group>PG_Field_Services</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_HR</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Share Change Control Cases with PG_HR</label>
+        <sharedTo>
+            <group>PG_HR</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_ICU</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Share Change Control Cases with PG_ICU</label>
+        <sharedTo>
+            <group>PG_ICU</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_Insurance</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Share Change Control Cases with PG_Insurance</label>
+        <sharedTo>
+            <group>PG_Insurance</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_KM</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share Change Control Cases with PG_KM</label>
+        <sharedTo>
+            <group>PG_KM</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control Approval,Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_Legal</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Share Change Control Cases with PG_Legal</label>
+        <sharedTo>
+            <group>PG_Legal</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_Loyalty</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Share Change Control Cases with PG_Loyalty</label>
+        <sharedTo>
+            <group>PG_Loyalty</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_Operations</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Share Change Control Cases with PG_Operations</label>
+        <sharedTo>
+            <group>PG_Operations</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_PlanningAndOppsSupport</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Sharing rule to share all change control cases to planning and service operations members</description>
+        <label>Share Change Control Cases with PG_PlanningAndOppsSupport</label>
+        <sharedTo>
+            <group>PG_Planning_and_Ops_Support</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control Approval,Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_SO_Compliance</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Share Change Control Cases with PG_SO Compliance</label>
+        <sharedTo>
+            <group>PG_SO_Compliance</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_Systems</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share Change Control Cases with PG_Systems</label>
+        <sharedTo>
+            <group>PG_Systems</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_Technology</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Share Change Control Cases with PG_Technology</label>
+        <sharedTo>
+            <group>PG_Technology</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_Training</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share Change Control Cases with PG_Training</label>
+        <sharedTo>
+            <group>PG_Training</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_Treasury</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Share Change Control Cases with PG_Treasury</label>
+        <sharedTo>
+            <group>PG_Treasury</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Change_Control_Cases_with_PG_Vendor_Management</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Share Change Control Cases with PG_Vendor Management</label>
+        <sharedTo>
+            <group>PG_Vendor_Management</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Change Control</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+</SharingRules>

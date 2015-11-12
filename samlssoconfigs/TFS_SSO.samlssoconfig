@@ -7,9 +7,10 @@
     <loginUrl>https://sec1fed.services.toyotafinancial.com/sso/SSO</loginUrl>
     <logoutUrl>https://one.toyota.com/Pages/Home.aspx</logoutUrl>
     <name>TFS_SSO</name>
-    <oauthTokenEndpoint>https://tfs--Dev7.cs23.my.salesforce.com/services/oauth2/token?so=00D180000001P5o</oauthTokenEndpoint>
+    <oauthTokenEndpoint>https://tfs--Dev4.cs25.my.salesforce.com/services/oauth2/token?so=00D1b000000CnQW</oauthTokenEndpoint>
     <redirectBinding>true</redirectBinding>
-    <salesforceLoginUrl>https://tfs--Dev7.cs23.my.salesforce.com?so=00D180000001P5o</salesforceLoginUrl>
+    <requestSignatureMethod>0</requestSignatureMethod>
+    <salesforceLoginUrl>https://tfs--Dev4.cs25.my.salesforce.com?so=00D1b000000CnQW</salesforceLoginUrl>
     <samlEntityId>https://tfs.my.salesforce.com</samlEntityId>
     <samlVersion>SAML2_0</samlVersion>
     <userProvisioning>false</userProvisioning>

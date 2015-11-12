@@ -7,8 +7,10 @@
     </customApplicationComponents>
     <defaultLandingTab>standard-home</defaultLandingTab>
     <detailPageRefreshMethod>flag</detailPageRefreshMethod>
+    <enableCustomizeMyTabs>false</enableCustomizeMyTabs>
     <enableKeyboardShortcuts>true</enableKeyboardShortcuts>
     <enableMultiMonitorComponents>true</enableMultiMonitorComponents>
+    <enablePinTabs>true</enablePinTabs>
     <isServiceCloudConsole>true</isServiceCloudConsole>
     <keyboardShortcuts>
         <defaultShortcut>
@@ -121,13 +123,53 @@
             <active>false</active>
             <keyCommand>M</keyCommand>
         </defaultShortcut>
+        <defaultShortcut>
+            <action>FOCUS_FOOTER_PANEL</action>
+            <active>false</active>
+            <keyCommand>F</keyCommand>
+        </defaultShortcut>
+        <defaultShortcut>
+            <action>TOGGLE_LIST_VIEW</action>
+            <active>false</active>
+            <keyCommand>SHIFT+N</keyCommand>
+        </defaultShortcut>
+        <defaultShortcut>
+            <action>TOGGLE_LEFT_SIDEBAR</action>
+            <active>false</active>
+            <keyCommand>SHIFT+LEFT ARROW</keyCommand>
+        </defaultShortcut>
+        <defaultShortcut>
+            <action>TOGGLE_RIGHT_SIDEBAR</action>
+            <active>false</active>
+            <keyCommand>SHIFT+RIGHT ARROW</keyCommand>
+        </defaultShortcut>
+        <defaultShortcut>
+            <action>TOGGLE_TOP_SIDEBAR</action>
+            <active>false</active>
+            <keyCommand>SHIFT+UP ARROW</keyCommand>
+        </defaultShortcut>
+        <defaultShortcut>
+            <action>TOGGLE_BOTTOM_SIDEBAR</action>
+            <active>false</active>
+            <keyCommand>SHIFT+DOWN ARROW</keyCommand>
+        </defaultShortcut>
+        <defaultShortcut>
+            <action>TOGGLE_APP_LEVEL_COMPONENTS</action>
+            <active>false</active>
+            <keyCommand>Z</keyCommand>
+        </defaultShortcut>
+        <defaultShortcut>
+            <action>REOPEN_LAST_TAB</action>
+            <active>false</active>
+            <keyCommand>SHIFT+C</keyCommand>
+        </defaultShortcut>
     </keyboardShortcuts>
     <label>Customer Service Console</label>
     <listPlacement>
         <location>full</location>
     </listPlacement>
     <listRefreshMethod>refreshListRows</listRefreshMethod>
-    <saveUserSessions>true</saveUserSessions>
+    <saveUserSessions>false</saveUserSessions>
     <tab>standard-Case</tab>
     <tab>Financial_Account__c</tab>
     <tab>standard-Chatter</tab>
@@ -136,31 +178,15 @@
     <tab>manual_Provision</tab>
     <tab>CaseOutCome__c</tab>
     <tab>EWS_User__c</tab>
-    <tab>Repossession__c</tab>
-    <tab>Document_Request__c</tab>
-    <tab>Search</tab>
-    <tab>TFS_AUP_User_Permission__c</tab>
     <workspaceMappings>
         <mapping>
             <tab>CaseOutCome__c</tab>
-        </mapping>
-        <mapping>
-            <tab>Document_Request__c</tab>
         </mapping>
         <mapping>
             <tab>EWS_User__c</tab>
         </mapping>
         <mapping>
             <tab>Financial_Account__c</tab>
-        </mapping>
-        <mapping>
-            <tab>Repossession__c</tab>
-        </mapping>
-        <mapping>
-            <tab>Search</tab>
-        </mapping>
-        <mapping>
-            <tab>TFS_AUP_User_Permission__c</tab>
         </mapping>
         <mapping>
             <tab>manual_Provision</tab>

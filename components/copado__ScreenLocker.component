@@ -1,0 +1,37 @@
+<apex:component >
+    <!--
+    In order to lock the screen you will need to reference in the visualforce page the below line:
+    <apex:actionStatus id="screenlocker" onstart="lockScreen();" onstop="unlockScreen();" />
+    This component requires jquery to be added to the visualforce page as $copado
+    -->
+    
+    <apex:attribute name="msg" description="show lock text" type="String" required="true" />
+    <apex:stylesheet value="{!URLFOR($Resource.copado__Statics,'css/screenLocker.css')}"/>
+
+    <div id="screenLocker" style="display:none;">
+        <p>
+            <img src="/img/loading.gif"/>  <span id="screenLockerMessage">{!msg}</span>
+            <br /><br />
+            <a href="#" onclick="unlockScreen();">{!$Label.HIDE_MESSAGE}</a>
+        </p>
+        
+    </div>
+    <script>
+        function setLockScreenMessage(txt){
+            //document.getElementById('screenLockerMessage').text = txt;
+            $copado('#screenLockerMessage').text(txt);
+            //setTimeout(function(){ $copado('#screenLockerMessage').text(txt); }, 3000);
+        }
+        function setStatusMessage(txt,elementId){
+            //document.getElementById('screenLockerMessage').text = txt;
+            $copado('#'+elementId).text(txt);
+            //setTimeout(function(){ $copado('#screenLockerMessage').text(txt); }, 3000);
+        }
+        function lockScreen(){
+            document.getElementById('screenLocker').style.display='block';
+        }
+        function unlockScreen(){
+            document.getElementById('screenLocker').style.display='none';
+        }
+    </script>
+</apex:component>

@@ -52,7 +52,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CIMplicity JS IIS locale</shortDescription>
-        <value>https://davwap0451.tfs.toyota.com/api/v1_0/integration.js</value>
+        <value>https://softphone.tfs.toyota.com/api/v1_0/integration.js</value>
     </labels>
     <labels>
         <fullName>Cancel</fullName>
@@ -258,14 +258,14 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Payment Transaction History End Point</shortDescription>
-        <value>https://intsvcs-tst.services.toyotafinancial.com/TFS/Services/PaymentHistory</value>
+        <value>https://intsvcs.services.toyotafinancial.com/TFS/Services/PaymentHistory</value>
     </labels>
     <labels>
         <fullName>Profiles_to_allow_save_on_FAC</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Semicolon Delimited Profiles to allow save on FAC; Used in generating SRs.</shortDescription>
-        <value>API Only</value>
+        <value>System Administrator;API Only;System Administrator Clone</value>
     </labels>
     <labels>
         <fullName>Progress</fullName>
@@ -280,7 +280,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>RL Document Generation Endpoint</shortDescription>
-        <value>https://intsvcs-tst.services.toyotafinancial.com/TFS/Services/RightsLetterForms</value>
+        <value>https://intsvcs.services.toyotafinancial.com/TFS/Services/RightsLetterForms</value>
     </labels>
     <labels>
         <fullName>RL_Enable_Printing_and_Document_Generation</fullName>
@@ -394,7 +394,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Tax Service Endpoint</shortDescription>
-        <value>https://intsvcs-tst.services.toyotafinancial.com/TFS/Services/TaxService</value>
+        <value>https://intsvcs.services.toyotafinancial.com/TFS/Services/TaxService</value>
     </labels>
     <labels>
         <fullName>Terms_and_Conditions</fullName>
@@ -409,7 +409,21 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>United Road Endpoint</shortDescription>
-        <value>https://intsvcs-tst.services.toyotafinancial.com/TFS/Services/TransportFees</value>
+        <value>https://intsvcs.services.toyotafinancial.com/TFS/Services/TransportFees</value>
+    </labels>
+    <labels>
+        <fullName>Website_LFS_ErrorpageUrl</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Website_LFS_ErrorpageUrl</shortDescription>
+        <value>https://my.lexusfinancial.com/myaccounts/home/home.html</value>
+    </labels>
+    <labels>
+        <fullName>Website_TFS_ErrorpageUrl</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Website_TFS_ErrorpageUrl</shortDescription>
+        <value>https://my.toyotafinancial.com/myaccounts/home/home.html</value>
     </labels>
     <labels>
         <fullName>back</fullName>

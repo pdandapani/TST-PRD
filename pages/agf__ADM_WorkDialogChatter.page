@@ -1,0 +1,20 @@
+<apex:page standardController="agf__ADM_Work__c" showHeader="false" sidebar="false" showChat="false">
+
+<apex:stylesheet value="{!$Resource.agf__kanban_jqueryui_structure}" />
+<apex:styleSheet value="{!$Resource.agf__ADM_common_css}" />
+<apex:includeScript value="{!$Resource.agf__kanban_jquery}" />
+<apex:includeScript value="{!$Resource.agf__kanban_jqueryui}" />
+<apex:includeScript value="{!$Resource.agf__ADM_common_js}" />
+<apex:includeScript value="{!$Resource.agf__ADM_autocomplete2js}" />
+
+<style>
+	body{background:none !important;}
+	.feedcontainer .feeditem{border-top:0px !important}
+	.feedcontainer .feeditem .preamblecontainer{line-height:16px;}
+</style>
+
+<div style="display:block;padding:10px;">
+	<div style="display:table-cell;vertical-align:top;padding-right:20px;border-right:1px #ccc solid;width:100%;"><chatter:feed entityId="{!agf__ADM_Work__c.Id}"/></div>
+	<div style="display:table-cell;vertical-align:top;padding-left:20px;"><c:ADM_ChatterFollowers entityId="{!agf__ADM_Work__c.Id}" /></div>
+</div>
+</apex:page>

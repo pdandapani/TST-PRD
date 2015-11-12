@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <customSettingsType>Hierarchy</customSettingsType>
-    <customSettingsVisibility>Public</customSettingsVisibility>
     <description>Any general custom attribute that may extend the definition of a profile and/or user to provide distinct processing options - may be leveraged in workflow, formulas, and code; e.g. exempt data admin-level profiles or users from validation rules or workflows</description>
     <enableFeeds>false</enableFeeds>
     <fields>
@@ -35,4 +34,5 @@ FD: Identifies the default auction agency selected for a title services request 
         <unique>false</unique>
     </fields>
     <label>General Settings</label>
+    <visibility>Public</visibility>
 </CustomObject>

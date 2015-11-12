@@ -33,10 +33,6 @@
         <name>ACH_Routing_Number__c</name>
     </fields>
     <fields>
-        <label><!-- Account Segmentation Code --></label>
-        <name>Account_Segmentation_Code__c</name>
-    </fields>
-    <fields>
         <label><!-- Amor Methodology --></label>
         <name>Amor_Methodology__c</name>
         <picklistValues>
@@ -89,10 +85,6 @@
     <fields>
         <label><!-- CO Host Account Number --></label>
         <name>CO_Host_Account_Number__c</name>
-    </fields>
-    <fields>
-        <label><!-- ChargeOff Agency Code --></label>
-        <name>ChargeOff_Agency_Code__c</name>
     </fields>
     <fields>
         <label><!-- Charge Of Finance Account Number --></label>
@@ -659,10 +651,6 @@ This formula field will be indexed and should not be used without a proper index
         <name>Most_Recent_Cure_Note__c</name>
     </fields>
     <fields>
-        <label><!-- Number of FAC --></label>
-        <name>Number_of_FAC__c</name>
-    </fields>
-    <fields>
         <label><!-- Numeric Days Past Due --></label>
         <name>Numeric_Days_Past_Due__c</name>
     </fields>
@@ -1092,134 +1080,6 @@ This formula field will be indexed and should not be used without a proper index
         <label><!-- iVault Account Number --></label>
         <name>iVault_Account_Number__c</name>
     </fields>
-    <layouts>
-        <layout>AA Lease Layout</layout>
-        <sections>
-            <label><!-- Branch/Dealer Relationships --></label>
-            <section>Branch/Dealer Relationships</section>
-        </sections>
-        <sections>
-            <label><!-- Collections Info --></label>
-            <section>Collections Info</section>
-        </sections>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Lease Details --></label>
-            <section>Lease Details</section>
-        </sections>
-        <sections>
-            <label><!-- Payments and Charges --></label>
-            <section>Payments and Charges</section>
-        </sections>
-        <sections>
-            <label><!-- Payoff Info --></label>
-            <section>Payoff Info</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>AA Retail Layout</layout>
-        <sections>
-            <label><!-- Branch/Dealer Relationships --></label>
-            <section>Branch/Dealer Relationships</section>
-        </sections>
-        <sections>
-            <label><!-- Collections Info --></label>
-            <section>Collections Info</section>
-        </sections>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Loan Details --></label>
-            <section>Loan Details</section>
-        </sections>
-        <sections>
-            <label><!-- Payments and Charges --></label>
-            <section>Payments and Charges</section>
-        </sections>
-        <sections>
-            <label><!-- Payoff Info --></label>
-            <section>Payoff Info</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Lease Layout</layout>
-        <sections>
-            <label><!-- Branch/Dealer Relationships --></label>
-            <section>Branch/Dealer Relationships</section>
-        </sections>
-        <sections>
-            <label><!-- Collections Info --></label>
-            <section>Collections Info</section>
-        </sections>
-        <sections>
-            <label><!-- Cure Details --></label>
-            <section>Cure Details</section>
-        </sections>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Lease Details --></label>
-            <section>Lease Details</section>
-        </sections>
-        <sections>
-            <label><!-- Payments and Charges --></label>
-            <section>Payments and Charges</section>
-        </sections>
-        <sections>
-            <label><!-- Payoff Info --></label>
-            <section>Payoff Info</section>
-        </sections>
-        <sections>
-            <label><!-- Skip Trace --></label>
-            <section>Skip Trace</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Retail Layout</layout>
-        <sections>
-            <label><!-- Branch/Dealer Relationships --></label>
-            <section>Branch/Dealer Relationships</section>
-        </sections>
-        <sections>
-            <label><!-- Collections Info --></label>
-            <section>Collections Info</section>
-        </sections>
-        <sections>
-            <label><!-- Cure Details --></label>
-            <section>Cure Details</section>
-        </sections>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Loan Details --></label>
-            <section>Loan Details</section>
-        </sections>
-        <sections>
-            <label><!-- Payments and Charges --></label>
-            <section>Payments and Charges</section>
-        </sections>
-        <sections>
-            <label><!-- Payoff Info --></label>
-            <section>Payoff Info</section>
-        </sections>
-        <sections>
-            <label><!-- Skip Trace --></label>
-            <section>Skip Trace</section>
-        </sections>
-    </layouts>
-    <quickActions>
-        <label><!-- Log Complaint --></label>
-        <name>Log_Complaint</name>
-    </quickActions>
     <recordTypes>
         <label><!-- Lease --></label>
         <name>Lease</name>

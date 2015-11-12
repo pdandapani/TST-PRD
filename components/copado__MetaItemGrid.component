@@ -1,0 +1,287 @@
+<apex:component controller="copado.queryBuilderController" >
+
+    <apex:attribute name="stepType" type="String" description="step type"/>
+    <apex:attribute name="orgId" type="String" description="Organization Id"/>
+    <apex:attribute name="filtered" type="Boolean" description="Is the org metadata filtered"/>
+
+<apex:pageBlock >
+    
+    <apex:pageMessages id="md_js_error"/>
+
+    <apex:pageblockButtons id="removeCacheContainer">
+
+        <apex:commandLink style="display:none;" value="{!$Label.copado__CACHE_REFRESHED_NOW}"  onclick="return rock.removeCached();" rerender="opDummy" id="removeCache"/>
+
+        <apex:outputPanel style="float:left;" rendered="{!filtered}"><a target="_blank" href="/{!orgId}?_mtf=1" ><img width="16px" height="16px" src="{!$Resource.filter}" title="{!$Label.METADATA_FILTERED}" /></a> </apex:outputPanel>
+
+    </apex:pageblockButtons>
+
+    
+    <apex:actionFunction name="showMessage" action="{!showMessage}" rerender="md_js_error">
+        <apex:param name="errorLevel" assignTo="{!errorLevel}" value="" />
+        <apex:param name="messageName" assignTo="{!messageName}" value="" />
+    </apex:actionFunction>
+    
+    <div id="jqxgrid"></div>
+    
+</apex:pageBlock>
+
+      <script>
+        var loadingHTML = '<center><img src="/img/loading.gif" /> <i>{!$Label.copado__LOADING}<span id="retry-label"></span></i></center>';
+        $copado('#jqxgrid').html(loadingHTML); 
+      </script>
+      
+       <apex:stylesheet value="{!URLFOR($Resource.copado__jqx,'jqwidgets/styles/jqx.base.css')}" />
+       <apex:includeScript value="{!URLFOR($Resource.copado__jqx,'jqwidgets/jqx-all.js')}" />
+       
+       <script>
+       
+        //namespace
+        var rock = rock || {};
+        
+        rock.stepType = '{!stepType}';
+        
+        rock.createCacheDeleteButton = function(date){
+            console.log('createCacheDeleteButton', date)
+            if(!date){
+                 $copado('[id*=removeCacheContainer]').hide();
+            }else{
+                var $btn = $copado('[id$=removeCache]');
+                $btn.html($btn.html().replace('__DATE__',date)).show();
+            }    
+        };
+            
+        
+        rock.removeCached = function(){
+
+            console.log('removeCached')
+
+            $copado('[id*=removeCacheContainer]').hide('');
+
+            //hide
+            $copado('#jqxgrid').html(loadingHTML);            
+            //reload
+            init(true);
+            
+            return false;
+        };
+        
+        //config grid
+        
+        rock.startGrid = function (data) {
+                //normalize data
+                var len = data.length,
+                hasFilter = rock.stepType === 'Full Profiles' ? 'Profile': ( rock.stepType === 'Translations' ? 'Translations': ( rock.stepType === 'Full Permission Sets' ? 'PermissionSet': false));
+                
+                if(hasFilter){var newData = [];}
+                
+                while(len--){
+                   data[len].s = data[len].s || false;
+                   
+                   if(hasFilter && data[len].t == hasFilter){
+                       newData.unshift(data[len]);
+                   }
+                }
+          
+                if(hasFilter){
+                    data = newData;
+                }
+                    
+                try{    
+                    var theme = 'base',
+                    source = {
+                        localdata: data,
+                        datafields: [
+                            { name: 's', type: 'bool' },
+                            { name: 't', type: 'string' },
+                            { name: 'n', type: 'string' }
+                        ],
+                        datatype: "array",
+                        updaterow: function (rowid, rowdata, commit) {
+                            commit(true);
+                            data[rowid] = rowdata;
+                        }
+    
+                    },
+        
+                    //adapter wrapper
+                    dataAdapter = new $copado.jqx.dataAdapter(source),
+                    
+                    //keep jquery pointer for performance query
+                    $grid = $copado('<div>');
+                    
+                    $copado("#jqxgrid").html($grid);
+                    
+                    rock.datasource = source;
+                    
+                    $grid.jqxGrid({
+                        width: '100%',
+                        source: dataAdapter,
+                        showfilterrow: true,
+                        filterable: true,
+                        theme: theme,
+                        editable: true, 
+                        selectionmode: 'none',
+                        enablebrowserselection: true,
+                        pageable: true,
+                        pagesizeoptions: ['10', '20', '50','100','200','500','1000','2000','5000'],
+                        pagesize: 20,
+                        sortable: true,
+                        columnsresize: true,
+                        localization: localizationobj,
+                        columns: [
+                          {text: '{!$Label.copado__SELECTED}', columntype: 'checkbox', filtertype: 'bool', datafield: 's', width: 60 },
+                          {text: '{!$Label.copado__NAME}', filtertype: 'textbox', filtercondition: 'contains', editable:false, datafield: 'n', width: 400},
+                          {text: '{!$Label.copado__TYPE}', datafield: 't', filtertype: 'checkedlist',editable:false ,  columntype: 'textbox' }
+                        ]
+                    });
+                    
+                }catch(e){
+                    console.error(e)
+                }
+                
+                if( rock.stepType === 'Full Profiles'||rock.stepType === 'Translations'||rock.stepType === 'Full Permission Sets'){
+                    var filtergroup = new $copado.jqx.filter();
+                    var filter = filtergroup.createfilter('stringfilter', rock.stepType === 'Full Profiles'?'Profile':(rock.stepType === 'Full Permission Sets'?'PermissionSet':'Translations'), 'EQUAL');
+                    filtergroup.addfilter(0,filter);
+                    $grid.jqxGrid('addfilter', 't', filtergroup, true);
+                }
+              
+               
+                var selectAll = function(sel){
+                    $grid.jqxGrid('beginupdate');
+                    /*
+                    for (var i = 0, l = $grid.jqxGrid('getdatainformation').rowscount; i < l; i++) {
+                           var item = $grid.jqxGrid('getrowdata', i),
+                           index = item.dataindex || i;
+                    
+                           rock.datasource.localdata[ index ].s = sel;
+                    }*/
+                    var list = $grid.jqxGrid('getrows');
+                    for(var i in list){
+                        rock.datasource.localdata[ list[i].dataindex || i ].s = sel;
+                    }
+                    
+                    $grid.jqxGrid('endupdate');
+                    setTimeout(function(){$grid.jqxGrid('updatebounddata','cells');},222);
+                },
+                    
+                $unselectAll = $copado('<button>{!$Label.copado__UNSELECT_ALL}</button>').
+                    on('click',function(e){
+                        e.preventDefault();
+                        selectAll(false);
+                }),
+                    
+                $selectAll = $copado('<button>{!$Label.copado__SELECT_ALL}</button>').
+                    on('click',function(e){
+                        e.preventDefault();
+                        selectAll(true);
+                    });
+               
+                $copado('.jqx-grid-pager > div')
+                    .prepend($unselectAll)
+                    .prepend($selectAll);
+                
+         };
+         
+         rock.getSelectedObj = function(){
+            var data = rock.datasource.localdata, 
+            len = data.length;
+            
+            rock.selectedNames = [];
+            
+            while(len--){
+                data[len].s && rock.selectedNames.push({t:data[len].t,n:data[len].n,s:true});
+            }
+            
+            return rock.selectedNames;
+         
+         };
+             
+         //selected "Names"
+         rock.selectedNames = rock.selectedNames || [];
+         
+         
+         rock.mergeSavedMeta = function(metaOrgData,dataStep){
+             
+             var len = dataStep.length;
+                                 
+             while(len--){
+                 if(typeof dataStep[len] !== 'object'){
+                     delete dataStep[len];
+                 }else{
+                     dataStep[len].s =true;
+                 }
+             }
+             
+             //merge org and saved step data
+             function getIndexByNT(arr, n,t){
+                 var initialIndex =  0 ;// todo improve index chache >> this.initialIndex || 0,
+                 len = arr.length;
+                 
+                 for(initialIndex; initialIndex < len ;initialIndex++ ){
+                     var el = arr[initialIndex];
+                     
+                     if( el.n === n && el.t === t ){
+                         this.initialIndex = initialIndex;
+                         return initialIndex;
+                     }
+                 }
+                 return -1;
+             }
+             
+             var len2 = dataStep.length;
+             for(var i = 0; i < len2 ; i++){
+                 var el = dataStep[i],
+                 index = getIndexByNT(metaOrgData,el.n,el.t);
+                 if(index > -1){
+                     metaOrgData[index].s = true;
+                     //rock.selectedNames.push(data[index]);
+                 }else{
+                    console.log('Not found:', el );
+                    if(typeof(window._errNotFoundShown) == 'undefined' ){
+                        window._errNotFoundShown = true;
+                        alert('{!SUBSTITUTE($Label.copado__ERROR_MSG_PREV_META_MISSING,"'","\'")} '+el.t+' - '+el.n);
+                    }
+
+                 }
+                 
+             }
+             return metaOrgData;
+         
+         };
+          
+       function init(force){   
+           //start component
+           dw.u.getCachedRemote({
+               url:rock.config.metadata_url,
+               name:'MetaData',
+               parentId: '{!orgId}',
+               force: force,
+               success:function(metaOrgData, cachedDate){
+    
+
+                    var dataStep = dw.u.getSavedStepData(rock.stepType);   
+                    if(dataStep){
+                        if(rock.stepType=='Delete MetaData'){
+                            metaOrgData = dataStep;
+                        }
+                        else{
+                            metaOrgData = rock.mergeSavedMeta(metaOrgData,dataStep);   
+                        }
+                    }
+                    !force && rock.createCacheDeleteButton(cachedDate);
+
+                    rock.startGrid(metaOrgData);
+
+               },
+               error: function(r){
+                   //console.log('Error: ',r)
+               }
+           }); 
+        }
+        
+        init(false);   
+        
+       </script>
+</apex:component>

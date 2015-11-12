@@ -238,16 +238,5 @@
         <label><!-- SObject --></label>
         <name>SObject__c</name>
     </fields>
-    <layouts>
-        <layout>Form Validation Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Validations --></label>
-            <section>Validations</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

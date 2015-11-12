@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Categories</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Collections Console Ideas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CIMplicity Softphone Ideas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recently Asked Questions</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Internal_Comments__c</fullName>
+        <description>Internal comments not visible to end users about the idea</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Internal comments not visible to end users about the idea</inlineHelpText>
+        <label>Internal Comments</label>
+        <length>5000</length>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Status</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>New</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Reviewed by Business</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Under Technical Review</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed - Delivered</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed - No Further Action</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <listViews>
+        <fullName>Ideas_Last_7_Days</fullName>
+        <columns>IDEA.CREATED_DATE</columns>
+        <columns>IDEA.TITLE</columns>
+        <columns>IDEA.CREATED_BY_NICKNAME</columns>
+        <columns>VOTE_STATS.WEIGHTED_SUM</columns>
+        <columns>IDEA.NUM_COMMENTS</columns>
+        <columns>IDEA.CATEGORIES</columns>
+        <columns>IDEA.STATUS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>IDEA.CATEGORIES</field>
+            <operation>notEqual</operation>
+            <value>Recently Asked Questions</value>
+        </filters>
+        <label>Ideas</label>
+    </listViews>
+    <listViews>
+        <fullName>Questions</fullName>
+        <columns>IDEA.CREATED_DATE</columns>
+        <columns>IDEA.TITLE</columns>
+        <columns>IDEA.CREATED_BY_NICKNAME</columns>
+        <columns>VOTE_STATS.WEIGHTED_SUM</columns>
+        <columns>IDEA.NUM_COMMENTS</columns>
+        <columns>IDEA.CATEGORIES</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>IDEA.CATEGORIES</field>
+            <operation>equals</operation>
+            <value>Recently Asked Questions</value>
+        </filters>
+        <label>Questions</label>
+    </listViews>
+    <recordTypes>
+        <fullName>InternalIdeasIdeaRecordType</fullName>
+        <active>true</active>
+        <description>Record Type used to associate ideas with a specific community</description>
+        <label>Collections Console: Idea Record Type</label>
+        <picklistValues>
+            <picklist>Categories</picklist>
+            <values>
+                <fullName>CIMplicity Softphone Ideas</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Collections Console Ideas</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recently Asked Questions</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status</picklist>
+            <values>
+                <fullName>Closed - Delivered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed - No Further Action</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reviewed by Business</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Under Technical Review</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>IDEA.TITLE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>IDEA.BODY</customTabListAdditionalFields>
+        <customTabListAdditionalFields>COMMUNITY.NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>IDEA.CREATED_DATE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>IDEA.CREATED_BY_NICKNAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>IDEA.NUM_COMMENTS</customTabListAdditionalFields>
+        <customTabListAdditionalFields>VOTE.HAS_VOTED</customTabListAdditionalFields>
+        <customTabListAdditionalFields>IDEA.CATEGORIES</customTabListAdditionalFields>
+        <customTabListAdditionalFields>IDEA.STATUS</customTabListAdditionalFields>
+        <customTabListAdditionalFields>IDEA.LAST_COMMENT_DATE</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>IDEA.TITLE</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>COMMUNITY.NAME</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>IDEA.TITLE</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>COMMUNITY.NAME</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>IDEA.TITLE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>IDEA.BODY</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>COMMUNITY.NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>IDEA.NUM_COMMENTS</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>IDEA.CREATED_BY_NICKNAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>IDEA.CATEGORIES</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>IDEA.STATUS</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>IDEA.CREATED_DATE</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

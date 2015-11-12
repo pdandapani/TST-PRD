@@ -1,0 +1,126 @@
+<apex:page docType="html-5.0"  controller="copado.GitCommitChangesController" extensions="copado.Settings" title="New {!$ObjectType.copado__Git_Org_Commit__c.Label}"> 
+
+	<head>
+        <c:GAnalytics />
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/libs/jquery.min.1.10.2.js')}" />
+
+        <c:WizardUtils /> 
+
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/statusManager.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/utilsV2.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/Cometd.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/jquery.cometd.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/copadoStreamingService.js')}" />
+
+        <apex:stylesheet value="{!URLFOR($Resource.copado__jqx,'jqwidgets/styles/jqx.base.css')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.copado__Statics,'css/wizard.css')}" />
+        <apex:includeScript value="{!URLFOR($Resource.copado__jqx,'jqwidgets/jqx-all.js')}" />
+        <script> 
+            var $copado = jQuery.noConflict(); 
+            __sfdcSessionId = '{!GETSESSIONID()}';
+        </script>
+        <script src="/soap/ajax/32.0/connection.js"></script>
+        <script type="text/javascript">
+        var loadingHTML = '<center><img src="/img/loading.gif" /><i><span id="retry-label">{!$Label.copado__LOADING}</span></i></center>';
+
+        var copadoPageLabels = {
+            SELECT_AT_LEAST_ONE_ITEM : '{!JSENCODE($Label.SELECT_AT_LEAST_ONE_ITEM)}'
+        };
+        
+        var _config = {
+            data:{
+                orgId: '{!orgId}',
+                repositoryId: '{!repositoryId}',
+                snapshotId:'{!snapshotId}'
+            },
+            server: {
+                metadataUrl: '{!urlBase}metadata/{!orgId}?{!urlParameters}&parentId={!orgId}&dates=format',
+                commitUrl: '{!urlBase}commit/__COMMITID__{!urlParameters}&orgId={!orgId}&gitBackupId={!snapshotId}&message=__MSG__&userStoryId={!userStoryId}', 
+                typesUrl: '{!urlBase}gitTypes{!urlParameters}'
+            },
+            ns: '{!namespace}'
+            
+        };
+        </script>
+
+         <apex:outputText rendered="{!$CurrentPage.parameters.dev == ''}">
+            <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/gitCommit.js')}" />
+        </apex:outputText>
+        <apex:outputText rendered="{!$CurrentPage.parameters.dev == '1'}">
+            <apex:includeScript value="https://mavens.local/copado%20dev/resource-bundles/Statics.resource/js/gitCommit.js" />
+        </apex:outputText>
+
+    </head>
+
+	<c:ScreenLocker msg="{!$Label.copado__LOADING}" />
+    <apex:form id="theForm">
+
+	    <apex:sectionHeader title="{!$ObjectType.copado__Git_Org_Commit__c.LabelPlural}" subtitle="{!orgName} ➠ {!repoName} / {!branch}" description="{!$Label.copado__GIT_ORG_COMMIT_DESCRIPTION}"/>
+	    <apex:pageMessages />
+	        
+	    <apex:pageBlock id="pb_newGitCommit"  mode="edit" helpUrl="http://docs.copa.do" helpTitle="{!$Label.copado__HELP_FOR_THIS_PAGE}">
+
+		    <apex:pageblockButtons >
+	            <apex:commandButton value="{!$Label.copado__COMMIT_NOW}" onclick="gitCommit&&gitCommit.doCommit(); return false;"/>
+	            <apex:commandButton value="{!$Label.site.cancel}"  onclick="location.href='/{!snapshotId}';return false;"/>
+	        </apex:pageblockButtons>               
+
+
+            <apex:pageBlockSection columns="1">
+                <apex:inputField id="comment" value="{!gitCommit.copado__Commit_Message__c}" styleClass="js-message"
+                 style="width:90%;" html-placeholder="Please enter here your message"/>
+                <p/>
+
+                <apex:outputPanel >
+                    
+                        
+                    <div id="removeCacheContainer" style="float:right;margin-bottom:10px;">
+                        <a style="display:none;" onclick="return gitCommit.refreshCache();" id="removeCache" >{!$Label.CACHE_REFRESHED_NOW}</a>
+                    </div>
+
+                    <div id="jqxGrid" >
+                        <center><img src="/img/loading.gif" /><i><span id="retry-label">{!$Label.copado__LOADING}</span></i></center>
+                    </div>
+                </apex:outputPanel>
+
+                
+
+            </apex:pageBlockSection>
+
+
+	    </apex:pageBlock>
+
+
+	</apex:form>
+
+	<script type="text/javascript">
+        console.log('init', gitCommit);
+        
+
+        $copado( document ).ready(function() {
+            copadoStreamingService.ns = '{!namespace}';
+            copadoStreamingService.init();
+            statusManager.ns = '{!namespace}';
+            statusManager.herokuServer = '{!herokuServer}';
+            statusManager.urlParameters = '{!urlParameters}';
+            statusManager.sessionId = __sfdcSessionId;
+            statusManager.parentId = '{!orgId}';
+            statusManager.waitTimeout = 10000;
+            statusManager.initFunction = function(){ gitCommit.init(_config); };
+
+            statusManager.successFunction = function(){ gitCommit.init(_config); };
+
+            setTimeout(function(){
+              statusManager.initialise();
+            },2000);
+            var body = document.getElementsByTagName('body')[0];
+            body.addEventListener("beforeunload", function(){
+                copadoStreamingService.unload();
+             });
+        });
+
+
+    </script>
+    <c:CheckFeaturesComponent />
+
+</apex:page>

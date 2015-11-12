@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Change Control - This template is used when email is sent to parent case owner when a case is not approved/declined by target approval date</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Case not Approved/Declined by Target Approval Date</name>
+    <style>none</style>
+    <subject>Case - &quot;{!Case.KM_Parent_Case_Subject__c}&quot; - #{!Case.CaseNumber} has not been approved/declined by target approval date</subject>
+    <type>text</type>
+</EmailTemplate>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>OWNER</field>
+    </columns>
+    <description>Indicates all Unassigned Parent Cases (Not accepted by SOPS User) in the SOPS queue. Includes Average Age</description>
+    <filter>
+        <criteriaItems>
+            <column>OWNER</column>
+            <operator>equals</operator>
+            <value>Planning and Ops Support</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OPEN</column>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>AGE</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>SOPS Queue Aging Report</name>
+    <params>
+        <name>units</name>
+        <value>d</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CaseList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATEONLY</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

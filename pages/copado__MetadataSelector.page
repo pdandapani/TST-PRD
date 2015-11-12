@@ -1,0 +1,114 @@
+<apex:page id="thePage" standardController="copado__User_Story__c" extensions="copado.MetadataselectorExtension,copado.Settings" showHeader="false" sidebar="false" standardStyleSheets="true">
+    <c:GAnalytics />
+    <head>
+        <c:WizardUtils />
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/statusManager.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/utilsV2.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/Cometd.js')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.copado__jqx,'jqwidgets/styles/jqx.base.css')}" />
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/libs/jquery.min.1.10.2.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.copado__jqx,'jqwidgets/jqx-all.js')}" />
+        <script>
+            var __sfdcSessionId = '{!GETSESSIONID()}';
+            var $copado = jQuery.noConflict();
+        </script>
+        <script id="connectionJS" src="/soap/ajax/32.0/connection.js"></script>
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/json2.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics, 'js/jquery.cometd.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.copado__Statics,'js/copadoStreamingService.js')}" />
+        <c:WizardUtils />
+        <script>
+            var loadingHTML = '<center><img src="/img/loading.gif" /> <i>{!$Label.copado__LOADING}<span id="retry-label"></span></i></center>';
+            $copado('#jqxgrid').html(loadingHTML); 
+            var rock = rock || {};
+            rock.config = {
+                metadata_url : '{!metadata_url}'
+            };
+        </script>
+        
+    </head>
+    <c:ScreenLocker msg="{!$Label.copado__LOADING}" />
+    <apex:sectionHeader rendered="{!mode=='ApexTests'}" id="sectionHeaderApex" title="{!$Label.copado__COPADO_CHANGE_MANAGEMENT}" subtitle="Apex Test Class selector" />
+    <apex:sectionHeader rendered="{!mode=='MetaData'}" id="sectionHeaderAll" title="{!$Label.copado__COPADO_CHANGE_MANAGEMENT}" subtitle="Metadata selector" />
+    
+    <apex:outputPanel id="msg" styleClass="fixedMsg">
+        <apex:pageMessages id="theMessages" />
+    </apex:outputPanel>
+
+    <div style="display:none;">
+        <apex:pageMessage title="{!$Label.copado__WARNING}" summary="__MSG__" severity="warning" strength="3" id="js-msg-WARNING" />
+        <apex:pageMessage title="{!$Label.copado__SUCCESS}" summary="__MSG__" severity="confirm" strength="3" id="js-msg-CONFIRM" />
+        <apex:pageMessage title="{!$Label.copado__ERROR}" summary="__MSG__" severity="error" strength="3" id="js-msg-ERROR" />
+    </div>
+
+    <apex:form id="theForm" rendered="{!hasOrg}">
+        <apex:actionFunction name="showMessage" action="{!showMessage}" rerender="msg">
+            <apex:param name="errorLevel" assignTo="{!errorLevel}" value="" />
+            <apex:param name="messageName" assignTo="{!messageName}" value="" />
+        </apex:actionFunction> 
+            
+        <apex:pageBlock id="pb" >
+            <apex:pageBlockButtons id="pbb_Save">
+                <apex:commandButton id="btnSave" value="{!$Label.site.save}"  onclick="return rock.saveStep();" rerender="pb" />&nbsp;
+                <apex:commandButton id="btnClose" value="Close" onclick="top.window.close();" />
+                &nbsp;
+                <apex:commandButton id="btnDelete" value="Clear All Selections" onclick="if (window.confirm('Are you sure you want to Clear All Selections?')){deleteAttachment();}else{return false}" />&nbsp;
+                <apex:outputPanel id="pbb_removeCacheContainer">&nbsp;
+                    <apex:commandLink style="display:none;" value="{!$Label.copado__CACHE_REFRESHED_NOW}" onclick="return refreshCache();" rerender="opDummy" id="removeCache"/>
+                </apex:outputPanel>
+            </apex:pageBlockButtons>
+            <div id="jqxgrid"> </div>
+        </apex:pageBlock>
+        <script>
+            var loadingHTML = '<center><img src="/img/loading.gif" /> <i>{!$Label.copado__LOADING}<span id="retry-label"></span></i></center>';
+            $copado('#jqxgrid').html(loadingHTML); 
+        </script>
+        <script>
+            var copadoApp = {
+                userStoryId: '{!User_Story__c.Id}',
+                mode: '{!mode}',
+                orgCredential: '{!User_Story__c.Org_Credential__c}',
+                ns: '{!namespace}',
+
+                showMessage: function(type, msg, timeout){
+                    $copado('.fixedMsg')
+                        .html($copado('[id$=js-msg-'+type+']').html().replace('__MSG__',msg))
+                        .fadeIn('slow');
+
+                    if(timeout == -1)return false;
+                    timeout = (timeout==0)? 7000 : timeout;
+
+                    setTimeout(function(){$copado('.fixedMsg').fadeOut('slow');},timeout);
+                    return false;
+                }
+            }
+        </script>
+       <script src="{!URLFOR($Resource.Statics,'js/metadataselector.js')}"></script>
+    </apex:form>
+    <script>
+            $copado( document ).ready(function() {
+                copadoStreamingService.ns = '{!namespace}';
+                copadoStreamingService.init();
+                statusManager.ns = '{!namespace}';
+                statusManager.herokuServer = '{!herokuServer}';
+                statusManager.urlParameters = '{!urlParameters}';
+                statusManager.sessionId = __sfdcSessionId;
+                statusManager.parentId = '{!copado__User_Story__c.copado__Org_Credential__c}';
+                statusManager.initFunction = function(){ init(false); };
+                statusManager.successFunction = function(){ init(false); };
+                setTimeout(function(){
+                    statusManager.initialise();
+                },2000);
+                var body = document.getElementsByTagName('body')[0];
+                body.addEventListener("beforeunload", function(){
+                    copadoStreamingService.unload();
+                });
+            });
+        </script>
+    <script>
+        ga('send', 'pageview', {
+          'page': '/MetaDataSelector',
+          'title': 'MetaData Selector'
+        });
+    </script>
+</apex:page>

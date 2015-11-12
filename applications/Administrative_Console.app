@@ -20,8 +20,10 @@
         <domain>salesforce.com</domain>
         <domain>force.com</domain>
     </domainWhitelist>
+    <enableCustomizeMyTabs>false</enableCustomizeMyTabs>
     <enableKeyboardShortcuts>true</enableKeyboardShortcuts>
     <enableMultiMonitorComponents>true</enableMultiMonitorComponents>
+    <enablePinTabs>true</enablePinTabs>
     <isServiceCloudConsole>true</isServiceCloudConsole>
     <keyboardShortcuts>
         <defaultShortcut>
@@ -134,6 +136,46 @@
             <active>false</active>
             <keyCommand>M</keyCommand>
         </defaultShortcut>
+        <defaultShortcut>
+            <action>FOCUS_FOOTER_PANEL</action>
+            <active>false</active>
+            <keyCommand>F</keyCommand>
+        </defaultShortcut>
+        <defaultShortcut>
+            <action>TOGGLE_LIST_VIEW</action>
+            <active>false</active>
+            <keyCommand>SHIFT+N</keyCommand>
+        </defaultShortcut>
+        <defaultShortcut>
+            <action>TOGGLE_LEFT_SIDEBAR</action>
+            <active>false</active>
+            <keyCommand>SHIFT+LEFT ARROW</keyCommand>
+        </defaultShortcut>
+        <defaultShortcut>
+            <action>TOGGLE_RIGHT_SIDEBAR</action>
+            <active>false</active>
+            <keyCommand>SHIFT+RIGHT ARROW</keyCommand>
+        </defaultShortcut>
+        <defaultShortcut>
+            <action>TOGGLE_TOP_SIDEBAR</action>
+            <active>false</active>
+            <keyCommand>SHIFT+UP ARROW</keyCommand>
+        </defaultShortcut>
+        <defaultShortcut>
+            <action>TOGGLE_BOTTOM_SIDEBAR</action>
+            <active>false</active>
+            <keyCommand>SHIFT+DOWN ARROW</keyCommand>
+        </defaultShortcut>
+        <defaultShortcut>
+            <action>TOGGLE_APP_LEVEL_COMPONENTS</action>
+            <active>false</active>
+            <keyCommand>Z</keyCommand>
+        </defaultShortcut>
+        <defaultShortcut>
+            <action>REOPEN_LAST_TAB</action>
+            <active>false</active>
+            <keyCommand>SHIFT+C</keyCommand>
+        </defaultShortcut>
     </keyboardShortcuts>
     <label>Administrative Console</label>
     <listPlacement>
@@ -150,24 +192,12 @@
     <tab>standard-Dashboard</tab>
     <tab>standard-Idea</tab>
     <tab>standard-Chatter</tab>
-    <tab>Repossession__c</tab>
-    <tab>Document_Request__c</tab>
-    <tab>TFS_AUP_User_Permission__c</tab>
     <workspaceMappings>
-        <mapping>
-            <tab>Document_Request__c</tab>
-        </mapping>
         <mapping>
             <tab>Financial_Account__c</tab>
         </mapping>
         <mapping>
             <tab>New_Rights_Letter</tab>
-        </mapping>
-        <mapping>
-            <tab>Repossession__c</tab>
-        </mapping>
-        <mapping>
-            <tab>TFS_AUP_User_Permission__c</tab>
         </mapping>
         <mapping>
             <tab>standard-Account</tab>

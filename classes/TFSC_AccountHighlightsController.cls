@@ -347,13 +347,12 @@ public with sharing class TFSC_AccountHighlightsController {
     public void setRelatedFAsAndCollaterals(List<Id> relatedAccountIds, String sectionPosition){
         
         List<FaWrapperSmall> tempList = new List<FaWrapperSmall>();
-		// Modified by Venkata Pasupulati for 10/24/2015 - W-000152 - Other Accounts Sorting
-        // Change - modified the sorting order to ASC from DESC & added Account Number as secondary sort column        
+        
         for(Financial_Account__c fa : [ SELECT Id, Finance_Account_Status__c, Financial_Account_Number__c,
         								Collateral__c, Collateral__r.Model_Year__c, Collateral__r.Make__c, Collateral__r.Model_Name__c
         								FROM Financial_Account__c
         								WHERE Id in :relatedAccountIds
-        								ORDER BY Finance_Account_Status__c,Financial_Account_Number__c ASC NULLS LAST ])
+        								ORDER BY Finance_Account_Status__c desc NULLS LAST ])
 		{
 			tempList.add( new FaWrapperSmall(fa) );
 		}

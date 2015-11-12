@@ -1,0 +1,5 @@
+Please review the Change request and update Training/QA Form Publication Date 
+
+Case Number - {!Case.CaseNumber}
+Case Subject - {!Case.Subject}
+Link to Case - {!Case.Link}

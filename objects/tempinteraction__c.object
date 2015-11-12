@@ -44,6 +44,7 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>false</enableActivities>
@@ -63,17 +64,17 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
-    <label>tempinteraction</label>
+    <label>Temp Interaction</label>
     <listViews>
         <fullName>All</fullName>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
     <nameField>
-        <label>tempinteraction Name</label>
+        <label>Temp Interaction Name</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>tempinteractions</pluralLabel>
+    <pluralLabel>Temp Interactions</pluralLabel>
     <searchLayouts/>
     <sharingModel>ReadWrite</sharingModel>
 </CustomObject>

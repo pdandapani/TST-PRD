@@ -34,12 +34,5 @@
         <label><!-- SGUID --></label>
         <name>SGUID__c</name>
     </fields>
-    <layouts>
-        <layout>EWS_Account Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

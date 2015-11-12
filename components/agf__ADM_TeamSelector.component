@@ -1,0 +1,74 @@
+<apex:component id="teamSelector" layout="none" controller="agf.ADM_TeamSelectorController">
+<apex:attribute required="true" name="destinationUrl" type="String" description="Link of the destination" />
+<apex:attribute required="true" name="destinationLabel" type="String" description="Label of the destination URL" />
+<apex:attribute required="false" name="destinationparam" type="String" description="Query string parameter for Team ID" default="teamid" />
+
+	<style>
+	@font-face{font-family:'ProximaNova';src:url({!$Resource.proximanovasoft_regular_webfont}) format('truetype');font-weight:300;font-style:normal;}
+	@font-face{font-family:'ProximaNova';src:url({!$Resource.proximanovasoft_medium_webfont}) format('truetype');font-weight:500;font-style:normal;}
+	@font-face{font-family:'ProximaNova';src:url({!$Resource.proximanovasoft_semibold_webfont}) format('truetype');font-weight:700;font-style:normal;}
+	@font-face{font-family:'ProximaNova';src:url({!$Resource.proximanovasoft_bold_webfont}) format('truetype');font-weight:900;font-style:normal;}
+	
+	#teamSelectorDialog{box-sizing: border-box;font-family:'ProximaNova';text-align:center;margin:50px auto;width:320px;padding:17px;background-color:#F0F1F2;border-radius:8px;color:#293f54;border: 1px #C9C9C9 solid;box-shadow: 0px 3px 6px rgba(0,0,0,0.3);}
+	#teamSelectorDialog img{margin:0 auto;border-radius:8px;width:60px;height:60px;}
+	#teamSelectorHeadline{font-size:16px;font-weight:600;color:#344A5F;margin:10px;-webkit-font-smoothing:antialiased;}
+	#teamSelectorTable{display:table;margin:0px auto;text-align:left;}
+	.teamSelectorRow{display:table-row;}
+	.teamSelectorCell{font-size:13px;font-weight:300;color:#344A5F;display:table-cell;padding:4px 8px;}
+	#teamSelectorDialog input[type=radio]{background-color:#fff;-webkit-box-shadow: none;box-shadow: none;border: 1px solid transparent;box-sizing: border-box;padding: 0;margin-right: 7px;border-color: #bbc0c4;-webkit-appearance: none;border-style: solid;border-width: 1px;height: 22px;width: 22px;display: inline-block;vertical-align: middle;border-radius: 100%; line-height: normal;font-family: inherit;font-size: 100%;margin: 0;margin-right:5px;}
+	#teamSelectorDialog input[type=radio]:checked{background: #2a94d6 !important;}
+	#teamSelectorDialog input[type=radio]:checked:after{display:block;position:relative;content:'';left:5px;top:5px;height:10px;width:10px;border-radius:100%;background:#fff;}    
+	#teamSelectorDialog button{-webkit-appearance:none;background:#2A94D6;border:0;border-radius:5px;box-sizing:border-box;cursor:pointer;display:block;font-family:ProximaNova,Arial,sans-serif;font-size:16px;font-weight:normal;height:34px;margin:20px auto 0px auto;padding:7px 6px;}
+	#teamSelectorDialog button span{-webkit-font-smoothing:auto;color:#fff;display:inline;font-family:ProximaNova,Arial,sans-serif;font-size:16px;font-weight:bold;}
+	#teamSelectorShowAllTeams{text-align:right;margin-top:10px;margin-right:-10px;margin-bottom:-10px;}
+	#teamSelectorShowAllTeams a{color:#888;}
+	</style>
+	<div id="teamSelectorDialog">
+	    <img src="{!t.SmallPhotoUrl}" />
+		<apex:outputPanel layout="none" rendered="{!currentTeamCount > 0}">
+			<div id="teamSelectorHeadline">
+		        {!t.FirstName}, it looks like you belong to multiple teams. Select a team below to continue to the {!destinationLabel}:
+		    </div>
+		    
+		    <form action="{!destinationUrl}" method="get">
+		    <div id="teamSelectorTable">
+		    	<apex:variable var="cnt" value="{!0}" /> 
+				<apex:repeat var="teams" value="{!allocations}">
+				<div class="teamSelectorRow">
+					<div class="teamSelectorCell">
+					
+					
+						<apex:outputPanel layout="none" rendered="{!cnt != 0}">
+							<input name="{!destinationparam}" type="radio" value="{!teams.Scrum_Team__c}" id="team{!teams.Scrum_Team__c}" />
+						</apex:outputPanel>
+						<apex:outputPanel layout="none" rendered="{!cnt == 0}">
+							<input name="{!destinationparam}" type="radio" value="{!teams.Scrum_Team__c}" id="team{!teams.Scrum_Team__c}" checked="checked" />
+						</apex:outputPanel>
+						
+						
+						<label for="team{!teams.agf__Scrum_Team__c}">{!teams.Scrum_Team__r.Name}<apex:outputPanel layout="none" rendered="{!IF(ISBLANK(teams.agf__Role__c),false,true)}">, {!teams.agf__Role__c}</apex:outputPanel></label>
+		            </div>    
+		        </div>
+		        <apex:variable var="cnt" value="{!cnt+1}"/>
+				</apex:repeat>
+		    </div>
+		    <button type="submit">
+		    	<span>Continue</span>
+		    </button>
+		    </form>
+		    <div id="teamSelectorShowAllTeams"><a href="/{!allTeamsLink}">Show All Teams</a></div>
+		</apex:outputPanel>
+		<apex:outputPanel layout="none" rendered="{!currentTeamCount == 0}">
+			<div id="teamSelectorHeadline">
+		        {!t.FirstName}, the {!destinationLabel} requires a team ID. We don't have any teams associated to you. Please <a href="/{!allTeamsLink}">pick a team</a> and then select {!destinationLabel} from the team page.
+		    </div>
+
+		    <button type="submit" onClick="location.href='/{!allTeamsLink}';">
+		    	<span>Pick a Team</span>
+		    </button>
+
+		</apex:outputPanel>
+
+	</div>
+	
+</apex:component>

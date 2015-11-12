@@ -6,7 +6,4 @@
     <tab>standard-OtherUserProfile</tab>
     <tab>standard-CollaborationGroup</tab>
     <tab>standard-File</tab>
-    <tab>Repossession__c</tab>
-    <tab>Document_Request__c</tab>
-    <tab>TFS_AUP_User_Permission__c</tab>
 </CustomApplication>

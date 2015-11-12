@@ -1,0 +1,32 @@
+<apex:component id="themeInputComponent" controller="agf.ADM_ThemeInputController">
+<apex:attribute name="workId" type="Id" description="The ID of the Work to attach the themes to" required="true" assignTo="{!selectedWorkId}" />
+<!-- 
+This component requires jQuery 1.5+, ADM_Work_js and ADM_work_css
+ -->
+<div id="{!$Component.themeInputComponent}:themeInputWrapper" class="themeInputWrapper">
+    <div class="gusForm themeInputForm">
+        <div class="gusForm1Column">
+            <div class="gusFormField gusFormFieldLeft">
+                <input class="themeInput gusStyle" type="text" maxlength="70" />
+            </div>
+            <div class="gusFormField gusFormFieldRight">
+                <input class="addThemeButton" type="button" value="Add" />
+            </div>
+        </div>
+    </div>
+    <div class="errorMsg" style="display: none;"></div>
+    <ul class="themeList"></ul>
+</div>
+<script type="text/javascript">
+var themeContainerView;
+(function() {
+    var themes = new SObjectCollection(gus.parseVfJson('{!JSINHTMLENCODE(themesAsJson)}'));
+
+    themeContainerView = new ThemeContainerView({
+        workId: '{!workId}',
+        $el: $(document.getElementById('{!$Component.themeInputComponent}:themeInputWrapper')),
+        themes: themes
+    });
+})();
+</script>
+</apex:component>

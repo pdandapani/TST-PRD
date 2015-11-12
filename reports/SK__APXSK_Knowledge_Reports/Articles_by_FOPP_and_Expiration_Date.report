@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>ArticlePDF__c.Article_Number__c</field>
+    </columns>
+    <columns>
+        <field>ArticlePDF__c.Title__c</field>
+    </columns>
+    <columns>
+        <field>ArticlePDF__c.VersionNumber__c</field>
+    </columns>
+    <columns>
+        <field>ArticlePDF__c.FOPP__c</field>
+    </columns>
+    <columns>
+        <field>ArticlePDF__c.Expiration_Date__c</field>
+    </columns>
+    <description>Articles across all article types by FOPP and Expiration date</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ArticlePDF__c.ArticleType__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Articles by FOPP and Expiration Date</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$ArticlePDF__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>ArticlePDF__c.Expiration_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

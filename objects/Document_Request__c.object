@@ -44,6 +44,7 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Snapshots of data used to generate unique inputs for document processing in the Adobe Forms Service.</description>
@@ -2428,11 +2429,6 @@ ISPICKVAL(Return_Address_Location__c, &apos;Central&apos;),
         <unique>false</unique>
     </fields>
     <label>Document Request</label>
-    <listViews>
-        <fullName>All</fullName>
-        <filterScope>Everything</filterScope>
-        <label>All</label>
-    </listViews>
     <nameField>
         <displayFormat>DR-{000000}</displayFormat>
         <label>Document Request ID</label>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Acceptance Criteria Status --></label>
+        <name>copado__Acceptance_Criteria_Status__c</name>
+        <picklistValues>
+            <masterLabel>Accepted</masterLabel>
+            <translation><!-- Accepted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Draft</masterLabel>
+            <translation><!-- Draft --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Acceptance Criteria --></label>
+        <name>copado__Acceptance_Criteria__c</name>
+    </fields>
+    <fields>
+        <label><!-- Apex Code Coverage --></label>
+        <name>copado__Apex_Code_Coverage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Business Analyst --></label>
+        <name>copado__Business_Analyst__c</name>
+        <relationshipLabel><!-- User Stories --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Cancellation Reason --></label>
+        <name>copado__Cancellation_Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- Close Date --></label>
+        <name>copado__Close_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Compliance Criteria --></label>
+        <name>copado__Compliance_Criteria__c</name>
+    </fields>
+    <fields>
+        <label><!-- Compliance --></label>
+        <name>copado__Compliance__c</name>
+    </fields>
+    <fields>
+        <label><!-- Data Privacy --></label>
+        <name>copado__Data_Privacy__c</name>
+    </fields>
+    <fields>
+        <label><!-- Developer --></label>
+        <name>copado__Developer__c</name>
+        <relationshipLabel><!-- User Stories (Developer) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Environment --></label>
+        <name>copado__Environment__c</name>
+        <relationshipLabel><!-- User Stories --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Epic --></label>
+        <name>copado__Epic__c</name>
+        <relationshipLabel><!-- User Stories --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Functional Specifications --></label>
+        <name>copado__Functional_Specifications__c</name>
+    </fields>
+    <fields>
+        <label><!-- Has Apex Code --></label>
+        <name>copado__Has_Apex_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Legal --></label>
+        <name>copado__Legal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Minimum Apex Code Coverage --></label>
+        <name>copado__Minimum_Apex_Code_Coverage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Org Credential --></label>
+        <name>copado__Org_Credential__c</name>
+        <relationshipLabel><!-- User Stories (Org Credential) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Parent Epic Title --></label>
+        <name>copado__Parent_Epic_Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- Priority --></label>
+        <name>copado__Priority__c</name>
+    </fields>
+    <fields>
+        <label><!-- Project --></label>
+        <name>copado__Project__c</name>
+        <relationshipLabel><!-- User Stories --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Promote Change --></label>
+        <name>copado__Promote_Change__c</name>
+    </fields>
+    <fields>
+        <label><!-- QR Code --></label>
+        <name>copado__QR_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Release --></label>
+        <name>copado__Release__c</name>
+        <relationshipLabel><!-- User Stories --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Sprint --></label>
+        <name>copado__Sprint__c</name>
+        <relationshipLabel><!-- User Stories --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>copado__Status__c</name>
+        <picklistValues>
+            <masterLabel>Approved</masterLabel>
+            <translation><!-- Approved --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Awaiting Approval</masterLabel>
+            <translation><!-- Awaiting Approval --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cancelled</masterLabel>
+            <translation><!-- Cancelled --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Draft</masterLabel>
+            <translation><!-- Draft --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Progress</masterLabel>
+            <translation><!-- In Progress --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ready for testing</masterLabel>
+            <translation><!-- Ready for testing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Story Points Other --></label>
+        <name>copado__Story_Points_Other__c</name>
+    </fields>
+    <fields>
+        <label><!-- Story Points SFDC --></label>
+        <name>copado__Story_Points_SFDC__c</name>
+    </fields>
+    <fields>
+        <label><!-- Technical Specifications --></label>
+        <name>copado__Technical_Specifications__c</name>
+    </fields>
+    <fields>
+        <label><!-- Test Script Owner --></label>
+        <name>copado__Test_Script_Owner__c</name>
+        <relationshipLabel><!-- User Stories (Test Script Owner) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Total Story Points --></label>
+        <name>copado__Total_Story_Points__c</name>
+    </fields>
+    <fields>
+        <label><!-- User Story Title --></label>
+        <name>copado__User_Story_Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- As a... --></label>
+        <name>copado__userStory_Role__c</name>
+    </fields>
+    <fields>
+        <label><!-- Want to... --></label>
+        <name>copado__userStory_need__c</name>
+    </fields>
+    <fields>
+        <label><!-- So that... --></label>
+        <name>copado__userStory_reason__c</name>
+    </fields>
+    <validationRules>
+        <errorMessage><!-- A cancellation reason must be given. --></errorMessage>
+        <name>copado__Cancellation_reason_required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- This User Story does not meet the required Apex coverage threshold to be promoted. --></errorMessage>
+        <name>copado__Promote_User_Story_Apex_validation</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Add_Apex_Tests --></label>
+        <name>copado__Add_Apex_Tests</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Add_Commits --></label>
+        <name>copado__Add_Commits</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Add_Metadata --></label>
+        <name>copado__Add_Metadata</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Assign_to_Release --></label>
+        <name>copado__Assign_to_Release</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Commit_Files --></label>
+        <name>copado__Commit_Files</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Mass_Add_User_Stories --></label>
+        <name>copado__Mass_Add_User_Stories</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Mass_Add_User_Stories_Sprint --></label>
+        <name>copado__Mass_Add_User_Stories_Sprint</name>
+    </webLinks>
+</CustomObjectTranslation>

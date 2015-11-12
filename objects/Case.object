@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <businessProcesses>
+        <fullName>Article Feedback</fullName>
+        <description>Article Feedback - process for feedback provided via Chatter</description>
+        <isActive>true</isActive>
+        <values>
+            <fullName>Closed - Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed - Declined</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed - Implemented</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KM Changes Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+    </businessProcesses>
+    <businessProcesses>
+        <fullName>Change Control</fullName>
+        <description>Case support process for (Web to case) Change Control process</description>
+        <isActive>true</isActive>
+        <values>
+            <fullName>Closed - Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed - Declined</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed - Implemented</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KM Changes Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+    </businessProcesses>
+    <businessProcesses>
+        <fullName>Change Control Approval</fullName>
+        <description>Used for cases of type change control approvals</description>
+        <isActive>true</isActive>
+        <values>
+            <fullName>Closed - Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed - Declined</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+    </businessProcesses>
+    <businessProcesses>
+        <fullName>Customer Service</fullName>
+        <isActive>true</isActive>
+        <values>
+            <fullName>In Process</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Resolved</fullName>
+            <default>false</default>
+        </values>
+    </businessProcesses>
+    <businessProcesses>
+        <fullName>Rights Letters</fullName>
+        <description>Case life cycle to support rights letters generation</description>
+        <isActive>true</isActive>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Follow-up - Certified</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Follow-up - System</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Follow-up - TL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Follow-up - Vendor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>On Hold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quality Review</fullName>
+            <default>false</default>
+        </values>
+    </businessProcesses>
+    <businessProcesses>
+        <fullName>Standard</fullName>
+        <isActive>true</isActive>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Escalated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>On Hold</fullName>
+            <default>false</default>
+        </values>
+    </businessProcesses>
+</CustomObject>

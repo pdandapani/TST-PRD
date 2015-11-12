@@ -19,15 +19,6 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>X30_day_Reset_DMS</fullName>
-        <field>DMS_Checkbox__c</field>
-        <literalValue>0</literalValue>
-        <name>30-day Reset DMS</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>X30_day_Reset_DMS_Credit</fullName>
         <field>DMS_Credit_App_Checkbox__c</field>
         <literalValue>0</literalValue>
@@ -75,8 +66,7 @@
     <rules>
         <fullName>120-day Reset Innovis</fullName>
         <active>true</active>
-        <formula>Innovis_Checkbox__c = TRUE &amp;&amp;
-NOT(ISBLANK(Innovis_Date__c))</formula>
+        <formula>Innovis_Checkbox__c = TRUE &amp;&amp; NOT(ISBLANK(Innovis_Date__c))</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
             <actions>
@@ -104,7 +94,7 @@ NOT(ISBLANK(Innovis_Date__c))</formula>
     </rules>
     <rules>
         <fullName>30-day Reset  DMS Credit</fullName>
-        <active>true</active>
+        <active>false</active>
         <formula>DMS_Credit_App_Checkbox__c  = TRUE</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
@@ -152,20 +142,6 @@ NOT(ISBLANK(Innovis_Date__c))</formula>
         <workflowTimeTriggers>
             <actions>
                 <name>X30_day_Reset_Payment_Review</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>30</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </workflowTimeTriggers>
-    </rules>
-    <rules>
-        <fullName>30-day Reset DMS</fullName>
-        <active>true</active>
-        <formula>DMS_Checkbox__c  = TRUE</formula>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-        <workflowTimeTriggers>
-            <actions>
-                <name>X30_day_Reset_DMS</name>
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>30</timeLength>

@@ -217,20 +217,5 @@
         <label><!-- Validation Errors --></label>
         <name>Validation_Errors__c</name>
     </fields>
-    <layouts>
-        <layout>PF11 Notes Layout</layout>
-        <sections>
-            <label><!-- Collections Host Info --></label>
-            <section>Collections Host Info</section>
-        </sections>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Main Screen --></label>
-            <section>Main Screen</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

@@ -1,3 +1,7 @@
+<!--Updated by: Sandeep
+    Updated Date: 9/17/2015
+    Description : IE8 and IE11 Parent url redirection
+-->
 <apex:page controller="TFSC_CommunitiesIntermediateController" showHeader="false">
     <apex:stylesheet value="{!URLFOR($Resource.EasyXDM, 'css/intermediate.css')}"/>
     <apex:includeScript value="{!URLFOR($Resource.EasyXDM, 'easyXDM.js')}"/>
@@ -6,14 +10,21 @@
 
             var sid = getCookie('sid');
             if (typeof sid === 'undefined') {
+                //console.log('Sid SF'+sid);
                 //check if we can make a cookie
+                var ua = navigator.userAgent;
+            	 var re  = new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})");
                 document.cookie="testcookie=1;domain=" + document.domain;
-                if (document.cookie.indexOf("testcookie") == -1
-                 || window.attachEvent //IE8
-                ) {
-                    //if we cannot set a cookie then redirct via top-level
-                    window.top.location.href = '{!URLFOR($Page.TFSC_CommunitiesLogin)}';
+                 if (document.cookie.indexOf("testcookie") == -1              
+                    || window.attachEvent)
+                 {
+                    //if we cannot set a cookie then redirect via top-level                     
+                      window.top.location.href = '{!URLFOR($Page.TFSC_CommunitiesLogin)}';
                 }
+                 else if (re.exec(ua) != null){
+                        rv = parseFloat(RegExp.$1 );
+                       if(rv == "11"){window.top.location.href = '{!URLFOR($Page.TFSC_CommunitiesLogin)}';}}                 
+
                 //else allow script to run as normal
             }
         
@@ -83,8 +94,8 @@
 
             function iframeOnLoad() {
                 
-                var d = iframe.contentWindow.document;
-                var originalHeight = d.body.clientHeight || d.body.offsetHeight || d.body.scrollHeight;
+                var d = iframe.contentWindow.document; 
+                 var originalHeight = d.body.clientHeight || d.body.offsetHeight || d.body.scrollHeight;
 
                 // We want to monitor the document for resize events in case of the use of accordions and such,
                 // but unfortunately only the window node emits the resize event, and we need the body's.

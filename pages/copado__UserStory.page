@@ -1,0 +1,10 @@
+<apex:page standardController="copado__User_Story__c">
+    <apex:detail subject="{!copado__User_Story__c.Id}" relatedList="true" title="true" showChatter="true"/>
+    <c:GAnalytics />
+    <script>
+        ga('send', 'pageview', {
+          'page': '/UserStory',
+          'title': 'User Story'
+        });
+    </script> 
+</apex:page>

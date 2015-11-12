@@ -1,0 +1,127 @@
+<table id="Table_01" width="630" height="625" border="0" cellpadding="0" cellspacing="0">
+<tr>
+                <td colspan="2">
+                        <a href="http://www.lexusfinancial.com/pub/home/home.html"
+                                onmouseover="window.status='Lexus Financial Services';  return true;"
+                                onmouseout="window.status='';  return true;">
+                                <img src="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/LFS-Logo.gif" width="144" height="71" border="0" alt="Lexus Financial Services Logo"></a></td>
+                <td height="71" colspan="4"><img src="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/lfs_start.gif" alt="" width="430" height="71"></td>
+  </tr>
+        <tr>
+                <td colspan="6"><table width="630" height="53" border="0" cellpadding="0" cellspacing="0" background="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/lfs_bkgrd.gif">
+          <tr>
+            <td width="21" background="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/lfs_bkgrd.gif">&nbsp;</td>
+            <td width="609" background="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/lfs_bkgrd.gif" style="font-family: Verdana;font-size: 8pt;">This is a no reply email notification. Replies initiated from this email will neither be delivered nor answered. If you have additional questions, please log in to the <a href="http://www.lexusfinancial.com/pub/home/?deeplink=customer_center">Support Center</a> for further assistance.</td>
+          </tr>
+        </table></td>
+  </tr>
+        <tr>
+                <td height="18" colspan="3" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/spacer.gif" width="211" height="18" alt=""></td>
+  <td width="16" height="18" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/spacer.gif" width="16" height="18" alt=""></td>
+<td height="18" colspan="2" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/spacer.gif" width="401" height="19" alt=""></td>
+  </tr>
+        <tr>
+                <td colspan="3">
+                        <img src="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/lf_how.gif" width="211" height="39" alt=""></td>
+                <td rowspan="4" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/lf_line.gif" width="16" height="441" alt=""></td>
+                <td width="403" height="441" colspan="2" rowspan="4" valign="top" bgcolor="#FFFFFF"><span style="font-family: Verdana; font-size: 10pt; color: #666666;">Dear {!Case.Contact}:
+
+            <br><br>
+Thank you for being a valued customer. We have created a Support Request which includes the information you recently requested. To access your secure message in the Support Center please go to <a href="http://www.lexusfinancial.com/pub/home/?deeplink=customer_center">www.LexusFinancial.com</a> and register or log into your account.   
+            <br><br>
+<strong>What information do I need to register my account online?</strong>
+<br>
+<ul>
+<li>First Name</li>
+<li>Last Name</li>
+<li>LFS Account Number (do not include any spaces or dashes)</li>
+<li>Last 4 digits of Social Security Number</li>
+<li>Username and Confirm Username</li>
+<li>Choose a Password and Confirm Password</li>
+<li>Email address for account management </li>
+<li>Choose 3 Security Questions</li>
+<li>Answer each Security Question</li>
+<li>Click Submit at the bottom of the page</li>
+</ul>
+<br>
+<strong>Already registered but need to add a vehicle?</strong>
+<br>
+<ul>
+<li>Login to <a href="http://www.lexusfinancial.com/pub/home/?deeplink=customer_center">www.LexusFinancial.com</a> with your username and password </li>
+<li>Answer your security question</li>
+<li>Go to <u>Add Another Vehicle</u> on the Account Overview page</li>
+<li>Enter your account number (do not include any spaces or dashes)</li>
+<li>Enter the last 4 digits of your Social Security Number </li>
+<li>Click Submit</li>
+</ul>
+<br>
+<strong>How do I retrieve my secure message in the Support Center? </strong>
+<br><br>
+Please follow these instructions to view your messages: 
+<br>
+<ul>
+<li>Select <u>Support Center Inbox</u> link on the left side of the web page</li>
+<li>Click on Support Request <u>{!Case.CaseNumber}</u> to see the message </li>
+</ul>
+<br>
+We value your business and look forward to serving your needs. Thank you for visiting us at <a href="http://www.lexusfinancial.com/pub/home/">www.LexusFinancial.com</a>. 
+        <br>
+        <br>
+        Sincerely,
+
+        <br>
+       Lexus Financial Services Customer Support<br><br><br><br>
+         </span></td>
+
+
+  </tr>
+
+
+
+  
+        <tr>
+                <td height="15" colspan="3" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/spacer.gif" width="211" height="15" alt=""></td>
+  </tr>
+        <tr>
+                <td width="21" height="139" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/spacer.gif" width="21" height="139" alt=""></td>
+                <td height="139" colspan="2" valign="top" bgcolor="#FFFFFF"><p style="font-family: Verdana;font-size: 8pt;"><a href="http://www.lexusfinancial.com/pub/w/#contact_us">Contact Lexus Financial Services</a><br>
+              <br> 
+              <a href="http://www.lexusfinancial.com/pub/w/#online_privacy_policy">Your Privacy</a><br>
+            <br>
+                <a href="http://www.lexus.com/about/?s_ocid=EBA_OC_Acceptance">About Us</a></p>          </td>
+  </tr>
+        <tr>
+                <td colspan="3" bgcolor="#FFFFFF">
+                        <a href="http://www.lexusfinancial.com/pub/home/?deeplink=customer_center"
+                                onmouseover="window.status='Login to Your Lexus Financial Services Account';  return true;"
+                                onmouseout="window.status='';  return true;">
+                                <img src="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/lf_login.gif" width="211" height="248" border="0" alt="Login to Your Lexus Financial Services Account"></a></td>
+        </tr>
+        <tr>
+                <td height="41" colspan="3" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/spacer.gif" width="211" height="41" alt=""></td>
+  <td height="41" bgcolor="#FFFFFF">
+                        <img src="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/spacer.gif" width="16" height="41" alt=""></td>
+          
+  </tr>
+        <tr>
+                <td>
+                        <img src="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/spacer.gif" width="21" height="1" alt=""></td>
+                <td width="123">
+                        <img src="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/spacer.gif" width="123" height="1" alt=""></td>
+  <td width="67">
+                        <img src="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/spacer.gif" width="67" height="1" alt=""></td>
+<td>
+                        <img src="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/spacer.gif" width="16" height="1" alt=""></td>
+                <td width="179">
+                        <img src="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/spacer.gif" width="169" height="1" alt=""></td>
+<td width="234">
+                        <img src="http://www.sc.toyotafinancial.com/web/lfs/pub/img/ofsc_emails/spacer.gif" width="234" height="1" alt=""></td>
+        </tr>
+</table>

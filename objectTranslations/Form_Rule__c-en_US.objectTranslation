@@ -161,28 +161,6 @@
         <label><!-- iRepo SLA --></label>
         <name>iRepo_SLA__c</name>
     </fields>
-    <layouts>
-        <layout>RL Notice of Sale Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Rights Letters Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Mailing/Timing Requirements --></label>
-            <section>Mailing/Timing Requirements</section>
-        </sections>
-        <sections>
-            <label><!-- State Requirements --></label>
-            <section>State Requirements</section>
-        </sections>
-    </layouts>
     <recordTypes>
         <label><!-- RL Notice of Sale --></label>
         <name>RL_Notice_of_Sale</name>

@@ -4,7 +4,7 @@
     <contactAccessLevel>Edit</contactAccessLevel>
     <description>Customer Service Agents</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Customer Service Agents</name>
+    <name>Customer Service Agents***DO NOT USE***</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
     <parentRole>Customer_Service_Team_Leads</parentRole>
 </Role>

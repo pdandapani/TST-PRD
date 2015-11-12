@@ -1,0 +1,25 @@
+<apex:component layout="none">
+<apex:attribute name="task" type="agf__ADM_Task__c" required="true" description="The task to be shown" />
+<apex:attribute name="style" type="String" required="false" description="CSS style display to render either 'block' or 'none'." />
+<apex:attribute name="cssclass" type="String" required="false" description="CSS style display to render either 'block' or 'none'." />
+
+<li class="task_card {!cssclass}" data-taskid="{!task.Id}" data-userid="{!task.Assigned_To__r.Id}" data-lastmodifieddate="{!task.LastModifiedDate}" style="{!style}">
+    <div class="task_row1">
+        <div class="task_row1_holder"><div class="task_desc"><textarea maxlength="255">{!task.Subject__c}</textarea></div></div>
+        <div class="task_img"><img src="{!task.Assigned_To__r.SmallPhotoUrl}" alt="{!task.Assigned_To__r.Name}" title="{!task.Assigned_To__r.Name}" class="img_clickable" /></div>
+    </div>
+    <div class="task_row2">
+        <div class="task_grippy"></div>
+        <div class="task_rh">Hours:</div>
+        <div class="task_hours"><input type="text" id="hours_{!task.Id}" name="hours_{!task.Id}" value="{!SUBSTITUTE(TEXT(task.Hours_Remaining__c),'.0','')}" size="3" maxlength="3" spellcheck="false" /></div>
+        <div class="task_hint"></div>
+        <div class="task_assignee_name">
+            <apex:outputPanel rendered="{!NOT(ISNULL(task.agf__Assigned_To__c))}" layout="none">
+                <a href="/{!task.agf__Assigned_To__c}" target="_blank">{!BLANKVALUE(task.Assigned_To__r.FirstName, task.Assigned_To__r.Name)}</a>
+            </apex:outputPanel>
+        </div>
+        <div class="task_link"><a target="_blank" href="/{!task.Id}"><span class="ui-icon ui-icon-extlink" title="Open Task in New Window" style="background-position:-32px -77px;"></span></a></div>
+        <div class="task_dd"><div class="delete-task-button"><span class="ui-icon ui-icon-trash" title="Delete Task"></span></div></div>
+    </div>
+</li>
+</apex:component>

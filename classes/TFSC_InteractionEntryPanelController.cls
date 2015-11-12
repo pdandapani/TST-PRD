@@ -673,7 +673,7 @@ global with sharing class TFSC_InteractionEntryPanelController {
                   /*  if(interactionPanelWrapper.firstPromiseDate != null && interactionPanelWrapper.firstPromiseDate != '' && TFSC_Utils.getDecimalCurrencyValue(interactionPanelWrapper.firstAmountPTP) != 0 && interactionPanelWrapper.firstAmountPTP != ''){                   
                      quickActivity.Collection_Activity_Promise_Date_1__c = Date.parse(interactionPanelWrapper.firstPromiseDate);
                      quickActivity.Collection_Activity_Promise_Amount_1__c = TFSC_Utils.getDecimalCurrencyValue(interactionPanelWrapper.firstAmountPTP); 
-                                }*/
+								}*/
                     
              //added by suman & Sandeep, date - 09/09/2015 *End* 
             activitiesToInsert.add(quickActivity);

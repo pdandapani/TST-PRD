@@ -91,12 +91,5 @@
         <label><!-- sequence --></label>
         <name>sequence__c</name>
     </fields>
-    <layouts>
-        <layout>BinderPage Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

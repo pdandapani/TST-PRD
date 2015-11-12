@@ -65,6 +65,12 @@
         <recurrenceType>RecursYearly</recurrenceType>
     </holidays>
     <holidays>
+        <activityDate>2015-07-03</activityDate>
+        <description>July 3 (One Time)</description>
+        <isRecurring>false</isRecurring>
+        <name>July 3</name>
+    </holidays>
+    <holidays>
         <businessHours>Rights Letters Mailing</businessHours>
         <isRecurring>true</isRecurring>
         <name>Labor Day</name>

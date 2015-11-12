@@ -48,6 +48,10 @@
                 <behavior>Edit</behavior>
                 <field>Article_Feedback_Provided_By__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Last_Comment_Date__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

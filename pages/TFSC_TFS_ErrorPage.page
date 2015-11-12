@@ -1,0 +1,39 @@
+<!--Created by: Sandeep
+    Created Date: 9/16/2015
+    Description : This is to display TFS custom error message to customers whenever user provisioning fails
+-->
+<apex:page showHeader="False" showQuickActionVfHeader="false" sidebar="false" showChat="false">
+<apex:includeScript value="{!$Resource.jquery}"/>
+<apex:form >
+    <apex:image id="demo" url="{!URLFOR($Resource.Sites, 'Sites/tfs_nolink.png')}"/>  <p align="center">
+    
+    <a id="navigateTo" href="{!$label.Website_TFS_ErrorpageUrl}" style="display:none;">
+        <apex:image id="TFSLogo" style="align:middle" url="{!URLFOR($Resource.Sites, 'Sites/tfs_logo.png')}"/><br/><br/>
+    <apex:image id="demo1" url="{!URLFOR($Resource.Sites, 'Sites/tfs_link.png')}"/>
+    </a></p>
+</apex:form>
+
+<script type="text/javascript">    
+ var ua = navigator.userAgent;
+    //IE browsers below version 11
+ if(ua.indexOf('MSIE') > -1)
+ {
+     
+      $("[id$=navigateTo]").show();
+      $("[id$=demo]").hide();
+ }
+     //IE11 browser
+ var re  = new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})");       
+    if(re.exec(ua)!=null)
+        {
+            var rv = parseFloat(RegExp.$1);
+            if(rv == "11")
+           {
+            $("[id$=navigateTo]").show();
+            $("[id$=demo]").hide();
+           }
+         }
+    
+  
+</script>      
+</apex:page>

@@ -1,0 +1,39 @@
+<apex:component id="theComponent" controller="copado.rateCopadoController">
+    <apex:attribute id="attribute" name="messageType" type="String" description="This defines the message that should be displayed depending on the component placement or condition."/>
+    <apex:attribute id="attribute" name="messageTitle" type="String" description="The title of the pageMessage block"/>
+    <script>
+        function openAppExchange(){
+            window.open("https://appexchange.salesforce.com/listingDetail?listingId=a0N3000000B3dgGEAR&tab=r");
+        }
+        function hideMessage() {
+            console.log('SubmitData')
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.rateCopadoController.optOutUser}',
+                function(result, event){
+                    if (event.status) {
+                        location.reload();
+                    } 
+                    else if (event.type === 'exception') {
+                        alert('Exception: '+event.message)
+                    } 
+                    else {
+                        alert('Error: '+event.message)
+                    }
+                }, 
+                    {escape: true}
+            );
+        }
+    </script>
+
+    <!-- remove this change -->
+    
+    <div id="msgWrapper">
+        <apex:pageMessage id="msgRateCopado" severity="confirm" strength="2" title="{!messageTitle}" rendered="{!showMessage}">
+            <apex:outputPanel id="pnlDeploymentSuccess" rendered="{!messageType=='DeploymentSuccess'}">
+                <p>{!$Label.copado__RATECOPADO_DEPLOYSUCCESS}</p>
+            </apex:outputPanel>
+            <apex:commandButton id="btnRateCopado" onclick="openAppExchange()" value="{!$Label.copado__RATE_COPADO_NOW}" />&nbsp;
+            <apex:commandLink id="lnkHideRating" onclick="hideMessage();" rerender="msgRateCopado">{!$Label.copado__DONT_REMIND_ME_AGAIN}</apex:commandLink>
+        </apex:pageMessage>
+    </div>
+</apex:component>

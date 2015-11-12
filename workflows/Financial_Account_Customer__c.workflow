@@ -181,26 +181,6 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>Update_FAC_RecTypeToLease</fullName>
-        <field>RecordTypeId</field>
-        <lookupValue>Lease</lookupValue>
-        <lookupValueType>RecordType</lookupValueType>
-        <name>Update_FAC_RecTypeToLease</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>Update_FAC_RecTypeToRetail</fullName>
-        <field>RecordTypeId</field>
-        <lookupValue>Retail</lookupValue>
-        <lookupValueType>RecordType</lookupValueType>
-        <name>Update_FAC_RecTypeToRetail</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>Update_FA_Primary_Garage_State</fullName>
         <description>Sets the value for the Primary Garage State field on the Financial Account.</description>
         <field>Primary_Garage_State__c</field>
@@ -211,15 +191,6 @@
         <protected>false</protected>
         <targetObject>Financial_Account__c</targetObject>
     </fieldUpdates>
-    <fieldUpdates>
-        <fullName>X123Test</fullName>
-        <field>RL_Bankruptcy_Status__c</field>
-        <literalValue>Non Filing Party</literalValue>
-        <name>123Test</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-    </fieldUpdates>
     <rules>
         <fullName>FAC Primary Garage Address Set or Updated</fullName>
         <actions>
@@ -229,28 +200,6 @@
         <active>true</active>
         <description>Actions occurring when the Primary FAC&apos;s garage address is populated or updated and not blank</description>
         <formula>AND(  Borrower_Position__c = &apos;Primary&apos;,  NOT(ISBLANK(TEXT(Mailing_State_Garage__c))) )</formula>
-        <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
-        <fullName>FAC_Lease</fullName>
-        <actions>
-            <name>Update_FAC_RecTypeToLease</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>true</active>
-        <formula>RecordType.DeveloperName  &lt;&gt; &apos;Lease&apos; &amp;&amp;
-Financial_Account__r.RecordType.DeveloperName = &apos;Lease&apos;</formula>
-        <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
-        <fullName>FAC_Retail</fullName>
-        <actions>
-            <name>Update_FAC_RecTypeToRetail</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>true</active>
-        <formula>RecordType.DeveloperName  &lt;&gt; &apos;Retail&apos; &amp;&amp;
-Financial_Account__r.RecordType.DeveloperName = &apos;Retail&apos;</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>

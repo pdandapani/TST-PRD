@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>TFS Contact Us - Web-to-Case - Terms of Use Auto-response</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>TFS: Contact Us - Terms of Use (Unauthenticated)</name>
+    <style>none</style>
+    <subject>Toyota Financial Services - Contact Us Confirmation</subject>
+    <textOnly>Dear {!Case.SuppliedName}:
+
+Thank you for contacting Toyota Financial Services via the &apos;Contact Us&apos; link at www.ToyotaFinancial.com.  Messages sent through this channel are unsecure.  As we value your privacy, we will not provide account-specific information through this unsecured channel.
+
+For information about our Online Privacy Policy and Terms of Use, please scroll down to the bottom of the page at www.ToyotaFinancial.com.  Then select &apos;Privacy Policy and Terms of Use&apos; for more information.
+
+Thank you for visiting us at www.ToyotaFinancial.com.
+
+Sincerely,
+Toyota Financial Services Customer Support
+
+
+
+This is a no reply email notification. Replies initiated from this email will neither be delivered nor answered. If you have additional questions, please log in to the Support Center for further assistance.</textOnly>
+    <type>custom</type>
+</EmailTemplate>

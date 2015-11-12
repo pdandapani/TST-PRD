@@ -44,6 +44,7 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Stores details of vehicles associated with financial accounts.</description>
@@ -166,18 +167,6 @@
         <scale>0</scale>
         <trackTrending>false</trackTrending>
         <type>Number</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>VIN_QR_Code__c</fullName>
-        <description>Not for production. Implemented for POC only.</description>
-        <externalId>false</externalId>
-        <formula>IMAGE(&quot;https://api.qrserver.com/v1/create-qr-code/?data=&quot; + Vehicle_Identification_Number__c, &quot;QR VIN Code&quot;, 220, 220)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>VIN QR Code</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>

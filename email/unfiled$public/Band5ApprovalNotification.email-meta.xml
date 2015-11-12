@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Change Control - Notification email to KM team that Band5 has approved a Change Control urgent case</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Band5ApprovalNotification</name>
+    <style>none</style>
+    <subject>*** URGENT *** Change Control case has been approved by Band 5</subject>
+    <type>text</type>
+</EmailTemplate>

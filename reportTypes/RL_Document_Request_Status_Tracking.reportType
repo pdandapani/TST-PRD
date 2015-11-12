@@ -752,11 +752,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Recipient__c</field>
-            <table>Document_Request__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Recipient_Address1__c</field>
             <table>Document_Request__c</table>
         </columns>

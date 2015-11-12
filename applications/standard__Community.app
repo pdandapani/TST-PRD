@@ -10,7 +10,4 @@
     <tab>standard-report</tab>
     <tab>standard-Dashboard</tab>
     <tab>standard-Questions</tab>
-    <tab>Repossession__c</tab>
-    <tab>Document_Request__c</tab>
-    <tab>TFS_AUP_User_Permission__c</tab>
 </CustomApplication>

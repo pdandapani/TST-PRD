@@ -277,7 +277,7 @@
                     //resOnly = resOnly.slice( resOnly.indexOf('-') + 1 );
                     //Modified by Shashank Singhal for S-321636 to set MANL activity code when Recommended Pass is MANL/RCVR
                     if(resOnly == 'MANL/RCVR'){
-                        resOnly = 'MANL';
+                    	resOnly = 'MANL';
                     }
                     //End of changes for S-321636
                     $j(".skipPickList").val(resOnly);
@@ -291,6 +291,25 @@
                     }
                     
                     noteText = noteText.replace('[DPD]', '{!financialAccount.History_Counter_Days_Past_Due__c}');
+                    if(resOnly == 'RES3' || resOnly == 'RES4'){
+                        var result = JSON.parse(updatedNoteObj.tempSkipTrace);
+                       if(result.Phone1__c != '' && result.Phone1__c != null)
+                            noteText = noteText.replace('[Ph1]', result.Phone1__c);
+                        else
+                            noteText = noteText.replace('[Ph1]', '');
+                            if(result.Phone2__c != '' && result.Phone2__c != null)
+                            noteText = noteText.replace('[Ph2]', result.Phone2__c);
+                        else
+                            noteText = noteText.replace('[Ph2]', '');
+                            if(result.Address1__c != '' && result.Address1__c != null)
+                            noteText = noteText.replace('[AD1]', result.Address1__c);
+                        else
+                            noteText = noteText.replace('[AD1]', '');
+                            if(result.Address2__c != '' && result.Address2__c != null)
+                            noteText = noteText.replace('[AD2]', result.Address2__c);
+                        else
+                            noteText = noteText.replace('[AD2]', '');
+                    }
                     if(parsedNoteVal) {
                         noteText += ' ' + parsedNoteVal;
                     }
@@ -1470,7 +1489,7 @@
             sforce.console.getFocusedPrimaryTabId(refreshPrimarytab);
 
         }
-        var refreshPrimarytab = function refreshPrimarytab(result){
+		var refreshPrimarytab = function refreshPrimarytab(result){
 
             var primaryTabId = result.id;
     
@@ -1479,7 +1498,7 @@
             sforce.console.refreshPrimaryTabById(primaryTabId, true, refreshSuccess );         
 
         }
-        var refreshSuccess = function refreshSuccess(result) {
+		var refreshSuccess = function refreshSuccess(result) {
     
             console.log(result);
     

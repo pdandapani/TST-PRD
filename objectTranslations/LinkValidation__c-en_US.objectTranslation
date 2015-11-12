@@ -76,17 +76,6 @@
         <label><!-- is Broken --></label>
         <name>is_Broken__c</name>
     </fields>
-    <layouts>
-        <layout>ValidateLink Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Link --></label>
-            <section>Link</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
     <webLinks>
         <label><!-- Start_Article_Link_Validation_Batch_Job --></label>

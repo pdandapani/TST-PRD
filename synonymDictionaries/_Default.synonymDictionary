@@ -2,6 +2,121 @@
 <SynonymDictionary xmlns="http://soap.sforce.com/2006/04/metadata">
     <groups>
         <languages>en_US</languages>
+        <terms>DNC</terms>
+        <terms>Do Not Call</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>Mid Stage</terms>
+        <terms>Midstage</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>ACH</terms>
+        <terms>Autocheque</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>RCVR</terms>
+        <terms>Repo</terms>
+        <terms>Reposession</terms>
+        <terms>Repossession</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>VOLS</terms>
+        <terms>Voluntary Surrender</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>BK</terms>
+        <terms>Bankruptcy</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>DSD</terms>
+        <terms>Direct Sales Documents</terms>
+        <terms>Lease Purchase</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>Check Free Pay</terms>
+        <terms>CheckFree</terms>
+        <terms>CheckFreePay</terms>
+        <terms>checkfree pay</terms>
+        <terms>Check Free</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>Storm</terms>
+        <terms>Disaster</terms>
+        <terms>Natural Disaster</terms>
+        <terms>Storms</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>POA</terms>
+        <terms>Power of Attorney</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>DMM</terms>
+        <terms>Delinquency Movement Matrix</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>SCRA</terms>
+        <terms>Servicemembers Civil Relief Act</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>MLS</terms>
+        <terms>Matured Lease Services</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>LFS</terms>
+        <terms>Lexus Financial Services</terms>
+        <terms>TFS</terms>
+        <terms>Toyota Financial Services</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>DDC</terms>
+        <terms>Due Date Change</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>Dead</terms>
+        <terms>Death</terms>
+        <terms>Deceased</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>#Feedback</terms>
+        <terms>Feedback</terms>
+        <terms>Leave Feedback</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>KM</terms>
+        <terms>Knowledge Management</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>NSS</terms>
+        <terms>Non Signing Spouse</terms>
+        <terms>Non-Signing Spouse</terms>
+        <terms>Spouse</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
+        <terms>Lease Deferral</terms>
+        <terms>Retail Extension</terms>
+        <terms>skip a payment</terms>
+    </groups>
+    <groups>
+        <languages>en_US</languages>
         <terms>PR</terms>
         <terms>Puerto Rico</terms>
     </groups>
@@ -58,8 +173,8 @@
     </groups>
     <groups>
         <languages>en_US</languages>
-        <terms>SD</terms>
         <terms>South Dakota</terms>
+        <terms>SD</terms>
     </groups>
     <groups>
         <languages>en_US</languages>
@@ -213,8 +328,8 @@
     </groups>
     <groups>
         <languages>en_US</languages>
-        <terms>GA</terms>
         <terms>Georgia</terms>
+        <terms>GA</terms>
     </groups>
     <groups>
         <languages>en_US</languages>

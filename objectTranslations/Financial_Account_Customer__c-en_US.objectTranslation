@@ -511,6 +511,14 @@
         <name>Home_Phone_No_Call_Reason_Garage__c</name>
     </fields>
     <fields>
+        <label><!-- Home Phone Ownership Score --></label>
+        <name>Home_Phone_Ownership_Score_Billing__c</name>
+    </fields>
+    <fields>
+        <label><!-- Home Phone Ownership Score --></label>
+        <name>Home_Phone_Ownership_Score_Garage__c</name>
+    </fields>
+    <fields>
         <help><!-- Check to acknowledge an invalid phone number has been entered. --></help>
         <label><!-- Home Phone Format Confirmed --></label>
         <name>Invalid_Home_Phone_Acknowledged_BillTo__c</name>
@@ -1076,6 +1084,10 @@
         <name>Mobile_Phone_No_Call_Reason__c</name>
     </fields>
     <fields>
+        <label><!-- Mobile Phone Ownership Score --></label>
+        <name>Mobile_Phone_Ownership_Score__c</name>
+    </fields>
+    <fields>
         <label><!-- Mobile Phone --></label>
         <name>Mobile_Phone__c</name>
     </fields>
@@ -1086,10 +1098,6 @@
     <fields>
         <label><!-- (IVR) Model Year --></label>
         <name>Model_Year__c</name>
-    </fields>
-    <fields>
-        <label><!-- Number of FAC --></label>
-        <name>Number_of_FAC__c</name>
     </fields>
     <fields>
         <label><!-- Online Flag --></label>
@@ -1294,103 +1302,14 @@
         <label><!-- Work Phone No-Call Reason --></label>
         <name>Work_Phone_No_Call_Reason_Garage__c</name>
     </fields>
-    <layouts>
-        <layout>Financial Account Customer Layout</layout>
-        <sections>
-            <label><!-- Account Servicing Preferences --></label>
-            <section>Account Servicing Preferences</section>
-        </sections>
-        <sections>
-            <label><!-- Billing Address &amp; Phones (Lease Only) --></label>
-            <section>Billing Address &amp; Phones (Lease Only)</section>
-        </sections>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Customer Consents &amp; Language --></label>
-            <section>Customer Consents &amp; Language</section>
-        </sections>
-        <sections>
-            <label><!-- Garage Address &amp; Phones --></label>
-            <section>Garage Address &amp; Phones</section>
-        </sections>
-        <sections>
-            <label><!-- Marketing Preferences --></label>
-            <section>Marketing Preferences</section>
-        </sections>
-        <sections>
-            <label><!-- Privacy Elections --></label>
-            <section>Privacy Elections</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Lease</layout>
-        <sections>
-            <label><!-- Account Servicing Preferences --></label>
-            <section>Account Servicing Preferences</section>
-        </sections>
-        <sections>
-            <label><!-- Billing Address &amp; Phones (Lease Only) --></label>
-            <section>Billing Address &amp; Phones (Lease Only)</section>
-        </sections>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Customer Consents &amp; Language --></label>
-            <section>Customer Consents &amp; Language</section>
-        </sections>
-        <sections>
-            <label><!-- Garage Address &amp; Phones --></label>
-            <section>Garage Address &amp; Phones</section>
-        </sections>
-        <sections>
-            <label><!-- Marketing Preferences --></label>
-            <section>Marketing Preferences</section>
-        </sections>
-        <sections>
-            <label><!-- Privacy Elections --></label>
-            <section>Privacy Elections</section>
-        </sections>
-    </layouts>
-    <layouts>
-        <layout>Retail</layout>
-        <sections>
-            <label><!-- Account Servicing Preferences --></label>
-            <section>Account Servicing Preferences</section>
-        </sections>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Customer Consents &amp; Language --></label>
-            <section>Customer Consents &amp; Language</section>
-        </sections>
-        <sections>
-            <label><!-- Garage Address &amp; Phones --></label>
-            <section>Garage Address &amp; Phones</section>
-        </sections>
-        <sections>
-            <label><!-- Marketing Preferences --></label>
-            <section>Marketing Preferences</section>
-        </sections>
-        <sections>
-            <label><!-- Privacy Elections --></label>
-            <section>Privacy Elections</section>
-        </sections>
-    </layouts>
-    <recordTypes>
-        <label><!-- Lease --></label>
-        <name>Lease</name>
-    </recordTypes>
-    <recordTypes>
-        <label><!-- Retail --></label>
-        <name>Retail</name>
-    </recordTypes>
+    <fields>
+        <label><!-- Work Phone Ownership Score --></label>
+        <name>Work_Phone_Ownership_Score_Billing__c</name>
+    </fields>
+    <fields>
+        <label><!-- Work Phone Ownership Score --></label>
+        <name>Work_Phone_Ownership_Score_Garage__c</name>
+    </fields>
     <startsWith>Consonant</startsWith>
     <validationRules>
         <errorMessage><!-- The phone number you&apos;ve entered contains an invalid area code. Please confirm with customer.  If confirmed with customer, check the Home Phone Format Confirmed checkbox and save to continue. --></errorMessage>

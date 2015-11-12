@@ -8,7 +8,4 @@
     <tab>Article_Search_and_Replace</tab>
     <tab>KB_Global_Search_History__c</tab>
     <tab>KB_Global_Search_And_Replace__c</tab>
-    <tab>Repossession__c</tab>
-    <tab>Document_Request__c</tab>
-    <tab>TFS_AUP_User_Permission__c</tab>
 </CustomApplication>

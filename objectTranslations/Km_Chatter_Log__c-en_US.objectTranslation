@@ -48,16 +48,5 @@
         <label><!-- Version Number --></label>
         <name>versionNumber__c</name>
     </fields>
-    <layouts>
-        <layout>Km Chatter Log Layout</layout>
-        <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
-        </sections>
-        <sections>
-            <label><!-- Km Team Comment --></label>
-            <section>Km Team Comment</section>
-        </sections>
-    </layouts>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

@@ -1126,46 +1126,46 @@
                         eventObj.passStratObj = serializedJson;
                         eventObj.datesDetails = datesDetails;
                         //Modified by Shashank Singhal for S-330388
-                        //Modified by Shashank Singhal for I-172096
+                    	//Modified by Shashank Singhal for I-172096
                         var initialPass = '{!passStratLabel}';
                         var n = initialPass.indexOf(' Recommended');
                         if(n != -1){
-                            initialPass = initialPass.substring(0, n);
+                        	initialPass = initialPass.substring(0, n);
                         }
                         if(initialPass != passStratObjFromJson.RES__c){
-                            if(passStratObjFromJson.RES__c == 'RES1'){
-                                previousPass = 1;
+                        	if(passStratObjFromJson.RES__c == 'RES1'){
+                            	previousPass = 1;
                             }
                             if(passStratObjFromJson.RES__c == 'RES2'){
-                                previousPass = 2;    
+                            	previousPass = 2;    
                             }
                             if(passStratObjFromJson.RES__c == 'RES3'){
-                                if(accType == 'General')
-                                    previousPass = 4;  
+                            	if(accType == 'General')
+                                	previousPass = 4;  
                                 if(accType == 'FPD-EPD')
                                     previousPass = 3;  
                                 if(accType == 'MA')
                                     previousPass = 4;    
                             }
                             if(passStratObjFromJson.RES__c == 'RES4'){
-                                if(accType == 'General')
-                                    previousPass = 6;  
+                            	if(accType == 'General')
+                                	previousPass = 6;  
                                 if(accType == 'FPD-EPD')
                                     previousPass = 5;  
                                 if(accType == 'MA')
                                     previousPass = 6;  
                             }
                             if(passStratObjFromJson.RES__c == 'RES5'){
-                                if(accType == 'General')
-                                    previousPass = 8;  
+                            	if(accType == 'General')
+                                	previousPass = 8;  
                                 if(accType == 'FPD-EPD')
                                     previousPass = 6;  
                                 if(accType == 'MA')
                                     previousPass = 8;   
                             }
                             if(passStratObjFromJson.RES__c == 'MANL/RCVR'){
-                                if(accType == 'General')
-                                    previousPass = 9;  
+                            	if(accType == 'General')
+                                	previousPass = 9;  
                                 if(accType == 'FPD-EPD')
                                     previousPass = 7;  
                                 if(accType == 'MA')
@@ -1174,7 +1174,7 @@
                         
                         }
                         //End of I-172096
-                        eventObj.previousPass = previousPass;
+                    	eventObj.previousPass = previousPass;
                         eventObj.fAccType = accType;
                         eventObj.tempSkipTrace = tempSkipTrace;
                         //End of S-330388

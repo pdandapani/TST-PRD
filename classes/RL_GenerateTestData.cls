@@ -88,8 +88,9 @@ global class RL_GenerateTestData {
     }
 
     static public Repossession__c createRepossessionMD(Case theCase, Financial_Account__c fAccount) {
-    	string Recid = Schema.SObjectType.Repossession__c.getRecordTypeInfosByName().get('RL Retail-CA In-State').getRecordTypeId();    	
-        repo = new Repossession__c (Financial_Account__c=fAccount.Id, RecordTypeId =Recid, Reinstatement_Denial_Reason__c='Bankruptcy Discharge - Filing Parties Only', Proposed_Notice_Date__c=Date.today(), Case__c = theCase.Id, iRepo_VIN__c='12345', State_of_Jurisdiction__c='MD', iRepo_RepoState__c = 'MD', iRepo_RepoZip__c = '90210', iRepo_RecoveryDateTime__c=DateTime.now(), Vehicle_Make__c = 'TOYOTA', Vehicle_Model__c='COROLLA', Validation_Comments__c = 'TEST', Proposed_Legal_Sale_Date__c=Date.Today(), Other_Charges1__c=123, Other_Charges2__c=456);
+        repo = new Repossession__c(Financial_Account__c=fAccount.Id, Proposed_Notice_Date__c=Date.today(), Case__c = theCase.Id, iRepo_VIN__c='12345', State_of_Jurisdiction__c='MD',
+                                    iRepo_RepoState__c = 'MD', iRepo_RepoZip__c = '90210', iRepo_RecoveryDateTime__c=DateTime.now(), Vehicle_Make__c = 'TOYOTA', Vehicle_Model__c='COROLLA',
+                                    Validation_Comments__c = 'TEST', Proposed_Legal_Sale_Date__c=Date.Today(), Other_Charges1__c=123, Other_Charges2__c=456);
         insert repo;
         return repo;
     }    

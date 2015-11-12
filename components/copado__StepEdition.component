@@ -1,0 +1,337 @@
+<apex:component id="cmpStepEdition" controller="copado.StepEditionController">
+	
+
+	<apex:pageBlock id="pbStepDetailComponent">
+
+		<apex:pageblockButtons >
+        <button id="btn-js-SaveStep" class="btn js-saveStep" onclick="copadoStep.save(); return false;" >{!$Label.site.save}</button>
+        <button id="btn-js-CancelStep" class="btn" onclick="copadoStep.cancel(); return false;" >{!$Label.site.cancel}</button>
+		</apex:pageblockButtons>
+
+        <div id="js-TestLevelContainer" style="display:none;">
+            <apex:pageBlockSection columns="1" >
+            <apex:pageBlockSection columns="2">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Test Level</apex:outputLabel>
+                    <select id="js-TestLevel" data-selected="" >
+                        <option value="NoTestRun" selected="selected">No Test Run</option>
+                        <option value="RunSpecifiedTests" >Run Specified Tests</option>
+                        <option value="RunLocalTests">Run Local Tests</option>
+                        <option value="RunAllTestsInOrg">Run All Tests In Org</option>
+                    </select>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            </apex:pageBlockSection>
+        </div>		
+
+    <apex:outputPanel id="js-stepBlock-Users" style="display:none;" >
+	    	<apex:pageBlockSection columns="2" >
+	    		<apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$Label.copado__FROM_SUFFIX}" for="fromSuffix" />
+                <apex:inputText value="{!inputAux}" id="fromSuffix"
+                    styleClass="js-fromSuffix" />
+	            </apex:pageBlockSectionItem>
+	            <apex:pageBlockSectionItem >
+	                <apex:outputLabel value="{!$Label.copado__TO_SUFFIX}" for="toSuffix" />
+	                <apex:inputText value="{!inputAux}" id="toSuffix"
+	                    styleClass="js-toSuffix" />
+	            </apex:pageBlockSectionItem>
+	            <apex:pageBlockSectionItem >
+	                <apex:outputLabel value="{!$Label.copado__ACTIVATE_USERS}" for="actives" />
+	                <apex:inputCheckbox value="{!inputAux}" id="actives"
+	                    styleClass="js-actives" />
+	            </apex:pageBlockSectionItem>
+	            <apex:pageBlockSectionItem id="d-useTerritories">
+	                <apex:outputLabel value="{!$Label.copado__USER_TERRITORIES}"
+	                    for="useTerritories" />
+	                <apex:inputCheckbox value="{!inputAux}" id="useTerritories"
+	                    styleClass="js-useTerritories" />
+	            </apex:pageBlockSectionItem>
+
+	    	</apex:pageBlockSection>	
+	    
+		</apex:outputPanel>
+
+
+    <apex:outputPanel id="js-stepBlock-CustomSettings" style="display:none;" >
+        <apex:pageBlockSection columns="2" >
+            <apex:pageBlockSectionItem >
+              <apex:outputLabel value="{!$Label.copado__FROM_SUFFIX}" for="csfromSuffix" />
+              <apex:inputText value="{!inputAux}" id="csfromSuffix"
+                  styleClass="cs-fromSuffix" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$Label.copado__TO_SUFFIX}" for="cstoSuffix" />
+                <apex:inputText value="{!inputAux}" id="cstoSuffix"
+                    styleClass="cs-toSuffix" />
+            </apex:pageBlockSectionItem>
+        
+
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$Label.copado__STEP_TYPE_CUSTOM_SETTINGS}" for="objectsCJ" />
+                <div id="objectsCJ"></div> 
+            </apex:pageBlockSectionItem>
+
+            <apex:pageBlockSectionItem >
+                <button id="getCSValues" class="btnDisabled" disabled="disabled">Get Custom Setting Values</button>
+                <a id="refresh-cache-cs">(refresh cache)</a> 
+            </apex:pageBlockSectionItem>
+
+        </apex:pageBlockSection>  
+
+        <apex:pageBlockSection columns="2" >
+          <apex:pageBlockSectionItem >
+            <apex:outputLabel value="{!$Label.copado__STEP_TYPE_CUSTOM_SETTINGS}" for="objectsCJ" /> 
+            <select id="cs-values" size="20" style="width:400px;" multiple="multiple">
+            </select>
+            <button id="cs-toggle-all">{!$Label.SELECT_ALL}</button>
+          </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+
+    </apex:outputPanel>
+
+
+    <!-- **************************************************************** -->
+    <!-- QuickActions -->
+    <!-- **************************************************************** -->
+    <apex:outputPanel id="js-stepBlock-QuickActions" style="display:none;" >
+        <apex:pageBlockSection columns="2" >
+
+
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$Label.copado__STEP_TYPE_QUICK_ACTIONS}" for="objectsQA" />
+                <div id="objectsQA"></div> 
+            </apex:pageBlockSectionItem>
+
+            <apex:pageBlockSectionItem >
+                <button id="getQuickActions" class="btnDisabled" disabled="disabled">Get Quick Actions</button>
+                <div class="nonused"></div>
+            </apex:pageBlockSectionItem>
+
+        </apex:pageBlockSection>  
+
+        <apex:pageBlockSection columns="2" >
+          <apex:pageBlockSectionItem >
+            <apex:outputLabel value="{!$Label.copado__STEP_TYPE_QUICK_ACTIONS}" for="objectsQAs" /> 
+            <select id="qa-values" size="20" style="width:400px;" multiple="multiple">
+            </select>
+            <button id="qa-toggle-all">{!$Label.SELECT_ALL}</button>
+          </apex:pageBlockSectionItem>
+
+          <apex:pageBlockSectionItem >
+            <div class="nonused"></div>
+          </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+
+    </apex:outputPanel>
+    <!-- **************************************************************** -->
+    <!-- QuickActions -->
+    <!-- **************************************************************** -->
+
+
+    <apex:outputPanel id="js-stepBlock-Apex" style="display:none;" >
+        <apex:pageBlockSection columns="1" >
+          <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Apex Script" for="jsapex" />
+                <apex:inputTextarea value="{!inputAux}" id="jsapex"
+                    styleClass="js-apex" style="width:95%" rows="15"
+                    html-placeholder="System.debug('Write your awesome Apex code here!');" />
+              </apex:pageBlockSectionItem>
+              
+        </apex:pageBlockSection>        
+    </apex:outputPanel>
+	    
+
+	<apex:outputPanel id="js-stepBlock-ManualTask" style="display:none;" >
+    	<apex:pageBlockSection columns="1">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Task Description" for="jsTaskDesc" />
+                <apex:inputTextArea value="{!inputAux}" id="jsTaskDesc" style="width:95%" rows="15" styleClass="js-manual" 
+                    html-placeholder="Write the task description here."
+                />
+             </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="2">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Source Org" for="jsPerformInSource" />
+                <apex:inputCheckbox value="{!inputAux}" id="jsPerformInSource" styleClass="js-manual" />
+             </apex:pageBlockSectionItem>
+            <!--apex:pageBlockSectionItem >
+                <apex:outputLabel value="Status" for="jsManualStatus" />
+                <select class="js-manual-status" >
+                    <option value="Pending" selected="selected">Pending</option>
+                    <option value="Completed" >Completed</option>									
+                </select>
+             </apex:pageBlockSectionItem-->
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Perform in Destination Org(s)" for="jsPerformInDestinations" />
+                <apex:inputCheckbox value="{!inputAux}" id="jsPerformInDestinations" styleClass="js-manual" />
+             </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    </apex:outputPanel>
+        
+        
+
+		
+	    <!-- **************************************************************** -->
+	    <!-- GRID -->
+	    <!-- **************************************************************** -->
+	    <apex:outputPanel id="js-stepBlock-Grid" style="display:none;" >
+            
+	    <apex:pageBlockSection columns="1" >
+                
+	    	<apex:outputPanel >
+
+		    <div id="removeCacheContainer" style="display:none; float:right;">
+		        <a target="_blank" href="/{orgId}?_mtf=1" id="link-org-filtered"><img width="16px" height="16px" src="{!$Resource.filter}" title="{!$Label.METADATA_FILTERED}" /></a>
+		         <a href="javascript:void(0);" style="display:block;width:300px;" onclick="return rock.removeCached();" id="removeCache">
+		        	{!$Label.CACHE_REFRESHED_NOW}
+		        </a>
+		    </div>
+
+		    </apex:outputPanel>
+
+	    	
+    		<div id="jqxgrid">
+    			
+    			<div id="loading">
+			        <center>
+			            <img src="/img/loading.gif" /> <i>{!$Label.LOADING}<span id="retry-label"></span></i>
+			        </center>
+			    </div>
+
+    		</div>
+    
+
+	    	
+	    </apex:pageBlockSection>
+      </apex:outputPanel>
+	    <!-- **************************************************************** -->
+	    <!-- End GRID -->
+	    <!-- **************************************************************** -->
+
+
+	    <!-- **************************************************************** -->
+	    <!-- QB -->
+	    <!-- **************************************************************** -->
+	    <apex:outputPanel id="js-stepBlock-QB"  style="display:none;">
+            <div><center><a id="qb-refresh" class="iconAction" onclick="return dw.qb.removeCached();">{!$Label.CACHE_REFRESHED_NOW}</a></center></div>
+	    	 <fieldset>
+            <legend>{!$Label.QUERY_BUILDER}</legend>
+           
+  
+            <div id="queryBuilder" style="display:none;" >
+
+                 <apex:pageBlockSection >
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.copado__OBJECT}" />
+                        <apex:outputPanel >
+                            <div id="objects"></div> 
+                            <button id="getFields"  disabled="disabled">{!$Label.GET_FIELDS}</button> <i id="selected-obj">{!$Label.SOBJECT}</i>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            
+                <!--apex:pageBlockSection-->
+                <apex:outputPanel styleClass="query-step-2" layout="block" style="display:none;">
+                    <apex:pageBlockSection >
+                        <apex:pageBlockSectionItem >
+                             <apex:outputLabel value="{!$Label.copado__EXTERNAL_ID}" />
+                             <apex:outputPanel layout="block">
+                                  <select id="fieldsEx"  width="400px" ></select>
+                             </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                    
+                    <apex:pageBlockSection >
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.copado__AVAILABLE_FIELDS}" />
+                            <apex:outputPanel layout="block">
+                                <select id="fields-unselected" size="20" style="width:360px;float:left" multiple="multiple"></select>
+                            </apex:outputPanel>   
+                        </apex:pageBlockSectionItem>   
+        
+                        <apex:pageBlockSectionItem >  
+                            <apex:outputLabel value="{!$Label.copado__SELECTED_FIELDS}" /> 
+                            <apex:outputPanel layout="block">
+                                    <select id="fields-selected" size="20" style="width:250px;float:left" multiple="multiple"></select>
+                             </apex:outputPanel>   
+                         </apex:pageBlockSectionItem>   
+                    </apex:pageBlockSection>
+                         
+                    <apex:pageBlockSection columns="1">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="{!$Label.copado__QUERY}" />
+                            <apex:outputPanel layout="block" >
+                                <textarea  id="query-label" class="query-label" cols="60" rows="5" style="width:85%;"></textarea> 
+                            </apex:outputPanel>
+                            
+                       </apex:pageBlockSectionItem>
+                       <div class="row action">
+                          <button id="testQuery" class="btnImportant">{!$Label.TEST_QUERY}</button>
+                       </div>
+                    </apex:pageBlockSection>
+           
+                </apex:outputPanel>
+                <!--/apex:pageBlockSection-->
+            </div>
+        </fieldset>
+
+	    </apex:outputPanel>
+    	<!-- **************************************************************** -->
+	    <!-- End QB -->
+	    <!-- **************************************************************** -->
+
+
+
+        <!-- **************************************************************** -->
+        <!-- GIT METADATA -->
+        <!-- **************************************************************** -->
+        <apex:outputPanel id="js-stepBlock-Git-MetaData" style="display:none;" >
+        <apex:pageBlockSection columns="1" >
+
+            
+            <apex:pageBlockSection columns="2" >
+
+                 <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="{!$ObjectType.copado__Step__c.fields.copado__Commit_Id__c.label}" for="GitCommit" />
+                    <apex:outputPanel >
+                        <input size="43" value="" id="GitCommit" class="js-gitCommit" type="text" readonly="readonly" />
+                        <img src="/s.gif" class="js-gitCommit-lookup lookupIcon iconAction" />     
+                     </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel >Commit Name</apex:outputLabel>
+                    <apex:outputPanel >
+                        <span class="js-gitName"></span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Git Repository</apex:outputLabel>
+                    <apex:outputPanel >
+                        <span class="js-gitRepository">My Own Repository</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel >Branch</apex:outputLabel>
+                    <apex:outputPanel >
+                        <span class="js-gitBranch"></span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>    
+
+            <div id="jqxgrid-git-metadata">
+                
+            </div>
+        </apex:pageBlockSection>
+      </apex:outputPanel>
+        <!-- **************************************************************** -->
+        <!-- GIT METADATA  -->
+        <!-- **************************************************************** -->
+
+	
+	</apex:pageBlock>
+
+  <script type="text/javascript">$copado('[id$=pbStepDetailComponent]').hide();</script>
+	
+</apex:component>
