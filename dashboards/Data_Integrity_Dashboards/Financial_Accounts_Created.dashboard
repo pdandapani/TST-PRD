@@ -5,6 +5,7 @@
     <backgroundStartColor>#FFFFFF</backgroundStartColor>
     <dashboardType>SpecifiedUser</dashboardType>
     <description>Data Integrity Dashboard used to validate the count of records created in salesforce (financial accounts, collateral and tasks)</description>
+    <isGridLayout>false</isGridLayout>
     <leftSection>
         <columnSize>Medium</columnSize>
         <components>

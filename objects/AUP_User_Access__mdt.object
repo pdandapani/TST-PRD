@@ -5,6 +5,7 @@
         <fullName>Access_Name__c</fullName>
         <description>Permission Set Name or Group Developer Name</description>
         <externalId>false</externalId>
+        <fieldManageability>Locked</fieldManageability>
         <inlineHelpText>Permission Set Name or Group Developer Name</inlineHelpText>
         <label>Access Name</label>
         <length>255</length>
@@ -17,6 +18,7 @@
         <defaultValue>false</defaultValue>
         <description>Admin</description>
         <externalId>false</externalId>
+        <fieldManageability>Locked</fieldManageability>
         <inlineHelpText>Admin</inlineHelpText>
         <label>Admin</label>
         <type>Checkbox</type>
@@ -26,6 +28,7 @@
         <defaultValue>false</defaultValue>
         <description>Agent</description>
         <externalId>false</externalId>
+        <fieldManageability>Locked</fieldManageability>
         <inlineHelpText>Agent</inlineHelpText>
         <label>Agent</label>
         <type>Checkbox</type>
@@ -34,6 +37,7 @@
         <fullName>Application_Name__c</fullName>
         <description>Application Name</description>
         <externalId>false</externalId>
+        <fieldManageability>Locked</fieldManageability>
         <inlineHelpText>Application Name</inlineHelpText>
         <label>Application Name</label>
         <length>255</length>
@@ -46,6 +50,7 @@
         <defaultValue>false</defaultValue>
         <description>Associate</description>
         <externalId>false</externalId>
+        <fieldManageability>Locked</fieldManageability>
         <inlineHelpText>Associate</inlineHelpText>
         <label>Associate</label>
         <type>Checkbox</type>
@@ -54,6 +59,7 @@
         <fullName>Business_Unit__c</fullName>
         <description>Business Unit</description>
         <externalId>false</externalId>
+        <fieldManageability>Locked</fieldManageability>
         <inlineHelpText>Business Unit</inlineHelpText>
         <label>Business Unit - Deprecated</label>
         <length>255</length>
@@ -66,6 +72,7 @@
         <defaultValue>false</defaultValue>
         <description>Group Indicator</description>
         <externalId>false</externalId>
+        <fieldManageability>Locked</fieldManageability>
         <inlineHelpText>Group Indicator</inlineHelpText>
         <label>Group Indicator</label>
         <type>Checkbox</type>
@@ -75,6 +82,7 @@
         <defaultValue>false</defaultValue>
         <description>Manager</description>
         <externalId>false</externalId>
+        <fieldManageability>Locked</fieldManageability>
         <inlineHelpText>Manager</inlineHelpText>
         <label>Manager</label>
         <type>Checkbox</type>
@@ -84,6 +92,7 @@
         <defaultValue>false</defaultValue>
         <description>QA</description>
         <externalId>false</externalId>
+        <fieldManageability>Locked</fieldManageability>
         <inlineHelpText>QA</inlineHelpText>
         <label>QA</label>
         <type>Checkbox</type>
@@ -93,6 +102,7 @@
         <defaultValue>false</defaultValue>
         <description>Reporting</description>
         <externalId>false</externalId>
+        <fieldManageability>Locked</fieldManageability>
         <inlineHelpText>Reporting</inlineHelpText>
         <label>Reporting</label>
         <type>Checkbox</type>
@@ -102,6 +112,7 @@
         <defaultValue>false</defaultValue>
         <description>Team Lead</description>
         <externalId>false</externalId>
+        <fieldManageability>Locked</fieldManageability>
         <inlineHelpText>Team Lead</inlineHelpText>
         <label>Team Lead</label>
         <type>Checkbox</type>
@@ -110,6 +121,7 @@
         <fullName>User_Function__c</fullName>
         <description>User Function</description>
         <externalId>false</externalId>
+        <fieldManageability>Locked</fieldManageability>
         <inlineHelpText>User Function</inlineHelpText>
         <label>User Function - Deprecated</label>
         <length>255</length>

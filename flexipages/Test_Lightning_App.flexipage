@@ -17,6 +17,7 @@
             <componentName>flexipage:filterListCard</componentName>
         </componentInstances>
         <name>region1</name>
+        <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
         <componentInstances>
@@ -31,12 +32,14 @@
             <componentName>flexipage:reportChart</componentName>
         </componentInstances>
         <name>region2</name>
+        <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
         <componentInstances>
             <componentName>flexipage:richText</componentName>
         </componentInstances>
         <name>region3</name>
+        <type>Region</type>
     </flexiPageRegions>
     <masterLabel>Test Lightning App</masterLabel>
     <pageTemplate>flexipage:appHomeTemplateTwoColumnsStacked</pageTemplate>

@@ -5,6 +5,7 @@
         <fullName>Profile_Name__c</fullName>
         <description>Profile Name</description>
         <externalId>false</externalId>
+        <fieldManageability>Locked</fieldManageability>
         <inlineHelpText>Profile Name</inlineHelpText>
         <label>Profile Name</label>
         <length>255</length>
@@ -16,6 +17,7 @@
         <fullName>Role_Dev_Name__c</fullName>
         <description>Role Dev Name</description>
         <externalId>false</externalId>
+        <fieldManageability>Locked</fieldManageability>
         <inlineHelpText>Role Dev Name</inlineHelpText>
         <label>Role Dev Name</label>
         <length>255</length>
