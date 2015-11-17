@@ -35,6 +35,7 @@
         <rightComponents>
             <componentType>Followers</componentType>
         </rightComponents>
+        <useInlineFiltersInConsole>false</useInlineFiltersInConsole>
     </feedLayout>
     <layoutSections>
         <customLabel>true</customLabel>

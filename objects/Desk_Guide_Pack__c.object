@@ -54,6 +54,7 @@ Relates Desk Guides to Articles in Articles Depot for Printing</description>
     <enableFeeds>true</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
     <enableSharing>false</enableSharing>
     <enableStreamingApi>false</enableStreamingApi>
     <label>Desk Guide Pack</label>
