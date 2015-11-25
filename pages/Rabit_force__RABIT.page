@@ -1,0 +1,70 @@
+<apex:page sidebar="false" showHeader="false" controller="Rabit_force.AutoRabit" action="{!getBrowserType}"> 
+    <div class="s-top-main">
+        <apex:outputLink value="{!URLFOR('/home/home.jsp')}"> <span><img src="https://na15.salesforce.com/favicon.ico"/></span> Home </apex:outputLink>
+    </div>
+    <style>table#bodyTable {border-collapse: collapse;} table#bodyTable td {padding: 0;}</style>
+    <apex:iframe src="https://login.autorabit.com" id="theFrame" rendered="{!IF(browserType == 'chrome','true','false')}"/>
+     <apex:pageBlock rendered="{!IF(browserType == 'unsupported','true','false')}">
+           <div class="AutoRABIT">
+               <script>
+                   window.open("https://login.autorabit.com");
+                </script>
+                <img src="{!URLFOR($Resource.AutoRABIT, 'AutoRABIT/images/AutoRABIT.png')}"  alt="AutoRABIT" width="620" height="121" border="0" usemap="#Map" />
+                <map name="Map" id="Map">
+                  <area shape="rect" coords="440,73,601,87" href="https://login.autorabit.com" target="_blank"/>
+                  <area shape="rect" coords="323,90,468,101" href="mailto:support@autorabit.com" />
+                </map>
+           </div>
+     </apex:pageBlock>
+     
+    
+    <script>document.getElementById('theFrame').height = window.innerHeight - 0;</script>
+    <style type="text/css">
+        body {
+            margin-left: 0px;
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+        }
+        
+        .AutoRABIT{width:620px;
+            height:121px;
+            position:absolute;
+            left:50%;
+            margin-left:-310px;
+            top:50%;
+            margin-top:-60px;
+         }
+        .s-top-main{width:100%;
+            height:5px;
+            background:#278ec5;
+            position:absolute;
+            z-index:999;
+            cursor:pointer;
+        }
+        .s-top-main a{width:auto;
+            height:25px;
+            position:absolute;
+            background:#278ec5;
+            color:#FFF;
+            font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+            font-size:12px;
+            display:block;
+            padding:0px 20px 0px 11px;
+            cursor:pointer;
+            line-height:26px;
+            left:50%;
+            margin-left:-40px;
+            text-decoration:none;
+        }
+        .s-top-main a span{width:16px;
+            height:16px;
+            float:left;
+            margin:4px 4px 0px 4px;
+        }
+        .s-top-main:hover a{
+            color:#FFF;
+            text-decoration:underline;
+        }
+    </style>
+</apex:page>

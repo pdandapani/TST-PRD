@@ -36,6 +36,11 @@
         <visible>true</visible>
     </applicationVisibilities>
     <applicationVisibilities>
+        <application>Rabit_force__RABIT_force</application>
+        <default>false</default>
+        <visible>true</visible>
+    </applicationVisibilities>
+    <applicationVisibilities>
         <application>Standalone_Knowledge</application>
         <default>false</default>
         <visible>true</visible>
@@ -657,6 +662,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>RL_WS_UnitedRoad_TaxService_Test</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Rabit_force__AutoRabit</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Rabit_force__AutoRabit_test</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -12948,6 +12961,10 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>Rabit_force__RABIT</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>SiteLogin</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
@@ -13420,6 +13437,10 @@
     </tabVisibilities>
     <tabVisibilities>
         <tab>New_Rights_Letter</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>Rabit_force__RABIT_force</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
