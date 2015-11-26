@@ -40,17 +40,17 @@
     </groups>
     <groups>
         <languages>en_US</languages>
-        <terms>Check Free</terms>
         <terms>Check Free Pay</terms>
         <terms>CheckFree</terms>
         <terms>CheckFreePay</terms>
         <terms>checkfree pay</terms>
+        <terms>Check Free</terms>
     </groups>
     <groups>
         <languages>en_US</languages>
+        <terms>Storm</terms>
         <terms>Disaster</terms>
         <terms>Natural Disaster</terms>
-        <terms>Storm</terms>
         <terms>Storms</terms>
     </groups>
     <groups>
@@ -173,8 +173,8 @@
     </groups>
     <groups>
         <languages>en_US</languages>
-        <terms>SD</terms>
         <terms>South Dakota</terms>
+        <terms>SD</terms>
     </groups>
     <groups>
         <languages>en_US</languages>
