@@ -262,6 +262,32 @@
                             {text:copadoLabels.name, filtertype:'textbox', filtercondition:'contains', editable:false, datafield:'f', cellsrenderer:cellsrendererView}
                         ]
                     });
+                    var selectAll = function(sel){
+                        $grid2.jqxGrid('beginupdate');
+                        var list = $grid2.jqxGrid('getrows');
+                        for(var i in list){
+                            source2.localdata[ list[i].dataindex || i ].s = sel;
+                        }
+                    
+                        $grid2.jqxGrid('endupdate');
+                        setTimeout(function(){$grid2.jqxGrid('updatebounddata','cells');},222);
+                    },
+                    
+                    $unselectAll = $copado('<button>Unselect All</button>').
+                        on('click',function(e){
+                            e.preventDefault();
+                            selectAll(false);
+                        }),
+                    
+                    $selectAll = $copado('<button>Select All</button>').
+                        on('click',function(e){
+                            e.preventDefault();
+                            selectAll(true);
+                        });
+               
+                    $copado('.jqx-grid-pager > div')
+                        .prepend($unselectAll)
+                        .prepend($selectAll);
                     unlockScreen();
                 },
                 runDeepDiff: function(){            
@@ -481,7 +507,7 @@
                  * @return {[type]} [description]
                  */
                 bind: function(){
-        			console.log('Starting binding of event handlers...');
+                    console.log('Starting binding of event handlers...');
                     //bind grid detail in delegation mode
                     $copado('#fileGrid').off('click');// to prevent multiple bindings
                     $copado('#fileGrid').on('click','.js-show-diff',copadoApp.showDiff);
@@ -639,8 +665,8 @@
                         <apex:outputLabel >Display Differences</apex:outputLabel>
                         <apex:outputPanel >
                             <select id="viewTypeSelector" size="1" onchange="reRenderFromRenderOption(this);">
-                                <option value="0" label="Side by Side"/>
-                                <option value="1" label="Inline"/>
+                                <option value="0" label="Side by Side">Side by Side</option>
+                                <option value="1" label="Inline">Inline</option>
                             </select>
                         </apex:outputPanel>
                     </apex:pageBlockSectionItem>
@@ -648,10 +674,10 @@
                         <apex:outputLabel >Context size (optional)</apex:outputLabel>
                         <apex:outputPanel >
                             <select id="contextSelector" size="1" onChange="reRenderFromContextSelector(this);">
-                                <option value="1" label="1"/>
-                                <option value="5" label="5" />
-                                <option value="10" label="10"/>
-                                <option value="15" label="15"/>
+                                <option value="1" label="1">1</option>
+                                <option value="5" label="5">5</option>
+                                <option value="10" label="10">10</option>
+                                <option value="15" label="15">15</option>
                             </select>
                         </apex:outputPanel>
                     </apex:pageBlockSectionItem>
